@@ -1,0 +1,120 @@
+@inject NavigationManager NavigationManager
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="description" content="" />
+
+    <base href="@NavigationManager.BaseUri" />
+    <base href="~/" />
+    <link href="_content/Radzen.Blazor/css/humanistic-base.css" rel="stylesheet" />
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.svg" />
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link href="_content/Blazor.Bootstrap/blazor.bootstrap.css" rel="stylesheet" />
+
+    <link href="_content/DevExpress.Blazor.Themes/blazing-berry.bs5.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="_content/DevExpress.Blazor.Reporting.Viewer/css/dx-blazor-reporting-components.bs5.css">
+
+    <!-- ========================= CSS here ========================= -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/LineIcons.3.0.css" />
+    <link rel="stylesheet" href="css/glightbox.min.css" />
+    <link rel="stylesheet" href="css/main.css" />
+
+    <script type="text/javascript"
+            src="https://app.sandbox.midtrans.com/snap/snap.js"
+            data-client-key="SB-Mid-client-uELU3WfiXUxgYouj"></script>
+
+    <HeadOutlet @rendermode="@InteractiveServer" />
+</head>
+
+<body>
+    <Routes  />
+    <script src="_framework/blazor.web.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <!-- Add chart.js reference if chart components are used in your application. -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.0.1/chart.umd.js" integrity="sha512-gQhCDsnnnUfaRzD8k1L5llCCV6O9HN09zClIzzeJ8OJ9MpGmIlCxm+pdCkqTwqJ4JcjbojFr79rl2F1mzcoLMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Add chartjs-plugin-datalabels.min.js reference if chart components with data label feature is used in your application. -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js" integrity="sha512-JPcRR8yFa8mmCsfrw4TNte1ZvF1e3+1SdGMslZvmrzDYxS69J7J49vkFL8u6u8PlPJK+H3voElBtUCzaXj+6ig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/glightbox.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
+
+    <script src="_content/Radzen.Blazor/Radzen.Blazor.js?v=@(typeof(Radzen.Colors).Assembly.GetName().Version)"></script>
+    
+    <script>
+        function selectAllText(elementToBind) {
+            var elementToCheck = document.getElementById(elementToBind);
+            if (elementToCheck) {
+                for (let child of elementToCheck.childNodes) {
+                    if (child instanceof HTMLInputElement) {
+                        child.addEventListener('click',
+                            function () {
+                                this.select();
+                            });
+                    }
+                }
+            }
+        }
+        function setFocusAndSelect(elementToBind) {
+            setTimeout(function () {
+               
+                var elementToCheck = document.getElementById(elementToBind);
+                if (elementToCheck) {
+                 
+                    // Look for the first input element (such as the one inside RadzenNumeric)
+                    let inputElement = elementToCheck.querySelector('input');
+                    if (inputElement) {
+                        // Set focus and select the text
+                      
+                        inputElement.focus();
+                        inputElement.select();
+
+                        // Optionally, add a click event listener to re-select the text when clicked
+                        inputElement.addEventListener('click', function () {
+                            this.select();
+                        });
+                    }
+                }
+            }, 100); // Adjust this timeout duration if needed      
+        }
+        
+        // Define the snapPay function
+        function snapPay(transactionToken) {
+            if (window.snap && typeof window.snap.pay === 'function') {
+                window.snap.pay(transactionToken); // Call Midtrans snap.pay with the transaction token
+            } else {
+                console.error("Midtrans snap.js is not loaded or available.");
+            }
+        }
+
+        function initTinySlider() {
+            var slider = tns({
+                container: ".hero-slider",
+                items: 1,
+                slideBy: "page",
+                autoplay: true,
+                nav: false,
+                mouseDrag: true,
+                gutter: 0,
+                controls: true,
+                autoplayButtonOutput: false,
+                controlsText: ['<i class="lni lni-chevron-left"></i>', '<i class="lni lni-chevron-right"></i>'],
+            });
+        };
+
+    </script>
+
+</body>
+
+</html>

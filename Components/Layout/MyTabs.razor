@@ -1,0 +1,162 @@
+﻿@rendermode InteractiveServer
+@inject Services.TabService TabService
+@using Services
+
+@using PacificWeb.Components.Pages
+
+@if (OpenedTabs.Count == 0)
+{
+   <RadzenStack Style="@welcomePageKosongStyle"></RadzenStack>
+
+}
+else
+{
+    <RadzenTabs Orientation="Orientation.Vertical" RenderMode="TabRenderMode.Client" style="height: 100%; padding: 0; margin-bottom: 0; margin-top: 0.25em; width: 100%; overflow: auto; "
+                @bind-SelectedIndex=@selectedIndex>
+        <Tabs>
+            @foreach (var tab in OpenedTabs)
+            {
+                <RadzenTabsItem>
+                    @*Text="@tab.Title" style="margin: 0; padding: 0; color: darkblue;">*@
+                    <Template>
+                        <span style="display: flex; align-items: center; gap: 6px; color: black">
+                            @(tab.Title)
+                            <RadzenButton Icon="close" @onclick:stopPropagation Click="@(() => CloseTab(tab.Id))" Size="Radzen.ButtonSize.ExtraSmall"
+                                          style="
+                     background-color: transparent;
+                     border: 1px solid transparent;
+                     color: rgba(30, 58, 106, 0.5);
+
+                     border-radius: 100%;
+                     padding: 2px;
+                     margin-left: 2px;
+                     cursor: pointer;
+                     transition: background-color 0.1s ease, color 0.1s ease;" />
+
+                        </span>
+
+                    </Template>
+                    <ChildContent>
+                        @switch (tab.Id)
+                        {
+
+                            case "barang":
+                                <BarangOuter />
+                                break;
+                            case "pelanggan":
+                                <PelangganOuter />
+                                break;
+                            case "register order penjualan":
+
+                                break;
+                                // Add more cases for other tabs
+                        }
+                        @*@<button @onclick="() => CloseTab(tab.Id)">Close Tab</button>*@
+                    </ChildContent>
+
+                </RadzenTabsItem>
+            }
+        </Tabs>
+    </RadzenTabs>
+}
+
+
+@code {
+    [Inject]
+    protected pdjService pdjService { get; set; }
+
+    private List<TabItem> OpenedTabs = new();
+    private int selectedIndex = -1;
+    private bool isFirstRender = true;
+    private string welcomePageKosongStyle = "opacity: 1; height: 100%; width: 100%; " 
+    + "background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255,0)), " 
+    + $"url('{pdjService.welcomeBackground}');" + " background-size: cover; background-repeat: no-repeat;";
+
+    protected override void OnInitialized()
+    {
+        // Subscribe to TabService events during initialization
+        TabService.OnTabOpened += OpenTab;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        /*if (firstRender)
+        {
+            // Perform navigation after the component has rendered
+            if (!AuthService.IsUserLoggedIn())
+            {
+                Navigation.NavigateTo("/login");
+            }
+            isFirstRender = false;
+        }*/
+    }
+
+
+
+
+    private async void OpenTab(string id, string title)
+    {
+        if (!OpenedTabs.Any(tab => tab.Id == id))
+        {
+            OpenedTabs.Add(new TabItem { Id = id, Title = title });
+
+            // Ensure the UI update is performed on the correct thread
+            // await InvokeAsync(() => StateHasChanged());
+        }
+        selectedIndex = OpenedTabs.FindIndex(tab => tab.Id == id);
+        await InvokeAsync(() => StateHasChanged());
+
+    }
+
+    private void CloseTab(string id)
+    {
+        // Find the index of the tab to be closed
+        int closingIndex = OpenedTabs.FindIndex(tab => tab.Id == id);
+
+        // Check if the tab exists
+        if (closingIndex != -1)
+        {
+            // Case 1: User closes the tab that is currently selected
+            if (closingIndex == selectedIndex)
+            {
+                // Case 1a: The closing tab is not the rightmost tab
+                if (closingIndex < OpenedTabs.Count - 1)
+                {
+                    // No change needed for SelectedIndex as it will refer to the next opened tab
+                }
+                // Case 1b: The closing tab is the rightmost tab
+                else if (closingIndex == OpenedTabs.Count - 1)
+                {
+                    // Decrease SelectedIndex by 1 to refer to the previous tab to the left
+                    selectedIndex = Math.Max(0, selectedIndex - 1);
+                }
+            }
+            // Case 2: User closes a tab that is not currently selected
+            // No adjustment needed for SelectedIndex
+
+            // Remove the tab from the list
+            OpenedTabs.RemoveAt(closingIndex);
+
+            // Ensure SelectedIndex is within bounds
+            if (selectedIndex >= OpenedTabs.Count)
+            {
+                selectedIndex = Math.Max(0, OpenedTabs.Count - 1);
+            }
+
+            // Refresh the UI to remove the closed tab
+            StateHasChanged();
+        }
+    }
+
+
+    public void Dispose()
+    {
+        TabService.OnTabOpened -= OpenTab;
+    }
+
+    private class TabItem
+    {
+        public string Id { get; set; }
+        public string Title { get; set; }
+    }
+}

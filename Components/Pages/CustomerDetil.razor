@@ -1,0 +1,174 @@
+@*@page "/add-tb-customer"*@
+@using Models
+@rendermode InteractiveServer
+    <RadzenColumn SizeMD=12 >
+        <RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Danger" Visible="@errorVisible">Cannot save TbCustomer</RadzenAlert>
+    <RadzenTemplateForm TItem="MasterCustomer" Data="@tbData" Visible="@(tbData != null)" >
+       
+
+        <RadzenRow Style="height: 55vh !important; " >
+            <RadzenColumn Style="height: 100% !important;" Size="12" >
+
+                <RadzenTabs Style="  height: 100% !important" >
+                    <Tabs >
+                        <RadzenTabsItem Text="Utama" Style="color: #1e3a6a; " Icon="account_circle" Active="true">
+                            <RadzenStack Style="padding: 1.25rem!important">
+                                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; width: 100%;">
+                                    <div style="flex: 2; ">
+                                        <!-- Added min-width for responsiveness -->
+                                        <RadzenFormField Text="Nama Perusahaan" Style="font-size: 15px!important; width: 100%;" AllowFloatingLabel="false">
+                                            <ChildContent>
+                                                <RadzenTextBox Style="@pdjService.HeaderInfoStyleEnabled" @bind-Value="@tbData.nm_cussup" Name="nm_cussup" onClick="this.select()" Id="CustomerDetilField1"  />
+                                            </ChildContent>
+                                         
+                                        </RadzenFormField>
+                                    </div>
+                                    <div style="flex: 1; ">
+                                        <!-- Adjusted flex and min-width -->
+                                        <RadzenFormField Text="Kode" Style="font-size: 15px!important; width: 100%;" AllowFloatingLabel="false">
+                                            <ChildContent>
+                                                <RadzenTextBox Style="@pdjService.HeaderInfoStyleDisabled" @bind-Value="@tbData.no_cussup" Name="no_cussup" Disabled="true"  />
+                                            </ChildContent>
+                                        </RadzenFormField>
+                                    </div>
+                                </div>
+                                
+                                <RadzenFormField Text="Nama Pemilik" Style="font-size: 15px!important" AllowFloatingLabel="false">
+                                    <ChildContent>
+                                        <RadzenTextBox Style="@pdjService.HeaderInfoStyleEnabled" @bind-Value="@tbData.owner" Name="owner" onClick="this.select()" />
+                                    </ChildContent>
+                                   
+                                </RadzenFormField>
+                                <RadzenFormField Text="Kontak" Style="font-size: 15px!important" AllowFloatingLabel="false">
+                                    <ChildContent>
+                                        <RadzenTextBox Style="@pdjService.HeaderInfoStyleEnabled" @bind-Value="@tbData.kontak" Name="kontak" onClick="this.select()" />
+                                    </ChildContent>
+                                </RadzenFormField>
+                                <RadzenFormField Text="Status" Style="font-size: 15px; width: 100%" AllowFloatingLabel="false">
+                                    <RadzenDropDown @bind-Value="@tbData.aktif_text" Style="@pdjService.DropDownHeaderInfoStyleEnabled"
+                                                    Data="@(new List<string> { "Aktif", "Non Aktif" })" />
+
+
+                                </RadzenFormField>
+                                <RadzenFormField Text="Catatan" Style="font-size: 15px!important; " AllowFloatingLabel="false">
+                                    <ChildContent >
+                                        <RadzenTextArea Style="@pdjService.HeaderInfoStyleMemoEnabled" @bind-Value="@tbData.keterangan" Name="keterangan" onClick="this.select()" />
+                                    </ChildContent>
+                                </RadzenFormField>
+                            </RadzenStack>
+                        </RadzenTabsItem>
+                        <RadzenTabsItem Text="Domisili" Style="color: #1e3a6a; " Icon="near_me">
+                            <RadzenStack Style="padding: 1.25rem!important">
+                        <RadzenFormField Text="Alamat" Style="font-size: 15px; width: 100%" AllowFloatingLabel="false">
+                            <ChildContent>
+                                        <RadzenTextBox Style="@pdjService.HeaderInfoStyleEnabled" @bind-Value="@tbData.alamat" Name="alamat" onClick="this.select()" />
+                            </ChildContent>
+                        </RadzenFormField>
+                        <RadzenFormField Text="Kelurahan" Style="font-size: 15px; width: 100%" AllowFloatingLabel="false">
+                            <ChildContent>
+                                        <RadzenTextBox Style="@pdjService.HeaderInfoStyleEnabled" @bind-Value="@tbData.kelurahan" Name="kelurahan"  onClick="this.select()" />
+                            </ChildContent>
+                        </RadzenFormField>
+                        <RadzenFormField Text="Kecamatan" Style="font-size: 15px; width: 100%" AllowFloatingLabel="false">
+                            <ChildContent>
+                                        <RadzenTextBox Style="@pdjService.HeaderInfoStyleEnabled" @bind-Value="@tbData.kecamatan" Name="kecamatan" onClick="this.select()" />
+                            </ChildContent>
+                        </RadzenFormField>
+                        <RadzenFormField Text="Kota" Style="font-size: 15px; width: 100%" AllowFloatingLabel="false">
+                            <ChildContent>
+                                        <RadzenTextBox Style="@pdjService.HeaderInfoStyleEnabled" @bind-Value="@tbData.kota" Name="kota"  onClick="this.select()"/>
+                            </ChildContent>
+                        </RadzenFormField>
+                        <RadzenFormField Text="Kode Pos" Style="font-size: 15px; width: 100%" AllowFloatingLabel="false">
+                            <ChildContent>
+                                        <RadzenTextBox Style="@pdjService.HeaderInfoStyleEnabled" @bind-Value="@tbData.kodepos" Name="kodepos" onClick="this.select()" />
+                            </ChildContent>
+                        </RadzenFormField>
+                        <RadzenFormField Text="Telpon" Style="font-size: 15px; width: 100%" AllowFloatingLabel="false">
+                            <ChildContent>
+                                        <RadzenTextBox Style="@pdjService.HeaderInfoStyleEnabled" @bind-Value="@tbData.telpon" Name="telpon" onClick="this.select()" />
+                            </ChildContent>
+                        </RadzenFormField>
+                    </RadzenStack>
+                </RadzenTabsItem>
+                        <RadzenTabsItem Text="Pajak" Style="color: #1e3a6a; " Icon="account_balance">
+                            <RadzenStack Style="padding: 1.25rem!important">
+                        <RadzenFormField Text="No. NPWP"  Style="font-size: 15px; width: 100%" AllowFloatingLabel="false">
+                            <ChildContent>
+                                        <RadzenTextBox Style="@pdjService.HeaderInfoStyleEnabled" @bind-Value="@tbData.no_npwp" Name="no_npwp" onClick="this.select()" />
+                            </ChildContent>
+                        </RadzenFormField>
+                                <RadzenFormField Text="Nama NPWP" Style="font-size: 15px; width: 100%" AllowFloatingLabel="false">
+                            <ChildContent>
+                                        <RadzenTextBox Style="@pdjService.HeaderInfoStyleEnabled" @bind-Value="@tbData.nama_npwp" Name="nama_npwp" onClick="this.select()" />
+                            </ChildContent>
+                        </RadzenFormField>
+                                <RadzenFormField Text="Alamat NPWP" Style="font-size: 15px; width: 100%" AllowFloatingLabel="false">
+                            <ChildContent>
+                                        <RadzenTextBox Style="@pdjService.HeaderInfoStyleEnabled" @bind-Value="@tbData.alamat_npwp" Name="alamat_npwp" onClick="this.select()" />
+                            </ChildContent>
+                        </RadzenFormField>
+                                <RadzenFormField Text="Kota NPWP" Style="font-size: 15px; width: 100%" AllowFloatingLabel="false">
+                            <ChildContent>
+                                        <RadzenTextBox Style="@pdjService.HeaderInfoStyleEnabled" @bind-Value="@tbData.kota_npwp" Name="kota_npwp" onClick="this.select()" />
+                            </ChildContent>
+                        </RadzenFormField>
+                    </RadzenStack>
+                </RadzenTabsItem>
+                        <RadzenTabsItem Text="Piutang" Style="color: #1e3a6a; " Icon="account_balance_wallet">
+                            <RadzenStack Style="padding: 1.25rem!important">
+                        <RadzenFormField Text="Tempo Nota (Hari)" Style="font-size: 15px; width: 100%" AllowFloatingLabel="false">
+                            <ChildContent>
+                                        <RadzenNumeric Style="@pdjService.HeaderInfoStyleEnabled" @bind-Value="@tbData.tempo" Name="tempo" Min="0" @onmousedown="@(e => pdjService.SelectAllText("CustomerDetilTempo"))" Id="CustomerDetilTempo" />
+                            </ChildContent>
+                        </RadzenFormField>
+                        <RadzenFormField Text="Plafon (Rp)" Style="font-size: 15px; width: 100%" AllowFloatingLabel="false">
+                            <ChildContent>
+<RadzenNumeric
+    Style="@pdjService.HeaderInfoStyleEnabled"
+                                                       @bind-Value="@tbData.plafon"
+    Name="plafon"
+    Format="N0"
+    Step="1000000"  
+    Min="0"
+                                                       @onmousedown="@(e => pdjService.SelectAllText("CustomerDetilPlafon"))" Id="CustomerDetilPlafon" />
+                                    </ChildContent>
+                        </RadzenFormField>
+                    </RadzenStack>
+                </RadzenTabsItem>
+            </Tabs>
+        </RadzenTabs>
+        </RadzenColumn>
+        </RadzenRow>
+        
+
+        <!-- Button Section -->
+        @*<RadzenStack style="margin-top:1rem;" Orientation="Radzen.Orientation.Horizontal" AlignItems="AlignItems.Center" JustifyContent="JustifyContent.End" Gap="0.5rem">
+            <RadzenButton ButtonStyle="ButtonStyle.Primary" ButtonType="ButtonType.Submit" Icon="save" Text="Save All" Variant="Variant.Flat" />
+        </RadzenStack>*@
+        <RadzenStack Orientation="Radzen.Orientation.Horizontal" AlignItems="AlignItems.Center" JustifyContent="JustifyContent.SpaceBetween" Gap="0.5rem" style="margin-top: 1rem;">
+            <!-- Left aligned "Hapus" button or empty space -->
+            <div style="min-width: 75px;">
+                @if (BtnHapusIsVisible)
+                {
+                    <RadzenButton ButtonStyle="ButtonStyle.Danger" ButtonType="Radzen.ButtonType.Button" Icon="delete" Text="Hapus" Variant="Variant.Flat"
+                                  Style="padding-left: 0.5em!important; padding-right: 0.5em!important"
+                                  Click="BtnHapusClick" />
+                }
+            </div>
+
+            <!-- Right aligned "Simpan" and "Batal" buttons -->
+            <RadzenStack Orientation="Radzen.Orientation.Horizontal" Gap="0">
+                <RadzenButton ButtonStyle="ButtonStyle.Secondary" ButtonType="Radzen.ButtonType.Button" Text="Batal"
+                              Variant="Variant.Flat" Style="background-color: transparent !important; color: #1e3a6a !important; padding-left: 2em !important; padding-right: 2em !important"
+                             Click="BtnBatalClick" />
+                <RadzenButton ButtonStyle="ButtonStyle.Primary" ButtonType="Radzen.ButtonType.Button" Text="Simpan" Variant="Variant.Flat" Style="padding-left: 2em !important; padding-right: 2em !important"
+                Click="BtnSaveClick"/>
+            </RadzenStack>
+        </RadzenStack>
+
+
+
+        </RadzenTemplateForm>
+    </RadzenColumn>
+

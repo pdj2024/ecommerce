@@ -1,0 +1,19 @@
+﻿@inject Services.TabService TabService
+@rendermode InteractiveServer
+
+<RadzenRow JustifyContent="JustifyContent.Start" AlignItems="AlignItems.Center" Gap="0" Style="height: 100%!important; ">
+    <RadzenColumn Size="5" Style="height: 100%!important; ">
+
+
+        <Button @onclick="TabService.SidebarToggleClick" style="height: 100%!important; width: auto !important; aspect-ratio: 1 / 1 !important; display: flex; align-items: center; justify-content: center;  border: none; border-right: 1px solid #ebeef2; border-radius: 0; box-shadow: none; background-color: transparent;">
+            <Icon Name="IconName.List" Size="IconSize.x3" />
+        </Button>
+    </RadzenColumn>
+    <RadzenColumn Size="7">
+        <RadzenStack AlignItems="AlignItems.Center" Orientation="Radzen.Orientation.Horizontal" JustifyContent="JustifyContent.End">
+            <a href="/logout"><RadzenButton Icon="exit_to_app" Style="background-color: transparent; color: #1e3a6a;   text-align: center !important;" Text="Logout" /></a>
+           
+        </RadzenStack>
+    </RadzenColumn>
+</RadzenRow>
+

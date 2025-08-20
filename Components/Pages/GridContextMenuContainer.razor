@@ -1,0 +1,18 @@
+﻿
+@using System.Collections
+
+@rendermode InteractiveServer
+
+<DxContextMenu @ref="RowContextMenu"
+               Data="RowContextMenuData"
+               ItemClick="RowContextMenu_ItemClick">
+    <DataMappings>	
+        <DxContextMenuDataMapping Text="@nameof(Models.ContextMenuItem.Text)"
+                                  Visible="@nameof(Models.ContextMenuItem.Visible)"
+                                  Enabled="@nameof(Models.ContextMenuItem.Enabled)"
+                                  BeginGroup="@nameof(Models.ContextMenuItem.BeginGroup)"
+                                  CssClass="@nameof(Models.ContextMenuItem.CssClass)"
+                                  IconCssClass="@nameof(Models.ContextMenuItem.IconCssClass)" />
+ 	</DataMappings>
+</DxContextMenu>
+

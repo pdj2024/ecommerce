@@ -1,0 +1,55 @@
+﻿@inherits LayoutComponentBase
+@inject Services.TabService TabService
+@using Radzen
+
+
+
+<RadzenComponents  />
+
+<RadzenDialog @rendermode="InteractiveServer"  />
+
+<!--<RadzenLayout style="grid-template-areas: 'rz-sidebar rz-header' 'rz-sidebar rz-body';">
+
+    <RadzenHeader Style="">
+        <MyHeader></MyHeader>
+    </RadzenHeader>
+    <RadzenBody Style="height: 100vh; padding-top:0; padding-bottom:0; padding-left: 0; padding-right: 0;  ">
+        <RadzenRow class="rz-mx-auto rz-px-4 rz-pt-2 rz-pt-md-4 rz-pt-lg-6 rz-pt-xl-12 rz-pb-2 rz-pb-lg-12" Style="margin: 0; padding:0!important; ">
+            <RadzenColumn Size="12" Style="margin-top: 0; padding-bottom: 0; padding-top: 0;
+ height: 100vh; display: flex; ">
+                @Body
+            </RadzenColumn>
+        </RadzenRow>
+    </RadzenBody>
+    <MySidebar></MySidebar>
+
+</RadzenLayout>-->
+
+<AuthorizeView>
+        <Authorized>
+        <RadzenLayout style="grid-template-areas: 'rz-sidebar rz-header' 'rz-sidebar rz-body';">
+
+            <RadzenHeader Style="">
+                <MyHeader></MyHeader>
+            </RadzenHeader>
+            <RadzenBody Style="height: 100vh; padding-top:0; padding-bottom:0; padding-left: 0; padding-right: 0; ">
+                <RadzenRow class="rz-mx-auto rz-px-4 rz-pt-2 rz-pt-md-4 rz-pt-lg-6 rz-pt-xl-12 rz-pb-2 rz-pb-lg-12" Style="margin: 0; padding:0!important; ">
+                    <RadzenColumn Size="12" Style="margin-top: 0; padding-bottom: 0; padding-top: 0;
+ height: 100vh; display: flex; ">
+                        @Body
+                    </RadzenColumn>
+                </RadzenRow>
+            </RadzenBody>
+            <MySidebar></MySidebar>
+
+        </RadzenLayout>
+
+        </Authorized>
+        <NotAuthorized>
+            <MyHeader></MyHeader>
+            @Body
+        </NotAuthorized>
+    </AuthorizeView>
+
+
+
