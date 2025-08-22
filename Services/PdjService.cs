@@ -1,29 +1,26 @@
-using System;
-using System.Data;
-using System.Linq;
-using System.Linq.Dynamic.Core;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Text.Encodings.Web;
+using Dapper;
+
 using Microsoft.AspNetCore.Components;
-//using Microsoft.EntityFrameworkCore;
-using Radzen;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.JSInterop;
+using Models;
+using Newtonsoft.Json;
 
 //using TradeWeb.Data;
 using Npgsql;
+//using Microsoft.EntityFrameworkCore;
+using Radzen;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Linq.Dynamic.Core;
+using System.Net.Http.Headers;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Threading.Tasks;
 
-using Dapper;
-using Models;
-using System.Reactive.Joins;
-using DevExpress.DataAccess.Native.EntityFramework;
-using DevExpress.DataProcessing.InMemoryDataProcessor;
-using DevExpress.Blazor;
-using Microsoft.JSInterop;
-using static DevExpress.Xpo.Helpers.AssociatedCollectionCriteriaHelper;
-using DevExpress.Blazor.RichEdit;
 using static Services.pdjService;
-
-using Microsoft.AspNetCore.Components.Authorization;
 
 namespace Services
 {
@@ -39,6 +36,249 @@ namespace Services
 
         private readonly DialogService _dialogService;
         private readonly IJSRuntime _jsRuntime;
+
+        public class StatusResponse
+        {
+            public int StatusCode { get; set; } = 0;
+            public string Message { get; set; } = "";
+            public string No_Bukti { get; set; } = "";
+            public string token { get; set; } = "";
+            public string refreshToken { get; set; } = "";
+        }
+
+        private string addParam(string paramName, string value, bool first = false)
+        {
+            if (first)
+            {
+                return "?" + paramName + "=" + value;
+            }
+            else
+            {
+                return "&" + paramName + "=" + value;
+            }
+
+        }
+
+
+        public async Task<(string, bool)> CheckAPI(HttpResponseMessage response, string url, string? proses = "AMBIL")
+        {
+            var content = "";
+            var MassageInfo = "";
+            var token = "";
+            var RefreshToken = "";
+            var no_bukti = "";
+
+            try
+            {
+                if ((int)response.StatusCode == 204)
+                {
+                    content = "Data yang dicari tidak ditemukan/kosong";
+                }
+                else if (response.Content != null && response.Content.Headers.ContentLength != 0)
+                {
+                    var bodyContent = await response.Content.ReadAsStringAsync();
+                    if (!string.IsNullOrWhiteSpace(bodyContent))
+                    {
+                        var result = System.Text.Json.JsonSerializer.Deserialize<StatusResponse>(bodyContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                        MassageInfo = result.Message;
+                        no_bukti = result.No_Bukti ?? "";
+                        token = result.token;
+                        RefreshToken = result.refreshToken;
+                    }
+                    else
+                    {
+                        MassageInfo = "Kesalahan Permintaan";
+                    }
+                }
+                else
+                {
+                    MassageInfo = "Permintaan Tidak Ditemukan";
+                }
+
+                if (response.IsSuccessStatusCode && (int)response.StatusCode != 204)
+                {
+                    if (proses == "Refresh") return ($"{token}<PdjService>{RefreshToken}", true);
+                    if (proses == "Logout") return ($"", true);
+                    return (no_bukti, true);
+                }
+                else if (proses == "Refresh")
+                {
+                    content = $@"Redirected: {proses} - {MassageInfo}";
+                }
+                else if ((int)response.StatusCode >= 300 && (int)response.StatusCode <= 399)
+                {
+                    content = $@"Redirected: {proses} - {MassageInfo}";
+                }
+                else if ((int)response.StatusCode >= 400 && (int)response.StatusCode <= 499)
+                {
+                    content = $@"Client error: {proses} - {MassageInfo}";
+                }
+                else if ((int)response.StatusCode >= 500)
+                {
+                    content = $@"Server error: {proses} - {MassageInfo}";
+                }
+
+                no_bukti = "";
+            }
+            catch
+            {
+                no_bukti = "";
+                content = "Data yang dicari tidak ditemukan/kosong";
+                ShowNotification($"Hubungi Administrator : Error pada server ketika mengambil data", "Terjadi Kesalahan");
+            }
+
+            var log = $@"
+                        [{DateTime.Now:yyyy-MM-dd HH:mm:ss}]
+                        URL: {url}
+                        Status: {(int)response.StatusCode} {response.ReasonPhrase}
+                        Response: {content}
+                        -------------------------------";
+
+            var logDir = Path.Combine("Logs");
+            var fileName = $"LogApi-{DateTime.Now:yyyy-MM-dd}.txt";
+            var logPath = Path.Combine(logDir, fileName);
+
+            Directory.CreateDirectory(logDir);
+
+            using (var stream = new FileStream(logPath, FileMode.Append, FileAccess.Write, FileShare.ReadWrite))
+            using (var writer = new StreamWriter(stream))
+            {
+                await writer.WriteLineAsync(log);
+            }
+
+            if (proses == "Refresh") return ($"kosong<PdjService>kosong", false);
+            if (proses == "Logout") return ($"", false);
+            return (no_bukti, false);
+        }
+
+        public HttpClient initConfigApi()
+        {
+            var client = new HttpClient();
+            var cts = new CancellationTokenSource(TimeSpan.FromSeconds(10));
+            //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            return client;
+        }
+
+        public async Task<List<Produk>> GetProdukApi(string idProduk = "")
+        {
+            var client = initConfigApi();
+            string url = "http://43.228.212.41:77/api/produk/getAll";
+
+            url += addParam("no_id", idProduk, true);
+            var tbListProduk = new List<Produk>();
+
+            try
+            {
+                var response = await client.GetAsync(url);
+
+                (string data_no, bool data_bool) checking = await CheckAPI(response, url, "BACA");
+
+                if (checking.data_bool)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    using var jsonDoc = JsonDocument.Parse(json);
+                    var root = jsonDoc.RootElement;
+
+                    if (root.TryGetProperty("Data", out var dataFromDb))
+                    {
+                        tbListProduk = JsonConvert.DeserializeObject<List<Produk>>(dataFromDb.GetRawText());
+                    }
+                    else
+                    {
+                        ShowNotification($"Data Kosong", "Pengumuman !!!");
+                    }
+                }
+
+                return tbListProduk;
+            }
+            catch (OperationCanceledException)
+            {
+                ShowNotification("Gagal Mengambil Data", "Request ke API terlalu lama (timeout).");
+                return new List<Produk>();
+            }
+            catch (HttpRequestException ex)
+            {
+                ShowNotification("Gagal Mengambil Data", $"Terjadi kesalahan jaringan atau server. {ex.Message}");
+                return new List<Produk>();
+            }
+            catch (Exception ex)
+            {
+                ShowNotification("Gagal Mengambil Data", $"Terjadi error: {ex.Message}");
+                return new List<Produk>();
+            }
+        }
+
+
+        public async Task<List<Pembayaran>> GetMetodeBayarApi(string idProduk = "")
+        {
+            var client = initConfigApi();
+            string url = "http://43.228.212.41:77/api/payment/option?orderby=fee&orderdir=asc";
+
+            //url += addParam("no_id", idProduk, true);
+            var tbListProduk = new List<Pembayaran>();
+
+            try
+            {
+                var response = await client.GetAsync(url);
+
+                (string data_no, bool data_bool) checking = await CheckAPI(response, url, "BACA");
+
+                if (checking.data_bool)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    using var jsonDoc = JsonDocument.Parse(json);
+                    var root = jsonDoc.RootElement;
+
+                    if (root.TryGetProperty("Data", out var dataFromDb))
+                    {
+                        tbListProduk = JsonConvert.DeserializeObject<List<Pembayaran>>(dataFromDb.GetRawText());
+                    }
+                }
+
+                return tbListProduk;
+            }
+            catch (OperationCanceledException)
+            {
+                return new List<Pembayaran>();
+            }
+            catch (HttpRequestException ex)
+            {
+                return new List<Pembayaran>();
+            }
+            catch (Exception ex)
+            {
+                return new List<Pembayaran>();
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         // Company Setting 
@@ -108,6 +348,11 @@ namespace Services
         // ==
 
         // Icon
+
+
+
+
+
 
 
         public const string prevIcon = "chevron_left";
@@ -328,21 +573,7 @@ namespace Services
 
             Style = "padding: 0!important; margin: 0!important;"
         };
-        public string GetEmptyDataAreaMessage(IGrid grid)
-        {
-            var hasFilter = !object.ReferenceEquals(grid.GetFilterCriteria(), null) || !string.IsNullOrEmpty(grid.SearchText);
-            var waitingForData = !grid.WaitForDataLoadAsync().IsCompleted;
 
-            if (grid.Data == null) // Memeriksa apakah Grid berisi data
-                return "Memuat data... (null)";
-            if (waitingForData) // Memeriksa apakah data sedang dimuat
-                return "Memuat data...";
-            if ((grid.Data as IEnumerable<object>).Count() == 0)
-                return "";
-            if (hasFilter) // Memeriksa apakah semua item tersembunyi oleh filter
-                return "Tidak ada item sesuai pencarian.";
-            return "Tidak ada data.";
-        }
 
         public async Task<string> CudMasCust(
     string i_proses,  // e.g., 'HAPUS', 'TAMBAH', 'KOREKSI'
@@ -399,7 +630,18 @@ namespace Services
 
             await _dialogService.Alert(myMessage, judul, new AlertOptions { OkButtonText = "OK", CloseDialogOnOverlayClick = true, Style = "", CssClass = "" });
 
+        }
+      
+        public async Task ShowNotificationData(object myData, string judul = "Perhatian...")
+        {
 
+            await _dialogService.Alert(System.Text.Json.JsonSerializer.Serialize(myData, new JsonSerializerOptions { WriteIndented = true }), judul, new AlertOptions { OkButtonText = "OK", CloseDialogOnOverlayClick = true, Style = "", CssClass = "wrap-alert-text" });
+        }
+
+        public async Task ShowConsoleData(object myData, string judul = "Perhatian...")
+        {
+            Console.WriteLine(judul);
+            Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(myData, new JsonSerializerOptions { WriteIndented = true }));
         }
     }
 

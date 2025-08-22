@@ -1,0 +1,270 @@
+
+                        [2025-08-22 12:19:48]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 12:19:55]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 12:22:03]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 12:22:04]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 12:22:05]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 12:24:58]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 12:25:00]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 12:25:01]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 12:30:11]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 12:30:22]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 12:30:24]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 12:32:45]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 12:32:47]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 12:33:39]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 12:33:43]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 12:33:44]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 12:34:31]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 12:34:33]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 12:38:45]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 12:38:46]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 12:39:51]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 12:39:53]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 13:04:05]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 13:05:35]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 13:05:40]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 13:05:43]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 13:06:35]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 13:06:39]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 13:06:40]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 13:08:06]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 13:08:08]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 13:08:09]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 13:10:21]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 13:10:24]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 13:10:25]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 13:10:47]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 13:10:49]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 13:10:50]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 13:13:22]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 13:13:34]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 13:13:35]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 13:22:13]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 13:22:15]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 13:23:02]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------
+
+                        [2025-08-22 13:23:03]
+                        URL: http://43.228.212.41:77/api/produk/getAll?no_id=
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        -------------------------------

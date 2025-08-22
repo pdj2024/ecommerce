@@ -6,12 +6,12 @@ using Radzen.Blazor;
 using Radzen;
 using Services;
 using System.Reflection;
-using DevExpress.Blazor;
+
 using System.Configuration;
-using DevExpress.XtraCharts.Native;
+
 using System.Drawing;
 
-using DevExpress.Blazor.Internal.Grid;
+
 
 
 
@@ -44,10 +44,12 @@ namespace PacificWeb.Components.Pages
         [Inject]
         public pdjService pdjService { get; set; }
 
+        public List<Produk> ListDataProduk { get; set; } = new List<Produk>();
 
         protected override async Task OnInitializedAsync()
         {
-
+            ListDataProduk = await pdjService.GetProdukApi();
+            StateHasChanged();
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -55,8 +57,15 @@ namespace PacificWeb.Components.Pages
             if (firstRender)
             {
                 await JSRuntime.InvokeVoidAsync("initTinySlider");
+                await JSRuntime.InvokeVoidAsync("scrollToTop");
+                await JSRuntime.InvokeVoidAsync("statusBarHidden");
             }
 
+        }
+
+        public async Task NavigateToDetailProduk(string id)
+        {
+            NavigationManager.NavigateTo($"/detail-produk/{id}");
         }
 
     }

@@ -48,12 +48,12 @@ builder.Services.AddAuthorization(config =>
 
 builder.Services.AddCascadingAuthenticationState();
 
-builder.Services.AddDevExpressBlazor();
-builder.Services.AddDevExpressServerSideBlazorReportViewer();
-// If you use Bootstrap 5, specify the Bootstrap version explicitly
-builder.Services.Configure<DevExpress.Blazor.Configuration.GlobalOptions>(options => {
-    options.BootstrapVersion = DevExpress.Blazor.BootstrapVersion.v5;
-});
+//builder.Services.AddDevExpressBlazor();
+//builder.Services.AddDevExpressServerSideBlazorReportViewer();
+//// If you use Bootstrap 5, specify the Bootstrap version explicitly
+//builder.Services.Configure<DevExpress.Blazor.Configuration.GlobalOptions>(options => {
+//    options.BootstrapVersion = DevExpress.Blazor.BootstrapVersion.v5;
+//});
 
 
 builder.WebHost.UseWebRoot("wwwroot");
@@ -64,7 +64,7 @@ builder.Services.AddScoped<DialogService>();
 builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped<TooltipService>();
 builder.Services.AddScoped<ContextMenuService>();
-
+builder.Services.AddScoped<ScrollService>();
 
 
 
