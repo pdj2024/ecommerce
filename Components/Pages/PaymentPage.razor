@@ -9,7 +9,7 @@
 <header class="checkout-header">
     <img src="images/logo/logo.svg" alt="Logo" class="checkout-logo">
     <NavLink>
-        <i class="lni lni-cart ms-3 flip-logo"></i>
+        <i class="lni lni-cart ms-3 flip-logo logo-custom"></i>
     </NavLink>
 </header>
 
@@ -43,14 +43,14 @@
             <div class="panel__header">Metode Pengiriman</div>
             <div class="panel__body shipping-list">
                 <label class="shipping-item">
-                    <div>
+                    <div class="custom-payment">
                         <input type="radio" name="ship" checked>
                         <span>Reguler (2-4 hari)</span>
                     </div>
                     <div class="shipping-item__right">Rp 20.000</div>
                 </label>
                 <label class="shipping-item">
-                    <div>
+                    <div class="custom-payment">
                         <input type="radio" name="ship">
                         <span>Ekspres (1-2 hari)</span>
                     </div>
@@ -65,7 +65,7 @@
                 @foreach(var payment_method in ListData)
                 {
                     <label class="payment-item">
-                        <div>
+                        <div class="custom-payment">
                             <input type="radio" name="pay" value="@payment_method.Cara_Bayar" checked>
                             <span>@payment_method.Display</span>
                         </div>

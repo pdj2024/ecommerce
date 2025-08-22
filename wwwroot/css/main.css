@@ -458,6 +458,18 @@ body {
     transform: scaleX(-1);
 }
 
+.logo-custom {
+    font-size: 25px;
+    color: dodgerblue;
+}
+
+.custom-payment {
+    display: flex;
+    align-items: center;
+    width: 10rem;
+    gap:10px
+}
+
 
 
 
