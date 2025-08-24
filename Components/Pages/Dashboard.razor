@@ -73,7 +73,7 @@
         </div>
         <div class="row"> 
             @foreach (var dataProduk in ListDataProduk) {
-                <div class="col-lg-3 col-md-4 col-6">
+                <div class="col-lg-3 col-md-4 col-6 pt-2 pb-2">
                     <!-- Start Single Product -->
                     <div class="single-product">
                         <div class="product-image">
@@ -103,19 +103,19 @@
                                    @kategori
                                 }
                             </span>
-                            <h4 class="title">
+                            <h4 class="title clamp-2">
                                 <NavLink href="@($"/detail-produk/{dataProduk.No_Id}")">
                                     @dataProduk.Nama_Display
                                 </NavLink>
                             </h4>
-                            <ul class="review">
+                            @* <ul class="review">
                                 <li><i class="lni lni-star-filled"></i></li>
                                 <li><i class="lni lni-star-filled"></i></li>
                                 <li><i class="lni lni-star-filled"></i></li>
                                 <li><i class="lni lni-star-filled"></i></li>
                                 <li><i class="lni lni-star"></i></li>
                                 <li><span>4.0 Review(s)</span></li>
-                            </ul>
+                            </ul> *@
                             <div class="price">
                                 <span>@string.Format("Rp. {0:N2}", dataProduk.Harga)</span>
                                 @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)

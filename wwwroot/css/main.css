@@ -11,6 +11,7 @@ html {
 }
 
 
+
 body {
   font-family: "Manrope", sans-serif;
   font-weight: 500;
@@ -470,7 +471,15 @@ body {
     gap:10px
 }
 
-
+.clamp-2 {
+  display: -webkit-box;
+  line-clamp: 2;   /* maksimal 2 baris */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: calc(1.5em * 2); /* jaga tinggi agar minimal 2 baris */
+  line-height: 1.5em;          /* pastikan line-height konsisten */
+}
 
 
 
@@ -3738,15 +3747,17 @@ top: 2px;
 ========================================*/
 /* Single Product*/
 .single-product {
-  border: 1px solid #eee;
-  border-radius: 4px;
+  border-radius: 0px;
   -webkit-transition: all 0.4s ease;
-  transition: all 0.4s ease;
-  margin-top: 30px;
-  -webkit-box-shadow: 0px 0px 20px #00000012;
-  box-shadow: 0px 0px 20px #00000012;
-  padding: 8px;
+  transition: all 0.1s ease;
+  margin-top: 0px;
+  padding: 0px;
+  border: 0px solid #b9b9b9;
   background: #fff;
+}
+
+.single-product:hover {
+    border: 1px solid #b9b9b9;
 }
 
 .single-product .product-image {
@@ -3897,7 +3908,7 @@ top: 2px;
 
 /* End Single Product */
 .trending-product {
-  background-color: #f9f9f9;
+  background-color: #ffffff;
 }
 
 .trending-product .section-title {
