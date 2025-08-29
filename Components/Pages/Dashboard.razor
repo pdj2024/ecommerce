@@ -3,7 +3,7 @@
 
 
 <!-- Start Hero Area -->
-<section class="hero-area" style="margin-top: 60px;">
+<section class="hero-area" style="margin-top: 85px;">
     <div class="container p-0 pe-lg-3" style="width:100%; max-width:100%;">
         <div class="row">
             <div class="col-12 custom-padding-right">
@@ -11,42 +11,12 @@
                     <!-- Start Hero Slider -->
                     <div class="hero-slider">
                         <!-- Start Single Slider -->
-                        <div class="single-slider"
-                             style="background-image: url(images/hero/slider-bg1.jpg);">
-                            <div class="content">
-                                <h2>
-                                    <span>No restocking fee ($35 savings)</span>
-                                    M75 Sport Watch
-                                </h2>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua.
-                                </p>
-                                <h3><span>Now Only</span> $320.99</h3>
-                                <div class="button">
-                                    <a href="product-grids.html" class="btn">Shop Now</a>
-                                </div>
+                        @foreach (var banner in ListDataBanner)
+                        {
+                            <div class="single-slider">
+                                <Image Src="@banner.Id_Media" Class="img-cover"></Image>
                             </div>
-                        </div>
-                        <!-- End Single Slider -->
-                        <!-- Start Single Slider -->
-                        <div class="single-slider"
-                             style="background-image: url(images/hero/slider-bg2.jpg);">
-                            <div class="content">
-                                <h2>
-                                    <span>Big Sale Offer</span>
-                                    Get the Best Deal on CCTV Camera
-                                </h2>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore magna aliqua.
-                                </p>
-                                <h3><span>Combo Only:</span> $590.00</h3>
-                                <div class="button">
-                                    <a href="product-grids.html" class="btn">Shop Now</a>
-                                </div>
-                            </div>
-                        </div>
+                        }
                         <!-- End Single Slider -->
                     </div>
                     <!-- End Hero Slider -->
@@ -57,9 +27,27 @@
 </section>
 <!-- End Hero Area -->
 
+<!-- Start Slider Brand Area -->
+<section class="slider-container-brand">
+    <div class="slider-brand">
+        <div class="slide-track-brand">
+            @foreach (var brand in ListDataBrand)
+            {
+                <a class="slide-brand"><img src="@brand.Id_Media" alt="@brand.No_Id_Media"></a>
+            }
+
+            @foreach (var brand in ListDataBrand)
+            {
+                <a class="slide-brand"><img src="@brand.Id_Media" alt="@brand.No_Id_Media"></a>
+            }
+        </div>
+    </div>
+</section>
+<!-- End Slider Brand Area -->
+
 <!-- Start Trending Product Area -->
 <section class="trending-product section" style="margin-top: 0px;">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <div class="section-title">
@@ -72,43 +60,65 @@
             </div>
         </div>
         <div class="row"> 
-            @foreach (var dataProduk in ListDataProduk) {
-                <div class="col-lg-3 col-md-4 col-6 pt-2 pb-2">
-                    <!-- Start Single Product -->
-                    <div class="single-product">
-                        <div class="product-image">
-                            @if (dataProduk.MediaUrls.Count() >= 1)
-                            {
-                                <img src="@dataProduk.MediaUrls[0]?.Id_Media" alt="@dataProduk.Nama_Display">
-                            }
-                            else
-                            {
-                                <img src="https://placehold.co/600x600" alt="@dataProduk.Nama_Display">
-                            }
-                            @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1) {
-                                <span class="sale-tag">-@dataProduk.Diskon1.ToString()%</span>
-                            }
-                            @if (dataProduk.Tgl_Created != null && (DateTime.Now - dataProduk.Tgl_Created).TotalDays <= 3)
-                            {
-                                <span class="new-tag">New</span>
-                            }
-                            <div class="button">
-                                <NavLink href="@($"/detail-produk/{dataProduk.No_Id}")" class="btn">Tambahkan <i class="lni lni-cart ms-3 flip-logo"></i></NavLink>
+            @if (ListDataProduk.Count() <= 0 ) 
+            {
+                @for (var i = 0; i == 8 ; i++ )
+                {
+                    <div class="col-lg-3 col-md-4 col-6 pt-2 pb-2">
+                        <div class="card" aria-hidden="true">
+                            <div class="card-body">
+                                <h5 class="card-title placeholder-glow">
+                                    <span class="placeholder col-6"></span>
+                                </h5>
+                                <p class="card-text placeholder-glow">
+                                    <span class="placeholder col-7"></span>
+                                    <span class="placeholder col-4"></span>
+                                    <span class="placeholder col-4"></span>
+                                    <span class="placeholder col-6"></span>
+                                </p>
+                                <a class="btn btn-primary disabled placeholder col-4" aria-disabled="true"></a>
                             </div>
                         </div>
-                        <div class="product-info">
-                            <span class="category">
-                                @foreach (var kategori in dataProduk.Nama_Kategori) 
+                    </div>
+                }
+            } 
+            else
+            {
+                @foreach (var dataProduk in ListDataProduk)
+                {
+                    <div class="col-lg-3 col-md-4 col-6 pt-2 pb-2 product">
+                        <!-- Start Single Product -->
+                        <div class="single-product">
+                            <div class="product-image">
+                                @if (dataProduk.MediaUrls.Count() >= 1)
                                 {
-                                   @kategori
+                                    <img src="@dataProduk.MediaUrls[0]?.Id_Media" alt="@dataProduk.Nama_Display">
                                 }
-                            </span>
-                            <h4 class="title clamp-2">
-                                <NavLink href="@($"/detail-produk/{dataProduk.No_Id}")">
-                                    @dataProduk.Nama_Display
-                                </NavLink>
-                            </h4>
-                            @* <ul class="review">
+                                else
+                                {
+                                    <img src="https://placehold.co/600x600" alt="@dataProduk.Nama_Display">
+                                }
+                                @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
+                                {
+                                    <span class="sale-tag">-@dataProduk.Diskon1.ToString()%</span>
+                                }
+                                @if (dataProduk.Tgl_Created != null && (DateTime.Now - dataProduk.Tgl_Created).TotalDays <= 3)
+                                {
+                                    <span class="new-tag">New</span>
+                                }
+                                <div class="button">
+                                    <button @onclick="@(e => selectProduk(dataProduk.No_Id))" data-bs-toggle="offcanvas" data-bs-target="#offdetailprod" aria-controls="offdetailprod" class="btn">Tambahkan <i class="lni lni-cart-1 ms-3"></i></button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h4 class="title">
+                                    <NavLink style="cursor:pointer;" @onclick="@(e => NavigateToDetailProduk(dataProduk.No_Id))">
+                                        <p class="line-clamp-2">
+                                            @dataProduk.Nama_Display
+                                        </p>
+                                    </NavLink>
+                                </h4>
+                                @* <ul class="review">
                                 <li><i class="lni lni-star-filled"></i></li>
                                 <li><i class="lni lni-star-filled"></i></li>
                                 <li><i class="lni lni-star-filled"></i></li>
@@ -116,17 +126,26 @@
                                 <li><i class="lni lni-star"></i></li>
                                 <li><span>4.0 Review(s)</span></li>
                             </ul> *@
-                            <div class="price">
-                                <span>@string.Format("Rp. {0:N2}", dataProduk.Harga)</span>
-                                @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
-                                {
-                                    <span class="discount-price">@string.Format("Rp. {0:N2}", ((dataProduk.Diskon1/100) * dataProduk.Harga))</span>
-                                }
+                                <div class="price">
+                                    <span>
+                                        @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
+                                        {
+                                            @string.Format("Rp. {0:N2}", (dataProduk.Harga - ((dataProduk.Diskon1 / 100) * dataProduk.Harga)))
+                                        } else
+                                        {
+                                            @string.Format("Rp. {0:N2}", dataProduk.Harga)
+                                        }
+                                    </span>
+                                    @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
+                                    {
+                                        <span class="discount-price">@string.Format("Rp. {0:N2}", dataProduk.Harga)</span>
+                                    }
+                                </div>
                             </div>
                         </div>
+                        <!-- End Single Product -->
                     </div>
-                    <!-- End Single Product -->
-                </div>
+                }
             }
         </div>
     </div>
@@ -161,34 +180,24 @@
 
 <!-- Start Banner Area -->
 <section class="banner section">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-6 col-md-6 col-12">
-                <div class="single-banner" style="background-image:url('images/banner/banner-1-bg.jpg')">
-                    <div class="content">
-                        <h2>Smart Watch 2.0</h2>
-                        <p>Space Gray Aluminum Case with <br>Black/Volt Real Sport Band </p>
-                        <div class="button">
-                            <a href="product-grids.html" class="btn">View Details</a>
+            @foreach(var kategori in ListDataKategori)
+            {
+                @if (kategori.Nama_Group_Kategori.ToLower() != "gender") { continue; }
+                <div class="col-lg-4 col-md-4 col-12">
+                    <div class="single-banner">
+                        <div class="content" style="overflow: hidden; height:40vw;">
+                            <Image Src="@kategori.Id_Media" Class="image-content"/>
+                            <div class="content-single">
+                                <div class="button">
+                                    <a href="product-grids.html" class="btn content-btn">Katalog @kategori.Nama_Kategori</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-12">
-                <div class="single-banner custom-responsive-margin"
-                     style="background-image:url('images/banner/banner-2-bg.jpg')">
-                    <div class="content">
-                        <h2>Smart Headphone</h2>
-                        <p>
-                            Lorem ipsum dolor sit amet, <br>eiusmod tempor
-                            incididunt ut labore.
-                        </p>
-                        <div class="button">
-                            <a href="product-grids.html" class="btn">Shop Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
     </div>
 </section>
@@ -242,4 +251,92 @@
     </div>
 </section>
 <!-- End Shipping Info -->
+
+<div class="offcanvas offcanvas-end" style="width: 500px;" tabindex="-1" id="offdetailprod" aria-labelledby="offdetailprod">
+    <div class="offcanvas-body" style="padding:0px 0px 10px 0px !important;">
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" style="position: absolute;top: 10px;right: 25px;padding: 1rem; z-index: 20; background-color: white;border-radius: 100%;" aria-label="Close"></button>
+        <div class="row" style="gap:2rem;width: 100%;margin-left: 0px !important;">
+            <div class="col-12" style="padding:0px">
+                <div class="swiper mySwiper1">
+                    <div class="swiper-wrapper">
+                        @foreach (var img in DataProduk?.MediaUrls)
+                        {
+                            <div class="swiper-slide">
+                                <Image Src="@img.Id_Media" Class="vw-100 h-100" />
+                            </div>
+                        }
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+
+            <div class="col-12 item-details" style="background-color:white;padding: 0px 20px 20px 20px;">
+                <div class="product-info" style="padding:0px;">
+                    <h2 class="title">@DataProduk?.Nama_Display</h2>
+                    <p class="category" style="display: flex;align-items: center;">
+                        <svg xmlns="http://www.w3.org/2000/svg" style="width: 14px;transform: scaleX(-1);margin-right: 6px;" viewBox="0 0 640 640">
+                            <path d="M96.5 160L96.5 309.5C96.5 326.5 103.2 342.8 115.2 354.8L307.2 546.8C332.2 571.8 372.7 571.8 397.7 546.8L547.2 397.3C572.2 372.3 572.2 331.8 547.2 306.8L355.2 114.8C343.2 102.7 327 96 310 96L160.5 96C125.2 96 96.5 124.7 96.5 160zM208.5 176C226.2 176 240.5 190.3 240.5 208C240.5 225.7 226.2 240 208.5 240C190.8 240 176.5 225.7 176.5 208C176.5 190.3 190.8 176 208.5 176z" /></svg>
+                        Kategori:
+                        @foreach (var kategori in DataProduk.Nama_Kategori)
+                        {
+                            <a href="javascript:void(0)">
+                                @kategori
+                            </a>
+                        }
+                    </p>
+                    <h3 class="price">
+                        @string.Format("Rp. {0:N2}", DataProduk?.Harga) @if (DataProduk?.Diskon1 != null || DataProduk?.Diskon1 >= 1) {
+                        <span>@string.Format("Rp. {0:N2}", ((DataProduk?.Diskon1 / 100) * DataProduk?.Harga))</span>
+                                                }
+                    </h3>
+                    <p class="info-text">
+                        @DataProduk?.Deskripsi
+                    </p>
+
+                    <div class="row">
+                        <h5 class="tag-variasi"><b>Size:</b> @DataProduk.Size_Default</h5>
+                        <div class="size-options">
+                            @foreach (var size in DataProduk.Size)
+                            {
+                                <label class="size-box @(DataProduk.Size_Default == size ? "active" : "")">
+                                    <input type="radio" name="size" value="@size"
+                                           checked="@(DataProduk.Size_Default == size)"
+                                           @onchange="() => OnSizeChanged(size)" />
+                                    <span>@size</span>
+                                </label>
+                            }
+                        </div>
+                    </div>
+
+
+                    <div class="bottom-content">
+                        <div class="row align-items-end row-style" style="">
+                            <div class="col-lg-4 col-md-4 col-12 rowbox-style">
+                                <div class="qty-box">
+                                    <button @onclick="Decrease">-</button>
+                                    <span>@Quantity</span>
+                                    <button @onclick="Increase">+</button>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-md-8 col-12 rowbox-style ps-md-2 ps-0">
+                                <div class="wish-button">
+                                    <button class="btn" style="border-radius:0px;">Tambahkan <i class="lni lni-cart-2 ms-2"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row align-items-end mt-3 row-style">
+                            <div class="col-12 rowbox-style">
+                                <div class="button cart-button" >
+                                    <NavLink class="btn" href="@($"/payment-page")" style="width: 100%;display: flex; border-radius:0px;">Beli Sekarang</NavLink>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 

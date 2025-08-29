@@ -45,10 +45,18 @@ namespace PacificWeb.Components.Pages
         public pdjService pdjService { get; set; }
 
         public List<Produk> ListDataProduk { get; set; } = new List<Produk>();
+        public List<Kategori> ListDataKategori { get; set; } = new List<Kategori>();
+        public List<Brand> ListDataBrand { get; set; } = new List<Brand>();
+
+        private string SearchText = "";
+
+        private System.Timers.Timer? _debounceTimer;
 
         protected override async Task OnInitializedAsync()
         {
             ListDataProduk = await pdjService.GetProdukApi();
+            ListDataKategori = await pdjService.GetKategoriApi();
+            ListDataBrand = await pdjService.GetBrandApi();
             StateHasChanged();
         }
 
@@ -63,10 +71,39 @@ namespace PacificWeb.Components.Pages
 
         }
 
-        public async Task NavigateToDetailProduk(string id)
+        private void OnSearchInput(string? value)
         {
-            NavigationManager.NavigateTo($"/detail-produk/{id}");
+            SearchText = value;
+
+            // reset timer
+            _debounceTimer?.Stop();
+            _debounceTimer?.Dispose();
+
+            _debounceTimer = new System.Timers.Timer(500); // 500ms delay
+            _debounceTimer.Elapsed += async (s, e) =>
+            {
+                _debounceTimer?.Stop();
+                _debounceTimer?.Dispose();
+
+                await InvokeAsync(async () =>
+                {
+                    await SearchDataAsync(SearchText);
+                    StateHasChanged();
+                });
+            };
+            _debounceTimer.AutoReset = false;
+            _debounceTimer.Start();
         }
 
+        private void OnClearInput()
+        {
+            SearchText = "";
+        }
+
+        private Task SearchDataAsync(string? query)
+        {
+            Console.WriteLine($"🔎 Search dipanggil: {query}");
+            return Task.CompletedTask;
+        }
     }
 }

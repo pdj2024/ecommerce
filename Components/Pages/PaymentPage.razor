@@ -6,17 +6,49 @@
 
 
 
-<header class="checkout-header">
-    <img src="images/logo/logo.svg" alt="Logo" class="checkout-logo">
-    <NavLink>
-        <i class="lni lni-cart ms-3 flip-logo logo-custom"></i>
-    </NavLink>
-</header>
 
   <!-- Grid Utama -->
 <div class="checkout">
     <!-- Kiri: Form -->
     <div class="checkout-main">
+        <div class="checkout-header">
+            <NavLink @onclick="@(x => NavigationManager.NavigateTo("/", true))" style="cursor:pointer;" >
+                <img src="images/logo/logo.svg" alt="Logo" class="checkout-logo">
+            </NavLink>
+            <NavLink @onclick="@(x => NavigationManager.NavigateTo("/cart-page", true))" class="checkout-button" style="">
+                <i class="lni lni-cart-1 cart-icon-pay" </i>
+            </NavLink>
+        </div>
+        <div class="accordion accordion-flush d-block d-md-block d-lg-none" id="accordionFlushExample">
+          <div class="accordion-item" style="background-color:#f5f5f5">
+            <h2 class="accordion-header" id="flush-headingOne">
+              <button class="accordion-button collapsed" style="font-weight: 700;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                Ringkasan Pesanan
+              </button>
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+              <div class="accordion-body" style="padding:0px">
+                  <div class="summary__items" style="max-height: 400px;">
+                    <div style="max-height:335px; overflow-y:auto; padding: 10px 20px;">
+                        @foreach (var display in ListDisplayProduk)
+                        {
+                            <div class="summary-item">
+                                <div class="summary-item__thumb">
+                                    <Image Src="@display.MediaUrls[0]?.Id_Media" />
+                                </div>
+                                <div>
+                                    <div class="summary-item__title">@display.Nama_Display</div>
+                                    <div class="summary-item__meta">1x</div>
+                                </div>
+                                <div>@string.Format("Rp. {0:N2}", @display.Harga)</div>
+                            </div>
+                        }
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="panel section-payment">
             <div class="panel__header">Informasi Pengiriman</div>
             <div class="panel__body panel_custom">
@@ -71,10 +103,49 @@
                         </div>
                         <div class="shipping-item__right">@payment_method.Fee</div>
                     </label>
-                    
                 }
             </div>
         </div>
+
+        <aside class="checkout-summary2 panel d-flex d-md-flex d-lg-none">
+            <div class="summary__items" style="max-height: 400px;">
+                <div class="panel__header" style="padding: 5px 20px 18px 0px; font-size:22px;" >Ringkasan Pesanan</div>
+                <div style="max-height:335px; overflow-y:auto; padding: 10px 10px;">
+                    @foreach (var display in ListDisplayProduk)
+                    {
+                        <div class="summary-item">
+                            <div class="summary-item__thumb">
+                                <Image Src="@display.MediaUrls[0]?.Id_Media" />
+                            </div>
+                            <div>
+                                <div class="summary-item__title">@display.Nama_Display</div>
+                                <div class="summary-item__meta">1x</div>
+                            </div>
+                            <div>@string.Format("Rp. {0:N2}", @display.Harga)</div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div>
+                <div class="summary__line">
+                    <span>Subtotal</span>
+                    <span>Rp 350.000</span>
+                </div>
+                <div class="summary__line">
+                    <span>Pengiriman</span>
+                    <span>Rp 20.000</span>
+                </div>
+                <div class="summary__line summary__line--bold">
+                    <span>Total</span>
+                    <span>Rp 370.000</span>
+                </div>
+            </div>
+        </aside>
+
+        <div style="padding: 0px 20px;">
+            <button class="btn btn--primary btn--full">Selesaikan Pesanan</button>
+        </div>
+
 
         <!-- Footer -->
         <footer class="checkout-footer">
@@ -84,40 +155,43 @@
     </div>
 
     <!-- Kanan: Ringkasan Order -->
-    <aside class="checkout-summary panel">
-        <div class="summary__items">
-            <div class="summary-item">
-              <div class="summary-item__thumb"></div>
-              <div>
-                <div class="summary-item__title">Produk A</div>
-                <div class="summary-item__meta">1x</div>
-              </div>
-              <div>Rp 150.000</div>
+    <aside class="checkout-summary panel d-none d-md-none d-lg-flex">
+        <div class="summary__items" style="max-height: 400px;">
+            <div class="panel__header" style="padding: 5px 20px 18px 0px; font-size:22px;" >Ringkasan Pesanan</div>
+            <div style="max-height:335px; overflow-y:auto; padding: 10px 10px;">
+                @foreach (var display in ListDisplayProduk)
+                {
+                    <div class="summary-item">
+                        <div class="summary-item__thumb">
+                            <Image Src="@display.MediaUrls[0]?.Id_Media" />
+                        </div>
+                        <div>
+                            <div class="summary-item__title">
+                                <p>
+                                    @display.Nama_Display
+                                </p>
+                            </div>
+                            <div class="summary-item__meta">1x</div>
+                        </div>
+                        <div>@string.Format("Rp. {0:N2}", @display.Harga)</div>
+                    </div>
+                }
             </div>
-            <div class="summary-item">
-              <div class="summary-item__thumb"></div>
-              <div>
-                <div class="summary-item__title">Produk B</div>
-                <div class="summary-item__meta">2x</div>
-              </div>
-              <div>Rp 200.000</div>
+        </div>
+        <div>
+            <div class="summary__line">
+                <span>Subtotal</span>
+                <span>Rp 350.000</span>
             </div>
-          </div>
-
-          <div class="summary__line">
-            <span>Subtotal</span>
-            <span>Rp 350.000</span>
-          </div>
-          <div class="summary__line">
-            <span>Pengiriman</span>
-            <span>Rp 20.000</span>
-          </div>
-          <div class="summary__line summary__line--bold">
-            <span>Total</span>
-            <span>Rp 370.000</span>
-          </div>
-
-        <button class="btn btn--primary btn--full">Selesaikan Pesanan</button>
+            <div class="summary__line">
+                <span>Pengiriman</span>
+                <span>Rp 20.000</span>
+            </div>
+            <div class="summary__line summary__line--bold">
+                <span>Total</span>
+                <span>Rp 370.000</span>
+            </div>
+        </div>
     </aside>
 </div>
 

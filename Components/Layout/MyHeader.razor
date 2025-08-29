@@ -1,88 +1,349 @@
 ﻿@inject Services.TabService TabService
 @rendermode InteractiveServer
+@using Models
+@using Services
 
 <!-- Start Header Area -->
-<header class="header navbar">
+<header class="header navbar navbar-area">
     <!-- Start Header Bottom -->
-    <div class="container">
-        <div class="row align-items-center vw-100">
+    <div class="container-fluid px-5" style="height:100%">
+        <div class="row align-items-center vw-100" style="height:100%">
 
             <div class="col-lg-3 col-md-2 col-12 d-lg-flex d-none">
                 <!-- Start Header Logo -->
-                <NavLink class="navbar-brand" href="@($"/")">
+                <NavLink class="navbar-brand" style="cursor:pointer;" @onclick="@(e => NavigateToHome(""))" >
                     <img src="images/logo/logo.svg" alt="Logo">
                 </NavLink>
                 <!-- End Header Logo -->
             </div>
 
-            <div class="col-lg-6 col-md-6 col-6">
-                <div class="nav-inner">
+            <div class="col-lg-6 col-md-6 col-6" style="height:100%">
+                <div class="nav-inner" style="height:100%">
                     <!-- Start Navbar -->
-                    <nav class="navbar-expand-lg">
-                        <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
+                    <nav class="navbar-expand-lg" style="height:100%; display: flex;">
+                        <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasLeft" aria-controls="offcanvasLeft"
+                                aria-expanded="false" aria-label="Toggle navigation" >
                             <span class="toggler-icon"></span>
                             <span class="toggler-icon"></span>
                             <span class="toggler-icon"></span>
                         </button>
-                        <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
-                            <ul class="navbar-nav">
+                        <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent" style="height:100%">
+                            <ul class="navbar-nav" style="height:100%">
                                 <li class="nav-item">
-                                    <a href="index.html" class="active" aria-label="Toggle navigation">Home</a>
+                                    <a href="index.html" class="a-menu" aria-label="Toggle navigation">Home</a>
                                 </li>
+                                
+                                @* @foreach(var kategori in ListDataKategori)
+                                {
+                                    @if (kategori.Nama_Group_Kategori.ToLower() != "gender") { continue; }
+                                } *@
                                 <li class="nav-item mega-parent">
-                                    <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
-                                       data-bs-target="#submenu-1-2" aria-controls="navbarSupportedContent"
-                                       aria-expanded="false" aria-label="Toggle navigation">Pages</a>
+                                    <a class="dd-menu a-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
+                                        data-bs-target="#submenu-1-2" aria-controls="navbarSupportedContent"
+                                        aria-expanded="false" aria-label="Toggle navigation">Men</a>
                                     <div class="mega-menu">
-                                        <div class="mega-col">
-                                            <ul id="submenu-1-2">
-                                                <li class="nav-item"><a href="about-us.html">About Us</a></li>
-                                                <li class="nav-item"><a href="faq.html">Faq</a></li>
-                                                <li class="nav-item"><a href="login.html">Login</a></li>
-                                                <li class="nav-item"><a href="register.html">Register</a></li>
-                                                <li class="nav-item"><a href="mail-success.html">Mail Success</a></li>
-                                                <li class="nav-item"><a href="404.html">404 Error</a></li>
-                                            </ul>
+                                        <div class="mega-col w-50 h-100">
+                                            <div class="col-4 submenu-nav">
+                                                <div class="submenu-col">
+                                                    <div class="nav-sub">
+                                                        <h5 class="head-submenu-nav" href="about-us.html">
+                                                            Footware
+                                                        </h5>
+                                                    </div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Basket</button></div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Fitness</button></div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Outdor</button></div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Runing</button></div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Basket</button></div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Fitness</button></div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Outdor</button></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 submenu-nav">
+                                                <div class="submenu-col">
+                                                    <div class="nav-sub">
+                                                        <h5 class="head-submenu-nav" href="about-us.html">
+                                                            Apparel
+                                                        </h5>
+                                                    </div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Basket</button></div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Fitness</button></div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Outdor</button></div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Runing</button></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 submenu-nav">
+                                                <div class="submenu-col">
+                                                    <div class="nav-sub">
+                                                        <h5 class="head-submenu-nav" href="about-us.html">
+                                                            Shop All
+                                                        </h5>
+                                                    </div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Basket</button></div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Fitness</button></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mega-col w-50 h-100" style="gap:15px;">
+                                            @foreach (var dataProduk in ListProduk)
+                                            {
+                                                <div class="col-4 pt-1 pb-1 submenu-nav">
+                                                    <!-- Start Single Product -->
+                                                    <div class="single-product">
+                                                        <div class="product-image">
+                                                            @if (dataProduk.MediaUrls.Count() >= 1)
+                                                            {
+                                                                <img src="@dataProduk.MediaUrls[0]?.Id_Media" alt="@dataProduk.Nama_Display">
+                                                            }
+                                                            else
+                                                            {
+                                                                <img src="https://placehold.co/600x600" alt="@dataProduk.Nama_Display">
+                                                            }
+                                                            @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
+                                                            {
+                                                                <span class="sale-tag">-@dataProduk.Diskon1.ToString()%</span>
+                                                            }
+                                                            @if (dataProduk.Tgl_Created != null && (DateTime.Now - dataProduk.Tgl_Created).TotalDays <= 3)
+                                                            {
+                                                                <span class="new-tag">New</span>
+                                                            }
+                                                        </div>
+                                                        <div class="product-info">
+                                                            <h4 class="title">
+                                                                <NavLink style="padding: 5px 0px;" href="@($"/detail-produk/{dataProduk.No_Id}")">
+                                                                    <p class="line-clamp-2">
+                                                                        @dataProduk.Nama_Display
+                                                                    </p>
+                                                                </NavLink>
+                                                            </h4>
+                                                            <div class="price">
+                                                                <span>
+                                                                    @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
+                                                                    {
+                                                                        @string.Format("Rp. {0:N2}", (dataProduk.Harga - ((dataProduk.Diskon1 / 100) * dataProduk.Harga)))
+                                                                    } else
+                                                                    {
+                                                                        @string.Format("Rp. {0:N2}", dataProduk.Harga)
+                                                                    }
+                                                                </span>
+                                                                @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
+                                                                {
+                                                                    <span class="discount-price">@string.Format("Rp. {0:N2}", dataProduk.Harga)</span>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- End Single Product -->
+                                                </div>
+                                            }
                                         </div>
                                     </div>
                                 </li>
                                 <li class="nav-item mega-parent">
-                                    <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
-                                       data-bs-target="#submenu-1-3" aria-controls="navbarSupportedContent"
-                                       aria-expanded="false" aria-label="Toggle navigation">Shop</a>
+                                    <a class="dd-menu a-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
+                                        data-bs-target="#submenu-1-2" aria-controls="navbarSupportedContent"
+                                        aria-expanded="false" aria-label="Toggle navigation">Women</a>
                                     <div class="mega-menu">
-                                        <div class="mega-col">
-                                            <ul id="submenu-1-2">
-                                                <li class="nav-item"><a href="about-us.html">About Us</a></li>
-                                                <li class="nav-item"><a href="faq.html">Faq</a></li>
-                                                <li class="nav-item"><a href="login.html">Login</a></li>
-                                                <li class="nav-item"><a href="register.html">Register</a></li>
-                                                <li class="nav-item"><a href="mail-success.html">Mail Success</a></li>
-                                                <li class="nav-item"><a href="404.html">404 Error</a></li>
-                                            </ul>
+                                        <div class="mega-col w-50 h-100">
+                                            <div class="col-4 submenu-nav">
+                                                <div class="submenu-col">
+                                                    <div class="nav-sub">
+                                                        <h5 class="head-submenu-nav" href="about-us.html">
+                                                            Footware
+                                                        </h5>
+                                                    </div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Basket</button></div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Fitness</button></div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Outdor</button></div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Runing</button></div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Basket</button></div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Fitness</button></div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Outdor</button></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 submenu-nav">
+                                                <div class="submenu-col">
+                                                    <div class="nav-sub">
+                                                        <h5 class="head-submenu-nav" href="about-us.html">
+                                                            Apparel
+                                                        </h5>
+                                                    </div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Basket</button></div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Fitness</button></div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Outdor</button></div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Runing</button></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 submenu-nav">
+                                                <div class="submenu-col">
+                                                    <div class="nav-sub">
+                                                        <h5 class="head-submenu-nav" href="about-us.html">
+                                                            Shop All
+                                                        </h5>
+                                                    </div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Basket</button></div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Fitness</button></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mega-col w-50 h-100" style="gap:15px;">
+                                            @foreach (var dataProduk in ListProduk)
+                                            {
+                                                <div class="col-4 pt-1 pb-1 submenu-nav">
+                                                    <!-- Start Single Product -->
+                                                    <div class="single-product">
+                                                        <div class="product-image">
+                                                            @if (dataProduk.MediaUrls.Count() >= 1)
+                                                            {
+                                                                <img src="@dataProduk.MediaUrls[0]?.Id_Media" alt="@dataProduk.Nama_Display">
+                                                            }
+                                                            else
+                                                            {
+                                                                <img src="https://placehold.co/600x600" alt="@dataProduk.Nama_Display">
+                                                            }
+                                                            @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
+                                                            {
+                                                                <span class="sale-tag">-@dataProduk.Diskon1.ToString()%</span>
+                                                            }
+                                                            @if (dataProduk.Tgl_Created != null && (DateTime.Now - dataProduk.Tgl_Created).TotalDays <= 3)
+                                                            {
+                                                                <span class="new-tag">New</span>
+                                                            }
+                                                        </div>
+                                                        <div class="product-info">
+                                                            <h4 class="title">
+                                                                <NavLink style="padding: 5px 0px;" href="@($"/detail-produk/{dataProduk.No_Id}")">
+                                                                    <p class="line-clamp-2">
+                                                                        @dataProduk.Nama_Display
+                                                                    </p>
+                                                                </NavLink>
+                                                            </h4>
+                                                            <div class="price">
+                                                                <span>
+                                                                    @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
+                                                                    {
+                                                                        @string.Format("Rp. {0:N2}", (dataProduk.Harga - ((dataProduk.Diskon1 / 100) * dataProduk.Harga)))
+                                                                    } else
+                                                                    {
+                                                                        @string.Format("Rp. {0:N2}", dataProduk.Harga)
+                                                                    }
+                                                                </span>
+                                                                @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
+                                                                {
+                                                                    <span class="discount-price">@string.Format("Rp. {0:N2}", dataProduk.Harga)</span>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- End Single Product -->
+                                                </div>
+                                            }
                                         </div>
                                     </div>
                                 </li>
                                 <li class="nav-item mega-parent">
-                                    <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
-                                       data-bs-target="#submenu-1-4" aria-controls="navbarSupportedContent"
-                                       aria-expanded="false" aria-label="Toggle navigation">Blog</a>
+                                    <a class="dd-menu a-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
+                                        data-bs-target="#submenu-1-2" aria-controls="navbarSupportedContent"
+                                        aria-expanded="false" aria-label="Toggle navigation">Kids</a>
                                     <div class="mega-menu">
-                                        <div class="mega-col">
-                                            <ul id="submenu-1-2">
-                                                <li class="nav-item"><a href="about-us.html">About Us</a></li>
-                                                <li class="nav-item"><a href="faq.html">Faq</a></li>
-                                                <li class="nav-item"><a href="login.html">Login</a></li>
-                                                <li class="nav-item"><a href="register.html">Register</a></li>
-                                                <li class="nav-item"><a href="mail-success.html">Mail Success</a></li>
-                                                <li class="nav-item"><a href="404.html">404 Error</a></li>
-                                            </ul>
+                                        <div class="mega-col w-50 h-100">
+                                            <div class="col-4 submenu-nav">
+                                                <div class="submenu-col">
+                                                    <div class="nav-sub">
+                                                        <h5 class="head-submenu-nav" href="about-us.html">
+                                                            Footware
+                                                        </h5>
+                                                    </div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Basket</button></div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Fitness</button></div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Outdor</button></div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Runing</button></div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Basket</button></div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Fitness</button></div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Outdor</button></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 submenu-nav">
+                                                <div class="submenu-col">
+                                                    <div class="nav-sub">
+                                                        <h5 class="head-submenu-nav" href="about-us.html">
+                                                            Apparel
+                                                        </h5>
+                                                    </div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Basket</button></div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Fitness</button></div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Outdor</button></div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Runing</button></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 submenu-nav">
+                                                <div class="submenu-col">
+                                                    <div class="nav-sub">
+                                                        <h5 class="head-submenu-nav" href="about-us.html">
+                                                            Shop All
+                                                        </h5>
+                                                    </div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Basket</button></div>
+                                                    <div class="nav-sub"><button class="item-submenu-nav" href="about-us.html">Fitness</button></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mega-col w-50 h-100" style="gap:15px;">
+                                            @foreach (var dataProduk in ListProduk)
+                                            {
+                                                <div class="col-4 pt-1 pb-1 submenu-nav">
+                                                    <!-- Start Single Product -->
+                                                    <div class="single-product">
+                                                        <div class="product-image">
+                                                            @if (dataProduk.MediaUrls.Count() >= 1)
+                                                            {
+                                                                <img src="@dataProduk.MediaUrls[0]?.Id_Media" alt="@dataProduk.Nama_Display">
+                                                            }
+                                                            else
+                                                            {
+                                                                <img src="https://placehold.co/600x600" alt="@dataProduk.Nama_Display">
+                                                            }
+                                                            @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
+                                                            {
+                                                                <span class="sale-tag">-@dataProduk.Diskon1.ToString()%</span>
+                                                            }
+                                                            @if (dataProduk.Tgl_Created != null && (DateTime.Now - dataProduk.Tgl_Created).TotalDays <= 3)
+                                                            {
+                                                                <span class="new-tag">New</span>
+                                                            }
+                                                        </div>
+                                                        <div class="product-info">
+                                                            <h4 class="title">
+                                                                <NavLink style="padding: 5px 0px;" href="@($"/detail-produk/{dataProduk.No_Id}")">
+                                                                    <p class="line-clamp-2">
+                                                                        @dataProduk.Nama_Display
+                                                                    </p>
+                                                                </NavLink>
+                                                            </h4>
+                                                            <div class="price">
+                                                                <span>
+                                                                    @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
+                                                                    {
+                                                                        @string.Format("Rp. {0:N2}", (dataProduk.Harga - ((dataProduk.Diskon1 / 100) * dataProduk.Harga)))
+                                                                    } else
+                                                                    {
+                                                                        @string.Format("Rp. {0:N2}", dataProduk.Harga)
+                                                                    }
+                                                                </span>
+                                                                @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
+                                                                {
+                                                                    <span class="discount-price">@string.Format("Rp. {0:N2}", dataProduk.Harga)</span>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- End Single Product -->
+                                                </div>
+                                            }
                                         </div>
                                     </div>
                                 </li>
-                                <li class="nav-item"><a href="#">Contact</a></li>
+                                <li class="nav-item"><a href="#" class="a-menu">Contact</a></li>
                             </ul>
                         </div> <!-- navbar collapse -->
                     </nav>
@@ -90,75 +351,128 @@
                 </div>
             </div>
             
-            <div class="col-lg-3 col-md-4 col-6">
+            <div class="col-lg-3 col-md-6 col-6" >
                 <div class="navbar-cart">
+                    <div class="wishlist" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                        <a href="javascript:void(0)">
+                            <i class="lni lni-search-2"></i>
+                        </a>
+                    </div>
                     <div class="wishlist">
                         <a href="javascript:void(0)">
-                            <i class="lni lni-heart"></i>
+                            <i class="lni lni-truck-delivery-1"></i>
                             <span class="total-items">0</span>
                         </a>
                     </div>
-                    <div class="cart-items">
-                        <a href="javascript:void(0)" class="main-btn">
-                            <i class="lni lni-cart"></i>
-                            <span class="total-items">2</span>
+                    <div class="wishlist" data-bs-toggle="offcanvas" data-bs-target="#offcanvascart" aria-controls="offcanvascart">
+                        <a href="javascript:void(0)">
+                            <i class="lni lni-cart-1"></i>
+                            <span class="total-items">0</span>
                         </a>
-                        <!-- Shopping Item -->
-                        <div class="shopping-item">
-                            <div class="dropdown-cart-header">
-                                <span>2 Items</span>
-                                <a href="cart.html">View Cart</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="offcanvas offcanvas-end" style="width: 500px;" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                <div class="offcanvas-header">
+                    <h5 id="offcanvasRightLabel" style="font-size: 1.5rem;font-weight: 800;">
+                        Search
+                    </h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="input-group mb-3 style-grup">
+                                <span class="input-group-text" id="basic-addon1" style="padding: 0px;"><i class="lni lni-search-2" style="font:normal normal normal 22px/1 'Lineicons';"></i></span>
+                                <InputText @bind-Value=@SearchText @oninput="@(e => OnSearchInput(e.Value?.ToString()))" type="text" class="form-control search-form" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1" />
+                                <button class="clear-search" @onclick="@(e => OnClearInput())" >Clear</button>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="offcanvas offcanvas-start" style="width: 500px;" tabindex="-1" id="offcanvasLeft" aria-labelledby="offcanvasLeftLabel">
+                <div class="offcanvas-header">
+                    <h5 id="offcanvasLeftLabel" style="font-size: 1.5rem;font-weight: 800;">
+                        Menu
+                    </h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <div class="row">
+                        <div class="col-12">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+            <div class="offcanvas offcanvas-end" style="width: 500px;" tabindex="-1" id="offcanvascart" aria-labelledby="offcanvascartLabel">
+                <div class="offcanvas-header">
+                    <h5 id="offcanvascartLabel" style="font-size: 1.5rem;font-weight: 800; position:relative">
+                        Keranjang
+                        <span class="total-items-cart">0</span>
+                    </h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <div class="row" style="height:100%;">
+                        <div class="col-12 col-data" style="display: flex;flex-direction: column;justify-content: space-between;">
                             <ul class="shopping-list">
-                                <li>
-                                    <a href="javascript:void(0)" class="remove" title="Remove this item">
-                                        <i class="lni lni-close"></i>
-                                    </a>
-                                    <div class="cart-img-head">
-                                        <a class="cart-img" href="product-details.html">
-                                            <img src="images/header/cart-items/item1.jpg" alt="#">
+                                @foreach(var cart in ListDataCart)
+                                {
+                                    <li>
+                                        <a href="javascript:void(0)" class="remove" title="Remove this item">
+                                            <i class="lni lni-xmark"></i>
                                         </a>
-                                    </div>
-
-                                    <div class="content">
-                                        <h4>
-                                            <a href="product-details.html">
-                                                Apple Watch Series 6
+                                        <div class="cart-img-head">
+                                            <a class="cart-img" href="product-details.html">
+                                                <img src="images/header/cart-items/item1.jpg" alt="#">
                                             </a>
-                                        </h4>
-                                        <p class="quantity">1x - <span class="amount">$99.00</span></p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)" class="remove" title="Remove this item">
-                                        <i class="lni lni-close"></i>
-                                    </a>
-                                    <div class="cart-img-head">
-                                        <a class="cart-img" href="product-details.html">
-                                            <img src="images/header/cart-items/item2.jpg" alt="#">
-                                        </a>
-                                    </div>
-                                    <div class="content">
-                                        <h4><a href="product-details.html">Wi-Fi Smart Camera</a></h4>
-                                        <p class="quantity">1x - <span class="amount">$35.00</span></p>
-                                    </div>
-                                </li>
+                                        </div>
+
+                                        <div class="content">
+                                            <h4>
+                                                <a href="product-details.html">
+                                                    @(cart.Id_Produk)
+                                                </a>
+                                            </h4>
+                                            <p class="quantity">@(cart.Qty)x - <span class="amount">@string.Format("Rp. {0:N2}", cart.Harga)</span></p>
+                                        </div>
+                                    </li>
+                                }
                             </ul>
-                            <div class="bottom">
+                            <div class="bottom" style="border-top:1px solid #e6e6e6;padding-top: 10px;">
                                 <div class="total">
                                     <span>Total</span>
                                     <span class="total-amount">$134.00</span>
                                 </div>
-                                <div class="button">
-                                    <a href="checkout.html" class="btn animate">Checkout</a>
+                                <div style="display:flex; flex-direction:row; gap:10px;">
+                                    <div class="button" style="width:40%">
+                                        <NavLink @onclick="@(e => NavigateToHome("cart-page"))" class="btn animate animate-view" style="border-radius: 0px;display: flex;align-items: center;gap: 4px;">
+                                            Lihat
+                                            <i class="lni lni-cart-1 mt-0"></i>
+                                        </NavLink>
+                                    </div>
+                                    <div class="button" style="width:60%;">
+                                        <NavLink @onclick="@(e => NavigateToHome("payment-page"))" class="btn animate" style="border-radius:0px;">Checkout</NavLink>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <!--/ End Shopping Item -->
+
+                        <div class="col-12 col-load" style="">
+                            <div class="d-flex justify-content-center h-100 align-items-center">
+                              <div class="spinner-border" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                              </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        
         </div>
     </div>
 </header>
@@ -167,12 +481,85 @@
     [Inject]
     protected IJSRuntime JSRuntime { get; set; }
 
+    [Inject]
+    public pdjService pdjService { get; set; }
+    
+    [Inject]
+    protected NavigationManager NavigationManager { get; set; }
+
+    private string SearchText = "";
+    private bool LoadVisible = true;
+
+    private System.Timers.Timer? _debounceTimer;
+    public List<Produk> ListDataProduk { get; set; } = new List<Produk>();
+    public List<Produk> ListProduk { get; set; } = new List<Produk>();
+    public List<Kategori> ListDataKategori { get; set; } = new List<Kategori>();
+    public List<Cart> ListDataCart { get; set; } = new List<Cart>();
+
+    public void NavigateToHome(string route)
+    {
+        NavigationManager.NavigateTo($"/{route}", forceLoad: true);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        ListDataProduk = await pdjService.GetProdukApi();
+        ListProduk = ListDataProduk.Take(3).ToList();
+        ListDataKategori = await pdjService.GetKategoriApi();
+    }
+
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
             await JSRuntime.InvokeVoidAsync("initMobileButton");
             await JSRuntime.InvokeVoidAsync("initHeaderMega");
+
+            ListDataCart = await pdjService.GetCartApi();
+            await JSRuntime.InvokeVoidAsync("colLoadOut");
+
         }
     }
+
+    private void OnSearchInput(string? value)
+    {
+        SearchText = value;
+
+        // reset timer
+        _debounceTimer?.Stop();
+        _debounceTimer?.Dispose();
+
+        _debounceTimer = new System.Timers.Timer(500); // 500ms delay
+        _debounceTimer.Elapsed += async (s, e) =>
+        {
+            _debounceTimer?.Stop();
+            _debounceTimer?.Dispose();
+
+            await InvokeAsync(async () =>
+            {
+                await SearchDataAsync(SearchText);
+                StateHasChanged();
+            });
+        };
+        _debounceTimer.AutoReset = false;
+        _debounceTimer.Start();
+    }
+
+    private Task SearchDataAsync(string? query)
+    {
+        Console.WriteLine($"🔎 Search dipanggil: {query}");
+        return Task.CompletedTask;
+    }
+
+    private void OnClearInput()
+    {
+        SearchText = "";
+    }
+
+    private void TestButton()
+    {
+        Console.WriteLine("Tombol Berhasil");
+    }
+
 }

@@ -3,20 +3,19 @@
 
 
 <!-- Start Breadcrumbs -->
-<div class="breadcrumbs" style="margin-top: 60px;">
+<div class="breadcrumbs" style="margin-top: 85px;">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6 col-md-6 col-12">
-                <div class="breadcrumbs-content">
-                    <h1 class="page-title">Product</h1>
-                </div>
+                <ul class="breadcrumb-nav">
+                    <li><a href="index.html"><i class="lni lni-chevron-down"></i> Home</a></li>
+                    <li><a href="index.html">Shop</a></li>
+                </ul>
             </div>
             <div class="col-lg-6 col-md-6 col-12">
-                <ul class="breadcrumb-nav">
-                    <li><a href="index.html"><i class="lni lni-home"></i> Home</a></li>
-                    <li><a href="index.html">Shop</a></li>
-                    <li> @DataProduk?.Nama_Display</li>
-                </ul>
+                <div class="breadcrumbs-content">
+                    <h1 class="page-title">@DataProduk?.Nama_Display</h1>
+                </div>
             </div>
         </div>
     </div>
@@ -26,88 +25,124 @@
 
 <!-- Start Item Details -->
 <section class="item-details section">
-    <div class="container">
+    <div class="container-fluid">
         <div class="top-area">
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-12 col-12">
-                    <div class="product-images">
-                        <main id="gallery">
-                            <div class="main-img big-slider-images" style="display: flex;">
-                                @foreach (var imgProduk in DataProduk?.MediaUrls) {
-                                    <img src="@imgProduk.Id_Media" id="current" alt="#">
-                                }
-                            </div>
 
-                            <div id="customize-thumbnails" class="images slider-images">
-                                @foreach (var imgProduk in DataProduk?.MediaUrls) {
-                                    <img src="@imgProduk.Id_Media" class="img" alt="#">
-                                }
-                            </div>
-                        </main>
+                    <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
+                        <div class="swiper-wrapper">
+                            @foreach (var img in DataProduk?.MediaUrls)
+                            {
+                                <div class="swiper-slide">
+                                    <Image Src="@img.Id_Media" Class="vw-100 h-100" />
+                                </div>
+                            }
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
                     </div>
+
+                    <div thumbsSlider="" class="swiper mySwiper">
+                        <div class="swiper-wrapper">
+                            @foreach (var img in DataProduk?.MediaUrls)
+                            {
+                                <div class="swiper-slide">
+                                    <Image Src="@img.Id_Media" Class="vw-100 h-100" />
+                                </div>
+                            }
+                        </div>
+                    </div>
+
                 </div>
+
                 <div class="col-lg-6 col-md-12 col-12">
                     <div class="product-info">
-                        <h2 class="title">@DataProduk?.Nama_Display</h2>
-                        <p class="category">
-                            <i class="lni lni-tag"></i> Kategori:
-                            @foreach (var kategori in DataProduk.Nama_Kategori) 
+                        <div>
+                            @if (DataProduk.Diskon1 != null || DataProduk.Diskon1 >= 1)
                             {
-                                <a href="javascript:void(0)">
-                                    @kategori
-                                </a>
+                                <span class="badge bg-danger" style="padding: 8px 14px;font-size: 15px;display: flex;width: fit-content;align-items: center;gap: 8px;margin-bottom: 10px;font-weight: 700;border-radius: 0px;">
+                                    Potongan @string.Format("Rp. {0:N2}", ((DataProduk.Diskon1 / 100) * DataProduk.Harga))
+                                </span>
                             }
-                        </p>
-                        <h3 class="price">
-                            @string.Format("Rp. {0:N2}", DataProduk?.Harga) @if (DataProduk?.Diskon1 != null || DataProduk?.Diskon1 >= 1) { <span>@string.Format("Rp. {0:N2}", ((DataProduk?.Diskon1 / 100) * DataProduk?.Harga))</span> }
-                        </h3>
-                        <p class="info-text">
-                            @DataProduk?.Deskripsi
-                        </p>
-
-                        <div class="row">
-                            <h5 class="tag-variasi"><b>Size:</b> @DataProduk.Size_Default</h5>
-                            <div class="size-options">
-                                @foreach (var size in DataProduk.Size)
+                            <h2 class="title">@DataProduk?.Nama_Display</h2>
+                            <p class="category" style="display: flex;align-items: center;">
+                                <svg xmlns="http://www.w3.org/2000/svg" style="width: 14px;transform: scaleX(-1);margin-right: 6px;" viewBox="0 0 640 640">
+                                    <path d="M96.5 160L96.5 309.5C96.5 326.5 103.2 342.8 115.2 354.8L307.2 546.8C332.2 571.8 372.7 571.8 397.7 546.8L547.2 397.3C572.2 372.3 572.2 331.8 547.2 306.8L355.2 114.8C343.2 102.7 327 96 310 96L160.5 96C125.2 96 96.5 124.7 96.5 160zM208.5 176C226.2 176 240.5 190.3 240.5 208C240.5 225.7 226.2 240 208.5 240C190.8 240 176.5 225.7 176.5 208C176.5 190.3 190.8 176 208.5 176z" />
+                                </svg>
+                                Kategori:
+                                @foreach (var kategori in DataProduk.Nama_Kategori)
                                 {
-                                    <label class="size-box @(DataProduk.Size_Default == size ? "active" : "")">
-                                        <input type="radio" name="size" value="@size"
-                                               checked="@(DataProduk.Size_Default == size)"
-                                               @onchange="() => OnSizeChanged(size)" />
-                                        <span>@size</span>
-                                    </label>
+                                    <a href="javascript:void(0)">
+                                        @kategori
+                                    </a>
                                 }
+                            </p>
+                            <h3 class="price">
+                                @if (DataProduk.Diskon1 != null || DataProduk.Diskon1 >= 1)
+                                {
+                                    @string.Format("Rp. {0:N2}", (DataProduk.Harga - ((DataProduk.Diskon1 / 100) * DataProduk.Harga)))
+                                }
+                                else
+                                {
+                                    @string.Format("Rp. {0:N2}", DataProduk.Harga)
+                                }
+                                @if (DataProduk?.Diskon1 != null || DataProduk?.Diskon1 >= 1) 
+                                {
+                                    <span>@string.Format("Rp. {0:N2}", DataProduk.Harga)</span>
+                                }
+                            </h3>
+                            <p class="info-text">
+                                @DataProduk?.Deskripsi
+                            </p>
+                        </div>
+
+                        <div>
+                            <div class="row">
+                                <h5 class="tag-variasi"><b>Size:</b> @DataProduk.Size_Default</h5>
+                                <div class="size-options">
+                                    @foreach (var size in DataProduk.Size)
+                                    {
+                                        <label class="size-box @(DataProduk.Size_Default == size ? "active" : "")">
+                                            <input type="radio" name="size" value="@size"
+                                                   checked="@(DataProduk.Size_Default == size)"
+                                                   @onchange="() => OnSizeChanged(size)" />
+                                            <span>@size</span>
+                                        </label>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="bottom-content">
+                                <div class="row align-items-end row-style" style="">
+                                    <div class="col-lg-4 col-md-4 col-12 rowbox-style">
+                                        <div class="qty-box">
+                                            <button @onclick="Decrease">-</button>
+                                            <span>@Quantity</span>
+                                            <button @onclick="Increase">+</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8 col-md-8 col-12 rowbox-style ps-md-2 ps-0">
+                                        <div class="wish-button">
+                                            <button class="btn" style="border-radius:0px;">Tambahkan <i class="lni lni-cart-2 ms-1"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row align-items-end mt-3 row-style">
+                                    <div class="col-12 rowbox-style">
+                                        <div class="button cart-button" >
+                                            <NavLink class="btn" href="@($"/payment-page")" style="width: 100%;display: flex; border-radius:0px;">Beli Sekarang</NavLink>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-
-                        <div class="bottom-content">
-                            <div class="row align-items-end row-style" style="">
-                                <div class="col-lg-4 col-md-4 col-12 rowbox-style">
-                                    <div class="qty-box">
-                                        <button @onclick="Decrease">-</button>
-                                        <span>@Quantity</span>
-                                        <button @onclick="Increase">+</button>
-                                    </div>
-                                </div>
-                                <div class="col-lg-8 col-md-8 col-12 rowbox-style ps-md-2 ps-0">
-                                    <div class="wish-button">
-                                        <button class="btn">Tambahkan <i class="lni lni-cart ms-3 flip-logo"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row align-items-end mt-3 row-style">
-                                <div class="col-12 rowbox-style">
-                                    <div class="button cart-button">
-                                        <NavLink class="btn" href="@($"/payment-page")" style="width: 100%;display: flex;">Beli Sekarang</NavLink>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="product-details-info">
             <div class="single-block">
                 <div class="row">

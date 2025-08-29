@@ -1,0 +1,72 @@
+﻿@rendermode InteractiveServer
+@page "/cart-page"
+
+<div class="row" style="justify-content: center; margin-top: 7rem;">
+    <div class="col-12">
+        <div class="section-title" style="margin-bottom:0px;">
+            <h2>Keranjang</h2>
+        </div>
+    </div>
+</div>
+<div class="cart-page" style="padding: 0px 20px 20px 20px; margin-top:20px;">
+    <div class="cart-container">
+        <div class="cart-items">
+            <!-- Contoh looping item -->
+            <div class="cart-item" style="padding: 0px 16px;">
+                <div class="img-item" style="width:40%">
+                    <p class="item-price">Produk</p>
+                </div>
+                <div class="img-nama" style="width:20%">
+                    <p class="item-price">Harga</p>
+                </div>
+                <div class="img-qty" style="width:20%">
+                    <p class="item-price">Qty</p>
+                </div>
+                <div class="img-harga" style="width:20%">
+                    <p class="item-price">Total</p>
+                </div>
+            </div>
+            @foreach (var item in ListDisplayProduk)
+            {
+                <div class="cart-item">
+                    <div class="img-item" style="width:40%">
+                        <img src="@item.MediaUrls[0]?.Id_Media" alt="@item.Nama_Display" class="item-img" />
+                        <div class="item-produk">
+                            <h2 class="item-name">@item.Nama_Display</h2>
+                        </div>
+                    </div>
+                    <div class="img-nama" style="width:20%">
+                        <h2 class="item-name">@string.Format("Rp {0:N2}", item.Harga)</h2>
+                    </div>
+                    <div class="img-qty" style="width:20%">
+                        <div class="item-qty">
+                            <button @onclick="() => Decrease()">–</button>
+                            <span>@Quantity</span>
+                            <button @onclick="() => Increase()">+</button>
+                        </div>
+                    </div>
+                    <div class="img-harga" style="width:20%">
+                        <p class="item-price">@string.Format("Rp {0:N2}", item.Harga * Quantity)</p>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <aside class="order-summary">
+            <h2 class="summary-title">Order Summary</h2>
+            <div class="summary-line">
+                <span>Subtotal</span>
+                <span>@string.Format("Rp {0:N2}", 1000000)</span>
+            </div>
+            <div class="summary-line">
+                <span>Shipping</span>
+                <span>@string.Format("Rp {0:N2}", 1000000)</span>
+            </div>
+            <div class="summary-line total">
+                <span>Total</span>
+                <span>@string.Format("Rp {0:N2}", 1000000)</span>
+            </div>
+            <button class="btn-checkout">Proceed to Checkout</button>
+        </aside>
+    </div>
+</div>

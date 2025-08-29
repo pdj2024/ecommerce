@@ -24,9 +24,10 @@
 
     <!-- ========================= CSS here ========================= -->
     <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/LineIcons.3.0.css" />
+    <link rel="stylesheet" href="css/icons.css" />
     <link rel="stylesheet" href="css/glightbox.min.css" />
     <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <script type="text/javascript"
             src="https://app.sandbox.midtrans.com/snap/snap.js"
@@ -37,14 +38,14 @@
 
 <body>
 
-    @* <div class="preloader">
+    <div class="preloader">
         <div class="preloader-inner">
             <div class="preloader-icon">
                 <span></span>
                 <span></span>
             </div>
         </div>
-    </div> *@
+    </div>
 
 
 
@@ -57,7 +58,6 @@
     </button>
 
     <script src="_framework/blazor.web.js"></script>
-    @* <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> *@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <!-- Add chart.js reference if chart components are used in your application. -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.0.1/chart.umd.js" integrity="sha512-gQhCDsnnnUfaRzD8k1L5llCCV6O9HN09zClIzzeJ8OJ9MpGmIlCxm+pdCkqTwqJ4JcjbojFr79rl2F1mzcoLMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -68,7 +68,9 @@
     @* <script src="js/bootstrap.min.js"></script> *@
     <script src="js/glightbox.min.js"></script>
     <script src="js/main.js"></script>
+    <link href="https://cdn.lineicons.com/5.0/lineicons.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     
     <script>
@@ -84,6 +86,38 @@
                     }
                 }
             }
+        }
+
+        // window.blazorOffcanvas = {
+        //     show: function (selector) {
+        //         var el = document.querySelector(selector);
+        //         if (!el) return;
+        //         var offcanvas = bootstrap.Offcanvas.getOrCreateInstance(el);
+        //         offcanvas.show();
+        //     },
+        //     hide: function (selector) {
+        //         var el = document.querySelector(selector);
+        //         if (!el) return;
+        //         var offcanvas = bootstrap.Offcanvas.getOrCreateInstance(el);
+        //         offcanvas.hide();
+        //     }
+        // };
+
+        function initslideProduct() {
+            const products = document.querySelectorAll(".product");
+
+            if (products.length === 0) return;
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("show");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            products.forEach(p => observer.observe(p));
         }
 
         function initHeaderMega() {
@@ -106,6 +140,16 @@
         function fadeout() {
             document.querySelector('.preloader').style.opacity = '0';
             document.querySelector('.preloader').style.display = 'none';
+        }
+
+        function colLoadOut() {
+            const el = document.querySelector('.col-load');
+            if (!el) return console.log("class load not found");
+            console.log("class load found")
+            el.style.opacity = '0';
+            setTimeout(() => {
+                el.style.display = 'none';
+            }, 500); // tunggu 0.5s sampai transisi selesai
         }
 
         function setFocusAndSelect(elementToBind) {
@@ -151,7 +195,7 @@
                 gutter: 0,
                 controls: true,
                 autoplayButtonOutput: false,
-                controlsText: ['<i class="lni lni-chevron-left"></i>', '<i class="lni lni-chevron-right"></i>'],
+                controlsText: ['<i class="lni lni-chevron-left"></i>', '<i class="lni lni-chevron-left" style="transform: scaleX(-1);"></i>'],
             });
         };
 
@@ -185,11 +229,52 @@
             });
         };
 
+        function initBigDetailProdInfo() {
+            var swiper = new Swiper(".mySwiper", {
+              loop: false,
+                  spaceBetween: 0,
+                  slidesPerView: 4,
+                  freeMode: true,
+              watchSlidesProgress: true,
+            });
+
+            var swiper2 = new Swiper(".mySwiper2", {
+                loop: true,
+                spaceBetween: 10,
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+                thumbs: {
+                    swiper: swiper,
+                },
+            });
+        };
+
         function initMobileButton() {
             let navbarToggler = document.querySelector(".mobile-menu-btn");
             navbarToggler.addEventListener('click', function () {
                 navbarToggler.classList.toggle("active");
                 let navbarContent = document.querySelector("#navbarSupportedContent");
+            });
+        };
+
+        let swiperInstance = null;
+
+        function initSearchButton() {
+            if (swiperInstance) {
+                swiperInstance.destroy(true, true);
+            }
+
+            swiperInstance = new Swiper(".mySwiper1", {
+                pagination: {
+                el: ".swiper-pagination",
+                type: "fraction",
+                },
+                navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+                },
             });
         };
 

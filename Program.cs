@@ -79,8 +79,6 @@ builder.Services.AddScoped<ScreenSizeService>(); // Scoped: New instance per use
 builder.Services.AddScoped(sp =>
 {
     var configuration = sp.GetRequiredService<IConfiguration>();
-    var connectionString = configuration.GetConnectionString("postgresConnection");
-//    var context = sp.GetRequiredService<pdjContext>();
     var navigationManager = sp.GetRequiredService<NavigationManager>();
     var dialogService = sp.GetRequiredService<DialogService>(); // Add this
 
@@ -89,7 +87,7 @@ builder.Services.AddScoped(sp =>
     var authProvider = sp.GetRequiredService<AuthenticationStateProvider>();
 
 
-    return new Services.pdjService(navigationManager, connectionString, dialogService, jsRuntime, authProvider); // Pass dialogService and jsRuntime
+    return new Services.pdjService(navigationManager, dialogService, jsRuntime, authProvider); // Pass dialogService and jsRuntime
 });
 
 
@@ -100,10 +98,11 @@ builder.Services.AddScoped(sp =>
 builder.Services.AddScoped<Services.TabService>(); // Scoped: unique instance per user session (circuit)
 
 
-
 builder.Services.AddControllers();
 builder.Services.AddRadzenComponents();
 builder.Services.AddHttpClient();
+builder.Services.AddHttpContextAccessor();
+
 var app = builder.Build();
 app.UseResponseCompression();
 

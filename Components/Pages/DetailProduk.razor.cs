@@ -70,8 +70,7 @@ namespace PacificWeb.Components.Pages
 
                 await JSRuntime.InvokeVoidAsync("scrollToTop");
                 await JSRuntime.InvokeVoidAsync("statusBarHidden");
-                await JSRuntime.InvokeVoidAsync("initDetailProd");
-                await JSRuntime.InvokeVoidAsync("initBigDetailProd");
+                await JSRuntime.InvokeVoidAsync("initBigDetailProdInfo");
                 StateHasChanged();
 
             }

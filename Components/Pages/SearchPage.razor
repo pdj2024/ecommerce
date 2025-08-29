@@ -3,50 +3,77 @@
 
 
 <!-- Start Trending Product Area -->
-<section class="trending-product section" style="margin-top: 2rem;">
-    <div class="container">
-        <div class="row">
+<section class="trending-product section" style="margin-top: 70px;">
+    <div class="container-fluid">
+        <div class="row" style="justify-content: center; margin-bottom: 2rem;">
             <div class="col-12">
                 <div class="section-title">
-                    <h2>Search "Sepatu Adidas"</h2>
+                    <h2>Search</h2>
+                </div>
+            </div>
+            <div class="col-12 col-md-12 col-lg-6">
+                <div class="input-group mb-3 style-grup">
+                    <span class="input-group-text" id="basic-addon1" style="padding: 0px;"><i class="lni lni-search-2" style="font:normal normal normal 22px/1 'Lineicons';"></i></span>
+                    <InputText @bind-Value=@SearchText @oninput="@(e => OnSearchInput(e.Value?.ToString()))" type="text" class="form-control search-form" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1"/>
+                    <button class="clear-search" @onclick="@(e => OnClearInput())" >Clear</button>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-3 d-none d-md-none d-lg-flex">
-                <div class="accordion" id="accordionExample">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            Item #1
-                        </button>
-                        </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse show">
-                        <div class="accordion-body">
-                            <strong>Isi konten accordion 1.</strong>
-                        </div>
+                <div class="filters">
+                    <div class="filter-accordion">
+                        <input type="checkbox" id="filter-genre" class="filter-toggle">
+                        <label for="filter-genre" class="filter-label">Gender</label>
+                        <div class="filter-content">
+                            @foreach (var dataKategori in ListDataKategori)
+                            {
+                                if (dataKategori.Nama_Kategori == "Men's" || dataKategori.Nama_Kategori == "Women's" || dataKategori.Nama_Kategori == "Kid's")
+                                {
+                                    <label><input type="checkbox"> @dataKategori.Nama_Kategori</label>
+                                }
+                            }
                         </div>
                     </div>
-
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingTwo">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            Item #2
-                        </button>
-                        </h2>
-                        <div id="collapseTwo" class="accordion-collapse collapse">
-                        <div class="accordion-body">
-                            <strong>Isi konten accordion 2.</strong>
+                    <div class="filter-accordion">
+                        <input type="checkbox" id="filter-brand" class="filter-toggle">
+                        <label for="filter-brand" class="filter-label">Brand</label>
+                        <div class="filter-content">
+                            @foreach (var dataBrand in ListDataBrand)
+                            {
+                                <label><input type="checkbox"> @dataBrand.Nama_Brand</label>
+                            }
                         </div>
+                    </div>
+                    <div class="filter-accordion">
+                        <input type="checkbox" id="filter-category" class="filter-toggle">
+                        <label for="filter-category" class="filter-label">Kategori</label>
+                        <div class="filter-content">
+                            @foreach (var dataKategori in ListDataKategori)
+                            {
+                                if (dataKategori.Nama_Kategori != "Men's" || dataKategori.Nama_Kategori != "Women's" || dataKategori.Nama_Kategori != "Kid's")
+                                {
+                                    <label><input type="checkbox"> @dataKategori.Nama_Kategori</label>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div class="filter-accordion">
+                        <input type="checkbox" id="filter-price" class="filter-toggle">
+                        <label for="filter-price" class="filter-label">Harga</label>
+                        <div class="filter-content">
+                            <label><input type="radio" name="price" value="0-500"> ≤ Rp 500.000</label>
+                            <label><input type="radio" name="price" value="500-1000"> Rp 500.000–1.000.000</label>
+                            <label><input type="radio" name="price" value="1000"> > Rp 1.000.000</label>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-9">
+            <div class="col-12 col-md-12 col-lg-9">
                 <div class="row">
                     @foreach (var dataProduk in ListDataProduk) {
-                        <div class="col-lg-4 col-md-6 col-6 pt-2 pb-2">
+                        <div class="col-lg-3 col-md-4 col-6 pt-2 pb-2">
                             <!-- Start Single Product -->
                             <div class="single-product">
                                 <div class="product-image">
@@ -66,7 +93,7 @@
                                         <span class="new-tag">New</span>
                                     }
                                     <div class="button">
-                                        <NavLink href="@($"/detail-produk/{dataProduk.No_Id}")" class="btn">Tambahkan <i class="lni lni-cart ms-3 flip-logo"></i></NavLink>
+                                        <NavLink href="@($"/detail-produk/{dataProduk.No_Id}")" class="btn">Tambahkan <i class="lni lni-cart-1 ms-3"></i></NavLink>
                                     </div>
                                 </div>
                                 <div class="product-info">
@@ -81,14 +108,6 @@
                                             @dataProduk.Nama_Display
                                         </NavLink>
                                     </h4>
-                                    @* <ul class="review">
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star"></i></li>
-                                        <li><span>4.0 Review(s)</span></li>
-                                    </ul> *@
                                     <div class="price">
                                         <span>@string.Format("Rp. {0:N2}", dataProduk.Harga)</span>
                                         @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)

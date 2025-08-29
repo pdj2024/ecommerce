@@ -45,21 +45,28 @@ namespace PacificWeb.Components.Pages
         public pdjService pdjService { get; set; }
 
         public List<Pembayaran> ListDataDb { get; set; } = new List<Pembayaran>();
+        public List<Produk> ListDataProduk { get; set; } = new List<Produk>();
+        public List<Produk> ListDisplayProduk { get; set; } = new List<Produk>();
         public List<Pembayaran> ListData { get; set; } = new List<Pembayaran>();
 
         protected override async Task OnInitializedAsync()
         {
-            ListDataDb = await pdjService.GetMetodeBayarApi();
-            ListData.AddRange(ListDataDb);
-            StateHasChanged();
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
             {
+                ListDataDb = await pdjService.GetMetodeBayarApi();
+                ListDataProduk = await pdjService.GetProdukApi();
+                ListDisplayProduk = ListDataProduk.Take(4).ToList();
+                ListData.AddRange(ListDataDb);
+                StateHasChanged();
+
                 await JSRuntime.InvokeVoidAsync("scrollToTop");
-                await JSRuntime.InvokeVoidAsync("statusBarHidden");
+                StateHasChanged();
+                await Task.Delay(500);
+                await JSRuntime.InvokeVoidAsync("fadeout");
             }
 
         }

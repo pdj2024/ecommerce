@@ -208,7 +208,112 @@ namespace Services
                 return new List<Produk>();
             }
         }
+        
+        public async Task<List<Kategori>> GetKategoriApi(string idKategori = "")
+        {
+            var client = initConfigApi();
+            string url = "http://43.228.212.41:77/api/kategori/getAll";
 
+            url += addParam("no_id", idKategori, true);
+            var tbListProduk = new List<Kategori>();
+            var tbListHead = new Kategori();
+
+            try
+            {
+                var response = await client.GetAsync(url);
+
+                (string data_no, bool data_bool) checking = await CheckAPI(response, url, "BACA");
+
+                if (checking.data_bool)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    using var jsonDoc = JsonDocument.Parse(json);
+                    var root = jsonDoc.RootElement;
+
+                    if (root.TryGetProperty("Data", out var dataFromDb))
+                    {
+                        tbListProduk = JsonConvert.DeserializeObject<List<Kategori>>(dataFromDb.GetRawText());
+                    }
+                    if (root.TryGetProperty("Group_Kategori", out var groupFromDb) && groupFromDb.GetArrayLength() > 0)
+                    {
+                        tbListHead.Group_Kategori = JsonConvert.DeserializeObject<List<string>>(groupFromDb.GetRawText());
+                        foreach (var detail in tbListProduk)
+                        {
+                            detail.Group_Kategori = tbListHead.Group_Kategori;
+                        }
+                    }
+                    else
+                    {
+                        ShowNotification($"Data Kosong", "Pengumuman !!!");
+                    }
+                }
+                return tbListProduk;
+            }
+            catch (OperationCanceledException)
+            {
+                ShowNotification("Gagal Mengambil Data", "Request ke API terlalu lama (timeout).");
+                return new List<Kategori>();
+            }
+            catch (HttpRequestException ex)
+            {
+                ShowNotification("Gagal Mengambil Data", $"Terjadi kesalahan jaringan atau server. {ex.Message}");
+                return new List<Kategori>();
+            }
+            catch (Exception ex)
+            {
+                ShowNotification("Gagal Mengambil Data", $"Terjadi error: {ex.Message}");
+                return new List<Kategori>();
+            }
+        }
+
+        public async Task<List<Cart>> GetCartApi(string idKategori = "")
+        {
+            var client = initConfigApi();
+            string url = "http://43.228.212.41:77/api/cart/getAll?id_customer=cus_16";
+
+            //url += addParam("no_id", idKategori, true);
+            var tbListProduk = new List<Cart>();
+            var tbListHead = new Kategori();
+
+            try
+            {
+                var response = await client.GetAsync(url);
+
+                (string data_no, bool data_bool) checking = await CheckAPI(response, url, "BACA");
+
+                if (checking.data_bool)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    using var jsonDoc = JsonDocument.Parse(json);
+                    var root = jsonDoc.RootElement;
+
+                    if (root.TryGetProperty("Data", out var dataFromDb))
+                    {
+                        tbListProduk = JsonConvert.DeserializeObject<List<Cart>>(dataFromDb.GetRawText());
+                    }
+                    else
+                    {
+                        ShowNotification($"Data Kosong", "Pengumuman !!!");
+                    }
+                }
+                return tbListProduk;
+            }
+            catch (OperationCanceledException)
+            {
+                ShowNotification("Gagal Mengambil Data", "Request ke API terlalu lama (timeout).");
+                return new List<Cart>();
+            }
+            catch (HttpRequestException ex)
+            {
+                ShowNotification("Gagal Mengambil Data", $"Terjadi kesalahan jaringan atau server. {ex.Message}");
+                return new List<Cart>();
+            }
+            catch (Exception ex)
+            {
+                ShowNotification("Gagal Mengambil Data", $"Terjadi error: {ex.Message}");
+                return new List<Cart>();
+            }
+        }
 
         public async Task<List<Pembayaran>> GetMetodeBayarApi(string idProduk = "")
         {
@@ -252,7 +357,95 @@ namespace Services
             }
         }
 
+        public async Task<List<Brand>> GetBrandApi(string idBrand = "")
+        {
+            var client = initConfigApi();
+            string url = "http://43.228.212.41:77/api/brand/getall";
 
+            //url += addParam("no_id", idProduk, true);
+            var tbListProduk = new List<Brand>();
+
+            try
+            {
+                var response = await client.GetAsync(url);
+
+                (string data_no, bool data_bool) checking = await CheckAPI(response, url, "BACA");
+
+                if (checking.data_bool)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    using var jsonDoc = JsonDocument.Parse(json);
+                    var root = jsonDoc.RootElement;
+
+                    if (root.TryGetProperty("Data", out var dataFromDb))
+                    {
+                        tbListProduk = JsonConvert.DeserializeObject<List<Brand>>(dataFromDb.GetRawText());
+                    }
+                }
+
+                return tbListProduk;
+            }
+            catch (OperationCanceledException)
+            {
+                return new List<Brand>();
+            }
+            catch (HttpRequestException ex)
+            {
+                return new List<Brand>();
+            }
+            catch (Exception ex)
+            {
+                return new List<Brand>();
+            }
+        }
+
+        public async Task<List<Brand>> GetBannerApi(string idBanner = "")
+        {
+            var client = initConfigApi();
+            string url = "http://43.228.212.41:77/api/banner/getAll";
+
+            var tbListProduk = new List<Brand>();
+
+            try
+            {
+                var response = await client.GetAsync(url);
+
+                (string data_no, bool data_bool) checking = await CheckAPI(response, url, "BACA");
+
+                if (checking.data_bool)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    using var jsonDoc = JsonDocument.Parse(json);
+                    var root = jsonDoc.RootElement;
+
+                    if (root.TryGetProperty("Data", out var dataFromDb))
+                    {
+                        tbListProduk = JsonConvert.DeserializeObject<List<Brand>>(dataFromDb.GetRawText());
+                    }
+                    else
+                    {
+                        ShowNotification($"Data Kosong", "Pengumuman !!!");
+                    }
+                }
+
+                return tbListProduk;
+            }
+            catch (OperationCanceledException)
+            {
+                ShowNotification("Gagal Mengambil Data", "Request ke API terlalu lama (timeout).");
+                return new List<Brand>();
+            }
+            catch (HttpRequestException ex)
+            {
+                ShowNotification("Gagal Mengambil Data", $"Terjadi kesalahan jaringan atau server. {ex.Message}");
+                return new List<Brand>();
+            }
+            catch (Exception ex)
+            {
+                ShowNotification("Gagal Mengambil Data", $"Terjadi error: {ex.Message}");
+                return new List<Brand>();
+            }
+        }
 
 
 
@@ -493,11 +686,10 @@ namespace Services
 
         private readonly AuthenticationStateProvider authProvider;
 
-        public pdjService(NavigationManager navigationManager, string connectionString, DialogService dialogService, IJSRuntime jsRuntime, AuthenticationStateProvider authProvider)
+        public pdjService(NavigationManager navigationManager, DialogService dialogService, IJSRuntime jsRuntime, AuthenticationStateProvider authProvider)
         {
 
             this.navigationManager = navigationManager;
-            this.connectionString = connectionString; // Ensure this is set
             _dialogService = dialogService; // Initialize here
             _jsRuntime = jsRuntime;
             this.authProvider = authProvider;
@@ -520,31 +712,6 @@ namespace Services
             }
         }
 
-
-        public async Task<List<MasterCustomer>> GetMasCust(string kodeCust,string mFilter, string kodeTetapKeluar = "")
-        {
-            kodeCust = "";
-            mFilter = "";
-            kodeTetapKeluar = "";
-
-            using (var dbConnection = new NpgsqlConnection(connectionString)) // Ensure NpgsqlConnection is used
-            {
-                await dbConnection.OpenAsync(); // OpenAsync is available on NpgsqlConnection
-
-                var query = "SELECT * FROM pdj_001.p_getmascust(@param1, @param2, @param3)";
-                var parameters = new
-                {
-                    param1 = kodeCust,
-                    param2 = mFilter,
-                    param3 = kodeTetapKeluar
-                };
-
-                // Use Dapper to query the database and map results to MasterCustomer
-                var result = (await dbConnection.QueryAsync<MasterCustomer>(query, parameters)).ToList();
-                
-                return result;
-            }
-        }
        
        
 
@@ -564,66 +731,7 @@ namespace Services
 
             await _jsRuntime.InvokeVoidAsync("setDropdownFocus", elementId);
         }
-
-        public DialogOptions dialogOptions = new DialogOptions
-        {
-
-            Height = "75%",
-            Width = "40%",
-
-            Style = "padding: 0!important; margin: 0!important;"
-        };
-
-
-        public async Task<string> CudMasCust(
-    string i_proses,  // e.g., 'HAPUS', 'TAMBAH', 'KOREKSI'
-    int i_user_id,
-    MasterCustomer tbData)
-        {
-            using (var dbConnection = new NpgsqlConnection(connectionString))
-            {
-                await dbConnection.OpenAsync();
-
-                var query = @"SELECT pdj_001.p_cud_mascust(
-        @i_proses, @i_user_id, @i_no_cussup, @i_nm_cussup, @i_owner, @i_alamat,
-        @i_kelurahan, @i_kecamatan, @i_kota, @i_kodepos, @i_telpon,
-        @i_email, @i_kontak, @i_no_npwp, @i_nama_npwp, @i_alamat_npwp,
-        @i_kota_npwp, @i_plafon, @i_tempo, @i_saldo_awal, @i_aktif, @i_keterangan)";
-
-                var parameters = new
-                {
-                    i_proses,
-                    i_user_id,
-                    i_no_cussup = tbData.no_cussup,
-                    i_nm_cussup = tbData.nm_cussup,
-                    i_owner = tbData.owner,
-                    i_alamat = tbData.alamat,
-                    i_kelurahan = tbData.kelurahan,
-                    i_kecamatan = tbData.kecamatan,
-                    i_kota = tbData.kota,
-                    i_kodepos = tbData.kodepos,
-                    i_telpon = tbData.telpon,
-                    i_email = tbData.email,
-                    i_kontak = tbData.kontak,
-                    i_no_npwp = tbData.no_npwp,
-                    i_nama_npwp = tbData.nama_npwp,
-                    i_alamat_npwp = tbData.alamat_npwp,
-                    i_kota_npwp = tbData.kota_npwp,
-                    i_plafon = tbData.plafon,
-                    i_tempo = tbData.tempo,
-                    i_saldo_awal = tbData.saldo_awal,
-                    i_aktif = tbData.aktif,
-                    i_keterangan = tbData.keterangan
-                };
-
-                // Execute the query and return the result (no_cussup)
-                var result = await dbConnection.QuerySingleOrDefaultAsync<string>(query, parameters);
-
-                return result;  // This will be the generated 'no_cussup' or null if no result
-            }
-        }
-       
-        
+               
       
         public async Task ShowNotification(string myMessage, string judul = "Perhatian...")
         {
