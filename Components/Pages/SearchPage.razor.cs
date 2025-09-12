@@ -6,9 +6,7 @@ using Radzen.Blazor;
 using Radzen;
 using Services;
 using System.Reflection;
-
 using System.Configuration;
-
 using System.Drawing;
 
 
@@ -54,9 +52,36 @@ namespace PacificWeb.Components.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            ListDataProduk = await pdjService.GetProdukApi();
-            ListDataKategori = await pdjService.GetKategoriApi();
-            ListDataBrand = await pdjService.GetBrandApi();
+            ListDataProduk = await pdjService.GetProdukApi(new ParameterApi
+            {
+                routeApi = "produk",
+                prosesApi = "getAll",
+                ParamUrl = new ParameterApi.ParameterUrl
+                {
+                    pagesize = 8,
+                    show_variant = true,
+                }
+            });
+            ListDataKategori = await pdjService.GetKategoriApi(new ParameterApi
+            {
+                routeApi = "kategori",
+                prosesApi = "getAll",
+                ParamUrl = new ParameterApi.ParameterUrl
+                {
+                    status = "aktif",
+                }
+            });
+
+            ListDataBrand = await pdjService.GetBrandApi(new ParameterApi
+            {
+                routeApi = "brand",
+                prosesApi = "getAll",
+                ParamUrl = new ParameterApi.ParameterUrl
+                {
+                    orderBy = "nama_brand",
+                    orderDir = "desc",
+                }
+            });
             StateHasChanged();
         }
 
@@ -80,6 +105,7 @@ namespace PacificWeb.Components.Pages
             _debounceTimer?.Dispose();
 
             _debounceTimer = new System.Timers.Timer(500); // 500ms delay
+            
             _debounceTimer.Elapsed += async (s, e) =>
             {
                 _debounceTimer?.Stop();
@@ -91,6 +117,7 @@ namespace PacificWeb.Components.Pages
                     StateHasChanged();
                 });
             };
+
             _debounceTimer.AutoReset = false;
             _debounceTimer.Start();
         }

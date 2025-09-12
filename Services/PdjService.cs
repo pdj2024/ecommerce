@@ -1,7 +1,10 @@
+using Azure;
 using Dapper;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.JSInterop;
 using Models;
 using Newtonsoft.Json;
@@ -10,16 +13,20 @@ using Newtonsoft.Json;
 using Npgsql;
 //using Microsoft.EntityFrameworkCore;
 using Radzen;
+using Radzen.Blazor.Markdown;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Net.Http.Headers;
+using System.Reflection;
+using System.Reflection.Metadata;
+using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Threading.Tasks;
-
+using System.Web;
 using static Services.pdjService;
 
 namespace Services
@@ -37,11 +44,53 @@ namespace Services
         private readonly DialogService _dialogService;
         private readonly IJSRuntime _jsRuntime;
 
+        private static Random _rand = new Random();
+
+        public static List<T> GenerateDummy<T>(int jumlah) where T : class, new()
+        {
+            var list = new List<T>();
+            var props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+            for (int i = 0; i < jumlah; i++)
+            {
+                var obj = new T();
+                foreach (var prop in props)
+                {
+                    if (!prop.CanWrite) continue;
+
+                    object? value = null;
+
+                    if (prop.PropertyType == typeof(int) || prop.PropertyType == typeof(int?))
+                        value = _rand.Next(1, 1000);
+
+                    else if (prop.PropertyType == typeof(decimal) || prop.PropertyType == typeof(decimal?))
+                        value = Math.Round((decimal)_rand.NextDouble() * 100000, 2);
+
+                    else if (prop.PropertyType == typeof(double) || prop.PropertyType == typeof(double?))
+                        value = Math.Round(_rand.NextDouble() * 1000, 2);
+
+                    else if (prop.PropertyType == typeof(string))
+                        value = $"{prop.Name}_{i + 1}";
+
+                    else if (prop.PropertyType == typeof(DateTime) || prop.PropertyType == typeof(DateTime?))
+                        value = DateTime.Now.AddDays(-_rand.Next(1, 100));
+
+                    else if (prop.PropertyType == typeof(bool) || prop.PropertyType == typeof(bool?))
+                        value = _rand.Next(0, 2) == 0;
+
+                    prop.SetValue(obj, value);
+                }
+                list.Add(obj);
+            }
+
+            return list;
+        }
         public class StatusResponse
         {
             public int StatusCode { get; set; } = 0;
             public string Message { get; set; } = "";
-            public string No_Bukti { get; set; } = "";
+            public string NewId { get; set; } = "";
+            public string NoBukti { get; set; } = "";
             public string token { get; set; } = "";
             public string refreshToken { get; set; } = "";
         }
@@ -60,13 +109,13 @@ namespace Services
         }
 
 
-        public async Task<(string, bool)> CheckAPI(HttpResponseMessage response, string url, string? proses = "AMBIL")
+        public async Task<(int statusCode, bool statusResponse, string MessageInfo)> CheckAPI(HttpResponseMessage response, string url, string? proses = "AMBIL")
         {
             var content = "";
             var MassageInfo = "";
             var token = "";
             var RefreshToken = "";
-            var no_bukti = "";
+            StatusResponse result = new StatusResponse();
 
             try
             {
@@ -79,9 +128,8 @@ namespace Services
                     var bodyContent = await response.Content.ReadAsStringAsync();
                     if (!string.IsNullOrWhiteSpace(bodyContent))
                     {
-                        var result = System.Text.Json.JsonSerializer.Deserialize<StatusResponse>(bodyContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                        result = System.Text.Json.JsonSerializer.Deserialize<StatusResponse>(bodyContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
                         MassageInfo = result.Message;
-                        no_bukti = result.No_Bukti ?? "";
                         token = result.token;
                         RefreshToken = result.refreshToken;
                     }
@@ -95,11 +143,12 @@ namespace Services
                     MassageInfo = "Permintaan Tidak Ditemukan";
                 }
 
+
+
+
                 if (response.IsSuccessStatusCode && (int)response.StatusCode != 204)
                 {
-                    if (proses == "Refresh") return ($"{token}<PdjService>{RefreshToken}", true);
-                    if (proses == "Logout") return ($"", true);
-                    return (no_bukti, true);
+                    content = $@"Success: {proses} - {MassageInfo}";
                 }
                 else if (proses == "Refresh")
                 {
@@ -117,14 +166,10 @@ namespace Services
                 {
                     content = $@"Server error: {proses} - {MassageInfo}";
                 }
-
-                no_bukti = "";
             }
             catch
             {
-                no_bukti = "";
                 content = "Data yang dicari tidak ditemukan/kosong";
-                ShowNotification($"Hubungi Administrator : Error pada server ketika mengambil data", "Terjadi Kesalahan");
             }
 
             var log = $@"
@@ -132,7 +177,7 @@ namespace Services
                         URL: {url}
                         Status: {(int)response.StatusCode} {response.ReasonPhrase}
                         Response: {content}
-                        -------------------------------";
+                        ---------------------------------------------------------";
 
             var logDir = Path.Combine("Logs");
             var fileName = $"LogApi-{DateTime.Now:yyyy-MM-dd}.txt";
@@ -146,35 +191,69 @@ namespace Services
                 await writer.WriteLineAsync(log);
             }
 
-            if (proses == "Refresh") return ($"kosong<PdjService>kosong", false);
-            if (proses == "Logout") return ($"", false);
-            return (no_bukti, false);
+            return ((int)response.StatusCode, response.IsSuccessStatusCode, MassageInfo + "%section%" + result.NewId);
         }
 
-        public HttpClient initConfigApi()
+        public void writeLog(string content)
         {
-            var client = new HttpClient();
-            var cts = new CancellationTokenSource(TimeSpan.FromSeconds(10));
+            var log = $@"
+                        [{DateTime.Now:yyyy-MM-dd HH:mm:ss}] - Error API Connection
+                        Message: {content}
+                        ---------------------------------------------------------";
+
+            var logDir = Path.Combine("Logs");
+            var fileName = $"LogApi-{DateTime.Now:yyyy-MM-dd}.txt";
+            var logPath = Path.Combine(logDir, fileName);
+
+            Directory.CreateDirectory(logDir);
+
+            using (var stream = new FileStream(logPath, FileMode.Append, FileAccess.Write, FileShare.ReadWrite))
+            using (var writer = new StreamWriter(stream))
+            {
+                writer.WriteLineAsync(log);
+            }
+        }
+
+        public static string ToQueryString<T>(T model)
+        {
+            if (model == null) return string.Empty;
+
+            var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+            var query = string.Join("&",
+                properties
+                    .Where(p => p.GetValue(model) != null) // hanya yang tidak null
+                    .Select(p => $"{HttpUtility.UrlEncode(p.Name)}={HttpUtility.UrlEncode(p.GetValue(model)?.ToString())}")
+            );
+
+            return query;
+        }
+
+        public (HttpClient httpReq, CancellationTokenSource cancelTimer, string UrlApi) initConfigApi(ParameterApi urlParam)
+        {
+            urlParam = urlParam ?? new ParameterApi();
+            var httpReq = new HttpClient();
+            var cancelTimer = new CancellationTokenSource(TimeSpan.FromSeconds(10));
             //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+             
+            string UrlApi = urlParam.defaultUrl + urlParam.routeApi + "/" + urlParam.prosesApi + "?" + ToQueryString(urlParam.ParamUrl); 
 
-            return client;
+            return (httpReq, cancelTimer, UrlApi);
         }
 
-        public async Task<List<Produk>> GetProdukApi(string idProduk = "")
+        public async Task<List<Produk>> GetProdukApi(ParameterApi paramUrl)
         {
-            var client = initConfigApi();
-            string url = "http://43.228.212.41:77/api/produk/getAll";
-
-            url += addParam("no_id", idProduk, true);
+            var config = initConfigApi(paramUrl);
+            string url = config.UrlApi ;
             var tbListProduk = new List<Produk>();
 
             try
             {
-                var response = await client.GetAsync(url);
+                var response = await config.httpReq.GetAsync(config.UrlApi, config.cancelTimer.Token);
 
-                (string data_no, bool data_bool) checking = await CheckAPI(response, url, "BACA");
+                var checking = await CheckAPI(response, config.UrlApi, "BACA");
 
-                if (checking.data_bool)
+                if (checking.statusResponse)
                 {
                     var json = await response.Content.ReadAsStringAsync();
                     using var jsonDoc = JsonDocument.Parse(json);
@@ -186,45 +265,44 @@ namespace Services
                     }
                     else
                     {
-                        ShowNotification($"Data Kosong", "Pengumuman !!!");
+                        writeLog($"Data Kosong");
                     }
                 }
 
                 return tbListProduk;
             }
-            catch (OperationCanceledException)
-            {
-                ShowNotification("Gagal Mengambil Data", "Request ke API terlalu lama (timeout).");
-                return new List<Produk>();
-            }
-            catch (HttpRequestException ex)
-            {
-                ShowNotification("Gagal Mengambil Data", $"Terjadi kesalahan jaringan atau server. {ex.Message}");
-                return new List<Produk>();
-            }
             catch (Exception ex)
             {
-                ShowNotification("Gagal Mengambil Data", $"Terjadi error: {ex.Message}");
-                return new List<Produk>();
+                if (ex is OperationCanceledException)
+                {
+                    writeLog("Gagal Baca Data : Request ke API terlalu lama (timeout).");
+                }
+                else if (ex is HttpRequestException)
+                {
+                    writeLog($"Gagal Baca Data : Terjadi kesalahan jaringan atau server. {ex.Message}");
+                }
+                else
+                {
+                    writeLog($"Gagal Baca Data : Terjadi error: {ex.Message}");
+                }
             }
+
+            return tbListProduk;
         }
         
-        public async Task<List<Kategori>> GetKategoriApi(string idKategori = "")
+        public async Task<List<Kategori>> GetKategoriApi(ParameterApi urlParam)
         {
-            var client = initConfigApi();
-            string url = "http://43.228.212.41:77/api/kategori/getAll";
-
-            url += addParam("no_id", idKategori, true);
+            var config = initConfigApi(urlParam);
             var tbListProduk = new List<Kategori>();
             var tbListHead = new Kategori();
 
             try
             {
-                var response = await client.GetAsync(url);
+                var response = await config.httpReq.GetAsync(config.UrlApi, config.cancelTimer.Token);
 
-                (string data_no, bool data_bool) checking = await CheckAPI(response, url, "BACA");
+                var checking = await CheckAPI(response, config.UrlApi, "BACA");
 
-                if (checking.data_bool)
+                if (checking.statusResponse)
                 {
                     var json = await response.Content.ReadAsStringAsync();
                     using var jsonDoc = JsonDocument.Parse(json);
@@ -244,44 +322,45 @@ namespace Services
                     }
                     else
                     {
-                        ShowNotification($"Data Kosong", "Pengumuman !!!");
+                        writeLog($"Data Kosong");
                     }
                 }
                 return tbListProduk;
             }
-            catch (OperationCanceledException)
-            {
-                ShowNotification("Gagal Mengambil Data", "Request ke API terlalu lama (timeout).");
-                return new List<Kategori>();
-            }
-            catch (HttpRequestException ex)
-            {
-                ShowNotification("Gagal Mengambil Data", $"Terjadi kesalahan jaringan atau server. {ex.Message}");
-                return new List<Kategori>();
-            }
             catch (Exception ex)
             {
-                ShowNotification("Gagal Mengambil Data", $"Terjadi error: {ex.Message}");
-                return new List<Kategori>();
+                if (ex is OperationCanceledException)
+                {
+                    writeLog("Gagal Baca Data : Request ke API terlalu lama (timeout).");
+                }
+                else if (ex is HttpRequestException)
+                {
+                    writeLog($"Gagal Baca Data : Terjadi kesalahan jaringan atau server. {ex.Message}");
+                }
+                else
+                {
+                    writeLog($"Gagal Baca Data : Terjadi error: {ex.Message}");
+                }
             }
+
+            return tbListProduk;
+
         }
 
-        public async Task<List<Cart>> GetCartApi(string idKategori = "")
-        {
-            var client = initConfigApi();
-            string url = "http://43.228.212.41:77/api/cart/getAll?id_customer=cus_16";
+        public async Task<List<Cart>> GetCartApi(ParameterApi urlParam)
 
-            //url += addParam("no_id", idKategori, true);
+        {
+            var config = initConfigApi(urlParam);
             var tbListProduk = new List<Cart>();
             var tbListHead = new Kategori();
 
             try
             {
-                var response = await client.GetAsync(url);
+                var response = await config.httpReq.GetAsync(config.UrlApi, config.cancelTimer.Token);
 
-                (string data_no, bool data_bool) checking = await CheckAPI(response, url, "BACA");
+                var checking = await CheckAPI(response, config.UrlApi, "BACA");
 
-                if (checking.data_bool)
+                if (checking.statusResponse)
                 {
                     var json = await response.Content.ReadAsStringAsync();
                     using var jsonDoc = JsonDocument.Parse(json);
@@ -293,43 +372,215 @@ namespace Services
                     }
                     else
                     {
-                        ShowNotification($"Data Kosong", "Pengumuman !!!");
+                        writeLog($"Data Kosong");
                     }
                 }
                 return tbListProduk;
             }
-            catch (OperationCanceledException)
+            catch (Exception ex)
             {
-                ShowNotification("Gagal Mengambil Data", "Request ke API terlalu lama (timeout).");
-                return new List<Cart>();
+                if (ex is OperationCanceledException)
+                {
+                    writeLog("Gagal Baca Data : Request ke API terlalu lama (timeout).");
+                }
+                else if (ex is HttpRequestException)
+                {
+                    writeLog($"Gagal Baca Data : Terjadi kesalahan jaringan atau server. {ex.Message}");
+                }
+                else
+                {
+                    writeLog($"Gagal Baca Data : Terjadi error: {ex.Message}");
+                }
             }
-            catch (HttpRequestException ex)
+
+            return tbListProduk;
+        }
+
+        public async Task<(string messageResponse, bool statusResponse, int codeNumber, string proses)> CudCartApi(string proses, Cart cart = null , ParameterApi urlParam = null )
+        {
+            var config = initConfigApi(urlParam);
+            var result = (statusCode: 0, statusResponse: false, MessageInfo: "");
+            object requestBody = null;
+            string jsonContent = "";
+            HttpResponseMessage response;
+
+            var jsonSettings = new JsonSerializerSettings
             {
-                ShowNotification("Gagal Mengambil Data", $"Terjadi kesalahan jaringan atau server. {ex.Message}");
-                return new List<Cart>();
+                Formatting = Newtonsoft.Json.Formatting.None,
+                MissingMemberHandling = MissingMemberHandling.Ignore
+            };
+
+            try { 
+                switch (proses)
+                {
+                    case "HAPUS":
+                        response = await config.httpReq.DeleteAsync(config.UrlApi, config.cancelTimer.Token);
+                        break;
+
+                    case "TAMBAH":
+                        requestBody = new
+                        {
+                            id_Customer = cart.Id_Customer,
+                            id_Variant = cart.Id_Variant,
+                            add_qty = cart.Qty
+                        };
+
+                        jsonContent = JsonConvert.SerializeObject(requestBody, jsonSettings);
+                        var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                        response = await config.httpReq.PostAsync(config.UrlApi, content, config.cancelTimer.Token);
+                        break;
+
+                    default:
+                        jsonContent = JsonConvert.SerializeObject(requestBody, jsonSettings);
+                        content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                        response = await config.httpReq.PutAsync(config.UrlApi, content, config.cancelTimer.Token);
+                        break;
+                }
+
+                result = await CheckAPI(response, config.UrlApi, proses);
+
+                return (result.MessageInfo, result.statusResponse, result.statusCode, proses);
             }
             catch (Exception ex)
             {
-                ShowNotification("Gagal Mengambil Data", $"Terjadi error: {ex.Message}");
-                return new List<Cart>();
+                if (ex is OperationCanceledException)
+                {
+                    writeLog("Gagal CUD Data : Request ke API terlalu lama (timeout).");
+                }
+                else if (ex is HttpRequestException)
+                {
+                    writeLog($"Gagal CUD Data : Terjadi kesalahan jaringan atau server. {ex.Message}");
+                }
+                else
+                {
+                    writeLog($"Gagal CUD Data : Terjadi error: {ex.Message}");
+                }
             }
+
+            return ("Terjadi Kesalahan: Gagal memproses data", false, 500, proses);
         }
 
-        public async Task<List<Pembayaran>> GetMetodeBayarApi(string idProduk = "")
+        public async Task<(string messageResponse, bool statusResponse, int codeNumber, string proses)> CudPesananApi(string proses, object order = null , ParameterApi urlParam = null )
         {
-            var client = initConfigApi();
-            string url = "http://43.228.212.41:77/api/payment/option?orderby=fee&orderdir=asc";
+            var config = initConfigApi(urlParam);
+            var result = (statusCode: 0, statusResponse: false, MessageInfo: "");
+            object requestBody = null;
+            string jsonContent = "";
+            HttpResponseMessage response;
 
-            //url += addParam("no_id", idProduk, true);
+            var jsonSettings = new JsonSerializerSettings
+            {
+                Formatting = Newtonsoft.Json.Formatting.None,
+                MissingMemberHandling = MissingMemberHandling.Ignore
+            };
+
+            try { 
+                switch (proses)
+                {
+                    case "HAPUS":
+                        response = await config.httpReq.DeleteAsync(config.UrlApi, config.cancelTimer.Token);
+                        break;
+
+                    case "TAMBAH":
+                        requestBody = order;
+
+                        jsonContent = JsonConvert.SerializeObject(requestBody, jsonSettings);
+                        var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                        response = await config.httpReq.PostAsync(config.UrlApi, content, config.cancelTimer.Token);
+                        break;
+
+                    default:
+                        jsonContent = JsonConvert.SerializeObject(requestBody, jsonSettings);
+                        content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                        response = await config.httpReq.PutAsync(config.UrlApi, content, config.cancelTimer.Token);
+                        break;
+                }
+
+                result = await CheckAPI(response, config.UrlApi, proses);
+
+                return (result.MessageInfo, result.statusResponse, result.statusCode, proses);
+            }
+            catch (Exception ex)
+            {
+                if (ex is OperationCanceledException)
+                {
+                    writeLog("Gagal CUD Data : Request ke API terlalu lama (timeout).");
+                }
+                else if (ex is HttpRequestException)
+                {
+                    writeLog($"Gagal CUD Data : Terjadi kesalahan jaringan atau server. {ex.Message}");
+                }
+                else
+                {
+                    writeLog($"Gagal CUD Data : Terjadi error: {ex.Message}");
+                }
+            }
+
+            return ("Terjadi Kesalahan: Gagal memproses data", false, 500, proses);
+        }
+
+        public async Task<List<Pengiriman>> GetMetodeKirimApi(ParameterApi urlParam)
+        {
+
+            var config = initConfigApi(urlParam);
+            var tbListProduk = new List<Pengiriman>();
+
+            try
+            {
+                var response = await config.httpReq.GetAsync(config.UrlApi);
+
+                var checking = await CheckAPI(response, config.UrlApi, "BACA");
+
+                if (checking.statusResponse)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    using var jsonDoc = JsonDocument.Parse(json);
+                    var root = jsonDoc.RootElement;
+
+                    if (root.TryGetProperty("Data", out var dataFromDb))
+                    {
+                        tbListProduk = JsonConvert.DeserializeObject<List<Pengiriman>>(dataFromDb.GetRawText());
+                    }
+                }
+
+                return tbListProduk;
+            }
+            catch (Exception ex)
+            {
+                if (ex is OperationCanceledException)
+                {
+                    writeLog("Gagal Baca Data : Request ke API terlalu lama (timeout).");
+                }
+                else if (ex is HttpRequestException)
+                {
+                    writeLog($"Gagal Baca Data : Terjadi kesalahan jaringan atau server. {ex.Message}");
+                }
+                else
+                {
+                    writeLog($"Gagal Baca Data : Terjadi error: {ex.Message}");
+                }
+            }
+
+            return tbListProduk;
+        }
+
+        public async Task<List<Pembayaran>> GetMetodeBayarApi(ParameterApi urlParam)
+        {
+
+            var config = initConfigApi(urlParam);
             var tbListProduk = new List<Pembayaran>();
 
             try
             {
-                var response = await client.GetAsync(url);
+                var response = await config.httpReq.GetAsync(config.UrlApi);
 
-                (string data_no, bool data_bool) checking = await CheckAPI(response, url, "BACA");
+                var checking = await CheckAPI(response, config.UrlApi, "BACA");
 
-                if (checking.data_bool)
+                if (checking.statusResponse)
                 {
                     var json = await response.Content.ReadAsStringAsync();
                     using var jsonDoc = JsonDocument.Parse(json);
@@ -343,36 +594,42 @@ namespace Services
 
                 return tbListProduk;
             }
-            catch (OperationCanceledException)
-            {
-                return new List<Pembayaran>();
-            }
-            catch (HttpRequestException ex)
-            {
-                return new List<Pembayaran>();
-            }
             catch (Exception ex)
             {
-                return new List<Pembayaran>();
+                if (ex is OperationCanceledException)
+                {
+                    writeLog("Gagal Baca Data : Request ke API terlalu lama (timeout).");
+                }
+                else if (ex is HttpRequestException)
+                {
+                    writeLog($"Gagal Baca Data : Terjadi kesalahan jaringan atau server. {ex.Message}");
+                }
+                else
+                {
+                    writeLog($"Gagal Baca Data : Terjadi error: {ex.Message}");
+                }
             }
+
+            return tbListProduk;
         }
 
-        public async Task<List<Brand>> GetBrandApi(string idBrand = "")
+        public async Task<List<Brand>> GetBrandApi(ParameterApi urlParam)
         {
-            var client = initConfigApi();
-            string url = "http://43.228.212.41:77/api/brand/getall";
+
+            var config = initConfigApi(urlParam);
+            string url = config.UrlApi + "brand/getall";
 
             //url += addParam("no_id", idProduk, true);
             var tbListProduk = new List<Brand>();
 
             try
             {
-                var response = await client.GetAsync(url);
+                var response = await config.httpReq.GetAsync(config.UrlApi);
 
-                (string data_no, bool data_bool) checking = await CheckAPI(response, url, "BACA");
+                var checking = await CheckAPI(response, config.UrlApi, "BACA");
 
-                if (checking.data_bool)
-                {
+                if (checking.statusResponse)
+                { 
                     var json = await response.Content.ReadAsStringAsync();
                     using var jsonDoc = JsonDocument.Parse(json);
                     var root = jsonDoc.RootElement;
@@ -385,34 +642,37 @@ namespace Services
 
                 return tbListProduk;
             }
-            catch (OperationCanceledException)
-            {
-                return new List<Brand>();
-            }
-            catch (HttpRequestException ex)
-            {
-                return new List<Brand>();
-            }
             catch (Exception ex)
             {
-                return new List<Brand>();
+                if (ex is OperationCanceledException)
+                {
+                    writeLog("Gagal Baca Data : Request ke API terlalu lama (timeout).");
+                }
+                else if (ex is HttpRequestException)
+                {
+                    writeLog($"Gagal Baca Data : Terjadi kesalahan jaringan atau server. {ex.Message}");
+                }
+                else
+                {
+                    writeLog($"Gagal Baca Data : Terjadi error: {ex.Message}");
+                }
             }
+
+            return tbListProduk;
         }
 
-        public async Task<List<Brand>> GetBannerApi(string idBanner = "")
+        public async Task<List<Brand>> GetBannerApi(ParameterApi urlParam)
         {
-            var client = initConfigApi();
-            string url = "http://43.228.212.41:77/api/banner/getAll";
-
+            var config = initConfigApi(urlParam);
             var tbListProduk = new List<Brand>();
 
             try
             {
-                var response = await client.GetAsync(url);
+                var response = await config.httpReq.GetAsync(config.UrlApi);
 
-                (string data_no, bool data_bool) checking = await CheckAPI(response, url, "BACA");
+                var checking = await CheckAPI(response, config.UrlApi, "BACA");
 
-                if (checking.data_bool)
+                if (checking.statusResponse)
                 {
                     var json = await response.Content.ReadAsStringAsync();
                     using var jsonDoc = JsonDocument.Parse(json);
@@ -424,30 +684,81 @@ namespace Services
                     }
                     else
                     {
-                        ShowNotification($"Data Kosong", "Pengumuman !!!");
+                        writeLog($"Data Kosong");
                     }
                 }
 
                 return tbListProduk;
             }
-            catch (OperationCanceledException)
+            catch (Exception ex)
             {
-                ShowNotification("Gagal Mengambil Data", "Request ke API terlalu lama (timeout).");
-                return new List<Brand>();
+                if (ex is OperationCanceledException)
+                {
+                    writeLog("Gagal Baca Data : Request ke API terlalu lama (timeout).");
+                }
+                else if (ex is HttpRequestException)
+                {
+                    writeLog($"Gagal Baca Data : Terjadi kesalahan jaringan atau server. {ex.Message}");
+                }
+                else
+                {
+                    writeLog($"Gagal Baca Data : Terjadi error: {ex.Message}");
+                }
             }
-            catch (HttpRequestException ex)
+
+            return tbListProduk;
+        }
+
+        public async Task<Pesanan> GetPesananApi(ParameterApi urlParam)
+
+        {
+            var config = initConfigApi(urlParam);
+            var tbListProduk = new List<Pesanan>();
+            var tbListHead = new Pesanan();
+
+            try
             {
-                ShowNotification("Gagal Mengambil Data", $"Terjadi kesalahan jaringan atau server. {ex.Message}");
-                return new List<Brand>();
+                var response = await config.httpReq.GetAsync(config.UrlApi, config.cancelTimer.Token);
+
+                var checking = await CheckAPI(response, config.UrlApi, "BACA");
+
+                if (checking.statusResponse)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    using var jsonDoc = JsonDocument.Parse(json);
+                    var root = jsonDoc.RootElement;
+
+                    if (root.TryGetProperty("Data", out var dataFromDb))
+                    {
+                        tbListHead = JsonConvert.DeserializeObject<Pesanan>(dataFromDb.GetRawText());
+                    }
+                    else
+                    {
+                        writeLog($"Data Kosong");
+                    }
+                }
+
+                return tbListHead;
             }
             catch (Exception ex)
             {
-                ShowNotification("Gagal Mengambil Data", $"Terjadi error: {ex.Message}");
-                return new List<Brand>();
+                if (ex is OperationCanceledException)
+                {
+                    writeLog("Gagal Baca Data : Request ke API terlalu lama (timeout).");
+                }
+                else if (ex is HttpRequestException)
+                {
+                    writeLog($"Gagal Baca Data : Terjadi kesalahan jaringan atau server. {ex.Message}");
+                }
+                else
+                {
+                    writeLog($"Gagal Baca Data : Terjadi error: {ex.Message}");
+                }
             }
+
+            return tbListHead;
+
         }
-
-
 
 
 

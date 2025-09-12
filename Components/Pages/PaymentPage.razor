@@ -1,5 +1,5 @@
 ﻿@rendermode InteractiveServer
-@page "/payment-page"
+@page "/payment-page/{CartList}"
 
 
 <!-- Start Content Area -->
@@ -13,9 +13,9 @@
     <div class="checkout-main">
         <div class="checkout-header">
             <NavLink @onclick="@(x => NavigationManager.NavigateTo("/", true))" style="cursor:pointer;" >
-                <img src="images/logo/logo.svg" alt="Logo" class="checkout-logo">
+                <img src="images/logo/logo-pdj.png" alt="Logo" class="checkout-logo">
             </NavLink>
-            <NavLink @onclick="@(x => NavigationManager.NavigateTo("/cart-page", true))" class="checkout-button" style="">
+            <NavLink @onclick="@(x => NavigationManager.NavigateTo("/cart-page/keranjang", true))" class="checkout-button" style="">
                 <i class="lni lni-cart-1 cart-icon-pay" </i>
             </NavLink>
         </div>
@@ -29,18 +29,22 @@
             <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
               <div class="accordion-body" style="padding:0px">
                   <div class="summary__items" style="max-height: 400px;">
-                    <div style="max-height:335px; overflow-y:auto; padding: 10px 20px;">
+                    <div style="max-height: 335px;overflow-y: auto;padding: 10px 10px;display: flex;flex-direction: column;gap: 10px;">
                         @foreach (var display in ListDisplayProduk)
                         {
-                            <div class="summary-item">
+                            <div class="summary-item" style="padding-bottom: 10px;border-bottom: 1px solid #e5e7eb;">
                                 <div class="summary-item__thumb">
-                                    <Image Src="@display.MediaUrls[0]?.Id_Media" />
+                                    <Image Src="@display?.Id_Media" />
                                 </div>
-                                <div>
-                                    <div class="summary-item__title">@display.Nama_Display</div>
-                                    <div class="summary-item__meta">1x</div>
+                                <div style="height: 100%;display: flex;flex-direction: column;justify-content: space-between;padding: 2px 0px;">
+                                    <div class="summary-item__title">
+                                        <p class="line-clamp-2" style="margin: 0;padding: 0;font-size: 12px;line-height: 16px;">
+                                            @display.Nama_Display
+                                        </p>
+                                    </div>
+                                    <div class="summary-item__meta">@($"{display?.Qty} x " + string.Format("Rp. {0:N2}", @display?.Harga))</div>
                                 </div>
-                                <div>@string.Format("Rp. {0:N2}", @display.Harga)</div>
+                                <div style="font-weight: 600;">@string.Format("Rp. {0:N2}", @display?.Harga * display?.Qty)</div>
                             </div>
                         }
                     </div>
@@ -52,42 +56,41 @@
         <div class="panel section-payment">
             <div class="panel__header">Informasi Pengiriman</div>
             <div class="panel__body panel_custom">
-                <div class="form-grid">
-                    <div class="field">
-                        <label>Nama Lengkap</label>
-                        <input type="text" class="input">
+                @foreach(var Head in Pesanan_Info.Header) 
+                {
+                    <div class="form-grid">
+                        <div class="field">
+                            <label>Nama Penerima</label>
+                            <input type="text" @bind-value=@Head.Nama_Penerima class="input">
+                        </div>
+                        <div class="field">
+                            <label>Telpon Penerima</label>
+                            <input type="text" @bind-value=@Head.Telpon_Penerima class="input">
+                        </div>
                     </div>
-                    <div class="field">
-                        <label>Email</label>
-                        <input type="email" class="input">
+                    <div class="form-grid form-grid--single">
+                        <div class="field">
+                            <label>Alamat Kirim</label>
+                            <input type="text" @bind-value=@Head.Alamat_Kirim class="input">
+                        </div>
                     </div>
-                </div>
-                <div class="form-grid form-grid--single">
-                    <div class="field">
-                        <label>Alamat</label>
-                        <input type="text" class="input">
-                    </div>
-                </div>
+                }
             </div>
         </div>
 
         <div class="panel section-payment">
             <div class="panel__header">Metode Pengiriman</div>
             <div class="panel__body shipping-list">
-                <label class="shipping-item">
-                    <div class="custom-payment">
-                        <input type="radio" name="ship" checked>
-                        <span>Reguler (2-4 hari)</span>
-                    </div>
-                    <div class="shipping-item__right">Rp 20.000</div>
-                </label>
-                <label class="shipping-item">
-                    <div class="custom-payment">
-                        <input type="radio" name="ship">
-                        <span>Ekspres (1-2 hari)</span>
-                    </div>
-                    <div class="shipping-item__right">Rp 40.000</div>
-                </label>
+                @foreach(var shipping_method in ListDataKirim)
+                {
+                    <label class="shipping-item">
+                        <div class="custom-payment">
+                            <input type="radio" name="ship" checked="@shipping_method.selectShipping" @onchange="(e) => SelectShipingMethod(shipping_method)">
+                            <span>@shipping_method.Nama</span>
+                        </div>
+                        <div class="shipping-item__right">@string.Format("Rp. {0:N2}", @shipping_method.Fee)</div>
+                    </label>
+                }
             </div>
         </div>
 
@@ -98,30 +101,35 @@
                 {
                     <label class="payment-item">
                         <div class="custom-payment">
-                            <input type="radio" name="pay" value="@payment_method.Cara_Bayar" checked>
+                            <input type="radio" name="pay" checked="@payment_method.selectPayment" @onchange="(e) => SelectPaymentMethod(payment_method)">
                             <span>@payment_method.Display</span>
                         </div>
-                        <div class="shipping-item__right">@payment_method.Fee</div>
+                        <div class="shipping-item__right">@string.Format("Rp. {0:N2}", @payment_method.Fee)</div>
                     </label>
                 }
+                
             </div>
         </div>
 
         <aside class="checkout-summary2 panel d-flex d-md-flex d-lg-none">
             <div class="summary__items" style="max-height: 400px;">
                 <div class="panel__header" style="padding: 5px 20px 18px 0px; font-size:22px;" >Ringkasan Pesanan</div>
-                <div style="max-height:335px; overflow-y:auto; padding: 10px 10px;">
+                <div style="max-height: 335px;overflow-y: auto;padding: 10px 10px;display: flex;flex-direction: column;gap: 10px;">
                     @foreach (var display in ListDisplayProduk)
                     {
-                        <div class="summary-item">
+                        <div class="summary-item" style="padding-bottom: 10px;border-bottom: 1px solid #e5e7eb;">
                             <div class="summary-item__thumb">
-                                <Image Src="@display.MediaUrls[0]?.Id_Media" />
+                                <Image Src="@display?.Id_Media" />
                             </div>
-                            <div>
-                                <div class="summary-item__title">@display.Nama_Display</div>
-                                <div class="summary-item__meta">1x</div>
+                            <div style="height: 100%;display: flex;flex-direction: column;justify-content: space-between;padding: 2px 0px;">
+                                <div class="summary-item__title">
+                                    <p class="line-clamp-2" style="margin: 0;padding: 0;font-size: 12px;line-height: 16px;">
+                                        @display.Nama_Display
+                                    </p>
+                                </div>
+                                <div class="summary-item__meta">@($"{display?.Qty} x " + string.Format("Rp. {0:N2}", @display?.Harga))</div>
                             </div>
-                            <div>@string.Format("Rp. {0:N2}", @display.Harga)</div>
+                            <div style="font-weight: 600;">@string.Format("Rp. {0:N2}", @display?.Harga * display?.Qty)</div>
                         </div>
                     }
                 </div>
@@ -129,27 +137,49 @@
             <div>
                 <div class="summary__line">
                     <span>Subtotal</span>
-                    <span>Rp 350.000</span>
+                    <span style="font-weight:600;">@string.Format("Rp. {0:N2}", ListDisplayProduk.Sum(x => x.Qty * x.Harga))</span>
                 </div>
                 <div class="summary__line">
                     <span>Pengiriman</span>
-                    <span>Rp 20.000</span>
+                    <span style="font-weight:600;">@string.Format("Rp. {0:N2}", shipingMethodFee)</span>
+                </div>
+                <div class="summary__line">
+                    <span>Biaya Platform</span>
+                    <span style="font-weight:600;">@string.Format("Rp. {0:N2}", paymentMethodFee)</span>
                 </div>
                 <div class="summary__line summary__line--bold">
                     <span>Total</span>
-                    <span>Rp 370.000</span>
+                    <span>@string.Format("Rp. {0:N2}", nettoKeranjang)</span>
                 </div>
             </div>
         </aside>
 
         <div style="padding: 0px 20px;">
-            <button class="btn btn--primary btn--full">Selesaikan Pesanan</button>
+            <button class="btn btn--primary btn--full" @onclick="@( () => FinisedOrder())" >Selesaikan Pesanan</button>
+            @if(alertPayment) {
+                <span class="mt-2" style="color:red;">
+                    * Pastikan anda telah memilih metode pembayaran dan pengiriman.
+                </span>
+            }
+            @if(alertProfile) {
+                <span class="mt-1" style="color:red;">
+                    * Pastikan anda telah mengisi alamat kirim, nama dan telepon penerima.
+                </span>
+            }
+        </div>
+
+        <div style="padding: 0px 0px;">
+            <button style="opacity: 1;position: absolute;width: 0;height: 0;padding: 0;" id="modalPaymentStatus" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"/>
+        </div>
+
+        <div style="padding: 0px 0px;">
+            <button style="opacity: 1;position: absolute;width: 0;height: 0;padding: 0;" id="modalPaymentStatus2" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop2"/>
         </div>
 
 
         <!-- Footer -->
         <footer class="checkout-footer">
-        <p>© 2025 Department Checkout. Semua hak dilindungi.</p>
+        <p>© 2025 Pacific Data Jaya. Semua hak dilindungi.</p>
         </footer>
 
     </div>
@@ -158,22 +188,22 @@
     <aside class="checkout-summary panel d-none d-md-none d-lg-flex">
         <div class="summary__items" style="max-height: 400px;">
             <div class="panel__header" style="padding: 5px 20px 18px 0px; font-size:22px;" >Ringkasan Pesanan</div>
-            <div style="max-height:335px; overflow-y:auto; padding: 10px 10px;">
+            <div style="max-height: 335px;overflow-y: auto;padding: 10px 10px;display: flex;flex-direction: column;gap: 10px;">
                 @foreach (var display in ListDisplayProduk)
                 {
-                    <div class="summary-item">
+                    <div class="summary-item" style="padding-bottom: 10px;border-bottom: 1px solid #e5e7eb;">
                         <div class="summary-item__thumb">
-                            <Image Src="@display.MediaUrls[0]?.Id_Media" />
+                            <Image Src="@display?.Id_Media" />
                         </div>
-                        <div>
+                        <div style="height: 100%;display: flex;flex-direction: column;justify-content: space-between;padding: 2px 0px;">
                             <div class="summary-item__title">
-                                <p>
+                                <p class="line-clamp-2" style="margin: 0;padding: 0;font-size: 12px;line-height: 16px;">
                                     @display.Nama_Display
                                 </p>
                             </div>
-                            <div class="summary-item__meta">1x</div>
+                            <div class="summary-item__meta">@($"{display?.Qty} x " + string.Format("Rp. {0:N2}", @display?.Harga))</div>
                         </div>
-                        <div>@string.Format("Rp. {0:N2}", @display.Harga)</div>
+                        <div style="font-weight: 600;">@string.Format("Rp. {0:N2}", @display?.Harga * display?.Qty)</div>
                     </div>
                 }
             </div>
@@ -181,18 +211,226 @@
         <div>
             <div class="summary__line">
                 <span>Subtotal</span>
-                <span>Rp 350.000</span>
+                <span style="font-weight:600;">@string.Format("Rp. {0:N2}", ListDisplayProduk.Sum(x => x.Qty * x.Harga))</span>
             </div>
             <div class="summary__line">
                 <span>Pengiriman</span>
-                <span>Rp 20.000</span>
+                <span style="font-weight:600;">@string.Format("Rp. {0:N2}", shipingMethodFee)</span>
+            </div>
+            <div class="summary__line">
+                <span>Biaya Platform</span>
+                <span style="font-weight:600;">@string.Format("Rp. {0:N2}", paymentMethodFee)</span>
             </div>
             <div class="summary__line summary__line--bold">
                 <span>Total</span>
-                <span>Rp 370.000</span>
+                <span>@string.Format("Rp. {0:N2}", nettoKeranjang)</span>
             </div>
         </div>
     </aside>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body" style="padding: 2rem 2rem 1rem 2rem;gap: 10px;display: flex;flex-direction: column;">
+                    
+                    @foreach(var Head in Pesanan_Info.Header) 
+                    {
+                        <div style="display:flex; flex-direction:row;">
+                            <div style="display:flex; flex-direction:column; gap:5px; width:50%;">
+                                <h5 class="va-title">Nama Penerima</h5>
+                                <h4 class="va-title-sec">@Head.Nama_Penerima</h4>
+                            </div>
+                            <div style="display:flex; flex-direction:column; gap:5px; width:50%;">
+                                <h5 class="va-title">Telpon Penerima</h5>
+                                <h4 class="va-title-sec">@Head.Telpon_Penerima</h4>
+                            </div>
+                        </div>
+                        <div style="display:flex; flex-direction:column; gap:5px;">
+                            <h5 class="va-title">Alamat Kirim</h5>
+                            <h4 class="va-title-sec">@Head.Alamat_Kirim</h4>
+                        </div>
+                    }
+                    
+                    
+                    <div style="display:flex; flex-direction:row;">
+                        <div style="display:flex; flex-direction:column; gap:5px; width:50%;">
+                            <h5 class="va-title">Metode Pembayaran</h5>
+                            <h4 class="va-title-sec" style="font-size:16px;">@($"{dataLayanan?.Cara_Bayar} ")</h4>
+                        </div>
+                        <div style="display:flex; flex-direction:column; gap:5px; width:50%;">
+                            <h5 class="va-title">Pengiriman</h5>
+                            <h4 class="va-title-sec" style="font-size:16px;">@($"{dataKirim?.Nama} ")</h4>
+                        </div>
+                    </div>
+
+
+                    <aside class="checkout-summary2 panel" style="background-color:white; padding:0px; height:fit-content; margin-bottom:0px; margin-top:20px">
+                        <div>
+                            <div class="summary__line" style="border-top: unset;">
+                                <span>Subtotal Item</span>
+                                <span style="font-weight:600;">@string.Format("Rp. {0:N2}", ListDisplayProduk.Sum(x => x.Qty * x.Harga))</span>
+                            </div>
+                            <div class="summary__line">
+                                <span>Pengiriman</span>
+                                <span style="font-weight:600;">@string.Format("Rp. {0:N2}", shipingMethodFee)</span>
+                            </div>
+                            <div class="summary__line">
+                                <span>Biaya Platform</span>
+                                <span style="font-weight:600;">@string.Format("Rp. {0:N2}", paymentMethodFee)</span>
+                            </div>
+                            <div class="summary__line summary__line--bold">
+                                <span>Total</span>
+                                <span>@string.Format("Rp. {0:N2}", nettoKeranjang)</span>
+                            </div>
+                        </div>
+                    </aside>
+                    @if(alertCreate) {
+                        <span class="mt-1" style="color:red;">
+                            * Terjadi kesalahan ketika membuat order, coba lagi.
+                        </span>
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="batalBayar" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary" @onclick="@( () => PayOrder())" >
+                        @if(loadProses) 
+                        {
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        } 
+                        else
+                        {
+                            @("Buat Pembayaran")
+                        }
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                @foreach(var Head in Pesanan_Create.Header)
+                {
+                    <div class="modal-body" style="padding: 2rem 2rem 1rem 2rem; gap: 10px; display: flex; flex-direction: column;">
+
+                        <div style="display:flex; flex-direction:row;">
+                            <div style="display:flex; flex-direction:column; gap:5px; width:50%;">
+                                <h5 class="va-title">Order Id</h5>
+                                <h4 class="va-title-sec">@Head?.No_Bukti</h4>
+                            </div>
+                            <div style="display:flex; flex-direction:column; gap:5px; width:50%;">
+                                <h5 class="va-title">Status</h5>
+                                <h4 class="va-title-sec" style=@(Head?.Status_Order_1 == "belum bayar" ? "color:red" : "color:orange")> 
+                                    @ti.ToTitleCase(Head?.Status_Order_1) 
+                                </h4>
+                            </div>
+                        </div>
+
+                        <div style="display:flex; flex-direction:row;">
+                            <div style="display:flex; flex-direction:column; gap:5px; width:50%;">
+                                <h5 class="va-title">Total Pembayaran</h5>
+                                <h4 class="va-title-total">@string.Format("Rp. {0:N2}", @Head?.Grand_Total)</h4>
+                            </div>
+                            <div style="display:flex; flex-direction:column; gap:5px; width:50%;">
+                                <h5 class="va-title">Metode</h5>
+                                <h4 class="va-title-sec">@Head?.Metode_Bayar</h4>
+                            </div>
+                        </div>
+
+                        @if (@Head?.Metode_Bayar != "QRIS" && @Head?.Status_Order_1 == "belum bayar") 
+                        {
+                            <div style="display:flex; flex-direction:row;">
+                                <div style="display:flex; flex-direction:column; gap:5px; width:50%;">
+                                    <h5 class="va-title">Expired</h5>
+                                    <h4 class="va-title-total">@Head?.Expiry_Time?.ToLocalTime()</h4>
+                                </div>
+                            </div>
+                        }
+                    
+                        @if (@Head?.Metode_Bayar == "QRIS" && @Head?.Status_Order_1 == "belum bayar") 
+                        {
+                            <div class="d-flex align-items-center justify-content-center mt-3">
+                                <img class="qr-payment" style="max-width:50%" src="@Head?.QrBase64" alt="Alternate Text" />
+                            </div>
+                        }
+                        else if (@Head?.Metode_Bayar != "QRIS" && @Head?.Status_Order_1 == "belum bayar")
+                        {
+                            @if (@Head?.Metode_Bayar == "VA MANDIRI" || @Head?.Metode_Bayar == "COUNTER INDOMARET") {
+                                <div>
+                                    <div class="va-box" data-va="@Head?.Payment_Number_1">
+                                        <div class="va-content">
+                                            <div class="va-header">@(Head?.Metode_Bayar == "VA MANDIRI" ? "Biller Code" : "Payment Code")</div>
+                                            <div class="va-body" id="va-text">
+                                                @Head?.Payment_Number_1
+                                                <button class="copy-btn copy-btn-@Head?.No_Bukti-code" type="button" aria-label="Copy VA" @onclick=@( x => clickCopy(Head,"-code"))>Copy</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="va-box" data-va="@Head?.Payment_Number_2">
+                                        <div class="va-content">
+                                            <div class="va-header">@(Head?.Metode_Bayar == "VA MANDIRI" ? "Bill Key" : "Merchant Id")</div>
+                                            <div class="va-body" id="va-text">
+                                                @Head?.Payment_Number_2
+                                                <button class="copy-btn copy-btn-@Head?.No_Bukti-key" type="button" aria-label="Copy VA" @onclick=@( x => clickCopy(Head,"-key"))>Copy</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            else {
+                                <div>
+                                    <div class="va-box" data-va="@Head?.Payment_Number_1">
+                                        <div class="va-content">
+                                            <div class="va-header">Nomor VA</div>
+                                            <div class="va-body" id="va-text">
+                                                @Head?.Payment_Number_1
+                                                <button class="copy-btn copy-btn-@Head?.No_Bukti" type="button" aria-label="Copy VA" @onclick=@( x => clickCopy(Head))>Copy</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+
+                    </div>
+
+                    <div class="modal-footer">
+                        @if (@Head?.Status_Order_1 == "belum bayar") {
+                            <button type="button" style="min-width:7rem;" disabled=@loadProses class="btn btn-primary" @onclick="@( x => refreshStatus(Head))" >
+                                @if(loadProses) 
+                                {
+                                    <div class="spinner-border" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                } 
+                            
+                                else
+                                {
+                                    @("Refresh")
+                                }
+                            </button>
+                        }
+
+                        @if (@Head?.Metode_Bayar == "QRIS" && @Head?.Status_Order_1 == "belum bayar") 
+                        {
+                            <button type="button" class="btn btn-success" @onclick="@( x => DownloadImage(Head))" >Download</button>
+                        }
+
+                        <button type="button" class="@( @Head?.Status_Order_1 == "belum bayar" ? "btn btn-secondary" : "btn btn-success" )" @onclick="@( x => directStatus(@Head))" > @(Head.Status_Order_1 == "belum bayar" ? "Selesaikan Nanti" : "Lihat Pesanan")</button>
+                    </div>
+
+                }        
+            
+            </div>
+        </div>
+    </div>
+
 </div>
 
 

@@ -11,7 +11,7 @@
     <base href="@NavigationManager.BaseUri" />
     <base href="~/" />
     <link href="_content/Radzen.Blazor/css/humanistic-base.css" rel="stylesheet" />
-    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.svg" />
+    <link rel="shortcut icon" type="image/x-icon" href="images/logo/icon-pdj.png" />
 
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.css">
@@ -37,8 +37,8 @@
 </head>
 
 <body>
-
-    <div class="preloader">
+    @* style="display:none !important;" *@
+    <div class="preloader" style="">
         <div class="preloader-inner">
             <div class="preloader-icon">
                 <span></span>
@@ -88,20 +88,70 @@
             }
         }
 
-        // window.blazorOffcanvas = {
-        //     show: function (selector) {
-        //         var el = document.querySelector(selector);
-        //         if (!el) return;
-        //         var offcanvas = bootstrap.Offcanvas.getOrCreateInstance(el);
-        //         offcanvas.show();
-        //     },
-        //     hide: function (selector) {
-        //         var el = document.querySelector(selector);
-        //         if (!el) return;
-        //         var offcanvas = bootstrap.Offcanvas.getOrCreateInstance(el);
-        //         offcanvas.hide();
-        //     }
-        // };
+        function buttonClick(selectorName) {
+            document.querySelector(selectorName).click();
+        }
+
+
+
+        function initVaCopy() {
+            const boxes = document.querySelectorAll('.va-box');
+
+            boxes.forEach(box => {
+                const btn = box.querySelector('.copy-btn');
+                const textEl = box.querySelector('.va-body');
+
+                let timerId = null;
+
+                const getVa = () => {
+                    // Prioritas: data-va (agar value tersembunyi juga bisa dicopy), fallback isi teks body
+                    return box.getAttribute('data-va')?.trim() || textEl?.textContent?.trim() || '';
+                };
+
+                const setCopied = () => {
+                    btn.textContent = 'Copied';
+                    btn.classList.add('copied');
+                    clearTimeout(timerId);
+                    timerId = setTimeout(() => {
+                        btn.textContent = 'Copy';
+                        btn.classList.remove('copied');
+                    }, 5000);
+                };
+
+                const copyText = async (value) => {
+                    try {
+                        if (navigator.clipboard?.writeText) {
+                            await navigator.clipboard.writeText(value);
+                        } else {
+                            // Fallback untuk browser lama
+                            const ta = document.createElement('textarea');
+                            ta.value = value;
+                            ta.style.position = 'fixed';
+                            ta.style.opacity = '0';
+                            document.body.appendChild(ta);
+                            ta.focus();
+                            ta.select();
+                            document.execCommand('copy');
+                            document.body.removeChild(ta);
+                        }
+                        setCopied();
+                    } catch (e) {
+                        console.error('Copy failed:', e);
+                        // Jika gagal, beri sedikit feedback
+                        btn.textContent = 'Failed';
+                        btn.classList.remove('copied');
+                        clearTimeout(timerId);
+                        timerId = setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
+                    }
+                };
+
+                btn.addEventListener('click', () => {
+                    const value = getVa();
+                    if (value) copyText(value);
+                });
+            });
+        }
+
 
         function initslideProduct() {
             const products = document.querySelectorAll(".product");
@@ -119,6 +169,90 @@
 
             products.forEach(p => observer.observe(p));
         }
+
+        function initItemsOrder(data) {
+            const headerBtn = document.querySelector(".header-accord-" + data);
+            const noneAccords = document.querySelectorAll(".none-accord-" + data);
+
+            if (!headerBtn) return;
+
+            if (!headerBtn.classList.contains("collapsed")) {
+                // kalau accordion terbuka ? sembunyikan
+                noneAccords.forEach(el => {
+                    el.classList.add("hide");
+                    setTimeout(() => {
+                        el.style.setProperty("display", "none", "important");
+                    }, 10);
+                });
+            } else {
+                // kalau accordion tertutup ? tampilkan lagi
+                noneAccords.forEach(el => {
+                    el.style.display = "block";
+                    setTimeout(() => {
+                        el.classList.remove("hide");
+                    }, 10);
+                });
+            }
+        }
+
+        function downloadFileFromBase64(filename, base64) {
+            const link = document.createElement("a");
+            link.href = "data:image/png;base64," + base64;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+
+        async function copyVa(kode) {
+
+            // Cari tombol target spesifik berdasarkan kode
+            const btn = document.querySelector(`.copy-btn-${kode}`);
+            if (!btn) return;
+
+            // Ambil nilai VA: prioritas data-va di parent
+            const box = btn.closest('.va-box');
+            const value = box?.getAttribute('data-va')?.trim() || btn.dataset.va?.trim() || '';
+
+            let timerId;
+
+            const setCopied = () => {
+                btn.textContent = 'Copied';
+                btn.classList.add('copied');
+                clearTimeout(timerId);
+                timerId = setTimeout(() => {
+                    btn.textContent = 'Copy';
+                    btn.classList.remove('copied');
+                }, 5000);
+            };
+
+            try {
+                if (navigator.clipboard?.writeText) {
+                    await navigator.clipboard.writeText(value);
+                } else {
+                    // Fallback untuk browser lama
+                    const ta = document.createElement('textarea');
+                    ta.value = value;
+                    ta.style.position = 'fixed';
+                    ta.style.opacity = '0';
+                    document.body.appendChild(ta);
+                    ta.focus();
+                    ta.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(ta);
+                }
+                setCopied();
+            } catch (err) {
+                console.error('Copy failed:', err);
+                btn.textContent = 'Failed';
+                clearTimeout(timerId);
+                timerId = setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
+            }
+        }
+
+
+
 
         function initHeaderMega() {
             document.querySelectorAll('.mega-parent').forEach(item => {
@@ -145,7 +279,6 @@
         function colLoadOut() {
             const el = document.querySelector('.col-load');
             if (!el) return console.log("class load not found");
-            console.log("class load found")
             el.style.opacity = '0';
             setTimeout(() => {
                 el.style.display = 'none';

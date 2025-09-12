@@ -1,15 +1,23 @@
-﻿using Microsoft.AspNetCore.Components.Web;
+﻿using BlazorBootstrap;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using Models;
-using Radzen.Blazor;
 using Radzen;
+using Radzen.Blazor;
 using Services;
-using System.Reflection;
-
+using SixLabors.Fonts;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Drawing.Processing;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
+using System;
 using System.Configuration;
-
-using System.Drawing;
+using System.Globalization;
+using System.Net.Http;
+using System.Reflection;
+using System.Text;
+using static Models.Pesanan;
 
 
 
@@ -20,7 +28,7 @@ using System.Drawing;
 
 namespace PacificWeb.Components.Pages
 {
-    public partial class PaymentPage 
+    public partial class PaymentPage
     {
 
         [Inject]
@@ -44,23 +52,90 @@ namespace PacificWeb.Components.Pages
         [Inject]
         public pdjService pdjService { get; set; }
 
-        public List<Pembayaran> ListDataDb { get; set; } = new List<Pembayaran>();
-        public List<Produk> ListDataProduk { get; set; } = new List<Produk>();
-        public List<Produk> ListDisplayProduk { get; set; } = new List<Produk>();
-        public List<Pembayaran> ListData { get; set; } = new List<Pembayaran>();
+        [Inject]
+        public IHttpClientFactory HttpClientFactory { get; set; }
 
+        [Parameter]
+        public string? CartList { get; set; }   // otomatis bind dari URL
+        public TextInfo ti { get; set; } = CultureInfo.CurrentCulture.TextInfo;
+        public string[] listCard { get; set; } = new string[0];
+        public List<Pembayaran> ListDataDb { get; set; } = new List<Pembayaran>();
+        public Pesanan Pesanan_Info { get; set; } = new Pesanan();
+        public Pesanan Pesanan_Create { get; set; } = new Pesanan();
+        public List<Cart> ListDisplayProduk { get; set; } = new();
+        public List<Pembayaran> ListData { get; set; } = new List<Pembayaran>();
+        public List<Pengiriman> ListDataKirim { get; set; } = new List<Pengiriman>();
+        public Pengiriman dataKirim { get; set; } = new Pengiriman();
+        public Pembayaran dataLayanan { get; set; } = new Pembayaran();
+        public decimal nettoKeranjang { get; set; } = 0;
+        public decimal paymentMethodFee { get; set; } = 0;
+        public decimal shipingMethodFee { get; set; } = 0;
+        public string cara_bayar { get; set; } = "";
+        public bool alertPayment { get; set; } = false;
+        public bool alertProfile { get; set; } = false;
+        public bool alertCreate { get; set; } = false;
+        public bool loadProses { get; set; } = false;
         protected override async Task OnInitializedAsync()
         {
+            string decoded = Encoding.UTF8.GetString(Convert.FromBase64String(CartList));
+            listCard = decoded.Split("%section%");
+
+            Pesanan_Info.Header.Add(new Pesanan.Headers());
+            Pesanan_Info.Items.Add(new Pesanan.Item());
+            Pesanan_Info.Biaya.Add(new Pesanan.Biayas());
+            //Pesanan_Create.Header.Add(new Pesanan.Headers());
+            //Pesanan_Create.Items.Add(new Pesanan.Item());
+            //Pesanan_Create.Biaya.Add(new Pesanan.Biayas());
+            
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
             {
-                ListDataDb = await pdjService.GetMetodeBayarApi();
-                ListDataProduk = await pdjService.GetProdukApi();
-                ListDisplayProduk = ListDataProduk.Take(4).ToList();
-                ListData.AddRange(ListDataDb);
+                ListData = await pdjService.GetMetodeBayarApi(new ParameterApi
+                {
+                    routeApi = "payment",
+                    prosesApi = "option",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        orderBy = "fee",
+                        orderDir = "asc",
+                    }
+                });
+
+                ListDataKirim = await pdjService.GetMetodeKirimApi(new ParameterApi
+                {
+                    routeApi = "shipping",
+                    prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        orderBy = "fee",
+                        orderDir = "asc",
+                    }
+                });
+
+
+                for (var i = 0; i < listCard.Length -1 ; i++)
+                {
+                    var dataCard = await pdjService.GetCartApi(new ParameterApi
+                    {
+                        routeApi = "cart",
+                        prosesApi = "getAll",
+                        ParamUrl = new ParameterApi.ParameterUrl
+                        {
+                            id_cart = listCard[i],
+                            show_media = "true"
+                        }
+                    });
+
+                    if (dataCard?.Any() == true)
+                    {
+                        ListDisplayProduk.Add(dataCard.First());
+                    }
+                }
+
+                nettoKeranjang = ListDisplayProduk.Sum(x => x.Harga * x.Qty);
                 StateHasChanged();
 
                 await JSRuntime.InvokeVoidAsync("scrollToTop");
@@ -68,7 +143,49 @@ namespace PacificWeb.Components.Pages
                 await Task.Delay(500);
                 await JSRuntime.InvokeVoidAsync("fadeout");
             }
+        }
 
+        public async Task SelectPaymentMethod(Pembayaran payment)
+        {
+            var active = ListData.FirstOrDefault(x => x.selectPayment == true);
+            var method = ListData.FirstOrDefault(x => x.Cara_Bayar == payment.Cara_Bayar);
+
+            if (active == null)
+            {
+                method.selectPayment = true;
+            }
+            else
+            {
+                active.selectPayment = false;
+                method.selectPayment = true;
+            }
+
+            paymentMethodFee = method.Fee;
+            cara_bayar = method.Cara_Bayar.Split(" ")[0];
+            dataLayanan = method;
+            nettoKeranjang = ListDisplayProduk.Sum(x => x.Harga * x.Qty) + paymentMethodFee + shipingMethodFee;
+            StateHasChanged();
+        }
+
+        public async Task SelectShipingMethod(Pengiriman shipping)
+        {
+            var active = ListDataKirim.FirstOrDefault(x => x.selectShipping == true);
+            var method = ListDataKirim.FirstOrDefault(x => x.No_Id == shipping.No_Id);
+
+            if (active == null)
+            {
+                method.selectShipping = true;
+            }
+            else
+            {
+                active.selectShipping = false;
+                method.selectShipping = true;
+            }
+
+            shipingMethodFee = shipping.Fee;
+            dataKirim = shipping;
+            nettoKeranjang = ListDisplayProduk.Sum(x => x.Harga * x.Qty) + paymentMethodFee + shipingMethodFee;
+            StateHasChanged();
         }
 
         public async Task NavigateToDetailProduk(string id)
@@ -76,5 +193,259 @@ namespace PacificWeb.Components.Pages
             NavigationManager.NavigateTo($"/detail-produk/{id}");
         }
 
+        public async Task FinisedOrder()
+        {
+
+            dataKirim = ListDataKirim.FirstOrDefault(x => x.selectShipping == true);
+            dataLayanan = ListData.FirstOrDefault(x => x.selectPayment == true);
+
+            if (dataKirim == null || dataLayanan == null)
+            {
+                alertPayment = true;
+            }
+            else
+            {
+                alertPayment = false;
+            }
+
+            if (Pesanan_Info.Header[0].Nama_Penerima == "" || Pesanan_Info.Header[0].Telpon_Penerima == "" || Pesanan_Info.Header[0].Alamat_Kirim == "")
+            {
+                alertProfile = true;
+            }
+            else
+            {
+                alertProfile = false;
+            }
+
+            if (alertPayment || alertProfile)
+            {
+                return;
+            }
+            else
+            {
+
+            }
+
+            await JSRuntime.InvokeVoidAsync("buttonClick", "#modalPaymentStatus");
+            await JSRuntime.InvokeVoidAsync("initVaCopy");
+        }
+
+
+        public async Task clickCopy(Pesanan.Headers item, string init = "")
+        {
+            await JSRuntime.InvokeVoidAsync("copyVa", item.No_Bukti + init);
+        }
+
+
+        public async Task directStatus(Pesanan.Headers item)
+        {
+            var dataUrl = item.Status_Order_1 == "belum bayar" ? "belum-bayar" : item.Status_Order_1;
+            NavigationManager.NavigateTo($"/cart-page/{dataUrl}",  true);
+        }
+
+
+        public async Task refreshStatus(Pesanan.Headers item)
+        {
+            loadProses = true;
+            StateHasChanged();
+
+            var dataOrder = await pdjService.GetPesananApi(new ParameterApi
+            {
+                routeApi = "order",
+                prosesApi = "getAll",
+                ParamUrl = new ParameterApi.ParameterUrl
+                {
+                    no_bukti = item.No_Bukti
+                }
+            });
+
+            Pesanan_Create.Header.Clear();
+            StateHasChanged();
+
+
+            foreach (var produk in dataOrder.Header)
+            {
+                if (produk.Metode_Bayar == "QRIS" && produk.Status_Order_1 == "belum bayar")
+                {
+                    var base64Image = await GenerateImage(produk.Payment_Number_1, produk.Expiry_Time);
+                    produk.QrBase64 = base64Image;
+                }
+
+                Pesanan_Create.Header.Add(produk);
+                StateHasChanged();
+            }
+
+            StateHasChanged();
+
+            loadProses = false;
+            StateHasChanged();
+        }
+
+        private async Task<string> GenerateImage(string qrUrl, DateTime? ValidDate)
+        {
+            string validityText = $"Valid until {ValidDate:dd MMM yyyy - HH:mm} WIB";
+
+            var client = HttpClientFactory.CreateClient();
+            var qrBytes = await client.GetByteArrayAsync(qrUrl);
+
+            using var qrImage = SixLabors.ImageSharp.Image.Load(qrBytes);
+
+            // Canvas baru lebih tinggi untuk teks di atas
+            int extraHeight = 30;
+            int extraWidth = 40;
+            int width = qrImage.Width + extraWidth;
+            int height = qrImage.Height + extraHeight;
+            using var finalImage = new Image<Rgba32>(width, height);
+
+            // Gambar background putih full
+            finalImage.Mutate(ctx => ctx.Fill(Color.White));
+
+            // Area teks (rectangle putih di atas)
+            finalImage.Mutate(ctx =>
+            {
+                ctx.Fill(Color.White, new RectangleF(0, 0, width, extraHeight));
+
+                var font = SystemFonts.CreateFont("Arial", 40, FontStyle.Bold);
+                var textOptions = new RichTextOptions(font)
+                {
+                    HorizontalAlignment = SixLabors.Fonts.HorizontalAlignment.Center,
+                    VerticalAlignment = SixLabors.Fonts.VerticalAlignment.Center,
+                    Origin = new PointF(width / 2f, extraHeight / 2f + 20)
+                };
+
+                ctx.DrawImage(qrImage, new SixLabors.ImageSharp.Point(0, extraHeight), 1f);
+                ctx.DrawText(textOptions, validityText, Color.Purple);
+            });
+
+            // Simpan hasil ke base64
+            using var ms = new MemoryStream();
+            await finalImage.SaveAsPngAsync(ms);
+            string base64 = Convert.ToBase64String(ms.ToArray());
+
+            return $"data:image/png;base64,{base64}";
+        }
+
+
+        private async Task DownloadImage(Pesanan.Headers item)
+        {
+            var GeneratedImageBase64 = item.QrBase64;
+
+            if (!string.IsNullOrEmpty(GeneratedImageBase64))
+            {
+                var base64Data = GeneratedImageBase64.Replace("data:image/png;base64,", "");
+                await JSRuntime.InvokeVoidAsync("downloadFileFromBase64", $"QR-PDJ-{item.No_Bukti}-{DateTime.Now.ToLocalTime()}.png", base64Data);
+            }
+        }
+        public async Task PayOrder()
+        {
+            loadProses = true;
+            StateHasChanged();
+            dataKirim = ListDataKirim.FirstOrDefault(x => x.selectShipping == true);
+            dataLayanan = ListData.FirstOrDefault(x => x.selectPayment == true);
+
+            List<object> ListDataItem = new List<object>();
+            List<object> ListDataBiaya = new List<object>();
+
+
+            foreach (var item in ListDisplayProduk)
+            {
+                item.Jenis_Item = "stock";
+                item.Harga_Satuan = item.Harga;
+
+                var data_item = new
+                {
+                    Jenis_Item = item.Jenis_Item,
+                    Id_Variant = item.Id_Variant,
+                    Qty = item.Qty,
+                    Harga_Satuan = item.Harga
+                };
+
+                ListDataItem.Add(data_item);
+            }
+
+            List<object> Layanan = new List<object>
+            {
+                new
+                {
+                    Jenis_Item = "ongkir",
+                    Id_Variant = "ONGKIR",
+                    Qty = 1,
+                    Harga_Satuan = dataKirim.Fee
+                },
+                new
+                {
+                    Jenis_Item = "layanan",
+                    Id_Variant = "Layanan",
+                    Qty = 1,
+                    Harga_Satuan = dataLayanan.Fee
+                }
+            };
+
+            var dataOrderCart = new
+            {
+                Id_Customer = "cus_16",
+                Status_Bayar = "",
+                Id_Payment_Gateway = "",
+                Payment_Type = dataLayanan.Cara_Bayar,
+                Nama_Penerima = Pesanan_Info.Header[0].Nama_Penerima,
+                Telpon_Penerima = Pesanan_Info.Header[0].Telpon_Penerima,
+                Alamat_Kirim = Pesanan_Info.Header[0].Alamat_Kirim,
+                Id_Shipping_Option = dataKirim.No_Id,
+                Items = ListDataItem,
+                Biaya = Layanan
+            };
+
+
+            var dataCard = await pdjService.CudPesananApi("TAMBAH", dataOrderCart, new ParameterApi
+            {
+                routeApi = "order",
+                prosesApi = "create",
+                ParamUrl = new ParameterApi.ParameterUrl()
+            });
+
+
+
+            var data = dataCard.messageResponse.Split("%section%");
+
+            if (dataCard.statusResponse)
+            {
+                var noBukti = data.Count() > 1 ? data[1] : "";
+
+                var dataOrder = await pdjService.GetPesananApi(new ParameterApi
+                {
+                    routeApi = "order",
+                    prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    { 
+                        no_bukti = noBukti
+                    }
+                });
+
+                Pesanan_Create.Header.Clear();
+                StateHasChanged();
+
+                foreach (var produk in dataOrder.Header)
+                {
+                    if (produk.Metode_Bayar == "QRIS" && produk.Status_Order_1 == "belum bayar")
+                    {
+                        var base64Image = await GenerateImage(produk.Payment_Number_1, produk.Expiry_Time);
+                        produk.QrBase64 = base64Image;
+                    }
+
+                    Pesanan_Create.Header.Add(produk);
+                    StateHasChanged();
+                }
+
+
+                loadProses = true;
+                StateHasChanged();
+                await JSRuntime.InvokeVoidAsync("buttonClick", "#modalPaymentStatus2");
+            } else
+            {
+                alertCreate = true;
+                return;
+            }
+
+        }
     }
 }

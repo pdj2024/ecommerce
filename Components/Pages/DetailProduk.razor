@@ -1,6 +1,7 @@
 ﻿@rendermode InteractiveServer
 @page "/detail-produk/{id}"
 
+<MyHeader ListDataProduk=@ListDataProduk ListDataKategori=@ListDataKategori @ref="header_page" />
 
 <!-- Start Breadcrumbs -->
 <div class="breadcrumbs" style="margin-top: 85px;">
@@ -98,9 +99,25 @@
                         </div>
 
                         <div>
+                            <div class="row" style="margin-bottom:20px;">
+                                <h5 class="tag-variasi"><b>Opsi:</b> @DataProduk.Option</h5>
+                                <div class="size-options" style="display: grid;grid-template-columns: repeat(auto-fill, 120px);gap: 10px;">
+                                    @foreach (var Option in DataProduk.Options)
+                                    {
+                                        <label style="gap: 15px; width:100%; justify-content:start;" class="size-box @(DataProduk.Option == Option.Option ? "active" : "")">
+                                            <Image Style="width:50px; height:50px;" Src="@Option.MediaUrl.Id_Media" />
+                                            <input type="radio" name="variant" value="@Option.Option"
+                                                   checked="@(DataProduk.Option == Option.Option)"
+                                                   @onchange="() => OnVariantChanged(Option.Option)" />
+                                            <span>@Option.Option</span>
+                                        </label>
+                                    }
+                                </div>
+                            </div>
+
                             <div class="row">
                                 <h5 class="tag-variasi"><b>Size:</b> @DataProduk.Size_Default</h5>
-                                <div class="size-options">
+                                <div class="size-options" style="display: grid;grid-template-columns: repeat(auto-fill, 50px);gap: 10px;">
                                     @foreach (var size in DataProduk.Size)
                                     {
                                         <label class="size-box @(DataProduk.Size_Default == size ? "active" : "")">
@@ -249,3 +266,4 @@
 </div>
 <!-- End Review Modal -->
 
+<MyFooter @ref="footer_page"/>

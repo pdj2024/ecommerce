@@ -1,6 +1,7 @@
 ﻿@rendermode InteractiveServer
 @page "/"
 
+<MyHeader ListDataProduk=@ListDataProduk ListDataKategori=@ListDataKategori @ref="header_page" />
 
 <!-- Start Hero Area -->
 <section class="hero-area" style="margin-top: 85px;">
@@ -48,7 +49,7 @@
 <!-- Start Trending Product Area -->
 <section class="trending-product section" style="margin-top: 0px;">
     <div class="container-fluid">
-        <div class="row">
+        <div class="row py-0 py-lg-3 py-xl-4 py-xxl-5">
             <div class="col-12">
                 <div class="section-title">
                     <h2>Trending Product</h2>
@@ -59,7 +60,7 @@
                 </div>
             </div>
         </div>
-        <div class="row"> 
+        <div class="row px-0 px-lg-3 px-xl-4 px-xxl-5"> 
             @if (ListDataProduk.Count() <= 0 ) 
             {
                 @for (var i = 0; i == 8 ; i++ )
@@ -86,7 +87,7 @@
             {
                 @foreach (var dataProduk in ListDataProduk)
                 {
-                    <div class="col-lg-3 col-md-4 col-6 pt-2 pb-2 product">
+                    <div class="col-lg-3 col-md-4 col-6 col-xxl-2 pt-2 pb-2 product">
                         <!-- Start Single Product -->
                         <div class="single-product">
                             <div class="product-image">
@@ -159,17 +160,14 @@
             <div class="col-lg-8 offset-lg-2 col-12">
                 <div class="inner">
                     <div class="content">
-                        <h2 class="wow fadeInUp" data-wow-delay=".4s">
-                            Currently You are using free<br>
-                            Lite version of ShopGrids
+                        <h2 class="wow fadeInUp mt-3" data-wow-delay=".4s">
+                            Temukan Barang Yang Kamu Inginkan<br>
+                            Untuk Style Harian Kamu
                         </h2>
                         <p class="wow fadeInUp" data-wow-delay=".6s">
-                            Please, purchase full version of the template
-                            to get all pages,<br> features and commercial license.
+                            Banyak promo 20% hingga akhir tahun
+                            segera lihat, masukkan keranjang,<br> lalu checek out dengan promo.
                         </p>
-                        <div class="button wow fadeInUp" data-wow-delay=".8s">
-                            <a href="javascript:void(0)" class="btn">Purchase Now</a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -254,7 +252,7 @@
 
 <div class="offcanvas offcanvas-end" style="width: 500px;" tabindex="-1" id="offdetailprod" aria-labelledby="offdetailprod">
     <div class="offcanvas-body" style="padding:0px 0px 10px 0px !important;">
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" style="position: absolute;top: 10px;right: 25px;padding: 1rem; z-index: 20; background-color: white;border-radius: 100%;" aria-label="Close"></button>
+        <button id="closeDetailProd" type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" style="position: absolute;top: 10px;right: 25px;padding: 1rem; z-index: 20; background-color: white;border-radius: 100%;" aria-label="Close"></button>
         <div class="row" style="gap:2rem;width: 100%;margin-left: 0px !important;">
             <div class="col-12" style="padding:0px">
                 <div class="swiper mySwiper1">
@@ -295,9 +293,25 @@
                         @DataProduk?.Deskripsi
                     </p>
 
+                    <div class="row" style="margin-bottom:20px;">
+                        <h5 class="tag-variasi"><b>Opsi:</b> @DataProduk.Option</h5>
+                        <div class="size-options" style="display: grid;grid-template-columns: repeat(auto-fill, 120px);gap: 10px;">
+                            @foreach (var Option in DataProduk.Options)
+                            {
+                                <label style="gap: 15px; width:100%; justify-content:start;" class="size-box @(DataProduk.Option == Option.Option ? "active" : "")">
+                                    <Image Style="width:50px; height:50px;" Src="@Option.MediaUrl.Id_Media" />
+                                    <input type="radio" name="variant" value="@Option.Option"
+                                           checked="@(DataProduk.Option == Option.Option)"
+                                           @onchange="() => OnVariantChanged(Option.Option)" />
+                                    <span>@Option.Option</span>
+                                </label>
+                            }
+                        </div>
+                    </div>
+
                     <div class="row">
                         <h5 class="tag-variasi"><b>Size:</b> @DataProduk.Size_Default</h5>
-                        <div class="size-options">
+                        <div class="size-options" style="display: grid;grid-template-columns: repeat(auto-fill, 50px);gap: 10px;">
                             @foreach (var size in DataProduk.Size)
                             {
                                 <label class="size-box @(DataProduk.Size_Default == size ? "active" : "")">
@@ -322,14 +336,24 @@
                             </div>
                             <div class="col-lg-8 col-md-8 col-12 rowbox-style ps-md-2 ps-0">
                                 <div class="wish-button">
-                                    <button class="btn" style="border-radius:0px;">Tambahkan <i class="lni lni-cart-2 ms-2"></i></button>
+                                    <button @onclick=@(() => tambahKeranjang(DataProduk)) class="btn" style="border-radius:0px;">
+                                    @if(loadProses)
+                                    {
+                                        <div class="spinner-border" role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                    } else
+                                    {
+                                        <span>Tambahkan</span><i class="lni lni-cart-2 ms-2"/>
+                                    }
+                                    </button>
                                 </div>
                             </div>
                         </div>
                         <div class="row align-items-end mt-3 row-style">
                             <div class="col-12 rowbox-style">
                                 <div class="button cart-button" >
-                                    <NavLink class="btn" href="@($"/payment-page")" style="width: 100%;display: flex; border-radius:0px;">Beli Sekarang</NavLink>
+                                    <button class="btn" @onclick="@(e => NavigateToHome("payment-page"))" style="width: 100%;display: flex; border-radius:0px;">Beli Sekarang</button>
                                 </div>
                             </div>
                         </div>
@@ -340,3 +364,4 @@
     </div>
 </div>
 
+<MyFooter @ref="footer_page"/>

@@ -1,14 +1,15 @@
-﻿using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using Models;
-using Radzen.Blazor;
+using PacificWeb.Components.Layout;
 using Radzen;
+using Radzen.Blazor;
 using Services;
-using System.Reflection;
 using System.Configuration;
-
 using System.Drawing;
+using System.Reflection;
+using static Services.pdjService;
 
 
 
@@ -43,11 +44,15 @@ namespace PacificWeb.Components.Pages
         [Inject]
         public pdjService pdjService { get; set; }
 
-        public List<Produk> ListDataProduk { get; set; } = new List<Produk>();
+        MyHeader header_page;
+        MyFooter footer_page;
+
         public List<Brand> ListDataBanner { get; set; } = new List<Brand>();
         public List<Brand> ListDataBrand { get; set; } = new List<Brand>();
+        public List<Produk> ListDataProduk { get; set; } = new List<Produk>();
         public List<Kategori> ListDataKategori { get; set; } = new List<Kategori>();
         public Produk DataProduk { get; set; } = new Produk();
+        public bool loadProses { get; set; } = false;
 
         [Parameter] public int Quantity { get; set; } = 1;
         [Parameter] public EventCallback<int> QuantityChanged { get; set; }
@@ -60,14 +65,53 @@ namespace PacificWeb.Components.Pages
         {
             if (firstRender)
             {
-                ListDataProduk = await pdjService.GetProdukApi();
-                ListDataBanner = await pdjService.GetBannerApi();
-                ListDataBrand = await pdjService.GetBrandApi();
-                ListDataKategori = await pdjService.GetKategoriApi();
+                ListDataProduk = await pdjService.GetProdukApi(new ParameterApi 
+                { routeApi = "produk",
+                  prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl 
+                    { 
+                        pagesize = 8, 
+                        show_variant = true,
+                    } 
+                });
+
+                ListDataBanner = await pdjService.GetBannerApi(new ParameterApi
+                {
+                    routeApi = "banner",
+                    prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        orderBy = "nama_banner",
+                        orderDir = "desc",
+                    }
+                });
+
+                ListDataBrand = await pdjService.GetBrandApi(new ParameterApi
+                {
+                    routeApi = "brand",
+                    prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        orderBy = "nama_brand",
+                        orderDir = "desc",
+                    }
+                });
+
+                ListDataKategori = await pdjService.GetKategoriApi(new ParameterApi
+                {
+                    routeApi = "kategori",
+                    prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        status = "aktif",
+                    }
+                });
+
                 StateHasChanged();
                 await JSRuntime.InvokeVoidAsync("initslideProduct");
                 await JSRuntime.InvokeVoidAsync("initTinySlider");
                 await JSRuntime.InvokeVoidAsync("scrollToTop");
+                
                 //await JSRuntime.InvokeVoidAsync("statusBarHidden");
                 StateHasChanged();
                 await Task.Delay(500);
@@ -80,9 +124,15 @@ namespace PacificWeb.Components.Pages
             NavigationManager.NavigateTo($"/detail-produk/{id}", forceLoad: true);
         }
 
-        public async void selectProduk(string id_kode)
+        public void NavigateToHome(string route)
+        {
+            NavigationManager.NavigateTo($"/{route}", forceLoad: true);
+        }
+
+        public async Task selectProduk(string id_kode)
         {
             DataProduk = ListDataProduk.FirstOrDefault(x => x.No_Id == id_kode);
+            Quantity = 1;
             StateHasChanged();
             await JSRuntime.InvokeVoidAsync("initSearchButton");
         }
@@ -90,6 +140,10 @@ namespace PacificWeb.Components.Pages
         private void OnSizeChanged(string value)
         {
             DataProduk.Size_Default = value;
+        }
+        private void OnVariantChanged(string value)
+        {
+            DataProduk.Option = value;
         }
 
         public class SizeOption
@@ -115,6 +169,37 @@ namespace PacificWeb.Components.Pages
             {
                 Quantity--;
                 await QuantityChanged.InvokeAsync(Quantity);
+            }
+        }
+
+        private async Task tambahKeranjang(Produk item)
+        {
+            loadProses = true;
+            StateHasChanged();
+
+            ParameterApi paramApi = new ParameterApi
+            {
+                routeApi = "cart",
+                prosesApi = "create",
+                ParamUrl = new ParameterApi.ParameterUrl()
+            };
+
+            item.Id_Variant = item.Variants.FirstOrDefault(x => x.Option == item.Option && x.Size == item.Size_Default)?.No_Id ?? "";
+            Cart itemCart = new Cart { Id_Variant = item.Id_Variant, Qty = Quantity, Id_Customer = "cus_16" };
+           (string statusMessage, bool statusRespon, int statusCode, string proses) = await pdjService.CudCartApi("TAMBAH", itemCart, paramApi);
+
+            if (statusRespon && statusCode == 200)
+            {
+                loadProses = false;
+                await header_page.RefreshCart();
+                StateHasChanged();
+                await JSRuntime.InvokeVoidAsync("buttonClick", "#closeDetailProd");
+                await Task.Delay(1000);
+                await JSRuntime.InvokeVoidAsync("buttonClick", "#openCartProd");
+            } else
+            {
+                loadProses = false;
+                StateHasChanged();
             }
         }
     }

@@ -8,6 +8,7 @@ namespace Models
     public partial class MediaData
     {
         public string Id_Media { get; set; } = "";
+        public string Option { get; set; } = "";
         public string No_Id { get; set; } = "";
         public string Url { get; set; } = "";
         public DateTime Expired_At { get; set; }

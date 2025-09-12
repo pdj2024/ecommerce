@@ -10,6 +10,7 @@ using System.Reflection;
 using System.Configuration;
 
 using System.Drawing;
+using PacificWeb.Components.Layout;
 
 
 
@@ -46,10 +47,14 @@ namespace PacificWeb.Components.Pages
         [Parameter]
         public string? id { get; set; }   // otomatis bind dari URL
 
+        MyHeader header_page;
+        MyFooter footer_page;
+
         public string ProductId => id;
 
         public List<Produk> ListDataProdukApi { get; set; } = new List<Produk>();
-
+        public List<Produk> ListDataProduk { get; set; } = new List<Produk>();
+        public List<Kategori> ListDataKategori { get; set; } = new List<Kategori>();
         public Produk DataProduk { get; set; } = new Produk();
 
         protected override async Task OnInitializedAsync()
@@ -63,15 +68,36 @@ namespace PacificWeb.Components.Pages
             {
                 Quantity = DataProduk.Min_Order;
 
-                ListDataProdukApi = await pdjService.GetProdukApi(id);
+                ListDataProdukApi = await pdjService.GetProdukApi(new ParameterApi
+                {
+                    routeApi = "produk",
+                    prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        no_id = ProductId,
+                        show_variant = true,
+                    }
+                });
+                ListDataProduk.AddRange(ListDataProdukApi);
+                ListDataKategori = await pdjService.GetKategoriApi(new ParameterApi
+                {
+                    routeApi = "kategori",
+                    prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        status = "aktif",
+                    }
+                });
                 var data = ListDataProdukApi.FirstOrDefault();
                 DataProduk = data != null || ListDataProdukApi.Count >= 1 ? data : new Produk();
                 StateHasChanged();
 
                 await JSRuntime.InvokeVoidAsync("scrollToTop");
-                await JSRuntime.InvokeVoidAsync("statusBarHidden");
+                //await JSRuntime.InvokeVoidAsync("statusBarHidden");
                 await JSRuntime.InvokeVoidAsync("initBigDetailProdInfo");
                 StateHasChanged();
+                await Task.Delay(500);
+                await JSRuntime.InvokeVoidAsync("fadeout");
 
             }
 
@@ -82,6 +108,11 @@ namespace PacificWeb.Components.Pages
         private void OnSizeChanged(string value)
         {
             DataProduk.Size_Default = value;
+        }
+
+        private void OnVariantChanged(string value)
+        {
+            DataProduk.Option = value;
         }
 
         public class SizeOption
