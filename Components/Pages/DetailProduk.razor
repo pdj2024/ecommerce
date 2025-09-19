@@ -4,66 +4,78 @@
 <MyHeader ListDataProduk=@ListDataProduk ListDataKategori=@ListDataKategori @ref="header_page" />
 
 <!-- Start Breadcrumbs -->
-<div class="breadcrumbs" style="margin-top: 85px;">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 col-md-6 col-12">
-                <ul class="breadcrumb-nav">
-                    <li><a href="index.html"><i class="lni lni-chevron-down"></i> Home</a></li>
-                    <li><a href="index.html">Shop</a></li>
-                </ul>
-            </div>
-            <div class="col-lg-6 col-md-6 col-12">
-                <div class="breadcrumbs-content">
-                    <h1 class="page-title">@DataProduk?.Nama_Display</h1>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="breadcrumbs padding-style py-0 px-0 px-lg-3 px-xl-5 px-xxl-10" style="margin-top: 70px;">
+
 </div>
 <!-- End Breadcrumbs -->
 
 
 <!-- Start Item Details -->
-<section class="item-details section">
-    <div class="container-fluid">
-        <div class="top-area">
-            <div class="row align-items-center">
-                <div class="col-lg-6 col-md-12 col-12">
+<section class="item-details section py-0 px-0 px-lg-3 px-xl-2 px-xxl-10">
+    <div class="container-fluid px-0 px-lg-4">
+        <div class="top-area py-0">
+            <div class="row">
 
-                    <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
-                        <div class="swiper-wrapper">
-                            @foreach (var img in DataProduk?.MediaUrls)
-                            {
-                                <div class="swiper-slide">
-                                    <Image Src="@img.Id_Media" Class="vw-100 h-100" />
-                                </div>
-                            }
+                <div class="col-lg-6 col-md-12 col-12 pe-lg-4 pe-0" style="">
+                    <div class="position-sticky top-0 ps-0 ps-lg-4">
+                        
+                        <div class="col-12 py-xl-2">
                         </div>
-                        <div class="swiper-button-next"></div>
-                        <div class="swiper-button-prev"></div>
-                    </div>
 
-                    <div thumbsSlider="" class="swiper mySwiper">
-                        <div class="swiper-wrapper">
-                            @foreach (var img in DataProduk?.MediaUrls)
-                            {
-                                <div class="swiper-slide">
-                                    <Image Src="@img.Id_Media" Class="vw-100 h-100" />
+                        <div class="breadcrumbs p-0 py-4" style="">
+                            <div class="container-fluid px-2">
+                                <div class="row align-items-center">
+                                    <div class="col-12 px-0 pb-2">
+                                        <ul class="breadcrumb-nav">
+                                            <li><a href="index.html">Home</a></li>
+                                            <li><a href="index.html"> Shop</a></li>
+                                            <li><a href="index.html">@DataProduk?.Nama_Display</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
-                            }
+                            </div>
+                        </div>
+
+                        <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
+                            <div class="swiper-wrapper">
+                                @foreach (var img in DataProduk?.MediaUrls)
+                                {
+                                    <div class="swiper-slide">
+                                        <Image Src="@img.Id_Media" Class="vw-100 h-100" />
+                                    </div>
+                                }
+                            </div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                        </div>
+
+                        <div thumbsSlider="" class="swiper mySwiper">
+                            <div class="swiper-wrapper">
+                                @foreach (var img in DataProduk?.MediaUrls)
+                                {
+                                    <div class="swiper-slide">
+                                        <Image Src="@img.Id_Media" Class="vw-100 h-100" />
+                                    </div>
+                                }
+                            </div>
                         </div>
                     </div>
-
                 </div>
 
-                <div class="col-lg-6 col-md-12 col-12">
-                    <div class="product-info">
+                <div class="col-lg-6 col-md-12 col-12 ps-lg-4 px-0">
+
+
+                    <div class="product-info position-sticky top-0" style="">
+                        <div class="col-12 py-xl-4 py-2">
+                        </div>
+                        <div class="col-12 py-xl-4 py-0">
+                        </div>
+
                         <div>
                             @if (DataProduk.Diskon1 != null || DataProduk.Diskon1 >= 1)
                             {
                                 <span class="badge bg-danger" style="padding: 8px 14px;font-size: 15px;display: flex;width: fit-content;align-items: center;gap: 8px;margin-bottom: 10px;font-weight: 700;border-radius: 0px;">
-                                    Potongan @string.Format("Rp. {0:N2}", ((DataProduk.Diskon1 / 100) * DataProduk.Harga))
+                                    Potongan @string.Format("Rp. {0:N0}", ((DataProduk.Diskon1 / 100) * DataProduk.Harga))
                                 </span>
                             }
                             <h2 class="title">@DataProduk?.Nama_Display</h2>
@@ -82,15 +94,15 @@
                             <h3 class="price">
                                 @if (DataProduk.Diskon1 != null || DataProduk.Diskon1 >= 1)
                                 {
-                                    @string.Format("Rp. {0:N2}", (DataProduk.Harga - ((DataProduk.Diskon1 / 100) * DataProduk.Harga)))
+                                    @string.Format("Rp. {0:N0}", (DataProduk.Harga - ((DataProduk.Diskon1 / 100) * DataProduk.Harga)))
                                 }
                                 else
                                 {
-                                    @string.Format("Rp. {0:N2}", DataProduk.Harga)
+                                    @string.Format("Rp. {0:N0}", DataProduk.Harga)
                                 }
                                 @if (DataProduk?.Diskon1 != null || DataProduk?.Diskon1 >= 1) 
                                 {
-                                    <span>@string.Format("Rp. {0:N2}", DataProduk.Harga)</span>
+                                    <span>@string.Format("Rp. {0:N0}", DataProduk.Harga)</span>
                                 }
                             </h3>
                             <p class="info-text">
@@ -98,50 +110,56 @@
                             </p>
                         </div>
 
-                        <div>
+                        <div class="pt-3">
                             <div class="row" style="margin-bottom:20px;">
-                                <h5 class="tag-variasi"><b>Opsi:</b> @DataProduk.Option</h5>
-                                <div class="size-options" style="display: grid;grid-template-columns: repeat(auto-fill, 120px);gap: 10px;">
-                                    @foreach (var Option in DataProduk.Options)
+                                <h5 class="tag-variasi" style="font-weight:400;"><span style="font-weight:800">Opsi:</span> @DataProduk.Option</h5>
+                                <div class="size-options d-flex flex-row flex-wrap" style="gap: 10px;">
+                                    @foreach (var Option in DataProduk?.Options)
                                     {
-                                        <label style="gap: 15px; width:100%; justify-content:start;" class="size-box @(DataProduk.Option == Option.Option ? "active" : "")">
-                                            <Image Style="width:50px; height:50px;" Src="@Option.MediaUrl.Id_Media" />
+                                        <label style="gap: 15px; width:fit-content; justify-content:start;" class="size-box pe-3 @(DataProduk.Option == Option.Option ? "active" : "")">
+                                            <Image Style="width:50px; height:50px;" Src="@Option.MediaUrl?.Id_Media" />
                                             <input type="radio" name="variant" value="@Option.Option"
                                                    checked="@(DataProduk.Option == Option.Option)"
                                                    @onchange="() => OnVariantChanged(Option.Option)" />
-                                            <span>@Option.Option</span>
+                                            <span style="width: fit-content;overflow: hidden;text-overflow: ellipsis; text-align:center;">@Option.Option</span>
                                         </label>
                                     }
                                 </div>
                             </div>
 
                             <div class="row">
-                                <h5 class="tag-variasi"><b>Size:</b> @DataProduk.Size_Default</h5>
-                                <div class="size-options" style="display: grid;grid-template-columns: repeat(auto-fill, 50px);gap: 10px;">
-                                    @foreach (var size in DataProduk.Size)
+                                <h5 class="tag-variasi" style="font-weight:400;"><span style="font-weight:800">Size:</span> @DataProduk.Size_Default</h5>
+                                <div class="size-options d-flex flex-row flex-wrap" style="gap: 10px;">
+                                    @foreach (var size in DataProduk?.Size)
                                     {
                                         <label class="size-box @(DataProduk.Size_Default == size ? "active" : "")">
                                             <input type="radio" name="size" value="@size"
                                                    checked="@(DataProduk.Size_Default == size)"
                                                    @onchange="() => OnSizeChanged(size)" />
-                                            <span>@size</span>
+                                            <span style="">@size</span>
                                         </label>
                                     }
                                 </div>
                             </div>
 
-                            <div class="bottom-content">
-                                <div class="row align-items-end row-style" style="">
+                            <div id="hidden-flayer" class="bottom-content">
+                                <div class="row align-items-start row-style" style="">
                                     <div class="col-lg-4 col-md-4 col-12 rowbox-style">
                                         <div class="qty-box">
                                             <button @onclick="Decrease">-</button>
-                                            <span>@Quantity</span>
+                                            <span style="font-size:15px">@Quantity</span>
                                             <button @onclick="Increase">+</button>
                                         </div>
+                                        @if(DataProduk.Show_Min_Order)
+                                        {
+                                            <div>
+                                                <p style="color:red">* Minimal order @DataProduk.Min_Order item </p>
+                                            </div>
+                                        }
                                     </div>
                                     <div class="col-lg-8 col-md-8 col-12 rowbox-style ps-md-2 ps-0">
                                         <div class="wish-button">
-                                            <button class="btn" style="border-radius:0px;">Tambahkan <i class="lni lni-cart-2 ms-1"></i></button>
+                                            <button class="btn" @onclick=@(() => tambahKeranjang(DataProduk, "detail")) style="border-radius:0px;">Tambahkan <i class="lni lni-cart-2 ms-1"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -153,54 +171,21 @@
                                     </div>
                                 </div>
                             </div>
+                        
+                            <div class="d-flex gap-4 pt-3 justify-content-center justify-content-lg-start" >
+                                <button class="d-flex justify-content-center align-items-center w-auto border-0 gap-2" style="background-color:transparent; font-size: 16px;font-weight: 500;" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                                     <i class="lni lni-share-1"></i> Share
+                                </button>
+                                <button class="d-flex justify-content-center align-items-center w-auto border-0 gap-2" style="background-color:transparent; font-size: 16px;font-weight: 500;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#1f1f1f"><path d="M480-312q20 0 32.5-13.27 12.5-13.28 12.5-32.5 0-19.23-13.07-31.73t-32-12.5Q461-402 448-389.5t-13 31.73q0 19.22 13.05 32.5Q461.1-312 480-312Zm-32-144h66q0-13.68 1-23.34t5-17.66q4-8 9.95-15.77Q535.9-520.55 547-532q20-20 38.5-40.5T604-631q0-53-36-83t-88-30q-48 0-80 27t-44 63l59 25q6-18 21-36t44-18q32 0 46 17t14 37q0 23-17 40t-36 35q-13 12-20 21t-11.5 20q-4.5 11-6 24t-1.5 33Zm32 408L336-192H216q-29 0-50.5-21.5T144-264v-528q0-29 21.5-50.5T216-864h528q29.7 0 50.85 21.5Q816-821 816-792v528q0 29-21.15 50.5T744-192H624L480-48ZM216-264h149l115 115 114-115h150v-528H216v528Zm264-264Z"/>
+                                    </svg>
+                                    Ask a question 
+                                </button>
+                            </div>
                         </div>
 
                     </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="product-details-info">
-            <div class="single-block">
-                <div class="row">
-                    <div class="col-lg-6 col-12">
-                        <div class="info-body custom-responsive-margin">
-                            <h4>Details</h4>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.
-                            </p>
-                            <h4>Features</h4>
-                            <ul class="features">
-                                <li>Capture 4K30 Video and 12MP Photos</li>
-                                <li>Game-Style Controller with Touchscreen</li>
-                                <li>View Live Camera Feed</li>
-                                <li>Full Control of HERO6 Black</li>
-                                <li>Use App for Dedicated Camera Operation</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-12">
-                        <div class="info-body">
-                            <h4>Specifications</h4>
-                            <ul class="normal-list">
-                                <li><span>Weight:</span> 35.5oz (1006g)</li>
-                                <li><span>Maximum Speed:</span> 35 mph (15 m/s)</li>
-                                <li><span>Maximum Distance:</span> Up to 9,840ft (3,000m)</li>
-                                <li><span>Operating Frequency:</span> 2.4GHz</li>
-                                <li><span>Manufacturer:</span> GoPro, USA</li>
-                            </ul>
-                            <h4>Shipping Options:</h4>
-                            <ul class="normal-list">
-                                <li><span>Courier:</span> 2 - 4 days, $22.50</li>
-                                <li><span>Local Shipping:</span> up to one week, $10.00</li>
-                                <li><span>UPS Ground Shipping:</span> 4 - 6 days, $18.00</li>
-                                <li><span>Unishop Global Export:</span> 3 - 4 days, $25.00</li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -209,61 +194,284 @@
 <!-- End Item Details -->
 
 
+
 <!-- Review Modal -->
 <div class="modal fade review-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Leave a Review</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal-dialog modal-dialog-centered" style="max-width:480px;">
+        <div class="modal-content" style="border-radius: 0px;" >
+            <div class="modal-header justify-content-between d-flex border-bottom-0 pb-0">
+                <h5 class="modal-title w-100 text-xl-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">Ask a question</h5>
+                <button type="button" class="btn-close m-0" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="review-name">Your Name</label>
-                            <input class="form-control" type="text" id="review-name" required>
+                    <div class="col-12">
+                        <div class="input-group mb-3 style-grup px-1 border-1 form-style">
+                            <input type="text" class="form-control search-form form-text" placeholder="Your name*" aria-label="Search" aria-describedby="basic-addon1" required />
                         </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="review-email">Your Email</label>
-                            <input class="form-control" type="email" id="review-email" required>
+                        <div class="input-group mb-3 style-grup px-1 border-1 form-style">
+                            <input type="text" class="form-control search-form form-text" placeholder="Your email*" aria-label="Search" aria-describedby="basic-addon1" required />
                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="review-subject">Subject</label>
-                            <input class="form-control" type="text" id="review-subject" required>
+                        <div class="input-group mb-3 style-grup px-1 border-1 form-style">
+                            <input type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required />
                         </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="review-rating">Rating</label>
-                            <select class="form-control" id="review-rating">
-                                <option>5 Stars</option>
-                                <option>4 Stars</option>
-                                <option>3 Stars</option>
-                                <option>2 Stars</option>
-                                <option>1 Star</option>
-                            </select>
+                        <div class="input-group mb-1 style-grup px-1 border-1 form-style">
+                            <textarea Rows="4" class="form-control search-form form-text" placeholder="Your massage*" aria-label="Search" aria-describedby="basic-addon1" required />
                         </div>
+                        <p style="font-size:13px; font-weight:300; font-style:italic;">The fields marked * are required.</p>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="review-message">Review</label>
-                    <textarea class="form-control" id="review-message" rows="8" required></textarea>
                 </div>
             </div>
-            <div class="modal-footer button">
-                <button type="button" class="btn">Submit Review</button>
+            <div class="modal-footer justify-content-center button border-top-0 pt-2 px-5">
+                <button type="button" class="btn-slide border-0" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;">
+                    <span class="position-relative">Send Question</span>
+                </button>
             </div>
         </div>
     </div>
 </div>
 <!-- End Review Modal -->
 
+<!-- Review Modal -->
+<div class="modal fade review-modal" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered px" style="max-width:480px;">
+        <div class="modal-content" style="border-radius: 0px;" >
+            <div class="modal-header justify-content-end d-flex border-bottom-0 pb-0 pt-3">
+                <button type="button" class="btn-close m-0" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body pt-0 px-3">
+                <div class="row px-3">
+                    <div class="col-12">
+                        <p style="font-size:18px; font-weight:400; letter-spacing:-1px; margin-top: -15px; width:fit-content" class="mb-3">
+                            Share this product
+                        </p>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" value="@NavigationManager.Uri" placeholder="Url Product" aria-label="Recipient's username" aria-describedby="button-addon2" readonly style="border: 1px solid #d7d7d7; border-radius: 0px;background-color: white; overflow: hidden !important; text-overflow: ellipsis; font-size: 14px;">
+                            <button class="btn-slide px-3" type="button" id="button-addon2" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;">
+                                <span class="position-relative">Copy</span>
+                            </button>
+                        </div>
+                        <div class="d-flex gap-4 mt-3" style="font-size:22px;">
+                            <i class="lni lni-x"></i>
+                            <i class="lni lni-facebook"></i>
+                            <i class="lni lni-instagram"></i>
+                            <i class="lni lni-whatsapp"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Review Modal -->
+
+<div class="col-12 mt-4 pt-5">
+    <div class="section-title mb-1 pt-5">
+        <h2>You may also like</h2>
+    </div>
+</div>
+
+<!-- Start Trending Product Area -->
+<section class="trending-product section pt-3">
+    <div class="container-fluid">
+        <div class="row px-0 px-lg-3 px-xl-4 px-xxl-10"> 
+
+            @if (ListDataProduk.Count() <= 0 ) 
+            {
+                @for (var i = 0; i == 8 ; i++ )
+                {
+                    <div class="col-lg-3 col-md-4 col-6 pt-2 pb-2">
+                        <div class="card" aria-hidden="true">
+                            <div class="card-body">
+                                <h5 class="card-title placeholder-glow">
+                                    <span class="placeholder col-6"></span>
+                                </h5>
+                                <p class="card-text placeholder-glow">
+                                    <span class="placeholder col-7"></span>
+                                    <span class="placeholder col-4"></span>
+                                    <span class="placeholder col-4"></span>
+                                    <span class="placeholder col-6"></span>
+                                </p>
+                                <a class="btn btn-primary disabled placeholder col-4" aria-disabled="true"></a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            } 
+            else
+            {
+                @foreach (var dataProduk in ListDataProduk)
+                {
+                    <div class="col-lg-3 col-md-4 col-6 col-xxl-2 pt-2 pb-2 product">
+                        <!-- Start Single Product -->
+                        <div class="single-product">
+                            <div class="product-image">
+                                @if (dataProduk.MediaUrls.Count() >= 1)
+                                {
+                                    <img src="@dataProduk.MediaUrls[0]?.Id_Media" alt="@dataProduk.Nama_Display">
+                                    <img class="img2" src="@dataProduk.MediaUrls[1]?.Id_Media" alt="@dataProduk.Nama_Display">
+                                }
+
+                                @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
+                                {
+                                    <span class="sale-tag">-@dataProduk.Diskon1.ToString()%</span>
+                                }
+                                @if (dataProduk.Tgl_Created != null && (DateTime.Now - dataProduk.Tgl_Created).TotalDays <= 3)
+                                {
+                                    <span class="new-tag">New</span>
+                                }
+
+                                <div class="button">
+                                    <button @onclick="@(e => selectProduk(dataProduk.No_Id))" data-bs-toggle="offcanvas" data-bs-target="#offdetailprod" aria-controls="offdetailprod" class="btn d-none d-lg-flex">Tambahkan <i class="lni lni-cart-1 ms-3"></i></button>
+                                </div>
+
+                                <div class="button-search-produk">
+                                    <button @onclick="@(e => selectProduk(dataProduk.No_Id))" data-bs-toggle="offcanvas" data-bs-target="#offdetailprod" aria-controls="offdetailprod" class="btn">
+                                        <i class="lni lni-search-1 d-none d-lg-flex"></i>
+                                        <i class="lni lni-cart-1 d-flex d-lg-none"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="product-info">
+                                <h4 class="title">
+                                    <NavLink style="cursor:pointer;" @onclick="@(e => NavigateToDetailProduk(dataProduk.No_Id))">
+                                        <p class="line-clamp-2 underline-anim">
+                                            @dataProduk.Nama_Display
+                                        </p>
+                                    </NavLink>
+                                </h4>
+                                @* <ul class="review">
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star"></i></li>
+                                <li><span>4.0 Review(s)</span></li>
+                            </ul> *@
+                                <div class="price">
+                                    <span>
+                                        @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
+                                        {
+                                            @string.Format("Rp. {0:N0}", (dataProduk.Harga - ((dataProduk.Diskon1 / 100) * dataProduk.Harga)))
+                                        } else
+                                        {
+                                            @string.Format("Rp. {0:N0}", dataProduk.Harga)
+                                        }
+                                    </span>
+                                    @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
+                                    {
+                                        <span class="discount-price">@string.Format("Rp. {0:N0}", dataProduk.Harga)</span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Single Product -->
+                    </div>
+                }
+            }
+     
+        
+        </div>
+    </div>
+</section>
+<!-- End Trending Product Area -->
+
+
+<PacificWeb.Components.Sections.SelectProduk DataProduk="DataProdukModal" header_page="header_page" ></PacificWeb.Components.Sections.SelectProduk>
+
+<div id="flayer" class="d-flex flex-row px-2 py-1 px-xl-5">
+    <div class="col-12 col-md-5 d-none d-md-flex">
+        <Image Src="@DataProduk?.MediaUrls.FirstOrDefault()?.Id_Media" Class="h-100 w-auto" />
+        <div class="d-flex flex-column justify-content-center gap-1">
+            <h5 class="title" style="font-size: 0.9rem;font-weight: 400;letter-spacing: -0.5px;">@DataProduk?.Nama_Display</h5>
+            <span style="color:black;font-weight: 700;">@string.Format("Rp. {0:N0}", DataProduk.Harga)</span>
+        </div>
+    </div>
+
+    <div class="col-12 col-md-7 d-flex">
+        <div class="bottom-content d-flex align-items-center justify-content-center justify-content-lg-end" style="width: 100%;">
+            <div class="row px-0 px-lg-3 align-items-end justify-content-center justify-content-lg-end row-style d-flex w-100" style="">
+                
+                <div class="col-4 col-xl-3 px-1 px-lg-2">
+                    <div class="btn-group w-100">
+                        <button class="dropdown-toggle btn-slide px-0 justify-content-around" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span style="width: 54%;overflow: hidden;text-overflow: ellipsis;">
+                                @DataProduk.Option
+                            </span>
+                            <i class="lni lni-chevron-up" style="transform: rotateZ(180deg);font-size: 18px;font-weight: 500;"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            @foreach (var Option in DataProduk.Options)
+                                {
+                                    <li class="">
+                                        <a class="dropdown-item @(DataProduk.Option == Option.Option ? "active" : "") d-flex flex-row align-items-center gap-2" @onclick="() => OnVariantChanged(Option.Option)">
+                                            <Image Style="width:50px; height:50px;" Src="@Option.MediaUrl?.Id_Media" />
+                                            @Option.Option
+                                        </a>
+                                    </li>
+                                }
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-3 col-xl-3 px-1 px-lg-2">
+                    <div class="btn-group w-100">
+                        <button class="dropdown-toggle btn-slide px-0 justify-content-around" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span style="width: 54%;overflow: hidden;text-overflow: ellipsis;">
+                                @DataProduk.Size_Default
+                            </span>
+                            <i class="lni lni-chevron-up" style="transform: rotateZ(180deg);font-size: 18px;font-weight: 500;" ></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            @foreach (var size in DataProduk.Size)
+                            {
+                                <li>
+                                    <a class="dropdown-item @(DataProduk.Size_Default == size ? "active" : "")" @onclick="() => OnSizeChanged(size)">
+                                        @size
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-3 d-none d-xl-flex">
+                    <div class="qty-box">
+                        <button @onclick="Decrease">-</button>
+                        <span style="font-size:15px; color:black;">@Quantity</span>
+                        <button @onclick="Increase">+</button>
+                    </div>
+                    @if(DataProduk.Show_Min_Order)
+                    {
+                        <div>
+                            <p style="color:red; font-size:10px">* Minimal order @DataProduk.Min_Order item </p>
+                        </div>
+                    }
+                </div>
+                <div class="col-5 col-lg-3 px-1 px-lg-2">
+                    <div class="btn-group w-100">
+                        <button class="btn-slide" @onclick=@(() => tambahKeranjang(DataProduk, "detail"))  type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Tambahkan <i class="lni lni-cart-2 ms-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <MyFooter @ref="footer_page"/>
+
+<div style="padding-bottom:100px"></div>
+
+<style>
+    .form-text {
+        font-size: 14px;
+        letter-spacing: -0.2px;
+    }
+    .form-style {
+        border: 1px solid #d7d7d7;
+    }
+</style>

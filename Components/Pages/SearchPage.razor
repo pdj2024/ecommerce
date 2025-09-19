@@ -2,18 +2,20 @@
 @page "/search-page"
 
 
+<MyHeader ListDataProduk=@ListDataProduk ListDataKategori=@ListDataKategori @ref="header_page" />
+
 <!-- Start Trending Product Area -->
-<section class="trending-product section" style="margin-top: 70px;">
+<section class="trending-product section px-0 px-lg-3 px-xl-2 px-xxl-10" style="margin-top: 70px;">
     <div class="container-fluid">
         <div class="row" style="justify-content: center; margin-bottom: 2rem;">
             <div class="col-12">
                 <div class="section-title">
-                    <h2>Search</h2>
+                    <h2>Search results</h2>
                 </div>
             </div>
             <div class="col-12 col-md-12 col-lg-6">
                 <div class="input-group mb-3 style-grup">
-                    <span class="input-group-text" id="basic-addon1" style="padding: 0px;"><i class="lni lni-search-2" style="font:normal normal normal 22px/1 'Lineicons';"></i></span>
+                    <span class="input-group-text" id="basic-addon1" style="padding: 0px;"><i class="lni lni-search-1" style="font:normal normal normal 22px/1 'Lineicons';"></i></span>
                     <InputText @bind-Value=@SearchText @oninput="@(e => OnSearchInput(e.Value?.ToString()))" type="text" class="form-control search-form" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1"/>
                     <button class="clear-search" @onclick="@(e => OnClearInput())" >Clear</button>
                 </div>
@@ -24,8 +26,8 @@
                 <div class="filters">
                     <div class="filter-accordion">
                         <input type="checkbox" id="filter-genre" class="filter-toggle">
-                        <label for="filter-genre" class="filter-label">Gender</label>
-                        <div class="filter-content">
+                        <label for="filter-genre" style="font-size: 23px;letter-spacing: -1.7px;" class="filter-label search-fil py-4 px-0">Gender</label>
+                        <div class="filter-content px-0" style="border-bottom: 1px solid darkgray;">
                             @foreach (var dataKategori in ListDataKategori)
                             {
                                 if (dataKategori.Nama_Kategori == "Men's" || dataKategori.Nama_Kategori == "Women's" || dataKategori.Nama_Kategori == "Kid's")
@@ -37,8 +39,8 @@
                     </div>
                     <div class="filter-accordion">
                         <input type="checkbox" id="filter-brand" class="filter-toggle">
-                        <label for="filter-brand" class="filter-label">Brand</label>
-                        <div class="filter-content">
+                        <label for="filter-brand" style="font-size: 23px;letter-spacing: -1.7px;" class="filter-label search-fil py-4 px-0">Brand</label>
+                        <div class="filter-content px-0" style="border-bottom: 1px solid darkgray;">
                             @foreach (var dataBrand in ListDataBrand)
                             {
                                 <label><input type="checkbox"> @dataBrand.Nama_Brand</label>
@@ -47,8 +49,8 @@
                     </div>
                     <div class="filter-accordion">
                         <input type="checkbox" id="filter-category" class="filter-toggle">
-                        <label for="filter-category" class="filter-label">Kategori</label>
-                        <div class="filter-content">
+                        <label for="filter-category" style="font-size: 23px;letter-spacing: -1.7px;" class="filter-label search-fil py-4 px-0">Kategori</label>
+                        <div class="filter-content px-0" style="border-bottom: 1px solid darkgray;">
                             @foreach (var dataKategori in ListDataKategori)
                             {
                                 if (dataKategori.Nama_Kategori != "Men's" || dataKategori.Nama_Kategori != "Women's" || dataKategori.Nama_Kategori != "Kid's")
@@ -60,8 +62,8 @@
                     </div>
                     <div class="filter-accordion">
                         <input type="checkbox" id="filter-price" class="filter-toggle">
-                        <label for="filter-price" class="filter-label">Harga</label>
-                        <div class="filter-content">
+                        <label for="filter-price" style="font-size: 23px;letter-spacing: -1.7px;" class="filter-label search-fil py-4 px-0">Harga</label>
+                        <div class="filter-content px-0" style="border-bottom: 1px solid darkgray;">
                             <label><input type="radio" name="price" value="0-500"> ≤ Rp 500.000</label>
                             <label><input type="radio" name="price" value="500-1000"> Rp 500.000–1.000.000</label>
                             <label><input type="radio" name="price" value="1000"> > Rp 1.000.000</label>
@@ -72,47 +74,110 @@
 
             <div class="col-12 col-md-12 col-lg-9">
                 <div class="row">
-                    @foreach (var dataProduk in ListDataProduk) {
-                        <div class="col-lg-3 col-md-4 col-6 pt-2 pb-2">
+                    <div class="col-12 d-flex justify-content-between align-items-center">
+                        <p>100 results</p>
+                        <div class="btn-group w-auto">
+                        <button class="dropdown-toggle btn-slide px-3 justify-content-around border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="z-index:0;">
+                                <span style="position:relative; z-index:1">
+                                Short by : relevant
+                            </span>
+                            <i class="lni lni-chevron-up ms-2" style="transform: rotateZ(180deg);font-size: 18px;font-weight: 500;" ></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item">
+                                    relevant
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item">
+                                    A - Z 
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item">
+                                    Z - A
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    </div>
+                </div>
+                <div class="row py-3">
+                    <div class="d-flex flex-row flex-wrap gap-3">
+                        <button class="btn-slide w-auto px-3 py-2" style="z-index:0;"><span style="position:relative; z-index:1">Filter 1 X</span></button>
+                        <button class="btn-slide w-auto px-3 py-2" style="z-index:0;"><span style="position:relative; z-index:1">Filter 2 X</span></button>
+                        <button class="btn-slide w-auto px-3 py-2" style="z-index:0;"><span style="position:relative; z-index:1">Filter 3 X</span></button>
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="row">
+                    @foreach (var dataProduk in SearchList.SearchProduk)
+                    {
+                        <div class="col-lg-3 col-md-4 col-6 col-xxl-2 pt-2 pb-2 product">
                             <!-- Start Single Product -->
                             <div class="single-product">
                                 <div class="product-image">
                                     @if (dataProduk.MediaUrls.Count() >= 1)
                                     {
                                         <img src="@dataProduk.MediaUrls[0]?.Id_Media" alt="@dataProduk.Nama_Display">
+                                        @* <img class="img2" src="@dataProduk.MediaUrls[1]?.Id_Media" alt="@dataProduk.Nama_Display"> *@
                                     }
-                                    else
+
+                                    @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
                                     {
-                                        <img src="https://placehold.co/600x600" alt="@dataProduk.Nama_Display">
-                                    }
-                                    @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1) {
                                         <span class="sale-tag">-@dataProduk.Diskon1.ToString()%</span>
                                     }
                                     @if (dataProduk.Tgl_Created != null && (DateTime.Now - dataProduk.Tgl_Created).TotalDays <= 3)
                                     {
                                         <span class="new-tag">New</span>
                                     }
+
                                     <div class="button">
-                                        <NavLink href="@($"/detail-produk/{dataProduk.No_Id}")" class="btn">Tambahkan <i class="lni lni-cart-1 ms-3"></i></NavLink>
+                                        <button @onclick="@(e => selectProduk(dataProduk.No_Id))" data-bs-toggle="offcanvas" data-bs-target="#offdetailprod" aria-controls="offdetailprod" class="btn d-none d-lg-flex">Tambahkan <i class="lni lni-cart-1 ms-3"></i></button>
+                                    </div>
+
+                                    <div class="button-search-produk">
+                                        <button @onclick="@(e => selectProduk(dataProduk.No_Id))" data-bs-toggle="offcanvas" data-bs-target="#offdetailprod" aria-controls="offdetailprod" class="btn">
+                                            <i class="lni lni-search-1 d-none d-lg-flex"></i>
+                                            <i class="lni lni-cart-1 d-flex d-lg-none"></i>
+                                        </button>
                                     </div>
                                 </div>
                                 <div class="product-info">
-                                    <span class="category">
-                                        @foreach (var kategori in dataProduk.Nama_Kategori) 
-                                        {
-                                        @kategori
-                                        }
-                                    </span>
-                                    <h4 class="title clamp-2">
-                                        <NavLink href="@($"/detail-produk/{dataProduk.No_Id}")">
-                                            @dataProduk.Nama_Display
+                                    <h4 class="title">
+                                        <NavLink style="cursor:pointer;" @onclick="@(e => NavigateToDetailProduk(dataProduk.No_Id))">
+                                            <p class="line-clamp-2 underline-anim">
+                                                @dataProduk.Nama_Display
+                                            </p>
                                         </NavLink>
                                     </h4>
+                                    @* <ul class="review">
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star-filled"></i></li>
+                                <li><i class="lni lni-star"></i></li>
+                                <li><span>4.0 Review(s)</span></li>
+                            </ul> *@
                                     <div class="price">
-                                        <span>@string.Format("Rp. {0:N2}", dataProduk.Harga)</span>
+                                        <span>
+                                            @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
+                                            {
+                                                @string.Format("Rp. {0:N0}", (dataProduk.Harga - ((dataProduk.Diskon1 / 100) * dataProduk.Harga)))
+                                            }
+                                            else
+                                            {
+                                                @string.Format("Rp. {0:N0}", dataProduk.Harga)
+                                            }
+                                        </span>
                                         @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
                                         {
-                                            <span class="discount-price">@string.Format("Rp. {0:N2}", ((dataProduk.Diskon1/100) * dataProduk.Harga))</span>
+                                            <span class="discount-price">@string.Format("Rp. {0:N0}", dataProduk.Harga)</span>
                                         }
                                     </div>
                                 </div>
@@ -127,3 +192,8 @@
 </section>
 <!-- End Trending Product Area -->
 
+
+
+<MyFooter @ref="footer_page"/>
+
+<PacificWeb.Components.Sections.SelectProduk DataProduk="DataProduk" header_page="header_page"></PacificWeb.Components.Sections.SelectProduk>

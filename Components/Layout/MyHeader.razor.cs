@@ -1,5 +1,6 @@
 ﻿using BlazorBootstrap;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.JSInterop;
 using Models;
@@ -31,9 +32,11 @@ namespace PacificWeb.Components.Layout
         [Parameter] public List<Kategori> ListDataKategori { get; set; } = new List<Kategori>();
         public List<Cart> ListDataCart { get; set; } = new List<Cart>();
         public List<Cart> ListDataCartCheck { get; set; } = new List<Cart>();
+        public (List<Brand> SearchBrand, List<Produk> SearchProduk, int TotalCount) SearchList { get; set; } = (new List<Brand>(), new List <Produk>(), 0);
         public bool loadProses { get; set; } = false;
         public bool loadProsesNetto { get; set; } = false;
         public decimal nettoKeranjang { get; set; } = 0;
+        public int searchCount { get; set; } = 0;
 
         public void NavigateToHome(string route)
         {
@@ -90,6 +93,7 @@ namespace PacificWeb.Components.Layout
 
         private void OnSearchInput(string? value)
         {
+
             SearchText = value;
 
             // reset timer
@@ -104,23 +108,53 @@ namespace PacificWeb.Components.Layout
 
                 await InvokeAsync(async () =>
                 {
-                    await SearchDataAsync(SearchText);
+                    if (string.IsNullOrWhiteSpace(value))
+                    {
+                        OnClearInput();
+                        return;
+                    }
+                    loadProses = true;
                     StateHasChanged();
+
+                    await SearchDataAsync(SearchText);
+
+                    loadProses = false;
+                    StateHasChanged();
+                    
+                    
                 });
             };
             _debounceTimer.AutoReset = false;
             _debounceTimer.Start();
         }
 
-        private Task SearchDataAsync(string? query)
+        private async Task SearchDataAsync(string? query)
         {
-            Console.WriteLine($"🔎 Search dipanggil: {query}");
-            return Task.CompletedTask;
+            SearchList = await pdjService.GetSearchApi(new ParameterApi
+            {
+                routeApi = "produk",
+                prosesApi = "search",
+                ParamUrl = new ParameterApi.ParameterUrl
+                {
+                    pagesize = 8,
+                    keyword = query
+                }
+            });
+
+            searchCount = SearchList.TotalCount == 0 ? -1 : SearchList.TotalCount;
+
+            StateHasChanged();
         }
 
         private void OnClearInput()
         {
             SearchText = "";
+
+            SearchList = (new List<Brand>(), new List<Produk>(), 0);
+
+            searchCount = 0;
+
+            StateHasChanged();
         }
 
         public async Task RefreshCart()
@@ -279,5 +313,14 @@ namespace PacificWeb.Components.Layout
             loadProsesNetto = false;
             StateHasChanged();
         }
+
+        private void HandleKeyDown(KeyboardEventArgs e)
+        {
+            if (e.Key == "Enter" && !string.IsNullOrWhiteSpace(SearchText))
+            {
+                NavigationManager.NavigateTo($"/search-page?keyword={Uri.EscapeDataString(SearchText)}", true);
+            }
+        }
+
     }
 }

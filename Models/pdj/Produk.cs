@@ -30,6 +30,7 @@ namespace Models
         public decimal? Diskon4 { get; set; } = 0;
         public string Satuan { get; set; } = "";
         public int Min_Order { get; set; } = 0;
+        public bool Show_Min_Order { get; set; } = false;
         public int Order_Qty { get; set; } = 0;
         public string Deskripsi { get; set; } = "";
         public List<string> Size { get; set; } = new();
@@ -39,8 +40,8 @@ namespace Models
         public string Kode_Erp { get; set; } = "";
         public string Media { get; set; } = "";
         public string Option { get; set; } = "";
-        public List<MediaData> MediaUrls { get; set; } = new List<MediaData>();
-        public List<Options> Options { get; set; } = new List<Options>();
-        public List<Variants> Variants { get; set; } = new List<Variants>();
+        public List<MediaData> MediaUrls { get; set; } = new ();
+        public List<Options> Options { get; set; } = new ();
+        public List<Variants> Variants { get; set; } = new ();
     }
 }

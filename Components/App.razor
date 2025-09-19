@@ -22,6 +22,10 @@
     <link href="_content/DevExpress.Blazor.Themes/blazing-berry.bs5.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="_content/DevExpress.Blazor.Reporting.Viewer/css/dx-blazor-reporting-components.bs5.css">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
     <!-- ========================= CSS here ========================= -->
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/icons.css" />
@@ -38,7 +42,7 @@
 
 <body>
     @* style="display:none !important;" *@
-    <div class="preloader" style="">
+    <div class="preloader" style="display:none !important;">
         <div class="preloader-inner">
             <div class="preloader-icon">
                 <span></span>
@@ -92,6 +96,31 @@
             document.querySelector(selectorName).click();
         }
 
+        function initFlayer() {
+            const target = document.querySelector('#hidden-flayer');
+            const flayer = document.querySelector('#flayer');
+
+            const observer = new IntersectionObserver(
+              (entries) => {
+                entries.forEach(entry => {
+                  if (entry.isIntersecting) {
+                    // Section terlihat -> sembunyikan flayer
+                    flayer.classList.remove('visible');
+                  } else {
+                    // Section tidak terlihat -> tampilkan flayer
+                    flayer.classList.add('visible');
+                  }
+                });
+              },
+              {
+                root: null,         // viewport
+                threshold: 0,       // trigger begitu section keluar sepenuhnya
+                rootMargin: '-85px 0px 0px 0px'
+              }
+            );
+
+            observer.observe(target);
+        }
 
 
         function initVaCopy() {

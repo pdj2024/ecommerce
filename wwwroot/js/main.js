@@ -27,7 +27,7 @@ Author: GrayGrids
         var backToTo = document.querySelector(".scroll-top");
         if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
             backToTo.style.display = "flex";
-            header_navbar.style.boxShadow = "#23232324 5px 10px 24px 0px";
+            header_navbar.style.boxShadow = "#23232324 5px 10px 24px -7px";
         } else {
             backToTo.style.display = "none";
             header_navbar.style.boxShadow = "unset";

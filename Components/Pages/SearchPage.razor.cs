@@ -1,13 +1,15 @@
-﻿using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.JSInterop;
 using Models;
-using Radzen.Blazor;
+using PacificWeb.Components.Layout;
 using Radzen;
+using Radzen.Blazor;
 using Services;
-using System.Reflection;
 using System.Configuration;
 using System.Drawing;
+using System.Reflection;
 
 
 
@@ -43,55 +45,94 @@ namespace PacificWeb.Components.Pages
         public pdjService pdjService { get; set; }
 
         public List<Produk> ListDataProduk { get; set; } = new List<Produk>();
+        public Produk DataProduk { get; set; } = new Produk();
+        public (List<Brand> SearchBrand, List<Produk> SearchProduk, int TotalCount) SearchList { get; set; } = (new (), new (), 0);
         public List<Kategori> ListDataKategori { get; set; } = new List<Kategori>();
         public List<Brand> ListDataBrand { get; set; } = new List<Brand>();
 
         private string SearchText = "";
 
         private System.Timers.Timer? _debounceTimer;
+        [Parameter] public string? Keyword { get; set; }
+        [Parameter] public int Quantity { get; set; } = 1;
+
+        MyHeader header_page;
+        MyFooter footer_page;
 
         protected override async Task OnInitializedAsync()
         {
-            ListDataProduk = await pdjService.GetProdukApi(new ParameterApi
-            {
-                routeApi = "produk",
-                prosesApi = "getAll",
-                ParamUrl = new ParameterApi.ParameterUrl
-                {
-                    pagesize = 8,
-                    show_variant = true,
-                }
-            });
-            ListDataKategori = await pdjService.GetKategoriApi(new ParameterApi
-            {
-                routeApi = "kategori",
-                prosesApi = "getAll",
-                ParamUrl = new ParameterApi.ParameterUrl
-                {
-                    status = "aktif",
-                }
-            });
+            var uri = new Uri(NavigationManager.Uri);
+            var queryParams = QueryHelpers.ParseQuery(uri.Query);
 
-            ListDataBrand = await pdjService.GetBrandApi(new ParameterApi
+            if (queryParams.TryGetValue("keyword", out var value))
             {
-                routeApi = "brand",
-                prosesApi = "getAll",
-                ParamUrl = new ParameterApi.ParameterUrl
-                {
-                    orderBy = "nama_brand",
-                    orderDir = "desc",
-                }
-            });
-            StateHasChanged();
+                Keyword = value;
+            }
+
+            SearchText = Keyword;
+
+
         }
 
+        public async Task selectProduk(string id_kode)
+        {
+            DataProduk = SearchList.SearchProduk.FirstOrDefault(x => x.No_Id == id_kode);
+            Quantity = 1;
+            StateHasChanged();
+            await JSRuntime.InvokeVoidAsync("initSearchButton");
+        }
+
+        public void NavigateToDetailProduk(string id)
+        {
+            NavigationManager.NavigateTo($"/detail-produk/{id}", forceLoad: true);
+        }
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
             {
-                // await JSRuntime.InvokeVoidAsync("initTinySlider");
+
+                SearchList = await pdjService.GetSearchApi(new ParameterApi
+                {
+                    routeApi = "produk",
+                    prosesApi = "search",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        keyword = Keyword,
+                        pagesize = 12,
+                        show_variant = true,
+                    }
+                });
+
+
+
+                ListDataKategori = await pdjService.GetKategoriApi(new ParameterApi
+                {
+                    routeApi = "kategori",
+                    prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        status = "aktif",
+                    }
+                });
+
+
+
+                ListDataBrand = await pdjService.GetBrandApi(new ParameterApi
+                {
+                    routeApi = "brand",
+                    prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        orderBy = "nama_brand",
+                        orderDir = "desc",
+                    }
+                });
+
+
+
+                StateHasChanged();
                 await JSRuntime.InvokeVoidAsync("scrollToTop");
-                // await JSRuntime.InvokeVoidAsync("statusBarHidden");
+                await JSRuntime.InvokeVoidAsync("initslideProduct");
             }
 
         }

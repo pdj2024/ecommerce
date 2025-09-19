@@ -42,6 +42,7 @@ namespace Models
             public string status_order_2 { get; set; }
             public string status_item { get; set; }
             public string status { get; set; }
+            public string keyword { get; set; }
         }
     
     }

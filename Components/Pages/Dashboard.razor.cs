@@ -65,54 +65,52 @@ namespace PacificWeb.Components.Pages
         {
             if (firstRender)
             {
-                ListDataProduk = await pdjService.GetProdukApi(new ParameterApi 
-                { routeApi = "produk",
-                  prosesApi = "getAll",
-                    ParamUrl = new ParameterApi.ParameterUrl 
-                    { 
-                        pagesize = 8, 
-                        show_variant = true,
-                    } 
+                // Jalankan semua request paralel
+                var produkTask = pdjService.GetProdukApi(new ParameterApi
+                {
+                    routeApi = "produk",
+                    prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl { pagesize = 12, show_variant = true }
                 });
 
-                ListDataBanner = await pdjService.GetBannerApi(new ParameterApi
+                var bannerTask = pdjService.GetBannerApi(new ParameterApi
                 {
                     routeApi = "banner",
                     prosesApi = "getAll",
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        orderBy = "nama_banner",
-                        orderDir = "desc",
-                    }
+                    ParamUrl = new ParameterApi.ParameterUrl { orderBy = "nama_banner", orderDir = "desc" }
                 });
 
-                ListDataBrand = await pdjService.GetBrandApi(new ParameterApi
+                var brandTask = pdjService.GetBrandApi(new ParameterApi
                 {
                     routeApi = "brand",
                     prosesApi = "getAll",
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        orderBy = "nama_brand",
-                        orderDir = "desc",
-                    }
+                    ParamUrl = new ParameterApi.ParameterUrl { orderBy = "nama_brand", orderDir = "desc" }
                 });
 
-                ListDataKategori = await pdjService.GetKategoriApi(new ParameterApi
+                var kategoriTask = pdjService.GetKategoriApi(new ParameterApi
                 {
                     routeApi = "kategori",
                     prosesApi = "getAll",
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        status = "aktif",
-                    }
+                    ParamUrl = new ParameterApi.ParameterUrl { status = "aktif" }
                 });
 
+                // Tunggu semua task selesai
+                await Task.WhenAll(produkTask, bannerTask, brandTask, kategoriTask);
+
+                // Assign semua data sekaligus
+                ListDataProduk = produkTask.Result;
+                ListDataBanner = bannerTask.Result;
+                ListDataBrand = brandTask.Result;
+                ListDataKategori = kategoriTask.Result;
+
+                // Render ulang satu kali setelah semua data tersedia
                 StateHasChanged();
+
+                // Jalankan JS interop setelah DOM terupdate
                 await JSRuntime.InvokeVoidAsync("initslideProduct");
                 await JSRuntime.InvokeVoidAsync("initTinySlider");
                 await JSRuntime.InvokeVoidAsync("scrollToTop");
-                
-                //await JSRuntime.InvokeVoidAsync("statusBarHidden");
+
                 StateHasChanged();
                 await Task.Delay(500);
                 await JSRuntime.InvokeVoidAsync("fadeout");
@@ -194,7 +192,7 @@ namespace PacificWeb.Components.Pages
                 await header_page.RefreshCart();
                 StateHasChanged();
                 await JSRuntime.InvokeVoidAsync("buttonClick", "#closeDetailProd");
-                await Task.Delay(1000);
+                await Task.Delay(200);
                 await JSRuntime.InvokeVoidAsync("buttonClick", "#openCartProd");
             } else
             {

@@ -58,7 +58,7 @@
                 <div class="navbar-cart">
                     <div class="wishlist" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
                         <a href="javascript:void(0)" class="menu-logo">
-                            <i class="lni lni-search-2"></i>
+                            <i class="lni lni-search-1"></i>
                         </a>
                     </div>
                     <div id="openCartProd" class="wishlist" data-bs-toggle="offcanvas" data-bs-target="#offcanvascart" aria-controls="offcanvascart">
@@ -144,7 +144,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="input-group mb-3 style-grup">
-                                <span class="input-group-text" id="basic-addon1" style="padding: 0px;"><i class="lni lni-search-2" style="font:normal normal normal 22px/1 'Lineicons';"></i></span>
+                                <span class="input-group-text" id="basic-addon1" style="padding: 0px;"><i class="lni lni-search-1" style="font:normal normal normal 22px/1 'Lineicons';"></i></span>
                                 <InputText @bind-Value=@SearchText @oninput="@(e => OnSearchInput(e.Value?.ToString()))" type="text" class="form-control search-form" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1" />
                                 <button class="clear-search" @onclick="@(e => OnClearInput())" >Clear</button>
                             </div>
@@ -204,7 +204,7 @@
                                                     @($"{cart.Option}, {cart.Size}")
                                                 </p>
                                                 <p class="quantity">
-                                                    <span class="amount" style="font-size:16px; font-weight:600;">@string.Format("Rp. {0:N2}", cart.Harga)</span>
+                                                    <span class="amount" style="font-size:16px; font-weight:600;">@string.Format("Rp. {0:N0}", cart.Harga)</span>
                                                 </p>
                                             </div>
                                         </div>
@@ -247,7 +247,7 @@
                                     } else
                                     {
                                         <span class="total-amount">
-                                            @string.Format("Rp. {0:N2}", nettoKeranjang)
+                                            @string.Format("Rp. {0:N0}", nettoKeranjang)
                                         </span>
                                     }
                                 </div>

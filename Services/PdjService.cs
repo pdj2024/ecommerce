@@ -760,7 +760,63 @@ namespace Services
 
         }
 
+        public async Task<(List<Brand> SearchBrand, List<Produk> SearchProduk, int TotalCount)> GetSearchApi(ParameterApi urlParam)
 
+        {
+            var config = initConfigApi(urlParam);
+            var tbListProduk = new List<Produk>();
+            var tbListBrand = new List<Brand>();
+            int totalCount = 0;
+
+            try
+            {
+                var response = await config.httpReq.GetAsync(config.UrlApi, config.cancelTimer.Token);
+
+                var checking = await CheckAPI(response, config.UrlApi, "BACA");
+
+                if (checking.statusResponse)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    using var jsonDoc = JsonDocument.Parse(json);
+                    var root = jsonDoc.RootElement;
+
+                    if (root.TryGetProperty("Produk", out var dataFromDbProduk))
+                    {
+                        tbListProduk = JsonConvert.DeserializeObject<List<Produk>>(dataFromDbProduk.GetRawText());
+                    }
+                    if (root.TryGetProperty("Brand", out var dataFromDbBrand))
+                    {
+                        tbListBrand = JsonConvert.DeserializeObject<List<Brand>>(dataFromDbBrand.GetRawText());
+                    }
+                    if (root.TryGetProperty("TotalCount", out var dataFromDbTotalCount))
+                    {
+                        totalCount = JsonConvert.DeserializeObject<int>(dataFromDbTotalCount.GetRawText());
+                    }
+                    else
+                    {
+                        writeLog($"Data Kosong");
+                    }
+                }
+                return (tbListBrand, tbListProduk, totalCount);
+            }
+            catch (Exception ex)
+            {
+                if (ex is OperationCanceledException)
+                {
+                    writeLog("Gagal Baca Data : Request ke API terlalu lama (timeout).");
+                }
+                else if (ex is HttpRequestException)
+                {
+                    writeLog($"Gagal Baca Data : Terjadi kesalahan jaringan atau server. {ex.Message}");
+                }
+                else
+                {
+                    writeLog($"Gagal Baca Data : Terjadi error: {ex.Message}");
+                }
+            }
+
+            return (tbListBrand, tbListProduk, totalCount);
+        }
 
 
 

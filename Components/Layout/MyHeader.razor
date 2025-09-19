@@ -32,10 +32,6 @@
                                     <a href="index.html" class="a-menu" aria-label="Toggle navigation"><span class="add-after">Home</span></a>
                                 </li>
                                 
-                                @* @foreach(var kategori in ListDataKategori)
-                                {
-                                    @if (kategori.Nama_Group_Kategori.ToLower() != "gender") { continue; }
-                                } *@
                                 <li class="nav-item mega-parent">
                                     <a class="dd-menu a-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
                                         data-bs-target="#submenu-1-2" aria-controls="navbarSupportedContent"
@@ -86,18 +82,16 @@
                                         <div class="mega-col w-50 h-100" style="gap:15px;">
                                             @foreach (var dataProduk in ListProduk)
                                             {
-                                                <div class="col-4 pt-1 pb-1 submenu-nav">
+                                                <div class="col-3 pt-1 pb-1 submenu-nav">
                                                     <!-- Start Single Product -->
                                                     <div class="single-product">
                                                         <div class="product-image">
                                                             @if (dataProduk.MediaUrls.Count() >= 1)
                                                             {
                                                                 <img src="@dataProduk.MediaUrls[0]?.Id_Media" alt="@dataProduk.Nama_Display">
+                                                                <img class="img2" src="@dataProduk.MediaUrls[1]?.Id_Media" alt="@dataProduk.Nama_Display">
                                                             }
-                                                            else
-                                                            {
-                                                                <img src="https://placehold.co/600x600" alt="@dataProduk.Nama_Display">
-                                                            }
+
                                                             @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
                                                             {
                                                                 <span class="sale-tag">-@dataProduk.Diskon1.ToString()%</span>
@@ -109,25 +103,33 @@
                                                         </div>
                                                         <div class="product-info">
                                                             <h4 class="title">
-                                                                <NavLink style="padding: 5px 0px;" href="@($"/detail-produk/{dataProduk.No_Id}")">
-                                                                    <p class="line-clamp-2">
+                                                                <NavLink style="cursor:pointer; display:inline-block;" @onclick="@(() => NavigationManager.NavigateTo($"/detail-produk/{dataProduk.No_Id}", forceLoad: true))">
+                                                                    <p class="line-clamp-2 underline-anim">
                                                                         @dataProduk.Nama_Display
                                                                     </p>
                                                                 </NavLink>
                                                             </h4>
+                                                            @* <ul class="review">
+                                                                <li><i class="lni lni-star-filled"></i></li>
+                                                                <li><i class="lni lni-star-filled"></i></li>
+                                                                <li><i class="lni lni-star-filled"></i></li>
+                                                                <li><i class="lni lni-star-filled"></i></li>
+                                                                <li><i class="lni lni-star"></i></li>
+                                                                <li><span>4.0 Review(s)</span></li>
+                                                            </ul> *@
                                                             <div class="price">
                                                                 <span>
                                                                     @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
                                                                     {
-                                                                        @string.Format("Rp. {0:N2}", (dataProduk.Harga - ((dataProduk.Diskon1 / 100) * dataProduk.Harga)))
+                                                                        @string.Format("Rp. {0:N0}", (dataProduk.Harga - ((dataProduk.Diskon1 / 100) * dataProduk.Harga)))
                                                                     } else
                                                                     {
-                                                                        @string.Format("Rp. {0:N2}", dataProduk.Harga)
+                                                                        @string.Format("Rp. {0:N0}", dataProduk.Harga)
                                                                     }
                                                                 </span>
                                                                 @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
                                                                 {
-                                                                    <span class="discount-price">@string.Format("Rp. {0:N2}", dataProduk.Harga)</span>
+                                                                    <span class="discount-price">@string.Format("Rp. {0:N0}", dataProduk.Harga)</span>
                                                                 }
                                                             </div>
                                                         </div>
@@ -139,6 +141,7 @@
                                         </div>
                                     </div>
                                 </li>
+                                
                                 <li class="nav-item mega-parent">
                                     <a class="dd-menu a-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
                                         data-bs-target="#submenu-1-2" aria-controls="navbarSupportedContent"
@@ -189,18 +192,16 @@
                                         <div class="mega-col w-50 h-100" style="gap:15px;">
                                             @foreach (var dataProduk in ListProduk)
                                             {
-                                                <div class="col-4 pt-1 pb-1 submenu-nav">
+                                                <div class="col-3 pt-1 pb-1 submenu-nav">
                                                     <!-- Start Single Product -->
                                                     <div class="single-product">
                                                         <div class="product-image">
                                                             @if (dataProduk.MediaUrls.Count() >= 1)
                                                             {
                                                                 <img src="@dataProduk.MediaUrls[0]?.Id_Media" alt="@dataProduk.Nama_Display">
+                                                                <img class="img2" src="@dataProduk.MediaUrls[1]?.Id_Media" alt="@dataProduk.Nama_Display">
                                                             }
-                                                            else
-                                                            {
-                                                                <img src="https://placehold.co/600x600" alt="@dataProduk.Nama_Display">
-                                                            }
+
                                                             @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
                                                             {
                                                                 <span class="sale-tag">-@dataProduk.Diskon1.ToString()%</span>
@@ -212,25 +213,33 @@
                                                         </div>
                                                         <div class="product-info">
                                                             <h4 class="title">
-                                                                <NavLink style="padding: 5px 0px;" href="@($"/detail-produk/{dataProduk.No_Id}")">
-                                                                    <p class="line-clamp-2">
+                                                                <NavLink style="cursor:pointer; display:inline-block;" @onclick="@(() => NavigationManager.NavigateTo($"/detail-produk/{dataProduk.No_Id}", forceLoad: true))">
+                                                                    <p class="line-clamp-2 underline-anim">
                                                                         @dataProduk.Nama_Display
                                                                     </p>
                                                                 </NavLink>
                                                             </h4>
+                                                            @* <ul class="review">
+                                                                <li><i class="lni lni-star-filled"></i></li>
+                                                                <li><i class="lni lni-star-filled"></i></li>
+                                                                <li><i class="lni lni-star-filled"></i></li>
+                                                                <li><i class="lni lni-star-filled"></i></li>
+                                                                <li><i class="lni lni-star"></i></li>
+                                                                <li><span>4.0 Review(s)</span></li>
+                                                            </ul> *@
                                                             <div class="price">
                                                                 <span>
                                                                     @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
                                                                     {
-                                                                        @string.Format("Rp. {0:N2}", (dataProduk.Harga - ((dataProduk.Diskon1 / 100) * dataProduk.Harga)))
+                                                                        @string.Format("Rp. {0:N0}", (dataProduk.Harga - ((dataProduk.Diskon1 / 100) * dataProduk.Harga)))
                                                                     } else
                                                                     {
-                                                                        @string.Format("Rp. {0:N2}", dataProduk.Harga)
+                                                                        @string.Format("Rp. {0:N0}", dataProduk.Harga)
                                                                     }
                                                                 </span>
                                                                 @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
                                                                 {
-                                                                    <span class="discount-price">@string.Format("Rp. {0:N2}", dataProduk.Harga)</span>
+                                                                    <span class="discount-price">@string.Format("Rp. {0:N0}", dataProduk.Harga)</span>
                                                                 }
                                                             </div>
                                                         </div>
@@ -241,6 +250,7 @@
                                         </div>
                                     </div>
                                 </li>
+                                
                                 <li class="nav-item mega-parent">
                                     <a class="dd-menu a-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
                                         data-bs-target="#submenu-1-2" aria-controls="navbarSupportedContent"
@@ -291,18 +301,16 @@
                                         <div class="mega-col w-50 h-100" style="gap:15px;">
                                             @foreach (var dataProduk in ListProduk)
                                             {
-                                                <div class="col-4 pt-1 pb-1 submenu-nav">
+                                                <div class="col-3 pt-1 pb-1 submenu-nav">
                                                     <!-- Start Single Product -->
                                                     <div class="single-product">
                                                         <div class="product-image">
                                                             @if (dataProduk.MediaUrls.Count() >= 1)
                                                             {
                                                                 <img src="@dataProduk.MediaUrls[0]?.Id_Media" alt="@dataProduk.Nama_Display">
+                                                                <img class="img2" src="@dataProduk.MediaUrls[1]?.Id_Media" alt="@dataProduk.Nama_Display">
                                                             }
-                                                            else
-                                                            {
-                                                                <img src="https://placehold.co/600x600" alt="@dataProduk.Nama_Display">
-                                                            }
+
                                                             @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
                                                             {
                                                                 <span class="sale-tag">-@dataProduk.Diskon1.ToString()%</span>
@@ -314,25 +322,33 @@
                                                         </div>
                                                         <div class="product-info">
                                                             <h4 class="title">
-                                                                <NavLink style="padding: 5px 0px;" href="@($"/detail-produk/{dataProduk.No_Id}")">
-                                                                    <p class="line-clamp-2">
+                                                                <NavLink style="cursor:pointer; display:inline-block;" @onclick="@(() => NavigationManager.NavigateTo($"/detail-produk/{dataProduk.No_Id}", forceLoad: true))">
+                                                                    <p class="line-clamp-2 underline-anim">
                                                                         @dataProduk.Nama_Display
                                                                     </p>
                                                                 </NavLink>
                                                             </h4>
+                                                            @* <ul class="review">
+                                                                <li><i class="lni lni-star-filled"></i></li>
+                                                                <li><i class="lni lni-star-filled"></i></li>
+                                                                <li><i class="lni lni-star-filled"></i></li>
+                                                                <li><i class="lni lni-star-filled"></i></li>
+                                                                <li><i class="lni lni-star"></i></li>
+                                                                <li><span>4.0 Review(s)</span></li>
+                                                            </ul> *@
                                                             <div class="price">
                                                                 <span>
                                                                     @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
                                                                     {
-                                                                        @string.Format("Rp. {0:N2}", (dataProduk.Harga - ((dataProduk.Diskon1 / 100) * dataProduk.Harga)))
+                                                                        @string.Format("Rp. {0:N0}", (dataProduk.Harga - ((dataProduk.Diskon1 / 100) * dataProduk.Harga)))
                                                                     } else
                                                                     {
-                                                                        @string.Format("Rp. {0:N2}", dataProduk.Harga)
+                                                                        @string.Format("Rp. {0:N0}", dataProduk.Harga)
                                                                     }
                                                                 </span>
                                                                 @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
                                                                 {
-                                                                    <span class="discount-price">@string.Format("Rp. {0:N2}", dataProduk.Harga)</span>
+                                                                    <span class="discount-price">@string.Format("Rp. {0:N0}", dataProduk.Harga)</span>
                                                                 }
                                                             </div>
                                                         </div>
@@ -343,6 +359,7 @@
                                         </div>
                                     </div>
                                 </li>
+                                
                                 <li class="nav-item"><a href="#" class="a-menu"><span class="add-after">Contact</span></a></li>
                             </ul>
                         </div> <!-- navbar collapse -->
@@ -355,7 +372,7 @@
                 <div class="navbar-cart">
                     <div class="wishlist" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
                         <a href="javascript:void(0)" class="menu-logo">
-                            <i class="lni lni-search-2"></i>
+                            <i class="lni lni-search-1"></i>
                         </a>
                     </div>
                     <div id="openCartProd" class="wishlist" data-bs-toggle="offcanvas" data-bs-target="#offcanvascart" aria-controls="offcanvascart">
@@ -441,11 +458,105 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="input-group mb-3 style-grup">
-                                <span class="input-group-text" id="basic-addon1" style="padding: 0px;"><i class="lni lni-search-2" style="font:normal normal normal 22px/1 'Lineicons';"></i></span>
-                                <InputText @bind-Value=@SearchText @oninput="@(e => OnSearchInput(e.Value?.ToString()))" type="text" class="form-control search-form" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1" />
-                                <button class="clear-search" @onclick="@(e => OnClearInput())" >Clear</button>
+                                <span class="input-group-text" id="basic-addon1" style="padding: 0px;"><i class="lni lni-search-1" style="font:normal normal normal 22px/1 'Lineicons';"></i></span>
+                                <InputText @onkeydown="HandleKeyDown" @bind-Value=@SearchText @oninput="@(e => OnSearchInput(e.Value?.ToString()))" type="text" class="form-control search-form" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1" />
+                                <button class="clear-search" @onclick="@(e => OnClearInput())" >
+                                    @if(loadProses)
+                                        {
+                                            <div class="spinner-border spinner-border-sm" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                        } else
+                                        {
+                                            <span>Clear</span>
+                                        }
+                                </button>
                             </div>
                         </div>
+
+                        @if (searchCount > 0) {
+
+                            <div class="col-12 pt-3" style="">
+                                <h5 id="offcanvasRightLabel" style="font-size: 1rem;font-weight: 600;">
+                                    Brand
+                                </h5>
+                            </div>
+
+                            <div class="col-12 py-3" style="border-bottom:1px solid lightgray;">
+                                @foreach(var brand in SearchList.SearchBrand) {
+                                    <button type="button" class="badge-search">@brand.Nama_Brand</button>
+                                }
+                            </div>
+
+                            <div class="col-12 pt-4">
+                                <h5 id="offcanvasRightLabel" style="font-size: 1rem;font-weight: 600;">
+                                    Produk
+                                </h5>
+                            </div>
+                        
+                            <div class="col-12 py-3" style="border-bottom:1px solid lightgray;">
+                                <div class="row">
+                                    @foreach(var dataProduk in SearchList.SearchProduk) {
+                                        <div class="col-6 py-2">
+                                            <!-- Start Single Product -->
+                                            <div class="single-product">
+                                                <div class="product-image">
+                                                    @if (dataProduk.MediaUrls.Count() >= 1)
+                                                    {
+                                                        <img src="@dataProduk.MediaUrls[0]?.Id_Media" alt="@dataProduk.Nama_Display">
+                                                    }
+
+                                                    @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
+                                                    {
+                                                        <span class="sale-tag">-@dataProduk.Diskon1.ToString()%</span>
+                                                    }
+                                                    @if (dataProduk.Tgl_Created != null && (DateTime.Now - dataProduk.Tgl_Created).TotalDays <= 3)
+                                                    {
+                                                        <span class="new-tag">New</span>
+                                                    }
+                                                </div>
+                                                <div class="product-info">
+                                                    <h4 class="title">
+                                                        <NavLink style="cursor:pointer;" @onclick="@(() => NavigationManager.NavigateTo($"/detail-produk/{dataProduk.No_Id}", forceLoad: true))">
+                                                            <p class="line-clamp-2 underline-anim">
+                                                                @dataProduk.Nama_Display
+                                                            </p>
+                                                        </NavLink>
+                                                    </h4>
+                                                </div>
+                                            </div>
+                                            <!-- End Single Product -->
+                                        </div>
+                                    }
+                        
+                                </div>
+                            </div>
+                            
+                            <div class="col-12 mt-3">
+                                <div class="btn-group w-100">
+                                    <button class="btn-slide justify-content-start border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        See all results for “@SearchText”
+                                    </button>
+                                </div>
+                            </div>
+                        
+                        } 
+                        else if (searchCount == 0)
+                        {
+
+                        } else
+                        {
+                            <div class="d-flex flex-column align-items-center mt-4" style="color:black">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="5rem" viewBox="0 -960 960 960" width="5rem" class="mb-3" fill="currentColor">
+                                    <path d="m634-440-81-80h69l110-200H353l-80-80h525q23 0 35.5 19.5t.5 42.5L692-482q-11 20-28 31t-30 11ZM280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm540 52L566-280H304q-44 0-67-37.5t-3-78.5l42-86-72-162L28-820l56-56L876-84l-56 56ZM486-360l-80-80h-62l-40 80h182Zm136-160h-69 69Zm58 440q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80Z"/>
+                                </svg>
+                                <h5 style="color:black">Not Result Found "@SearchText"</h5>
+                                <p>Check the spelling or use a different word or phrase.</p>
+                            </div>
+                        }
+
+                    
+
                     </div>
                 </div>
             </div>
@@ -501,7 +612,7 @@
                                                     @($"{cart.Option}, {cart.Size}")
                                                 </p>
                                                 <p class="quantity">
-                                                    <span class="amount" style="font-size:16px; font-weight:600;">@string.Format("Rp. {0:N2}", cart.Harga)</span>
+                                                    <span class="amount" style="font-size:16px; font-weight:600;">@string.Format("Rp. {0:N0}", cart.Harga)</span>
                                                 </p>
                                             </div>
                                         </div>
@@ -511,7 +622,7 @@
                                                 <a @onclick=@(() => deleteItemCart(cart)) class="hapus-card-item" style="cursor:pointer;" title="Remove this item">
                                                     @if(loadProses)
                                                     {
-                                                        <div class="spinner-border" style="width: 0.8rem;height: 0.8rem; border: .15em solid currentColor;" role="status">
+                                                        <div class="spinner-border spinner-border-sm" role="status">
                                                             <span class="visually-hidden">Loading...</span>
                                                         </div>
                                                     } else
@@ -544,7 +655,7 @@
                                     } else
                                     {
                                         <span class="total-amount">
-                                            @string.Format("Rp. {0:N2}", nettoKeranjang)
+                                            @string.Format("Rp. {0:N0}", nettoKeranjang)
                                         </span>
                                     }
                                 </div>

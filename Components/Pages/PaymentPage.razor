@@ -42,9 +42,9 @@
                                             @display.Nama_Display
                                         </p>
                                     </div>
-                                    <div class="summary-item__meta">@($"{display?.Qty} x " + string.Format("Rp. {0:N2}", @display?.Harga))</div>
+                                    <div class="summary-item__meta">@($"{display?.Qty} x " + string.Format("Rp. {0:N0}", @display?.Harga))</div>
                                 </div>
-                                <div style="font-weight: 600;">@string.Format("Rp. {0:N2}", @display?.Harga * display?.Qty)</div>
+                                <div style="font-weight: 600;">@string.Format("Rp. {0:N0}", @display?.Harga * display?.Qty)</div>
                             </div>
                         }
                     </div>
@@ -88,7 +88,7 @@
                             <input type="radio" name="ship" checked="@shipping_method.selectShipping" @onchange="(e) => SelectShipingMethod(shipping_method)">
                             <span>@shipping_method.Nama</span>
                         </div>
-                        <div class="shipping-item__right">@string.Format("Rp. {0:N2}", @shipping_method.Fee)</div>
+                        <div class="shipping-item__right">@string.Format("Rp. {0:N0}", @shipping_method.Fee)</div>
                     </label>
                 }
             </div>
@@ -104,7 +104,7 @@
                             <input type="radio" name="pay" checked="@payment_method.selectPayment" @onchange="(e) => SelectPaymentMethod(payment_method)">
                             <span>@payment_method.Display</span>
                         </div>
-                        <div class="shipping-item__right">@string.Format("Rp. {0:N2}", @payment_method.Fee)</div>
+                        <div class="shipping-item__right">@string.Format("Rp. {0:N0}", @payment_method.Fee)</div>
                     </label>
                 }
                 
@@ -127,9 +127,9 @@
                                         @display.Nama_Display
                                     </p>
                                 </div>
-                                <div class="summary-item__meta">@($"{display?.Qty} x " + string.Format("Rp. {0:N2}", @display?.Harga))</div>
+                                <div class="summary-item__meta">@($"{display?.Qty} x " + string.Format("Rp. {0:N0}", @display?.Harga))</div>
                             </div>
-                            <div style="font-weight: 600;">@string.Format("Rp. {0:N2}", @display?.Harga * display?.Qty)</div>
+                            <div style="font-weight: 600;">@string.Format("Rp. {0:N0}", @display?.Harga * display?.Qty)</div>
                         </div>
                     }
                 </div>
@@ -137,19 +137,19 @@
             <div>
                 <div class="summary__line">
                     <span>Subtotal</span>
-                    <span style="font-weight:600;">@string.Format("Rp. {0:N2}", ListDisplayProduk.Sum(x => x.Qty * x.Harga))</span>
+                    <span style="font-weight:600;">@string.Format("Rp. {0:N0}", ListDisplayProduk.Sum(x => x.Qty * x.Harga))</span>
                 </div>
                 <div class="summary__line">
                     <span>Pengiriman</span>
-                    <span style="font-weight:600;">@string.Format("Rp. {0:N2}", shipingMethodFee)</span>
+                    <span style="font-weight:600;">@string.Format("Rp. {0:N0}", shipingMethodFee)</span>
                 </div>
                 <div class="summary__line">
                     <span>Biaya Platform</span>
-                    <span style="font-weight:600;">@string.Format("Rp. {0:N2}", paymentMethodFee)</span>
+                    <span style="font-weight:600;">@string.Format("Rp. {0:N0}", paymentMethodFee)</span>
                 </div>
                 <div class="summary__line summary__line--bold">
                     <span>Total</span>
-                    <span>@string.Format("Rp. {0:N2}", nettoKeranjang)</span>
+                    <span>@string.Format("Rp. {0:N0}", nettoKeranjang)</span>
                 </div>
             </div>
         </aside>
@@ -201,9 +201,9 @@
                                     @display.Nama_Display
                                 </p>
                             </div>
-                            <div class="summary-item__meta">@($"{display?.Qty} x " + string.Format("Rp. {0:N2}", @display?.Harga))</div>
+                            <div class="summary-item__meta">@($"{display?.Qty} x " + string.Format("Rp. {0:N0}", @display?.Harga))</div>
                         </div>
-                        <div style="font-weight: 600;">@string.Format("Rp. {0:N2}", @display?.Harga * display?.Qty)</div>
+                        <div style="font-weight: 600;">@string.Format("Rp. {0:N0}", @display?.Harga * display?.Qty)</div>
                     </div>
                 }
             </div>
@@ -211,19 +211,19 @@
         <div>
             <div class="summary__line">
                 <span>Subtotal</span>
-                <span style="font-weight:600;">@string.Format("Rp. {0:N2}", ListDisplayProduk.Sum(x => x.Qty * x.Harga))</span>
+                <span style="font-weight:600;">@string.Format("Rp. {0:N0}", ListDisplayProduk.Sum(x => x.Qty * x.Harga))</span>
             </div>
             <div class="summary__line">
                 <span>Pengiriman</span>
-                <span style="font-weight:600;">@string.Format("Rp. {0:N2}", shipingMethodFee)</span>
+                <span style="font-weight:600;">@string.Format("Rp. {0:N0}", shipingMethodFee)</span>
             </div>
             <div class="summary__line">
                 <span>Biaya Platform</span>
-                <span style="font-weight:600;">@string.Format("Rp. {0:N2}", paymentMethodFee)</span>
+                <span style="font-weight:600;">@string.Format("Rp. {0:N0}", paymentMethodFee)</span>
             </div>
             <div class="summary__line summary__line--bold">
                 <span>Total</span>
-                <span>@string.Format("Rp. {0:N2}", nettoKeranjang)</span>
+                <span>@string.Format("Rp. {0:N0}", nettoKeranjang)</span>
             </div>
         </div>
     </aside>
@@ -269,19 +269,19 @@
                         <div>
                             <div class="summary__line" style="border-top: unset;">
                                 <span>Subtotal Item</span>
-                                <span style="font-weight:600;">@string.Format("Rp. {0:N2}", ListDisplayProduk.Sum(x => x.Qty * x.Harga))</span>
+                                <span style="font-weight:600;">@string.Format("Rp. {0:N0}", ListDisplayProduk.Sum(x => x.Qty * x.Harga))</span>
                             </div>
                             <div class="summary__line">
                                 <span>Pengiriman</span>
-                                <span style="font-weight:600;">@string.Format("Rp. {0:N2}", shipingMethodFee)</span>
+                                <span style="font-weight:600;">@string.Format("Rp. {0:N0}", shipingMethodFee)</span>
                             </div>
                             <div class="summary__line">
                                 <span>Biaya Platform</span>
-                                <span style="font-weight:600;">@string.Format("Rp. {0:N2}", paymentMethodFee)</span>
+                                <span style="font-weight:600;">@string.Format("Rp. {0:N0}", paymentMethodFee)</span>
                             </div>
                             <div class="summary__line summary__line--bold">
                                 <span>Total</span>
-                                <span>@string.Format("Rp. {0:N2}", nettoKeranjang)</span>
+                                <span>@string.Format("Rp. {0:N0}", nettoKeranjang)</span>
                             </div>
                         </div>
                     </aside>
@@ -335,7 +335,7 @@
                         <div style="display:flex; flex-direction:row;">
                             <div style="display:flex; flex-direction:column; gap:5px; width:50%;">
                                 <h5 class="va-title">Total Pembayaran</h5>
-                                <h4 class="va-title-total">@string.Format("Rp. {0:N2}", @Head?.Grand_Total)</h4>
+                                <h4 class="va-title-total">@string.Format("Rp. {0:N0}", @Head?.Grand_Total)</h4>
                             </div>
                             <div style="display:flex; flex-direction:column; gap:5px; width:50%;">
                                 <h5 class="va-title">Metode</h5>

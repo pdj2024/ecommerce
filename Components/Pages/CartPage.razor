@@ -13,7 +13,7 @@
                 </div>
             </div>
         </div>
-        <div class="cart-page" style="padding: 0px 20px 20px 20px; margin-top:20px;">
+        <div class="cart-page" style="padding: 0px 20px 10rem 20px; margin-top:20px;">
             <div class="cart-container">
                 <div class="cart-items">
                     <!-- Contoh looping item -->
@@ -44,7 +44,7 @@
                                 </div>
                             </div>
                             <div class="img-nama" style="width:20%">
-                                <h2 class="item-name">@string.Format("Rp {0:N2}", item.Harga)</h2>
+                                <h2 class="item-name">@string.Format("Rp {0:N0}", item.Harga)</h2>
                             </div>
                             <div class="img-qty" style="width:20%">
                                 <div class="item-qty">
@@ -54,7 +54,7 @@
                                 </div>
                             </div>
                             <div class="img-harga" style="width:20%">
-                                <p class="item-price">@string.Format("Rp {0:N2}", item.Harga * Quantity)</p>
+                                <p class="item-price">@string.Format("Rp {0:N0}", item.Harga * Quantity)</p>
                             </div>
                         </div>
                     }
@@ -64,15 +64,15 @@
                     <h2 class="summary-title">Order Summary</h2>
                     <div class="summary-line">
                         <span>Subtotal</span>
-                        <span>@string.Format("Rp {0:N2}", 1000000)</span>
+                        <span>@string.Format("Rp {0:N0}", 1000000)</span>
                     </div>
                     <div class="summary-line">
                         <span>Shipping</span>
-                        <span>@string.Format("Rp {0:N2}", 1000000)</span>
+                        <span>@string.Format("Rp {0:N0}", 1000000)</span>
                     </div>
                     <div class="summary-line total">
                         <span>Total</span>
-                        <span>@string.Format("Rp {0:N2}", 1000000)</span>
+                        <span>@string.Format("Rp {0:N0}", 1000000)</span>
                     </div>
                     <button class="btn-checkout">Proceed to Checkout</button>
                 </aside>
@@ -104,7 +104,7 @@
                                                 <h5>
                                                     @item.No_Bukti
                                                 </h5>
-                                                <p style="color:#0d6efd">
+                                                <p style="color:#1500b2">
                                                     @ti.ToTitleCase(item.Status_Order_1)
                                                 </p>
                                             </div>
@@ -122,15 +122,15 @@
                                                                 @($"{@DataPesanan.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Option}, {@DataPesanan.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Size}")
                                                             </p>
                                                             <h5 style="font-size:15px;" class="">
-                                                                @string.Format("Rp. {0:N2}", @DataPesanan.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Satuan) 
+                                                                @string.Format("Rp. {0:N0}", @DataPesanan.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Satuan) 
                                                                 @($" x {DataPesanan.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Qty} = ")
-                                                                <span style="color:#0d6efd; font-weight:700;" class="d-lg-inline d-none">
-                                                                    @string.Format("Rp. {0:N2}", DataPesanan.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
+                                                                <span style="color:#1500b2; font-weight:700;" class="d-lg-inline d-none">
+                                                                    @string.Format("Rp. {0:N0}", DataPesanan.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
                                                                 </span>
                                                             </h5>
                                                             <h5 style="font-size:15px;" class="d-lg-none d-flex line-clamp-1">
-                                                                <span style="color:#0d6efd; font-weight:700;">
-                                                                    @string.Format("Rp. {0:N2}", DataPesanan.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
+                                                                <span style="color:#1500b2; font-weight:700;">
+                                                                    @string.Format("Rp. {0:N0}", DataPesanan.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
                                                                 </span>
                                                             </h5>
                                                         </div>
@@ -138,8 +138,8 @@
                                                             <div class="d-flex none-accord-@item.No_Bukti flex-column gap-1">
                                                                 <h5 style="font-size:15px; " class="">
                                                                     @($"Total {@DataPesanan.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
-                                                                    <span style="color:#0d6efd;">
-                                                                        @string.Format("Rp. {0:N2}", item.Grand_Total)
+                                                                    <span style="color:#1500b2;">
+                                                                        @string.Format("Rp. {0:N0}", item.Grand_Total)
                                                                     </span>
                                                                 </h5>
                                                                 @if(@DataPesanan.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
@@ -159,8 +159,8 @@
                                                     <div class="d-flex none-accord-@item.No_Bukti total-bottom flex-column gap-1 mt-2">
                                                         <h5 style="font-size:15px; " class="">
                                                             @($"Total {@DataPesanan.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
-                                                            <span style="color:#0d6efd;">
-                                                                @string.Format("Rp. {0:N2}", item.Grand_Total)
+                                                            <span style="color:#1500b2;">
+                                                                @string.Format("Rp. {0:N0}", item.Grand_Total)
                                                             </span>
                                                         </h5>
                                                         @if(@DataPesanan.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
@@ -197,15 +197,15 @@
                                                                 @($"{@produk.Var_Option}, {@produk.Var_Size}")
                                                             </p>
                                                             <h5 style="font-size:15px;" class="">
-                                                                @string.Format("Rp. {0:N2}", @produk.Harga_Satuan) 
+                                                                @string.Format("Rp. {0:N0}", @produk.Harga_Satuan) 
                                                                 @($" x {produk.Qty} = ")
-                                                                <span style="color:#0d6efd; font-weight:700;" class="d-lg-inline d-none">
-                                                                    @string.Format("Rp. {0:N2}", produk.Harga_Total)
+                                                                <span style="color:#1500b2; font-weight:700;" class="d-lg-inline d-none">
+                                                                    @string.Format("Rp. {0:N0}", produk.Harga_Total)
                                                                 </span>
                                                             </h5>
                                                             <h5 style="font-size:15px;" class="d-lg-none d-flex line-clamp-1">
-                                                                <span style="color:#0d6efd; font-weight:700;">
-                                                                    @string.Format("Rp. {0:N2}", produk.Harga_Total)
+                                                                <span style="color:#1500b2; font-weight:700;">
+                                                                    @string.Format("Rp. {0:N0}", produk.Harga_Total)
                                                                 </span>
                                                             </h5>
                                                         </div>
@@ -217,8 +217,8 @@
                                                 <div class="d-flex flex-column gap-1 total-bottom">
                                                     <h5 style="font-size:15px; " class="">
                                                         @($"Total {@DataPesanan.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
-                                                        <span style="color:#0d6efd;">
-                                                            @string.Format("Rp. {0:N2}", item.Grand_Total)
+                                                        <span style="color:#1500b2;">
+                                                            @string.Format("Rp. {0:N0}", item.Grand_Total)
                                                         </span>
                                                     </h5>
                                                     @if(@DataPesanan.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
@@ -273,7 +273,7 @@
                                             <h5>
                                                 @item.No_Bukti
                                             </h5>
-                                            <p style="color:#0d6efd">
+                                            <p style="color:#1500b2">
                                                 @ti.ToTitleCase(item.Status_Order_1)
                                             </p>
                                         </div>
@@ -291,15 +291,15 @@
                                                             @($"{@DataPesanan.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Option}, {@DataPesanan.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Size}")
                                                         </p>
                                                         <h5 style="font-size:15px;" class="">
-                                                            @string.Format("Rp. {0:N2}", @DataPesanan.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Satuan) 
+                                                            @string.Format("Rp. {0:N0}", @DataPesanan.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Satuan) 
                                                             @($" x {DataPesanan.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Qty} = ")
-                                                            <span style="color:#0d6efd; font-weight:700;" class="d-lg-inline d-none">
-                                                                @string.Format("Rp. {0:N2}", DataPesanan.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
+                                                            <span style="color:#1500b2; font-weight:700;" class="d-lg-inline d-none">
+                                                                @string.Format("Rp. {0:N0}", DataPesanan.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
                                                             </span>
                                                         </h5>
                                                         <h5 style="font-size:15px;" class="d-lg-none d-flex line-clamp-1">
-                                                            <span style="color:#0d6efd; font-weight:700;">
-                                                                @string.Format("Rp. {0:N2}", DataPesanan.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
+                                                            <span style="color:#1500b2; font-weight:700;">
+                                                                @string.Format("Rp. {0:N0}", DataPesanan.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
                                                             </span>
                                                         </h5>
                                                     </div>
@@ -307,8 +307,8 @@
                                                         <div class="d-flex none-accord-@item.No_Bukti flex-column gap-1">
                                                             <h5 style="font-size:15px; " class="">
                                                                 @($"Total {@DataPesanan.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
-                                                                <span style="color:#0d6efd;">
-                                                                    @string.Format("Rp. {0:N2}", item.Grand_Total)
+                                                                <span style="color:#1500b2;">
+                                                                    @string.Format("Rp. {0:N0}", item.Grand_Total)
                                                                 </span>
                                                             </h5>
                                                             @if(@DataPesanan.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
@@ -328,8 +328,8 @@
                                                 <div class="d-flex none-accord-@item.No_Bukti total-bottom flex-column gap-1 mt-2" style="width:60%;">
                                                     <h5 style="font-size:15px; " class="">
                                                         @($"Total {@DataPesanan.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
-                                                        <span style="color:#0d6efd;">
-                                                            @string.Format("Rp. {0:N2}", item.Grand_Total)
+                                                        <span style="color:#1500b2;">
+                                                            @string.Format("Rp. {0:N0}", item.Grand_Total)
                                                         </span>
                                                     </h5>
                                                     @if(@DataPesanan.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
@@ -366,15 +366,15 @@
                                                             @($"{@produk.Var_Option}, {@produk.Var_Size}")
                                                         </p>
                                                         <h5 style="font-size:15px;" class="">
-                                                            @string.Format("Rp. {0:N2}", @produk.Harga_Satuan) 
+                                                            @string.Format("Rp. {0:N0}", @produk.Harga_Satuan) 
                                                             @($" x {produk.Qty} = ")
-                                                            <span style="color:#0d6efd; font-weight:700;" class="d-lg-inline d-none">
-                                                                @string.Format("Rp. {0:N2}", produk.Harga_Total)
+                                                            <span style="color:#1500b2; font-weight:700;" class="d-lg-inline d-none">
+                                                                @string.Format("Rp. {0:N0}", produk.Harga_Total)
                                                             </span>
                                                         </h5>
                                                         <h5 style="font-size:15px;" class="d-lg-none d-flex line-clamp-1">
-                                                            <span style="color:#0d6efd; font-weight:700;">
-                                                                @string.Format("Rp. {0:N2}", produk.Harga_Total)
+                                                            <span style="color:#1500b2; font-weight:700;">
+                                                                @string.Format("Rp. {0:N0}", produk.Harga_Total)
                                                             </span>
                                                         </h5>
                                                     </div>
@@ -386,8 +386,8 @@
                                             <div class="d-flex flex-column gap-1 total-bottom" style="width:60%;">
                                                 <h5 style="font-size:15px; " class="">
                                                     @($"Total {@DataPesanan.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
-                                                    <span style="color:#0d6efd;">
-                                                        @string.Format("Rp. {0:N2}", item.Grand_Total)
+                                                    <span style="color:#1500b2;">
+                                                        @string.Format("Rp. {0:N0}", item.Grand_Total)
                                                     </span>
                                                 </h5>
                                                 @if(@DataPesanan.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
@@ -442,7 +442,7 @@
                                             <h5>
                                                 @item.No_Bukti
                                             </h5>
-                                            <p style="color:#0d6efd">
+                                            <p style="color:#1500b2">
                                                 @ti.ToTitleCase(item.Status_Order_1)
                                             </p>
                                         </div>
@@ -460,15 +460,15 @@
                                                             @($"{@DataPesanan.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Option}, {@DataPesanan.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Size}")
                                                         </p>
                                                         <h5 style="font-size:15px;" class="">
-                                                            @string.Format("Rp. {0:N2}", @DataPesanan.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Satuan) 
+                                                            @string.Format("Rp. {0:N0}", @DataPesanan.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Satuan) 
                                                             @($" x {DataPesanan.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Qty} = ")
-                                                            <span style="color:#0d6efd; font-weight:700;" class="d-lg-inline d-none">
-                                                                @string.Format("Rp. {0:N2}", DataPesanan.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
+                                                            <span style="color:#1500b2; font-weight:700;" class="d-lg-inline d-none">
+                                                                @string.Format("Rp. {0:N0}", DataPesanan.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
                                                             </span>
                                                         </h5>
                                                         <h5 style="font-size:15px;" class="d-lg-none d-flex line-clamp-1">
-                                                            <span style="color:#0d6efd; font-weight:700;">
-                                                                @string.Format("Rp. {0:N2}", DataPesanan.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
+                                                            <span style="color:#1500b2; font-weight:700;">
+                                                                @string.Format("Rp. {0:N0}", DataPesanan.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
                                                             </span>
                                                         </h5>
                                                     </div>
@@ -476,8 +476,8 @@
                                                         <div class="d-flex none-accord-@item.No_Bukti flex-column gap-1">
                                                             <h5 style="font-size:15px; " class="">
                                                                 @($"Total {@DataPesanan.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
-                                                                <span style="color:#0d6efd;">
-                                                                    @string.Format("Rp. {0:N2}", item.Grand_Total)
+                                                                <span style="color:#1500b2;">
+                                                                    @string.Format("Rp. {0:N0}", item.Grand_Total)
                                                                 </span>
                                                             </h5>
                                                             @if(@DataPesanan.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
@@ -497,8 +497,8 @@
                                                 <div class="d-flex none-accord-@item.No_Bukti total-bottom flex-column gap-1 mt-2">
                                                     <h5 style="font-size:15px; " class="">
                                                         @($"Total {@DataPesanan.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
-                                                        <span style="color:#0d6efd;">
-                                                            @string.Format("Rp. {0:N2}", item.Grand_Total)
+                                                        <span style="color:#1500b2;">
+                                                            @string.Format("Rp. {0:N0}", item.Grand_Total)
                                                         </span>
                                                     </h5>
                                                     @if(@DataPesanan.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
@@ -535,15 +535,15 @@
                                                             @($"{@produk.Var_Option}, {@produk.Var_Size}")
                                                         </p>
                                                         <h5 style="font-size:15px;" class="">
-                                                            @string.Format("Rp. {0:N2}", @produk.Harga_Satuan) 
+                                                            @string.Format("Rp. {0:N0}", @produk.Harga_Satuan) 
                                                             @($" x {produk.Qty} = ")
-                                                            <span style="color:#0d6efd; font-weight:700;" class="d-lg-inline d-none">
-                                                                @string.Format("Rp. {0:N2}", produk.Harga_Total)
+                                                            <span style="color:#1500b2; font-weight:700;" class="d-lg-inline d-none">
+                                                                @string.Format("Rp. {0:N0}", produk.Harga_Total)
                                                             </span>
                                                         </h5>
                                                         <h5 style="font-size:15px;" class="d-lg-none d-flex line-clamp-1">
-                                                            <span style="color:#0d6efd; font-weight:700;">
-                                                                @string.Format("Rp. {0:N2}", produk.Harga_Total)
+                                                            <span style="color:#1500b2; font-weight:700;">
+                                                                @string.Format("Rp. {0:N0}", produk.Harga_Total)
                                                             </span>
                                                         </h5>
                                                     </div>
@@ -555,8 +555,8 @@
                                             <div class="d-flex flex-column gap-1 total-bottom">
                                                 <h5 style="font-size:15px; " class="">
                                                     @($"Total {@DataPesanan.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
-                                                    <span style="color:#0d6efd;">
-                                                        @string.Format("Rp. {0:N2}", item.Grand_Total)
+                                                    <span style="color:#1500b2;">
+                                                        @string.Format("Rp. {0:N0}", item.Grand_Total)
                                                     </span>
                                                 </h5>
                                                 @if(@DataPesanan.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
@@ -624,7 +624,7 @@
                                 </div>
                             </div>
                             <div class="img-nama" style="width:20%">
-                                <h2 class="item-name">@string.Format("Rp {0:N2}", item.Harga)</h2>
+                                <h2 class="item-name">@string.Format("Rp {0:N0}", item.Harga)</h2>
                             </div>
                             <div class="img-qty" style="width:20%">
                                 <div class="item-qty">
@@ -634,7 +634,7 @@
                                 </div>
                             </div>
                             <div class="img-harga" style="width:20%">
-                                <p class="item-price">@string.Format("Rp {0:N2}", item.Harga * Quantity)</p>
+                                <p class="item-price">@string.Format("Rp {0:N0}", item.Harga * Quantity)</p>
                             </div>
                         </div>
                     }
@@ -644,15 +644,15 @@
                     <h2 class="summary-title">Order Summary</h2>
                     <div class="summary-line">
                         <span>Subtotal</span>
-                        <span>@string.Format("Rp {0:N2}", 1000000)</span>
+                        <span>@string.Format("Rp {0:N0}", 1000000)</span>
                     </div>
                     <div class="summary-line">
                         <span>Shipping</span>
-                        <span>@string.Format("Rp {0:N2}", 1000000)</span>
+                        <span>@string.Format("Rp {0:N0}", 1000000)</span>
                     </div>
                     <div class="summary-line total">
                         <span>Total</span>
-                        <span>@string.Format("Rp {0:N2}", 1000000)</span>
+                        <span>@string.Format("Rp {0:N0}", 1000000)</span>
                     </div>
                     <button class="btn-checkout">Proceed to Checkout</button>
                 </aside>
@@ -703,8 +703,8 @@
                         }
                     </p>
                     <h3 class="price">
-                        @string.Format("Rp. {0:N2}", DataProduk?.Harga) @if (DataProduk?.Diskon1 != null || DataProduk?.Diskon1 >= 1) {
-                        <span>@string.Format("Rp. {0:N2}", ((DataProduk?.Diskon1 / 100) * DataProduk?.Harga))</span>
+                        @string.Format("Rp. {0:N0}", DataProduk?.Harga) @if (DataProduk?.Diskon1 != null || DataProduk?.Diskon1 >= 1) {
+                        <span>@string.Format("Rp. {0:N0}", ((DataProduk?.Diskon1 / 100) * DataProduk?.Harga))</span>
                                                 }
                     </h3>
                     <p class="info-text">
@@ -784,7 +784,7 @@
 
 
 <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
 
                 @foreach(var Head in Pesanan_Create.Header)
@@ -807,7 +807,7 @@
                         <div style="display:flex; flex-direction:row;">
                             <div style="display:flex; flex-direction:column; gap:5px; width:50%;">
                                 <h5 class="va-title">Total Pembayaran</h5>
-                                <h4 class="va-title-total">@string.Format("Rp. {0:N2}", @Head?.Grand_Total)</h4>
+                                <h4 class="va-title-total">@string.Format("Rp. {0:N0}", @Head?.Grand_Total)</h4>
                             </div>
                             <div style="display:flex; flex-direction:column; gap:5px; width:50%;">
                                 <h5 class="va-title">Metode</h5>
