@@ -796,6 +796,7 @@ body {
     gap: 1rem;
     font-size: 1rem;
     margin-bottom: 8px;
+    cursor:pointer;
 }
 
 .filter-content input[type="checkbox"],

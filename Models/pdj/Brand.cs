@@ -14,6 +14,6 @@ namespace Models
         public string Status { get; set; } = "aktif";
         public string Id_Media { get; set; } = "";
         public string No_Id_Media { get; set; } = "";
-
+        public bool Checked_Filter { get; set; } = false;
     }
 }

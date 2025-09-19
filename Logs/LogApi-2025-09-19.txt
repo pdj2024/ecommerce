@@ -1406,3 +1406,537 @@
                         Status: 200 OK
                         Response: Success: BACA - Berhasil tampil Brand
                         ---------------------------------------------------------
+
+                        [2025-09-19 12:55:05]
+                        URL: http://43.228.212.41:77/api/banner/getAll?pagesize=8&orderBy=nama_banner&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2025-09-19 12:55:05]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-19 12:55:05]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-19 12:55:08]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=12&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-19 12:55:08]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-19 12:55:15]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-19 12:58:00]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=12&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-19 12:58:01]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-19 12:58:01]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-19 12:58:05]
+                        URL: http://43.228.212.41:77/api/produk/search?pagesize=8&show_variant=True&keyword=sdf
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        ---------------------------------------------------------
+
+                        [2025-09-19 12:58:06]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-19 12:58:13]
+                        URL: http://43.228.212.41:77/api/produk/search?pagesize=8&show_variant=True&keyword=sdf
+                        Status: 500 Internal Server Error
+                        Response: Server error: BACA - 
+                        ---------------------------------------------------------
+
+                        [2025-09-19 12:58:17]
+                        URL: http://43.228.212.41:77/api/produk/search?pagesize=8&show_variant=True&keyword=ad
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Search
+                        ---------------------------------------------------------
+
+                        [2025-09-19 12:58:19]
+                        URL: http://43.228.212.41:77/api/produk/search?pagesize=12&show_variant=True&keyword=ad
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Search
+                        ---------------------------------------------------------
+
+                        [2025-09-19 12:58:19]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-19 12:58:19]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-19 12:59:48]
+                        URL: http://43.228.212.41:77/api/produk/search?pagesize=12&show_variant=True&keyword=ad
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Search
+                        ---------------------------------------------------------
+
+                        [2025-09-19 12:59:48]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-19 12:59:48]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-19 13:29:42]
+                        URL: http://43.228.212.41:77/api/produk/search?pagesize=12&show_variant=True&keyword=ad
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Search
+                        ---------------------------------------------------------
+
+                        [2025-09-19 13:29:42]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-19 13:29:43]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-19 13:42:22]
+                        URL: http://43.228.212.41:77/api/produk/search?pagesize=12&show_variant=True&keyword=ad
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Search
+                        ---------------------------------------------------------
+
+                        [2025-09-19 13:42:22]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-19 13:42:22]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-19 13:44:07]
+                        URL: http://43.228.212.41:77/api/produk/search?pagesize=12&show_variant=True&keyword=ad
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Search
+                        ---------------------------------------------------------
+
+                        [2025-09-19 13:44:07]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-19 13:44:07]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-19 14:03:13]
+                        URL: http://43.228.212.41:77/api/produk/search?pagesize=12&show_variant=True&keyword=ad
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Search
+                        ---------------------------------------------------------
+
+                        [2025-09-19 14:03:13]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-19 14:03:14]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-19 14:09:59]
+                        URL: http://43.228.212.41:77/api/produk/search?pagesize=12&show_variant=True&keyword=ad
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Search
+                        ---------------------------------------------------------
+
+                        [2025-09-19 14:09:59]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-19 14:10:00]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-19 14:18:30]
+                        URL: http://43.228.212.41:77/api/produk/search?pagesize=12&show_variant=True&keyword=ad
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Search
+                        ---------------------------------------------------------
+
+                        [2025-09-19 14:18:31]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-19 14:18:31]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-19 14:20:09]
+                        URL: http://43.228.212.41:77/api/produk/search?pagesize=12&show_variant=True&keyword=ad
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Search
+                        ---------------------------------------------------------
+
+                        [2025-09-19 14:20:09]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-19 14:20:09]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-19 14:38:36]
+                        URL: http://43.228.212.41:77/api/produk/search?pagesize=12&show_variant=True&keyword=ad
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Search
+                        ---------------------------------------------------------
+
+                        [2025-09-19 14:38:37]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-19 14:38:37]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-19 15:25:24]
+                        URL: http://43.228.212.41:77/api/produk/search?pagesize=12&show_variant=True&keyword=ad
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Search
+                        ---------------------------------------------------------
+
+                        [2025-09-19 15:25:24]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-19 15:25:24]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-19 15:37:16]
+                        URL: http://43.228.212.41:77/api/produk/search?pagesize=12&show_variant=True&keyword=ad
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Search
+                        ---------------------------------------------------------
+
+                        [2025-09-19 15:37:17]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-19 15:37:17]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-19 15:45:42]
+                        URL: http://43.228.212.41:77/api/produk/search?pagesize=12&show_variant=True&keyword=ad
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Search
+                        ---------------------------------------------------------
+
+                        [2025-09-19 15:45:42]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-19 15:45:42]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-19 15:47:43]
+                        URL: http://43.228.212.41:77/api/produk/search?pagesize=12&show_variant=True&keyword=ad
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Search
+                        ---------------------------------------------------------
+
+                        [2025-09-19 15:47:43]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-19 15:47:43]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-19 15:48:01]
+                        URL: http://43.228.212.41:77/api/produk/search?pagesize=12&show_variant=True&keyword=ad
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Search
+                        ---------------------------------------------------------
+
+                        [2025-09-19 15:48:01]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-19 15:48:02]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-19 15:49:34]
+                        URL: http://43.228.212.41:77/api/produk/search?pagesize=12&show_variant=True&keyword=ad
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Search
+                        ---------------------------------------------------------
+
+                        [2025-09-19 15:49:35]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-19 15:49:35]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-19 15:50:31]
+                        URL: http://43.228.212.41:77/api/produk/search?pagesize=12&show_variant=True&keyword=ad
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Search
+                        ---------------------------------------------------------
+
+                        [2025-09-19 15:50:32]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-19 15:50:32]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-19 15:54:21]
+                        URL: http://43.228.212.41:77/api/produk/search?pagesize=12&show_variant=True&keyword=ad
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Search
+                        ---------------------------------------------------------
+
+                        [2025-09-19 15:54:21]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-19 15:54:21]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-19 15:57:52]
+                        URL: http://43.228.212.41:77/api/produk/search?pagesize=12&show_variant=True&keyword=ad
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Search
+                        ---------------------------------------------------------
+
+                        [2025-09-19 15:57:53]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-19 15:57:53]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-19 15:58:01]
+                        URL: http://43.228.212.41:77/api/produk/search?pagesize=12&show_variant=True&keyword=ad
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Search
+                        ---------------------------------------------------------
+
+                        [2025-09-19 15:58:01]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-19 15:58:02]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-19 15:59:10]
+                        URL: http://43.228.212.41:77/api/produk/search?pagesize=12&show_variant=True&keyword=ad
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Search
+                        ---------------------------------------------------------
+
+                        [2025-09-19 15:59:10]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-19 15:59:10]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-19 15:59:13]
+                        URL: http://43.228.212.41:77/api/produk/search?pagesize=12&show_variant=True&keyword=ad
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Search
+                        ---------------------------------------------------------
+
+                        [2025-09-19 15:59:13]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-19 15:59:13]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-19 16:00:28]
+                        URL: http://43.228.212.41:77/api/produk/search?pagesize=12&show_variant=True&keyword=ad
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Search
+                        ---------------------------------------------------------
+
+                        [2025-09-19 16:00:28]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-19 16:00:28]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-19 16:28:46]
+                        URL: http://43.228.212.41:77/api/banner/getAll?pagesize=8&orderBy=nama_banner&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2025-09-19 16:28:47]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-19 16:28:47]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-19 16:28:49]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=12&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-19 16:28:50]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-19 16:28:56]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-19 16:42:54]
+                        URL: http://43.228.212.41:77/api/produk/search?pagesize=8&show_variant=True&keyword=ad
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Search
+                        ---------------------------------------------------------
