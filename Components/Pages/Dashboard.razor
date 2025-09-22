@@ -3,7 +3,22 @@
 
 <MyHeader ListDataProduk=@ListDataProduk ListDataKategori=@ListDataKategori @ref="header_page" />
 
-<!-- Start Hero Area -->
+@if (loadContent)
+{
+    <!-- Start Hero Area -->
+    <section class="hero-area" style="margin-top: 85px;">
+        <div class="container p-0 pe-lg-3" style="width:100%; max-width:100%;">
+            <div class="row">
+                <div class="col-12 custom-padding-right">
+                    <div class="card py-3 px-0 border-0" style="border-radius:0px;" aria-busy="true">
+                        <div class="skeleton skeleton-rect mb-3" style="border-radius:0px;height:100dvh"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
 <section class="hero-area" style="margin-top: 85px;">
     <div class="container p-0 pe-lg-3" style="width:100%; max-width:100%;">
         <div class="row">
@@ -15,7 +30,7 @@
                         @foreach (var banner in ListDataBanner)
                         {
                             <div class="single-slider">
-                                <Image Src="@banner.Id_Media" Class="img-cover"></Image>
+                                <Image Src="@banner.Id_Media" Class="img-cover" Style="max-height:54rem"></Image>
                             </div>
                         }
                         <!-- End Single Slider -->
@@ -96,10 +111,18 @@
                         <!-- Start Single Product -->
                         <div class="single-product">
                             <div class="product-image">
-                                @if (dataProduk.MediaUrls.Count() >= 1)
+                                @if (dataProduk.MediaUrls.Count() >= 2)
                                 {
                                     <img src="@dataProduk.MediaUrls[0]?.Id_Media" alt="@dataProduk.Nama_Display">
                                     <img class="img2" src="@dataProduk.MediaUrls[1]?.Id_Media" alt="@dataProduk.Nama_Display">
+                                }
+                                else if (dataProduk.MediaUrls.Count() == 1)
+                                {
+                                    <img src="@dataProduk.MediaUrls[0]?.Id_Media" alt="@dataProduk.Nama_Display">
+                                }
+                                else
+                                {
+                                    <img src="~/images/products/placeholder.jpg" alt="@dataProduk.Nama_Display">
                                 }
 
                                 @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
@@ -158,8 +181,26 @@
                         <!-- End Single Product -->
                     </div>
                 }
+
             }
-        
+            
+            @if (loadContent)
+            {
+                @for (var i = 0; i <= 11; i++)
+                {
+                    <div class="col-lg-3 col-md-4 col-6 col-xxl-2 pt-2 pb-2">
+                        <div class="card p-3 border-0" style="border-radius:0px;" aria-busy="true">
+                            <div class="skeleton skeleton-rect mb-3"></div>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div style="flex:1" class="d-flex flex-column align-items-center">
+                                    <div class="skeleton skeleton-title mb-2" style="width:90%"></div>
+                                    <div class="skeleton skeleton-subtitle mb-2" style="width:50%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
         </div>
     </div>
 </section>
@@ -188,14 +229,32 @@
 </section>
 <!-- End Call Action Area -->
 
-<!-- Start Banner Area -->
+@if (loadContent)
+{
+    <!-- Start Banner Area -->
+    <section class="banner section px-0 px-lg-3 px-xl-5 px-xxl-10">
+    <div class="container-fluid">
+        <div class="row">
+            @for (var i = 0; i <= 2; i++)
+            {
+                <div class="col-lg-4 col-md-4 col-12">
+                    <div class="card py-3 px-0 border-0" style="border-radius:0px;" aria-busy="true">
+                        <div class="skeleton skeleton-rect mb-3" style="border-radius:0px;height:100dvh"></div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+}
+
 <section class="banner section px-0 px-lg-3 px-xl-5 px-xxl-10">
     <div class="container-fluid">
         <div class="row">
             @foreach(var kategori in ListDataKategori)
             {
                 @if (kategori.Nama_Group_Kategori.ToLower() != "gender") { continue; }
-                <div class="col-lg-4 col-md-4 col-12">
+                <div class="col-lg-4 col-md-4 col-12" style="margin-bottom: 20px;">
                     <div class="single-banner">
                         <div class="content" style="overflow: hidden; height:40vw;">
                             <Image Src="@kategori.Id_Media" Class="image-content"/>

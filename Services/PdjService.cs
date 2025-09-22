@@ -222,8 +222,13 @@ namespace Services
 
             var query = string.Join("&",
                 properties
-                    .Where(p => p.GetValue(model) != null) // hanya yang tidak null
-                    .Select(p => $"{HttpUtility.UrlEncode(p.Name)}={HttpUtility.UrlEncode(p.GetValue(model)?.ToString())}")
+                    .Where(p => p.GetValue(model) != null)
+                    .Select(p => {
+                        var value = HttpUtility.UrlEncode(p.GetValue(model)?.ToString());
+
+                        value = value?.Replace("%2c", ",").Replace("%2C", ",");
+                        return $"{HttpUtility.UrlEncode(p.Name)}={value}";
+                    })
             );
 
             return query;
@@ -760,13 +765,13 @@ namespace Services
 
         }
 
-        public async Task<(List<Brand> SearchBrand, List<Produk> SearchProduk, int TotalCount)> GetSearchApi(ParameterApi urlParam)
-
+        public async Task<(List<Brand> SearchBrand, List<Produk> SearchProduk, int TotalCount, bool hasMore)> GetSearchApi(ParameterApi urlParam)
         {
             var config = initConfigApi(urlParam);
             var tbListProduk = new List<Produk>();
             var tbListBrand = new List<Brand>();
             int totalCount = 0;
+            bool hasMore = false;
 
             try
             {
@@ -792,12 +797,16 @@ namespace Services
                     {
                         totalCount = JsonConvert.DeserializeObject<int>(dataFromDbTotalCount.GetRawText());
                     }
+                    if (root.TryGetProperty("HasMore", out var dataFromDbHasMore))
+                    {
+                        hasMore = JsonConvert.DeserializeObject<bool>(dataFromDbHasMore.GetRawText());
+                    }
                     else
                     {
                         writeLog($"Data Kosong");
                     }
                 }
-                return (tbListBrand, tbListProduk, totalCount);
+                return (tbListBrand, tbListProduk, totalCount, hasMore);
             }
             catch (Exception ex)
             {
@@ -815,11 +824,59 @@ namespace Services
                 }
             }
 
-            return (tbListBrand, tbListProduk, totalCount);
+            return (tbListBrand, tbListProduk, totalCount, hasMore);
         }
 
 
+        public async Task<List<Navbar>> GetNavbarApi(ParameterApi urlParam)
 
+        {
+            var config = initConfigApi(urlParam);
+            var tbListProduk = new List<Navbar>();
+
+            try
+            {
+                var response = await config.httpReq.GetAsync(config.UrlApi, config.cancelTimer.Token);
+
+                var checking = await CheckAPI(response, config.UrlApi, "BACA");
+
+                if (checking.statusResponse)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    using var jsonDoc = JsonDocument.Parse(json);
+                    var root = jsonDoc.RootElement;
+
+                    if (root.TryGetProperty("Data", out var dataFromDb))
+                    {
+                        tbListProduk = JsonConvert.DeserializeObject<List<Navbar>>(dataFromDb.GetRawText());
+                    }
+                    else
+                    {
+                        writeLog($"Data Kosong");
+                    }
+                }
+
+                return tbListProduk;
+            }
+            catch (Exception ex)
+            {
+                if (ex is OperationCanceledException)
+                {
+                    writeLog("Gagal Baca Data : Request ke API terlalu lama (timeout).");
+                }
+                else if (ex is HttpRequestException)
+                {
+                    writeLog($"Gagal Baca Data : Terjadi kesalahan jaringan atau server. {ex.Message}");
+                }
+                else
+                {
+                    writeLog($"Gagal Baca Data : Terjadi error: {ex.Message}");
+                }
+            }
+
+            return tbListProduk;
+
+        }
 
 
 

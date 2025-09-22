@@ -8,9 +8,12 @@ using PacificWeb.Components.Layout;
 using Radzen;
 using Radzen.Blazor;
 using Services;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Drawing;
 using System.Reflection;
+using System.Text;
+using static Models.Pesanan;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
@@ -52,13 +55,20 @@ namespace PacificWeb.Components.Pages
             public string No_Id { get; set; }
             public bool Checked { get; set; }
         }
+        public class searchParam
+        {
+            public string Keyword { get; set; }
+            public string Kategori { get; set; }
+            public string Produk { get; set; }
+        }
 
         public List<Produk> ListDataProduk { get; set; } = new List<Produk>();
         public List<FilterItem> ListFilter { get; set; } = new List<FilterItem>();
         public Produk DataProduk { get; set; } = new Produk();
-        public (List<Brand> SearchBrand, List<Produk> SearchProduk, int TotalCount) SearchList { get; set; } = (new (), new (), 0);
+        public (List<Brand> SearchBrand, List<Produk> SearchProduk, int TotalCount, bool hasMore) SearchList { get; set; } = (new (), new (), 0, false);
         public List<Kategori> ListDataKategori { get; set; } = new List<Kategori>();
         public List<Brand> ListDataBrand { get; set; } = new List<Brand>();
+        public searchParam SearchQuery { get; set; } = new searchParam();
 
         private string SearchText = "";
 
@@ -74,17 +84,19 @@ namespace PacificWeb.Components.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            var uri = new Uri(NavigationManager.Uri);
-            var queryParams = QueryHelpers.ParseQuery(uri.Query);
 
-            if (queryParams.TryGetValue("keyword", out var value))
-            {
-                Keyword = value;
-            }
+        }
 
-            SearchText = Keyword;
+        private async void OnClearInput()
+        {
+            SearchText = "";
 
+            SearchList = (new List<Brand>(), new List<Produk>(), 0, false);
 
+            searchCount = 0;
+
+            await SearchDataAsync(SearchText);
+            StateHasChanged();
         }
 
         public async Task selectProduk(string id_kode)
@@ -114,6 +126,13 @@ namespace PacificWeb.Components.Pages
             }
 
             ListFilter.Clear();
+
+            loadProses = true;
+            StateHasChanged();
+
+            await SearchDataAsync(SearchText);
+
+            loadProses = false;
             StateHasChanged();
         }
 
@@ -210,10 +229,35 @@ namespace PacificWeb.Components.Pages
         {
             NavigationManager.NavigateTo($"/detail-produk/{id}", forceLoad: true);
         }
+
+
+
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
             {
+                var uri = new Uri(NavigationManager.Uri);
+                var queryParams = QueryHelpers.ParseQuery(uri.Query);
+
+                if (queryParams.TryGetValue("keyword", out var dataKeyword))
+                {
+                    SearchQuery.Keyword = Encoding.UTF8.GetString(Convert.FromBase64String(dataKeyword));
+                }
+
+                if (queryParams.TryGetValue("produk", out var dataProduk))
+                {
+                    SearchQuery.Produk = Encoding.UTF8.GetString(Convert.FromBase64String(dataProduk));
+                }
+
+                if (queryParams.TryGetValue("kategori", out var dataKategori))
+                {
+                    SearchQuery.Kategori = Encoding.UTF8.GetString(Convert.FromBase64String(dataKategori));
+                }
+
+
+
+                SearchText = SearchQuery.Keyword;
+
 
                 SearchList = await pdjService.GetSearchApi(new ParameterApi
                 {
@@ -221,7 +265,10 @@ namespace PacificWeb.Components.Pages
                     prosesApi = "search",
                     ParamUrl = new ParameterApi.ParameterUrl
                     {
-                        keyword = Keyword,
+                        keyword = SearchQuery.Keyword,
+                        id_kategori = SearchQuery.Kategori,
+                        noid_list = SearchQuery.Produk,
+                        strict_kategori = false,
                         pagesize = 12,
                         show_variant = true,
                     }
@@ -250,7 +297,19 @@ namespace PacificWeb.Components.Pages
                     }
                 });
 
+                if(!string.IsNullOrWhiteSpace(SearchQuery.Kategori))
+                {
+                    foreach (var idKat in SearchQuery.Kategori.Split(","))
+                    {
+                        var kate = ListDataKategori.FirstOrDefault(x => x.No_Id == idKat);
 
+                        if (kate != null) 
+                        { 
+                            ListFilter.Add(new FilterItem { No_Id = kate.No_Id, Nama_Display = kate.Nama_Kategori, Checked = true }); 
+                            kate.Checked_Filter = true;
+                        }
+                    }
+                }
 
                 StateHasChanged();
                 await JSRuntime.InvokeVoidAsync("scrollToTop");
@@ -290,11 +349,6 @@ namespace PacificWeb.Components.Pages
             _debounceTimer.Start();
         }
 
-        private void OnClearInput()
-        {
-            SearchText = "";
-        }
-
 
         private async Task SearchDataAsync(string? query)
         {
@@ -305,14 +359,49 @@ namespace PacificWeb.Components.Pages
                 ParamUrl = new ParameterApi.ParameterUrl
                 {
                     id_kategori = string.Join(",", ListFilter.Select(x => x.No_Id)),
-                    pagesize = 8,
-                    keyword = query
+                    pagesize = 12,
+                    keyword = query,
+                    show_variant = true,
+                    strict_kategori = true
                 }
             });
 
             searchCount = SearchList.TotalCount == 0 ? -1 : SearchList.TotalCount;
 
             StateHasChanged();
+            await JSRuntime.InvokeVoidAsync("initslideProduct");
+        }
+
+        private async Task showMore()
+        {
+            loadProses = true;
+            StateHasChanged();
+
+            var NewList = await pdjService.GetSearchApi(new ParameterApi
+            {
+                routeApi = "produk",
+                prosesApi = "search",
+                ParamUrl = new ParameterApi.ParameterUrl
+                {
+                    id_kategori = string.Join(",", ListFilter.Select(x => x.No_Id)),
+                    pagesize = 12,
+                    keyword = SearchText,
+                    show_variant = true,
+                    cursor_id = SearchList.SearchProduk.LastOrDefault().No_Id,
+                    strict_kategori = true
+                }
+            });
+
+            var data = SearchList.SearchProduk;
+            data.AddRange(NewList.SearchProduk);
+
+            SearchList = (NewList.SearchBrand, data, NewList.TotalCount, NewList.hasMore);
+
+            searchCount = SearchList.TotalCount == 0 ? -1 : SearchList.TotalCount;
+
+            loadProses = false;
+            StateHasChanged();
+            await JSRuntime.InvokeVoidAsync("initslideProduct");
         }
     }
 }

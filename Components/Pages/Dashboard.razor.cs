@@ -54,6 +54,8 @@ namespace PacificWeb.Components.Pages
         public Produk DataProduk { get; set; } = new Produk();
         public bool loadProses { get; set; } = false;
 
+        public bool loadContent { get; set; } = true;
+
         [Parameter] public int Quantity { get; set; } = 1;
         [Parameter] public EventCallback<int> QuantityChanged { get; set; }
 
@@ -70,14 +72,14 @@ namespace PacificWeb.Components.Pages
                 {
                     routeApi = "produk",
                     prosesApi = "getAll",
-                    ParamUrl = new ParameterApi.ParameterUrl { pagesize = 12, show_variant = true }
+                    ParamUrl = new ParameterApi.ParameterUrl { pagesize = 12, show_variant = true, max_media = 2 }
                 });
 
                 var bannerTask = pdjService.GetBannerApi(new ParameterApi
                 {
                     routeApi = "banner",
                     prosesApi = "getAll",
-                    ParamUrl = new ParameterApi.ParameterUrl { orderBy = "nama_banner", orderDir = "desc" }
+                    ParamUrl = new ParameterApi.ParameterUrl { pagesize = 3, orderBy = "nama_banner", orderDir = "desc" }
                 });
 
                 var brandTask = pdjService.GetBrandApi(new ParameterApi
@@ -91,7 +93,7 @@ namespace PacificWeb.Components.Pages
                 {
                     routeApi = "kategori",
                     prosesApi = "getAll",
-                    ParamUrl = new ParameterApi.ParameterUrl { status = "aktif" }
+                    ParamUrl = new ParameterApi.ParameterUrl { pagesize = 3, status = "aktif" }
                 });
 
                 // Tunggu semua task selesai
@@ -109,11 +111,10 @@ namespace PacificWeb.Components.Pages
                 // Jalankan JS interop setelah DOM terupdate
                 await JSRuntime.InvokeVoidAsync("initslideProduct");
                 await JSRuntime.InvokeVoidAsync("initTinySlider");
-                await JSRuntime.InvokeVoidAsync("scrollToTop");
 
+                //await JSRuntime.InvokeVoidAsync("scrollToTop");
+                loadContent = false;
                 StateHasChanged();
-                await Task.Delay(500);
-                await JSRuntime.InvokeVoidAsync("fadeout");
             }
         }
 

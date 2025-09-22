@@ -308,10 +308,16 @@
                         <!-- Start Single Product -->
                         <div class="single-product">
                             <div class="product-image">
-                                @if (dataProduk.MediaUrls.Count() >= 1)
+                                @if (dataProduk.MediaUrls.Count() >= 2)
                                 {
                                     <img src="@dataProduk.MediaUrls[0]?.Id_Media" alt="@dataProduk.Nama_Display">
                                     <img class="img2" src="@dataProduk.MediaUrls[1]?.Id_Media" alt="@dataProduk.Nama_Display">
+                                } else if (dataProduk.MediaUrls.Count() == 1)
+                                {
+                                    <img src="@dataProduk.MediaUrls[0]?.Id_Media" alt="@dataProduk.Nama_Display">
+                                } else
+                                {
+                                    <img src="~/images/products/placeholder.jpg" alt="@dataProduk.Nama_Display">
                                 }
 
                                 @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)

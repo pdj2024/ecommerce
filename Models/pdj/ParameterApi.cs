@@ -22,10 +22,13 @@ namespace Models
             public int pagesize { get; set; } = 8;
             public string min_harga { get; set; }
             public string max_harga { get; set; }
+            public int max_media { get; set; } = 2;
             public string jenis_media { get; set; }
             public string orderBy { get; set; }
             public string orderDir { get; set; }
             public string id_kategori { get; set; }
+            public string noid_list { get; set; }
+            public bool strict_kategori { get; set; } = true;
             public string slug { get; set; }
             public bool show_variant { get; set; } = true;
             public string cursor_id { get; set; }

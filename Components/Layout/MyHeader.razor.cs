@@ -8,6 +8,7 @@ using Radzen;
 using Services;
 using System.Linq;
 using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace PacificWeb.Components.Layout
 {
@@ -29,10 +30,11 @@ namespace PacificWeb.Components.Layout
         [Parameter] public List<Produk> ListDataProduk { get; set; } = new List<Produk>();
         public List<Produk> ListProduk { get; set; } = new List<Produk>();
         public Pesanan DataPesanan { get; set; } = new Pesanan();
+        public List<Navbar> DataNavbar { get; set; } = new List<Navbar>();
         [Parameter] public List<Kategori> ListDataKategori { get; set; } = new List<Kategori>();
         public List<Cart> ListDataCart { get; set; } = new List<Cart>();
         public List<Cart> ListDataCartCheck { get; set; } = new List<Cart>();
-        public (List<Brand> SearchBrand, List<Produk> SearchProduk, int TotalCount) SearchList { get; set; } = (new List<Brand>(), new List <Produk>(), 0);
+        public (List<Brand> SearchBrand, List<Produk> SearchProduk, int TotalCount, bool hasMore) SearchList { get; set; } = (new(), new(), 0, false);
         public bool loadProses { get; set; } = false;
         public bool loadProsesNetto { get; set; } = false;
         public decimal nettoKeranjang { get; set; } = 0;
@@ -53,7 +55,6 @@ namespace PacificWeb.Components.Layout
             if (firstRender)
             {
                 await JSRuntime.InvokeVoidAsync("initMobileButton");
-                await JSRuntime.InvokeVoidAsync("initHeaderMega");
 
                 while (ListDataProduk.Count() <= 0)
                 {
@@ -85,7 +86,18 @@ namespace PacificWeb.Components.Layout
                     }
                 });
 
+                DataNavbar = await pdjService.GetNavbarApi(new ParameterApi
+                {
+                    routeApi = "navbar",
+                    prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        no_id = "comp_1",
+                    }
+                });
+
                 StateHasChanged();
+                await JSRuntime.InvokeVoidAsync("initHeaderMega");
                 await JSRuntime.InvokeVoidAsync("colLoadOut");
 
             }
@@ -150,7 +162,7 @@ namespace PacificWeb.Components.Layout
         {
             SearchText = "";
 
-            SearchList = (new List<Brand>(), new List<Produk>(), 0);
+            SearchList = (new List<Brand>(), new List<Produk>(), 0, false);
 
             searchCount = 0;
 
@@ -318,8 +330,30 @@ namespace PacificWeb.Components.Layout
         {
             if (e.Key == "Enter" && !string.IsNullOrWhiteSpace(SearchText))
             {
-                NavigationManager.NavigateTo($"/search-page?keyword={Uri.EscapeDataString(SearchText)}", true);
+                var keywordText = Convert.ToBase64String(Encoding.UTF8.GetBytes(SearchText));
+                NavigationManager.NavigateTo($"/search-page?keyword={Uri.EscapeDataString(keywordText)}", true);
             }
+        }
+
+        private void searchContent(Navbar Navbar)
+        {
+            string prod = "";
+            string kate = "";
+
+            if (Navbar.Nav_Type.Split("_")[0] == "special")
+            {
+                prod = string.Join(",", Navbar.Filter.Select(x => x));
+            } 
+            else
+            {
+                kate = string.Join(",", Navbar.Kategori.Select(x => x.No_Id));
+            }
+
+            prod = Convert.ToBase64String(Encoding.UTF8.GetBytes(prod));
+            kate = Convert.ToBase64String(Encoding.UTF8.GetBytes(kate));
+            var keywordText = Convert.ToBase64String(Encoding.UTF8.GetBytes(SearchText));
+
+            NavigationManager.NavigateTo($"/search-page?keyword={Uri.EscapeDataString(keywordText)}&produk={Uri.EscapeDataString(prod)}&kategori={Uri.EscapeDataString(kate)}", true);
         }
 
     }
