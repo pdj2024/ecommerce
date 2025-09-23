@@ -14,10 +14,6 @@ using static Services.pdjService;
 
 
 
-
-
-
-
 namespace PacificWeb.Components.Pages
 {
     public partial class Dashboard
@@ -51,6 +47,7 @@ namespace PacificWeb.Components.Pages
         public List<Brand> ListDataBrand { get; set; } = new List<Brand>();
         public List<Produk> ListDataProduk { get; set; } = new List<Produk>();
         public List<Kategori> ListDataKategori { get; set; } = new List<Kategori>();
+        public List<Company> ListDataCompany { get; set; } = new List<Company>();
         public Produk DataProduk { get; set; } = new Produk();
         public bool loadProses { get; set; } = false;
 
@@ -96,14 +93,22 @@ namespace PacificWeb.Components.Pages
                     ParamUrl = new ParameterApi.ParameterUrl { pagesize = 3, status = "aktif" }
                 });
 
+                var companyTask = pdjService.GetCompanyApi(new ParameterApi
+                {
+                    routeApi = "company",
+                    prosesApi = "get-profile",
+                    ParamUrl = new ParameterApi.ParameterUrl { no_id = "comp_1" }
+                });
+
                 // Tunggu semua task selesai
-                await Task.WhenAll(produkTask, bannerTask, brandTask, kategoriTask);
+                await Task.WhenAll(produkTask, bannerTask, brandTask, kategoriTask, companyTask);
 
                 // Assign semua data sekaligus
                 ListDataProduk = produkTask.Result;
                 ListDataBanner = bannerTask.Result;
                 ListDataBrand = brandTask.Result;
                 ListDataKategori = kategoriTask.Result;
+                ListDataCompany = companyTask.Result;
 
                 // Render ulang satu kali setelah semua data tersedia
                 StateHasChanged();
@@ -138,11 +143,15 @@ namespace PacificWeb.Components.Pages
 
         private void OnSizeChanged(string value)
         {
-            DataProduk.Size_Default = value;
+            var Size = DataProduk.Sizes.FirstOrDefault(x => x.Size_Id == value);
+            DataProduk.Id_Size_Default = Size?.Size_Id ?? "";
+            DataProduk.Size_Default = Size?.Size_Label ?? "";
         }
         private void OnVariantChanged(string value)
         {
-            DataProduk.Option = value;
+            var Opsi = DataProduk.Options.FirstOrDefault(x => x.Option_Id == value);
+            DataProduk.Id_Option_Default = Opsi?.Option_Id ?? "";
+            DataProduk.Option_Default = Opsi?.Option_Label ?? "";
         }
 
         public class SizeOption
@@ -183,7 +192,7 @@ namespace PacificWeb.Components.Pages
                 ParamUrl = new ParameterApi.ParameterUrl()
             };
 
-            item.Id_Variant = item.Variants.FirstOrDefault(x => x.Option == item.Option && x.Size == item.Size_Default)?.No_Id ?? "";
+            item.Id_Variant = item.Variants.FirstOrDefault(x => x.Option_Id == item.Id_Option_Default && x.Size_Id == item.Id_Size_Default)?.No_Id ?? "";
             Cart itemCart = new Cart { Id_Variant = item.Id_Variant, Qty = Quantity, Id_Customer = "cus_16" };
            (string statusMessage, bool statusRespon, int statusCode, string proses) = await pdjService.CudCartApi("TAMBAH", itemCart, paramApi);
 

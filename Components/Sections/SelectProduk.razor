@@ -45,16 +45,16 @@
                     </p>
 
                     <div class="row" style="margin-bottom:20px;">
-                        <h5 class="tag-variasi" style="font-weight:400;"><span style="font-weight:800">Opsi:</span> @DataProduk.Option</h5>
+                        <h5 class="tag-variasi" style="font-weight:400;"><span style="font-weight:800">Opsi:</span> @DataProduk.Option_Default</h5>
                         <div class="size-options d-flex flex-row flex-wrap" style="gap: 10px;">
                             @foreach (var Option in DataProduk?.Options)
                             {
-                                <label style="gap: 15px; width:fit-content; justify-content:start;" class="size-box pe-3 @(DataProduk.Option == Option.Option ? "active" : "")">
+                                <label style="gap: 15px; width:fit-content; justify-content:start;" class="size-box pe-3 @(DataProduk.Id_Option_Default == Option.Option_Id ? "active" : "")">
                                     <Image Style="width:50px; height:50px;" Src="@Option.MediaUrl?.Id_Media" />
-                                    <input type="radio" name="variant" value="@Option.Option"
-                                            checked="@(DataProduk.Option == Option.Option)"
-                                            @onchange="() => OnVariantChanged(Option.Option)" />
-                                    <span style="width: fit-content;overflow: hidden;text-overflow: ellipsis; text-align:center;">@Option.Option</span>
+                                    <input type="radio" name="variant" value="@Option.Option_Id"
+                                            checked="@(DataProduk.Id_Option_Default == Option.Option_Id)"
+                                            @onchange="() => OnVariantChanged(Option.Option_Id)" />
+                                    <span style="width: fit-content;overflow: hidden;text-overflow: ellipsis; text-align:center;">@Option.Option_Label</span>
                                 </label>
                             }
                         </div>
@@ -63,13 +63,13 @@
                     <div class="row">
                         <h5 class="tag-variasi" style="font-weight:400;"><span style="font-weight:800">Size:</span> @DataProduk.Size_Default</h5>
                         <div class="size-options d-flex flex-row flex-wrap" style="gap: 10px;">
-                            @foreach (var size in DataProduk?.Size)
+                            @foreach (var size in DataProduk?.Sizes)
                             {
-                                <label class="size-box @(DataProduk.Size_Default == size ? "active" : "")">
-                                    <input type="radio" name="size" value="@size"
-                                            checked="@(DataProduk.Size_Default == size)"
-                                            @onchange="() => OnSizeChanged(size)" />
-                                    <span style="">@size</span>
+                                <label class="size-box @(DataProduk.Id_Size_Default == size.Size_Id ? "active" : "")">
+                                    <input type="radio" name="size" value="@size.Size_Id"
+                                            checked="@(DataProduk.Id_Size_Default == size.Size_Id)"
+                                            @onchange="() => OnSizeChanged(size.Size_Id)" />
+                                    <span style="">@size.Size_Label</span>
                                 </label>
                             }
                         </div>

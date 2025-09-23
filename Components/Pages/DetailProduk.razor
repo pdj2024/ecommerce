@@ -1,6 +1,7 @@
 ﻿@rendermode InteractiveServer
 @page "/detail-produk/{id}"
 
+
 <MyHeader ListDataProduk=@ListDataProduk ListDataKategori=@ListDataKategori @ref="header_page" />
 
 <!-- Start Breadcrumbs -->
@@ -112,16 +113,16 @@
 
                         <div class="pt-3">
                             <div class="row" style="margin-bottom:20px;">
-                                <h5 class="tag-variasi" style="font-weight:400;"><span style="font-weight:800">Opsi:</span> @DataProduk.Option</h5>
+                                <h5 class="tag-variasi" style="font-weight:400;"><span style="font-weight:800">Opsi:</span> @DataProduk.Option_Default</h5>
                                 <div class="size-options d-flex flex-row flex-wrap" style="gap: 10px;">
                                     @foreach (var Option in DataProduk?.Options)
                                     {
-                                        <label style="gap: 15px; width:fit-content; justify-content:start;" class="size-box pe-3 @(DataProduk.Option == Option.Option ? "active" : "")">
+                                        <label style="gap: 15px; width:fit-content; justify-content:start;" class="size-box pe-3 @(DataProduk.Id_Option_Default == Option.Option_Id ? "active" : "")">
                                             <Image Style="width:50px; height:50px;" Src="@Option.MediaUrl?.Id_Media" />
-                                            <input type="radio" name="variant" value="@Option.Option"
-                                                   checked="@(DataProduk.Option == Option.Option)"
-                                                   @onchange="() => OnVariantChanged(Option.Option)" />
-                                            <span style="width: fit-content;overflow: hidden;text-overflow: ellipsis; text-align:center;">@Option.Option</span>
+                                            <input type="radio" name="variant" value="@Option.Option_Id"
+                                                   checked="@(DataProduk.Id_Option_Default == Option.Option_Id)"
+                                                   @onchange="() => OnVariantChanged(Option.Option_Id)" />
+                                            <span style="width: fit-content;overflow: hidden;text-overflow: ellipsis; text-align:center;">@Option.Option_Label</span>
                                         </label>
                                     }
                                 </div>
@@ -130,13 +131,13 @@
                             <div class="row">
                                 <h5 class="tag-variasi" style="font-weight:400;"><span style="font-weight:800">Size:</span> @DataProduk.Size_Default</h5>
                                 <div class="size-options d-flex flex-row flex-wrap" style="gap: 10px;">
-                                    @foreach (var size in DataProduk?.Size)
+                                    @foreach (var size in DataProduk?.Sizes)
                                     {
-                                        <label class="size-box @(DataProduk.Size_Default == size ? "active" : "")">
+                                        <label class="size-box @(DataProduk.Id_Size_Default == size.Size_Id ? "active" : "")">
                                             <input type="radio" name="size" value="@size"
-                                                   checked="@(DataProduk.Size_Default == size)"
-                                                   @onchange="() => OnSizeChanged(size)" />
-                                            <span style="">@size</span>
+                                                   checked="@(DataProduk.Id_Size_Default == size.Size_Id)"
+                                                   @onchange="() => OnSizeChanged(size.Size_Id)" />
+                                            <span style="">@size.Size_Label</span>
                                         </label>
                                     }
                                 </div>
@@ -404,7 +405,7 @@
                     <div class="btn-group w-100">
                         <button class="dropdown-toggle btn-slide px-0 justify-content-around" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <span style="width: 54%;overflow: hidden;text-overflow: ellipsis;">
-                                @DataProduk.Option
+                                @DataProduk.Option_Default
                             </span>
                             <i class="lni lni-chevron-up" style="transform: rotateZ(180deg);font-size: 18px;font-weight: 500;"></i>
                         </button>
@@ -412,9 +413,9 @@
                             @foreach (var Option in DataProduk.Options)
                                 {
                                     <li class="">
-                                        <a class="dropdown-item @(DataProduk.Option == Option.Option ? "active" : "") d-flex flex-row align-items-center gap-2" @onclick="() => OnVariantChanged(Option.Option)">
+                                        <a class="dropdown-item @(DataProduk.Id_Option_Default == Option.Option_Id ? "active" : "") d-flex flex-row align-items-center gap-2" @onclick="() => OnVariantChanged(Option.Option_Id)">
                                             <Image Style="width:50px; height:50px;" Src="@Option.MediaUrl?.Id_Media" />
-                                            @Option.Option
+                                            @Option.Option_Label
                                         </a>
                                     </li>
                                 }
@@ -430,11 +431,11 @@
                             <i class="lni lni-chevron-up" style="transform: rotateZ(180deg);font-size: 18px;font-weight: 500;" ></i>
                         </button>
                         <ul class="dropdown-menu">
-                            @foreach (var size in DataProduk.Size)
+                            @foreach (var size in DataProduk.Sizes)
                             {
                                 <li>
-                                    <a class="dropdown-item @(DataProduk.Size_Default == size ? "active" : "")" @onclick="() => OnSizeChanged(size)">
-                                        @size
+                                    <a class="dropdown-item @(DataProduk.Id_Size_Default == size.Size_Id ? "active" : "")" @onclick="() => OnSizeChanged(size.Size_Id)">
+                                        @size.Size_Label
                                     </a>
                                 </li>
                             }

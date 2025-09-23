@@ -25,7 +25,9 @@ namespace Models
         public string Social_Type { get; set; } = "";
         public string Platform { get; set; } = "";
         public string Url { get; set; } = "";
+        public string Media_Type { get; set; } = "";
         public string Id_Media { get; set; } = "";
+        public string No_Id_Media { get; set; } = "";
     }
 
     public partial class Company
@@ -40,6 +42,9 @@ namespace Models
         public string Hari_Buka { get; set; } = "";
         public string Jam_Buka { get; set; } = "";
         public string Kode_Pos { get; set; } = "";
+        public string About { get; set; } = "";
+        public string Gmap { get; set; } = "";
+        public List<CompanySosial> Media { get; set; } = new();
     }
 
 }

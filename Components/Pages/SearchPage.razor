@@ -160,8 +160,8 @@
 
                 @if (ListFilter.Count() >= 1)
                 {
-                    <div class="row pb-2 pt-0">
-                        <div class="d-flex flex-row flex-wrap gap-2">
+                    <div class="row pb-2 pt-3 pt-md-3 pt-lg-3 pt-xl-0">
+                        <div class="d-flex flex-row flex-wrap gap-2 px-0 px-md-0 px-lg-0 px-xl-2 ">
                             @foreach (var Filter in ListFilter)
                             {
                                 @if (!Filter.Checked) { continue; }
@@ -175,7 +175,7 @@
 
                             @if (ListFilter.Count() >= 2)
                             {
-                                <button class="border-0 bg-transparent px-0 py-0" @onclick=@(x => removeAllFilter()) >
+                                <button class="border-0 bg-transparent ps-2 pe-0 py-0" @onclick=@(x => removeAllFilter()) >
                                     <span class="underline-anim">
                                         Remove All
                                     </span>

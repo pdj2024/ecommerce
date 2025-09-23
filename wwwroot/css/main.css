@@ -1661,11 +1661,58 @@ h4.title a p {
 }
 
 
+.login-effect::before 
+{
+    content:"";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; /* cukup selebar tombol */
+    height: 300%;
+    background: linear-gradient(180deg, #3419ff 50%, #1500b2 50%);
+    transform: scaleY(0); /* mulai tak terlihat */
+    transform-origin: bottom center;
+    transition: transform 1s ease-in-out;
+    z-index: 2; /* di belakang teks */
+}
 
+.login-effect.change::before {
+    transform: scaleY(2); /* mulai tak terlihat */
+}
 
+.signup-page {
+    visibility: hidden;
+    position: relative;
+    opacity: 0;
+    top: 30px;
+    height: 0rem;
+    overflow: hidden;
+    transition: top 0.8s ease-in-out, opacity 0.8s ease, display 0.8s ease;
+}
 
+.signup-page.active {
+    height: 33rem;
+    visibility: visible;
+    opacity: 1;
+    top: 0px;
+}
 
+.login-page {
+    visibility: hidden;
+    position: relative;
+    opacity: 0;
+    top: 30px;
+    height: 0rem;
+    overflow: hidden;
+    transition: top 0.8s ease-in-out, opacity 0.8s ease, display 0.8s ease;
+}
 
+.login-page.active {
+    height: 33rem;
+    visibility: visible;
+    opacity: 1;
+    top: 0px;
+}
 
 
 

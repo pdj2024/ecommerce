@@ -8,10 +8,10 @@
     <!-- Start Header Bottom -->
     <div class="container-fluid px-md-5 px-2" style="height:100%">
         <div class="row align-items-center vw-100" style="height:100%; width:100%; margin:0px">
-            <div class="col-lg-3 col-md-2 col-12 d-lg-flex d-none">
+            <div class="col-xxl-3 col-lg-2 col-md-2 col-12 d-lg-flex d-none">
                 <!-- Start Header Logo -->
                 <NavLink class="navbar-brand" style="cursor:pointer;" @onclick="@(e => NavigateToHome(""))" >
-                    <img src="images/logo/logo-pdj.png" alt="Logo">
+                    <img src="@(@CompanyData?.FirstOrDefault()?.Media?.FirstOrDefault( x => x.Media_Type == "landscape").Id_Media ?? "images/logo/logo-pdj.png")" alt="Logo">
                 </NavLink>
                 <!-- End Header Logo -->
             </div>
@@ -173,20 +173,25 @@
                 <!-- End Header Logo -->
             </div>
             
-            <div class="col-lg-2 col-md-4 col-4 p-0" >
+            <div class="col-xxl-2 col-lg-3 col-md-4 col-4 p-0" >
                 <div class="navbar-cart">
                     <div class="wishlist" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
                         <a href="javascript:void(0)" class="menu-logo">
                             <i class="lni lni-search-1"></i>
                         </a>
                     </div>
-                    <div id="openCartProd" class="wishlist d-none d-md-none d-lg-flex" data-bs-toggle="offcanvas" data-bs-target="#offcanvascart" aria-controls="offcanvascart">
-                        <a href="javascript:void(0)" class="menu-logo">
-                            <i class="lni lni-cart-1"></i>
-                            <span class="total-items">@ListDataCart.Count()</span>
-                        </a>
-                    </div>
-                    <div class="dropdown text-end wishlist-2"> 
+
+                    <AuthorizeView>
+
+                        <Authorized>
+                            <div id="openCartProd" class="wishlist d-none d-md-none d-lg-flex" data-bs-toggle="offcanvas" data-bs-target="#offcanvascart" aria-controls="offcanvascart">
+                                <a href="javascript:void(0)" class="menu-logo">
+                                    <i class="lni lni-cart-1"></i>
+                                    <span class="total-items">@ListDataCart.Count()</span>
+                                </a>
+                            </div>
+
+                            <div class="dropdown text-end wishlist-2"> 
                         <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle item-head menu-logo" data-bs-toggle="dropdown" aria-expanded="false"> 
                             <i class="lni lni-user-4"></i>
                             <span class="total-items">
@@ -258,6 +263,22 @@
                             </li> 
                         </ul> 
                     </div>
+
+                        </Authorized>
+
+                        <NotAuthorized>
+
+                            <button class="py-0 px-2 border-0 bg-transparent me-3 d-none d-xl-block" @onclick="@(x => changeLogin("sign-up", true))" type="button" data-bs-toggle="modal" id="buttonSignUp" data-bs-target="#exampleModal-login" style="width:fit-content">
+                                <span class="position-relative underline-anim" style="font-size:13px" >SIGN UP</span>
+                            </button>
+
+                            <button class="btn-slide py-0 px-3 d-none d-xl-flex" @onclick="@(x => changeLogin("log-in", true))" style="width:fit-content" type="button" data-bs-toggle="modal" id="buttonLogIn" data-bs-target="#exampleModal-login">
+                                <span class="position-relative" style="font-weight:400" >LOG IN</span>
+                            </button>
+
+                        </NotAuthorized>
+
+                    </AuthorizeView>
                 </div>
             </div>
             
@@ -497,9 +518,98 @@
                     </div>
                 </div>
             </div>
+        
         </div>
     </div>
 </header>
+
+<div class="modal fade review-modal" id="exampleModal-login" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width:480px;height: 33rem;">
+        <div class="modal-content" style="border-radius: 0px; border-radius: 0px; height: fit-content; overflow: hidden;" >
+            <div class="d-flex flex-column login-effect">
+
+                <div class="signup-page" style="">
+                    <div class="modal-header justify-content-center d-flex flex-column border-bottom-0 pb-0">
+                        <h5 class="modal-title w-100 text-xl-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">Sign Up Here</h5>
+                        <p style="font-size:13px; font-weight:300 " class="text-xl-center w-100">you already have an account? 
+                            <span class="underline-anim" style="font-weight:500" @onclick="@(x => changeLogin("log-in"))">Log in</span> .
+                        </p>
+                    </div>
+                    <div class="modal-body pb-3">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="input-group mb-3 style-grup px-1 border-1 py-1 pb-2 form-style">
+                                    <input type="text" style="font-size: 14px;" class="form-control search-form form-text" placeholder="Your name*" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" required />
+                                </div>
+                                <div class="input-group mb-3 style-grup px-1 border-1 py-1 pb-2 form-style">
+                                    <input type="text" style="font-size: 14px;" class="form-control search-form form-text" placeholder="Your email*" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" required />
+                                </div>
+                                <div class="input-group mb-3 style-grup px-1 border-1 py-1 pb-2 form-style">
+                                    <input type="password" style="font-size: 14px;" class="form-control search-form form-text" placeholder="Your password*" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" required />
+                                </div>
+                                <p style="font-size:13px; font-weight:300; font-style:italic;">The fields marked * are required.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-center button border-top-0 pt-0 pb-3 px-5">
+                        <button type="button" class="btn-slide py-2 px-4" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;">
+                            <span class="position-relative">Sign Up</span>
+                        </button>
+                    </div>
+                    <div class="modal-footer justify-content-center button border-top-0 pt-0 pb-0 px-5">
+                        <p style="font-size:13px; font-weight:300" class="text-center">log in with a Google account?</p>
+                    </div>
+                    <div class="modal-footer justify-content-center button border-top-0 pt-0 px-5">
+                        <button type="button" class="btn-slide py-2" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;">
+                            <i class="lni lni-google me-3"></i>
+                            <span class="position-relative">Log in with google</span>
+                        </button>
+                    </div>
+
+                </div>
+                
+                <div class="login-page" style="">
+                    <div class="modal-header justify-content-center d-flex flex-column border-bottom-0 pb-0">
+                        <h5 class="modal-title w-100 text-xl-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">Log In Here</h5>
+                        <p style="font-size:13px; font-weight:300 " class="text-xl-center w-100">don't have an account? 
+                            <span class="underline-anim" style="font-weight:500" @onclick="@(x => changeLogin("sign-up"))" >Sign Up</span> .
+                        </p>
+                    </div>
+                    <div class="modal-body pb-3">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="input-group mb-3 style-grup px-1 border-1 py-1 pb-2 form-style">
+                                    <input type="text" style="font-size: 14px;" class="form-control search-form form-text" placeholder="Your email*" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" required />
+                                </div>
+                                <div class="input-group mb-3 style-grup px-1 border-1 py-1 pb-2 form-style">
+                                    <input type="password" style="font-size: 14px;" class="form-control search-form form-text" placeholder="Your password*" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" required />
+                                </div>
+                                <p style="font-size:13px; font-weight:300; font-style:italic;">The fields marked * are required.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-center button border-top-0 pt-5 pb-3 px-5">
+                        <button type="button" class="btn-slide py-2 px-4" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;">
+                            <span class="position-relative">Sign Up</span>
+                        </button>
+                    </div>
+                    <div class="modal-footer justify-content-center button border-top-0 pt-2 pb-0 px-5">
+                        <p style="font-size:13px; font-weight:300" class="text-center">log in with a Google account?</p>
+                    </div>
+                    <div class="modal-footer justify-content-center button border-top-0 pt-0 px-5">
+                        <button type="button" class="btn-slide py-2" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;">
+                            <i class="lni lni-google me-3"></i>
+                            <span class="position-relative">Log in with google</span>
+                        </button>
+                    </div>
+
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</div>
 
 @code {
 

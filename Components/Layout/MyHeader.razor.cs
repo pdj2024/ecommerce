@@ -28,6 +28,7 @@ namespace PacificWeb.Components.Layout
 
         private System.Timers.Timer? _debounceTimer;
         [Parameter] public List<Produk> ListDataProduk { get; set; } = new List<Produk>();
+        [Parameter] public List<Company> CompanyData { get; set; } = new List<Company>();
         public List<Produk> ListProduk { get; set; } = new List<Produk>();
         public Pesanan DataPesanan { get; set; } = new Pesanan();
         public List<Navbar> DataNavbar { get; set; } = new List<Navbar>();
@@ -37,6 +38,7 @@ namespace PacificWeb.Components.Layout
         public (List<Brand> SearchBrand, List<Produk> SearchProduk, int TotalCount, bool hasMore) SearchList { get; set; } = (new(), new(), 0, false);
         public bool loadProses { get; set; } = false;
         public bool loadProsesNetto { get; set; } = false;
+        [Parameter]  public bool Authorize { get; set; } = false;
         public decimal nettoKeranjang { get; set; } = 0;
         public int searchCount { get; set; } = 0;
 
@@ -354,6 +356,11 @@ namespace PacificWeb.Components.Layout
             var keywordText = Convert.ToBase64String(Encoding.UTF8.GetBytes(SearchText));
 
             NavigationManager.NavigateTo($"/search-page?keyword={Uri.EscapeDataString(keywordText)}&produk={Uri.EscapeDataString(prod)}&kategori={Uri.EscapeDataString(kate)}", true);
+        }
+
+        private async void changeLogin(string value, bool direct = false)
+        {
+            await JSRuntime.InvokeVoidAsync("initLoginEffect", value, direct);
         }
 
     }

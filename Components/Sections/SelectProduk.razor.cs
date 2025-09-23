@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using Models;
@@ -33,6 +34,9 @@ namespace PacificWeb.Components.Sections
         protected DialogService DialogService { get; set; }
 
         [Inject]
+        protected AuthenticationStateProvider AuthStateProvider { get; set; }
+
+        [Inject]
         protected TooltipService TooltipService { get; set; }
 
         [Inject]
@@ -49,6 +53,7 @@ namespace PacificWeb.Components.Sections
         public List<Produk> ListDataProduk { get; set; } = new List<Produk>();
         public List<Kategori> ListDataKategori { get; set; } = new List<Kategori>();
         public bool loadProses { get; set; } = false;
+        public bool auth { get; set; } = false;
 
         [Parameter] public int Quantity { get; set; } = 1;
         [Parameter] public EventCallback<int> QuantityChanged { get; set; }
@@ -57,6 +62,16 @@ namespace PacificWeb.Components.Sections
 
         protected override async Task OnInitializedAsync()
         {
+            var authState = await AuthStateProvider.GetAuthenticationStateAsync();
+            var user = authState.User;
+
+            if (user == null || !user.Identity.IsAuthenticated)
+            {
+                auth = false;
+            } else
+            {
+                auth = true;
+            }
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -84,11 +99,15 @@ namespace PacificWeb.Components.Sections
 
         private void OnSizeChanged(string value)
         {
-            DataProduk.Size_Default = value;
+            var Size = DataProduk.Sizes.FirstOrDefault(x => x.Size_Id == value);
+            DataProduk.Id_Size_Default = Size?.Size_Id ?? "";
+            DataProduk.Size_Default = Size?.Size_Label ?? "";
         }
         private void OnVariantChanged(string value)
         {
-            DataProduk.Option = value;
+            var Opsi = DataProduk.Options.FirstOrDefault(x => x.Option_Id == value);
+            DataProduk.Id_Option_Default = Opsi?.Option_Id ?? "";
+            DataProduk.Option_Default = Opsi?.Option_Label ?? "";
         }
 
         public class SizeOption
@@ -119,6 +138,16 @@ namespace PacificWeb.Components.Sections
 
         private async Task tambahKeranjang(Produk item)
         {
+            if (!auth) 
+            {
+                await JSRuntime.InvokeVoidAsync("buttonClick", "#closeDetailProd");
+
+                await Task.Delay(200);
+
+                await JSRuntime.InvokeVoidAsync("buttonClick", "#buttonLogIn");
+                return;
+            }
+
             loadProses = true;
             StateHasChanged();
 
@@ -129,7 +158,7 @@ namespace PacificWeb.Components.Sections
                 ParamUrl = new ParameterApi.ParameterUrl()
             };
 
-            item.Id_Variant = item.Variants.FirstOrDefault(x => x.Option == item.Option && x.Size == item.Size_Default)?.No_Id ?? "";
+            item.Id_Variant = item.Variants.FirstOrDefault(x => x.Option_Id == item.Id_Option_Default && x.Size_Id == item.Id_Size_Default)?.No_Id ?? "";
             Cart itemCart = new Cart { Id_Variant = item.Id_Variant, Qty = Quantity, Id_Customer = "cus_16" };
            (string statusMessage, bool statusRespon, int statusCode, string proses) = await pdjService.CudCartApi("TAMBAH", itemCart, paramApi);
 

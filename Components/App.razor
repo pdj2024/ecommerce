@@ -359,6 +359,45 @@
                 autoplayButtonOutput: false,
                 controlsText: ['<i class="lni lni-chevron-left"></i>', '<i class="lni lni-chevron-left" style="transform: scaleX(-1);"></i>'],
             });
+
+            var slider_laptop = tns({
+                container: ".hero-slider-laptop",
+                items: 1,
+                slideBy: "page",
+                autoplay: true,
+                nav: false,
+                mouseDrag: true,
+                gutter: 0,
+                controls: true,
+                autoplayButtonOutput: false,
+                controlsText: ['<i class="lni lni-chevron-left"></i>', '<i class="lni lni-chevron-left" style="transform: scaleX(-1);"></i>'],
+            });
+
+            var slider_tablet = tns({
+                container: ".hero-slider-tablet",
+                items: 1,
+                slideBy: "page",
+                autoplay: true,
+                nav: false,
+                mouseDrag: true,
+                gutter: 0,
+                controls: true,
+                autoplayButtonOutput: false,
+                controlsText: ['<i class="lni lni-chevron-left"></i>', '<i class="lni lni-chevron-left" style="transform: scaleX(-1);"></i>'],
+            });
+
+            var slider_phone = tns({
+                container: ".hero-slider-phone",
+                items: 1,
+                slideBy: "page",
+                autoplay: true,
+                nav: false,
+                mouseDrag: true,
+                gutter: 0,
+                controls: true,
+                autoplayButtonOutput: false,
+                controlsText: ['<i class="lni lni-chevron-left"></i>', '<i class="lni lni-chevron-left" style="transform: scaleX(-1);"></i>'],
+            });
         };
 
         function initDetailProd() {
@@ -373,6 +412,56 @@
                 nav: false,
                 controls: false,
             });
+        };
+
+
+        function initLoginEffect(value, direct) {
+
+            const loginBox = document.querySelector('.login-effect');
+            const signUp = document.querySelector('.signup-page');
+            const logIn = document.querySelector('.login-page');
+
+
+            if (!direct) {
+
+                loginBox.classList.add('change');
+
+                setTimeout(() => {
+
+                    loginBox.classList.remove('change');
+
+                }, 1200);
+
+
+                setTimeout(() => {
+
+                    if(value == "sign-up")
+                    {
+                        logIn.classList.remove('active');
+                        signUp.classList.add('active');
+
+                    } else {
+
+                        signUp.classList.remove('active');
+                        logIn.classList.add('active');
+                    }
+
+                }, 1500);
+
+            } else {
+                if(value == "sign-up") 
+                {
+                    logIn.classList.remove('active');
+                    signUp.classList.add('active');
+
+                } else {
+
+                    signUp.classList.remove('active');
+                    logIn.classList.add('active');
+                }
+            }
+
+
         };
 
         function initBigDetailProd() {

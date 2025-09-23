@@ -246,6 +246,55 @@ namespace Services
             return (httpReq, cancelTimer, UrlApi);
         }
 
+        public async Task<List<Company>> GetCompanyApi(ParameterApi paramUrl)
+        {
+            var config = initConfigApi(paramUrl);
+            string url = config.UrlApi ;
+            var tbListProduk = new List<Company>();
+
+            try
+            {
+                var response = await config.httpReq.GetAsync(config.UrlApi, config.cancelTimer.Token);
+
+                var checking = await CheckAPI(response, config.UrlApi, "BACA");
+
+                if (checking.statusResponse)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    using var jsonDoc = JsonDocument.Parse(json);
+                    var root = jsonDoc.RootElement;
+
+                    if (root.TryGetProperty("Data", out var dataFromDb))
+                    {
+                        tbListProduk = JsonConvert.DeserializeObject<List<Company>>(dataFromDb.GetRawText());
+                    }
+                    else
+                    {
+                        writeLog($"Data Kosong");
+                    }
+                }
+
+                return tbListProduk;
+            }
+            catch (Exception ex)
+            {
+                if (ex is OperationCanceledException)
+                {
+                    writeLog("Gagal Baca Data : Request ke API terlalu lama (timeout).");
+                }
+                else if (ex is HttpRequestException)
+                {
+                    writeLog($"Gagal Baca Data : Terjadi kesalahan jaringan atau server. {ex.Message}");
+                }
+                else
+                {
+                    writeLog($"Gagal Baca Data : Terjadi error: {ex.Message}");
+                }
+            }
+
+            return tbListProduk;
+        }
+
         public async Task<List<Produk>> GetProdukApi(ParameterApi paramUrl)
         {
             var config = initConfigApi(paramUrl);

@@ -712,16 +712,16 @@
                     </p>
 
                     <div class="row" style="margin-bottom:20px;">
-                        <h5 class="tag-variasi"><b>Opsi:</b> @DataProduk.Option</h5>
+                        <h5 class="tag-variasi"><b>Opsi:</b> @DataProduk.Option_Default</h5>
                         <div class="size-options" style="display: grid;grid-template-columns: repeat(auto-fill, 120px);gap: 10px;">
                             @foreach (var Option in DataProduk.Options)
                             {
-                                <label style="gap: 15px; width:100%; justify-content:start;" class="size-box @(DataProduk.Option == Option.Option ? "active" : "")">
+                                <label style="gap: 15px; width:100%; justify-content:start;" class="size-box @(DataProduk.Id_Option_Default == Option.Option_Id ? "active" : "")">
                                     <Image Style="width:50px; height:50px;" Src="@Option.MediaUrl.Id_Media" />
-                                    <input type="radio" name="variant" value="@Option.Option"
-                                           checked="@(DataProduk.Option == Option.Option)"
-                                           @onchange="() => OnVariantChanged(Option.Option)" />
-                                    <span>@Option.Option</span>
+                                    <input type="radio" name="variant" value="@Option.Option_Id"
+                                           checked="@(DataProduk.Id_Option_Default == Option.Option_Id)"
+                                           @onchange="() => OnVariantChanged(Option.Option_Id)" />
+                                    <span>@Option.Option_Label</span>
                                 </label>
                             }
                         </div>
@@ -730,13 +730,13 @@
                     <div class="row">
                         <h5 class="tag-variasi"><b>Size:</b> @DataProduk.Size_Default</h5>
                         <div class="size-options" style="display: grid;grid-template-columns: repeat(auto-fill, 50px);gap: 10px;">
-                            @foreach (var size in DataProduk.Size)
+                            @foreach (var size in DataProduk.Sizes)
                             {
-                                <label class="size-box @(DataProduk.Size_Default == size ? "active" : "")">
+                                <label class="size-box @(DataProduk.Id_Size_Default == size.Size_Id ? "active" : "")">
                                     <input type="radio" name="size" value="@size"
-                                           checked="@(DataProduk.Size_Default == size)"
-                                           @onchange="() => OnSizeChanged(size)" />
-                                    <span>@size</span>
+                                           checked="@(DataProduk.Id_Size_Default == size.Size_Id)"
+                                           @onchange="() => OnSizeChanged(size.Size_Id)" />
+                                    <span>@size.Size_Label</span>
                                 </label>
                             }
                         </div>
