@@ -2,7 +2,7 @@
 
 <Router AppAssembly="@typeof(Program).Assembly">
     <Found Context="routeData">
-      <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)"  />
+        <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)"  />
     </Found>
     <NotFound>
         <PageTitle>Not found</PageTitle>
@@ -16,7 +16,6 @@
         </LayoutView>
     </NotFound>
 </Router>
-
 
 @code {
     [Inject] private ScrollService ScrollService { get; set; }

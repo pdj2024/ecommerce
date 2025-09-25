@@ -1,13 +1,14 @@
-using Radzen;
-using PacificWeb.Components;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
-using Services;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.JSInterop;
 using Models;
-using Microsoft.AspNetCore.Components.Authorization;
+using PacificWeb.Components;
+using Radzen;
+using Services;
 
 
 
@@ -37,14 +38,14 @@ builder.Services.AddAuthorization(config =>
     }
 });
 
-//builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-//    .AddCookie(options =>
-//    {
-//        options.Cookie.Name = "auth_token";
-//        options.LoginPath = "/login";
-//        options.Cookie.MaxAge = TimeSpan.FromMinutes(10);
-//        options.AccessDeniedPath = "/access-denied";
-//    });
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.Cookie.Name = "auth_token";
+        options.LoginPath = "/login";
+        options.Cookie.MaxAge = TimeSpan.FromMinutes(30);
+        options.AccessDeniedPath = "/access-denied";
+    });
 
 builder.Services.AddCascadingAuthenticationState();
 
@@ -65,7 +66,7 @@ builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped<TooltipService>();
 builder.Services.AddScoped<ContextMenuService>();
 builder.Services.AddScoped<ScrollService>();
-
+builder.Services.AddScoped<LoginService>();
 
 
 
@@ -85,9 +86,10 @@ builder.Services.AddScoped(sp =>
     var jsRuntime = sp.GetRequiredService<IJSRuntime>(); // Add this
 
     var authProvider = sp.GetRequiredService<AuthenticationStateProvider>();
+    var httpContextAccessor = sp.GetRequiredService<IHttpContextAccessor>();
 
 
-    return new Services.pdjService(navigationManager, dialogService, jsRuntime, authProvider); // Pass dialogService and jsRuntime
+    return new Services.pdjService(navigationManager, dialogService, jsRuntime, authProvider, httpContextAccessor); // Pass dialogService and jsRuntime
 });
 
 

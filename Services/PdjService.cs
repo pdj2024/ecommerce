@@ -1,10 +1,13 @@
 using Azure;
+using BlazorBootstrap;
 using Dapper;
-
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.JSInterop;
 using Models;
 using Newtonsoft.Json;
@@ -20,14 +23,17 @@ using System.Data;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using System.Reflection;
 using System.Reflection.Metadata;
+using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Web;
 using static Services.pdjService;
+using static System.Net.WebRequestMethods;
 
 namespace Services
 {
@@ -37,12 +43,14 @@ namespace Services
         [Inject]
         protected DialogService DialogService { get; set; }
 
-      
+        public HttpContext? HttpContext => _httpContextAccessor.HttpContext;
+
         private readonly NavigationManager navigationManager;
         private readonly string connectionString;
 
         private readonly DialogService _dialogService;
         private readonly IJSRuntime _jsRuntime;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         private static Random _rand = new Random();
 
@@ -93,6 +101,7 @@ namespace Services
             public string NoBukti { get; set; } = "";
             public string token { get; set; } = "";
             public string refreshToken { get; set; } = "";
+            public bool Status { get; set; } = false;
         }
 
         private string addParam(string paramName, string value, bool first = false)
@@ -224,9 +233,7 @@ namespace Services
                 properties
                     .Where(p => p.GetValue(model) != null)
                     .Select(p => {
-                        var value = HttpUtility.UrlEncode(p.GetValue(model)?.ToString());
-
-                        value = value?.Replace("%2c", ",").Replace("%2C", ",");
+                        var value = p.GetValue(model)?.ToString();
                         return $"{HttpUtility.UrlEncode(p.Name)}={value}";
                     })
             );
@@ -876,7 +883,6 @@ namespace Services
             return (tbListBrand, tbListProduk, totalCount, hasMore);
         }
 
-
         public async Task<List<Navbar>> GetNavbarApi(ParameterApi urlParam)
 
         {
@@ -925,6 +931,102 @@ namespace Services
 
             return tbListProduk;
 
+        }
+
+        public async Task<List<DataUser>> GetUserApi(ParameterApi urlParam)
+
+        {
+            var config = initConfigApi(urlParam);
+            var tbListProduk = new List<DataUser>();
+
+            try
+            {
+                var response = await config.httpReq.GetAsync(config.UrlApi, config.cancelTimer.Token);
+
+                var checking = await CheckAPI(response, config.UrlApi, "BACA");
+
+                if (checking.statusResponse)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    using var jsonDoc = JsonDocument.Parse(json);
+                    var root = jsonDoc.RootElement;
+
+                    if (root.TryGetProperty("Data", out var dataFromDb))
+                    {
+                        tbListProduk = JsonConvert.DeserializeObject<List<DataUser>>(dataFromDb.GetRawText());
+                    }
+                    else
+                    {
+                        writeLog($"Data Kosong");
+                    }
+                }
+
+                return tbListProduk;
+            }
+            catch (Exception ex)
+            {
+                if (ex is OperationCanceledException)
+                {
+                    writeLog("Gagal Baca Data : Request ke API terlalu lama (timeout).");
+                }
+                else if (ex is HttpRequestException)
+                {
+                    writeLog($"Gagal Baca Data : Terjadi kesalahan jaringan atau server. {ex.Message}");
+                }
+                else
+                {
+                    writeLog($"Gagal Baca Data : Terjadi error: {ex.Message}");
+                }
+            }
+
+            return tbListProduk;
+
+        }
+
+        public async Task<(DataUser, bool)> LoginUserApi(ParameterApi urlParam, LoginViewModel data)
+        {
+            try
+            {
+                var DataUser = await GetUserApi(urlParam);
+                var UserLogin = DataUser.FirstOrDefault();
+
+                if (UserLogin != null)
+                {
+                    Dictionary<string, List<string>> masUserMenu = new Dictionary<string, List<string>>();
+
+                    masUserMenu.Add(UserLogin.Email, new List<string> { "Akses" });
+
+                    var claims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Email, UserLogin.Email),
+                        new Claim(ClaimTypes.Name, UserLogin.No_Id),
+                    };
+
+                    var thisUsersAccountPolicies = masUserMenu[UserLogin.Email];
+
+                    foreach (var userAccountPolicy in thisUsersAccountPolicies)
+                    {
+                        claims.Add(new Claim(userAccountPolicy, "true"));
+                    }
+
+                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var principal = new ClaimsPrincipal(identity);
+
+                    await HttpContext?.SignInAsync(principal);
+                
+                    return (UserLogin, true);
+                }
+                else
+                {
+                    return (null, false);
+                }
+            }
+            catch (Exception ex)
+            {
+                writeLog($"Login error: {ex.Message}");
+            }
+
+            return (null, false);
         }
 
 
@@ -1159,13 +1261,14 @@ namespace Services
 
         private readonly AuthenticationStateProvider authProvider;
 
-        public pdjService(NavigationManager navigationManager, DialogService dialogService, IJSRuntime jsRuntime, AuthenticationStateProvider authProvider)
+        public pdjService(NavigationManager navigationManager, DialogService dialogService, IJSRuntime jsRuntime, AuthenticationStateProvider authProvider, IHttpContextAccessor httpContextAccessor)
         {
 
             this.navigationManager = navigationManager;
             _dialogService = dialogService; // Initialize here
             _jsRuntime = jsRuntime;
             this.authProvider = authProvider;
+            _httpContextAccessor = httpContextAccessor;
 
         }
 

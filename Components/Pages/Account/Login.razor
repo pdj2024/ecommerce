@@ -1,101 +1,78 @@
-﻿
-@using Models
+﻿@using Models
 @using System.Security.Claims
 @using Microsoft.AspNetCore.Authentication
 @using Microsoft.AspNetCore.Authentication.Cookies
+@using System.Text.Json;
 @inject NavigationManager navigationManager
 @using Services
+@inject pdjService pdjService
+@inject IJSRuntime jsRuntime
+@page "/login"
 
+<div class="modal fade review-modal show" id="exampleModal-login" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display:block; background-color:whitesmoke">
+    <div class="modal-dialog modal-dialog-centered" style="max-width:480px;height: 33rem;">
+        <div class="modal-content" style="border-radius: 0px; border-radius: 0px; height: fit-content; overflow: hidden;" >
+            <div class="d-flex flex-column login-effect">
 
-<div style="height: 100vh; display: flex; justify-content: center; align-items: center; background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), url('images/project_atap.jpg'); background-size: cover; background-repeat: no-repeat;">
-   
-<div style="@ContainerStyle">
-    <EditForm Model="Model" OnValidSubmit="Authenticate" FormName="LoginForm" style="width: 100%; padding: 1.5em">
-        <DataAnnotationsValidator />
-        <!--<div style="@HeaderStyle">
-            <h3 style="@HeaderTextStyle">LOGIN</h3>
-        </div>-->
-            <div style="@HeaderStyle">
-                <img src="@pdjService.clientLogo" alt="Company Logo" style="max-width: 100px; margin-bottom: 10px;" />
-                <h3 style="@HeaderTextStyle">@pdjService.clientName</h3>
+                <div class="login-page" style="visibility: visible;position: relative;opacity: 1;top: 0px;height: 100%;overflow: hidden;">
+                    <div class="modal-header justify-content-center d-flex flex-column border-bottom-0 pb-0">
+                        <h5 class="modal-title w-100 text-xl-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">Log In Here</h5>
+                        <p style="font-size:13px; font-weight:300 " class="text-xl-center w-100">
+                            don't have an account?
+                            <span class="underline-anim" style="font-weight:500">Sign Up</span> .
+                        </p>
+                    </div>
+
+                    <EditForm Model="Model" OnValidSubmit="Authenticate" FormName="LoginForm">
+                        <DataAnnotationsValidator />
+                        <div class="modal-body pb-3">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="input-group mb-3 style-grup px-1 border-1 py-1 pb-2 form-style">
+                                        <InputText type="text" style="font-size: 14px;" @bind-Value="Model.Email" id="Email" class="form-control search-form form-text" placeholder="Your email*" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" required />
+                                    </div>
+                                    <div class="input-group mb-3 style-grup px-1 border-1 py-1 pb-2 form-style">
+                                        <InputText type="password" @bind-Value="Model.Password" id="Password" style="font-size: 14px;" class="form-control search-form form-text" placeholder="Your password*" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" required />
+                                    </div>
+                                    <p style="font-size:13px; font-weight:300; font-style:italic;">The fields marked * are required.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer justify-content-center button border-top-0 pt-5 pb-3 px-5">
+                            <button type="submit" class="btn-slide py-2 px-4" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;">
+                                <span class="position-relative">Log In</span>
+                            </button>
+                        </div>
+                    </EditForm>
+
+                    <button type="button" class="btn btn-primary border-0" id="liveToastBtn" style="width:0px; height:0px; overflow:hidden"></button>
+
+                    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                        <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="toast-header">
+                                <strong class="me-auto">email dan password tidak sesuai!</strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer justify-content-center button border-top-0 pt-2 pb-0 px-5">
+                        <p style="font-size:13px; font-weight:300" class="text-center">log in with a Google account?</p>
+                    </div>
+                    
+                    <div class="modal-footer justify-content-center button border-top-0 pt-0 px-5">
+                        <button type="button" class="btn-slide py-2" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;">
+                            <i class="lni lni-google me-3"></i>
+                            <span class="position-relative">Log in with google</span>
+                        </button>
+                    </div>
+
+                </div>
+            
             </div>
-
-        <div style="@FormGroupStyle">
-            <label for="UserName" style="@LabelStyle">Username</label>
-            <InputText @bind-Value="Model.UserName" id="UserName" style="@InputStyle" placeholder="Enter your username" />
-           <!-- <ValidationMessage For="() => Model.UserName" />-->
         </div>
-        <div style="@FormGroupStyle">
-            <label for="Password" style="@LabelStyle">Password</label>
-                <InputText @bind-Value="Model.Password" id="Password" style="@InputStyle" placeholder="Enter your password" type="password" />
-            <!-- <ValidationMessage For="() => Model.Password" />-->
-        </div>
-        <div style="@ErrorMessageStyle">
-            <span>@errorMessage</span>
-        </div>
-        <div style="@FormGroupStyle">
-            <button type="submit" style="@ButtonStyle" onmouseover="this.style.backgroundColor='@ButtonHoverStyle'" onmouseout="this.style.backgroundColor='#1e3a6a'">Login</button>
-        </div>
-    </EditForm>
+    </div>
 </div>
-</div>
-<!--<div>
-   <EditForm Model="Model" OnValidSubmit="Authenticate" FormName="LoginForm" >
-        <DataAnnotationsValidator />
-        <div>
-            <h3>LOGIN</h3>
-            <div>
-                <label>User Name</label>
-                <InputText @bind-Value="Model.UserName" placeholder="Username"/>
-                <ValidationMessage For="() => Model.UserName"/>
-            </div>
-            <div>
-                <label>Password</label>
-                <InputText @bind-Value="Model.Password" placeholder="Password" />
-                <ValidationMessage For="() => Model.Password" />
-            </div>
-            <div>
-                <span>@errorMessage</span>
-            </div>
-            <div>
-                <button type="submit">Login</button>
-            </div>
-        </div>
-    </EditForm>
-</div>-->
-
-<style>
-   /* input#UserName::placeholder {
-        color: #5A7184; 
-    }
-
-    input#UserName {
-        color: #1a1a1a; 
-        outline: none; 
-    }
-
-        input#UserName:focus {
-            border: 2px solid #dde8f2; 
-            box-shadow: none !important;
-        }
-        input#Password::placeholder {
-            color: #5A7184; 
-        }
-
-    input#Password {
-        color: #1a1a1a; 
-        outline: none; 
-    }
-
-        input#Password:focus {
-            border: 2px solid #dde8f2;
-            box-shadow: none !important; */
-        }
-
-   
-</style>
-
-
 @code {
 
     [CascadingParameter]
@@ -104,125 +81,54 @@
     [SupplyParameterFromForm]
     public LoginViewModel Model { get; set; } = new();
 
-    [Inject]
-    public pdjService pdjService { get; set; }
-
-    [Inject]
-    public IJSRuntime jsRuntime { get; set; }
-
-    public string myName = "";
-    public string myPass = "";
-
-    private string? errorMessage;
-
-
-    // ===
-    // Define style variables
-    public string ContainerStyle => "display: flex; justify-content: center; align-items: center; height: 60vh; width: 90%; max-width: 400px; margin: 0 !important; padding: 20px; background-color: #ffffff; border-radius: 10px; box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3); font-family: Arial, sans-serif;";
-
-    public string HeaderStyle => "text-align: center; margin-bottom: 20px;";
-
-    public string HeaderTextStyle => "font-size: 24px; color: #333; font-weight: bold; margin-bottom: 1em";
-
-    public string FormGroupStyle => "margin-bottom: 20px; width: 100%!important";  // Increased spacing between inputs
-
-    public string LabelStyle => "font-size: 14px; color: #1a1a1a; font-weight: 600; margin-bottom: 5px; display: block;";
-
-    public string InputStyle => "width: 100%; padding: 10px; font-size: 14px; border-radius: 5px; border: 1px solid #ddd; background-color: #f9f9f9; box-sizing: border-box;";
-
-    public string InputFocusStyle => "border-color: #1e3a6a; outline: none; background-color: #fff;";
-
-    public string ErrorMessageStyle => "color: #f44336; font-size: 15px; text-align: start; margin-bottom: 15px;";
-
-    public string ButtonStyle => "width: 100%; padding: 12px; background-color: #1e3a6a; color: white; font-size: 16px; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s ease; margin-top: 15px;";  // Added margin-top to space the button
-
-    public string ButtonHoverStyle => "background-color: #267bb3;";
-
-    public string MobileResponsiveStyle => "width: 90%; padding: 15px;";
-
-    /* public string ContainerStyle => "width: 100%; max-width: 400px; margin: 50px auto; padding: 20px; background-color: #ffffff; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); font-family: Arial, sans-serif;";
-     public string HeaderStyle => "text-align: center; margin-bottom: 20px;";
-     public string HeaderTextStyle => "font-size: 24px; color: #333; font-weight: bold;";
-     public string FormGroupStyle => "margin-bottom: 15px;";
-     public string LabelStyle => "font-size: 14px; color: #666; font-weight: 600; margin-bottom: 5px; display: block;";
-     public string InputStyle => "width: 100%; padding: 10px; font-size: 14px; border-radius: 5px; border: 1px solid #ddd; background-color: #f9f9f9; box-sizing: border-box;";
-     public string InputFocusStyle => "border-color: #1e3a6a; outline: none; background-color: #fff;";
-     public string ErrorMessageStyle => "color: #f44336; font-size: 12px; text-align: center; margin-bottom: 15px;";
-     public string ButtonStyle => "width: 100%; padding: 12px; background-color: #1e3a6a; color: white; font-size: 16px; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s ease;";
-     public string ButtonHoverStyle => "background-color: #267bb3;";
-     public string MobileResponsiveStyle => "width: 90%; padding: 15px;";*/
-    //===
-
-
 
     private async Task Authenticate()
     {
-        /* if (Model.UserName == "" ||
-          Model.Password == "")
-          {
 
-          errorMessage = "Semua field harus terisi";
-
-        return;
-        }*/
-
-        // Initialize dictionary
-        Dictionary<string, List<string>> masUserMenu = new Dictionary<string, List<string>>();
-
-        // Add an entry to the dictionary
-       // masUserMenu.Add("admin24", new List<string> { "VIEW_TAGIHAN", "ADD_TAGIHAN" });
-        masUserMenu.Add("demo", new List<string> { "VIEW_TAGIHAN", "ADD_TAGIHAN" });
-        //  masUserMenu.Add("admin3", new List<string> { "VIEW_TAGIHAN" });
-
-        string passwordNya = "inidemo";
-
-        if (!masUserMenu.ContainsKey(Model.UserName))
-        {
-            errorMessage = "Invalid User Name or Password";
-            return;
-        }
-
-        if (Model.UserName == "demo")
-        {
-            if (Model.Password != passwordNya)
+        var param = new ParameterApi
             {
-                errorMessage = "Invalid User Name or Password";
-                return;
-            }
-        }
+                routeApi = "customer",
+                prosesApi = "getAll",
+                ParamUrl = new ParameterApi.ParameterUrl { email = Model.Email }
+            };
 
+        var loginStatus = await pdjService.LoginUserApi(param, Model);
 
-        var claims = new List<Claim>
+        if (loginStatus.Item2)
         {
-            new Claim(ClaimTypes.Name, Model.UserName)
-        };
-        // Add Policies
-
-        /*var UserAccountPolicies = new List<UserAccountPolicy>
-            {
-            new UserAccountPolicy { UserAccountId = 1, IsEnabled = true },
-            new UserAccountPolicy { UserAccountId = 2, IsEnabled = false },
-            new UserAccountPolicy { UserAccountId = 3, IsEnabled = true }
-        };
-        var userAccountPolicies = UserAccountPolicies;
-        foreach (var userAccountPolicy in userAccountPolicies)
-            claims.Add(new Claim(userAccountPolicy.UserPolicy, "true"));*/
-
-        //  var thisUsersAccountPolicies = new List<string> { "VIEW_PRODUCT", "ADD_PRODUCT" }; //  ini list access yg dia punya
-        var thisUsersAccountPolicies = masUserMenu[Model.UserName];
-        foreach (var userAccountPolicy in thisUsersAccountPolicies)
+            navigationManager.NavigateTo("/", forceLoad: true);
+        } else
         {
-
-            claims.Add(new Claim(userAccountPolicy, "true"));
+            Console.WriteLine("gagal login");
         }
-
-        var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-        var principal = new ClaimsPrincipal(identity);
-        await HttpContext?.SignInAsync(principal);
-
-        navigationManager.NavigateTo("/");
-
-      
 
     }
+
+    // private async Task Authenticate()
+    // {
+
+    //     var loginStatus = await pdjService.LoginUserApi(Model);
+    //     Dictionary<string, List<string>> masUserMenu = new Dictionary<string, List<string>>();
+
+    //     masUserMenu.Add(Model.Email, new List<string>{ "Akses" });
+
+    //     var claims = new List<Claim>
+    //     {
+    //         new Claim(ClaimTypes.Email, Model.Email),
+    //     };
+
+    //     var thisUsersAccountPolicies = masUserMenu[Model.Email];
+
+    //     foreach (var userAccountPolicy in thisUsersAccountPolicies)
+    //     {
+    //         claims.Add(new Claim(userAccountPolicy, "true"));
+    //     }
+
+
+    //     var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+    //     var principal = new ClaimsPrincipal(identity);
+
+    //     await HttpContext?.SignInAsync(principal);
+    //     navigationManager.NavigateTo("/", forceLoad: true);
+    // }
 }

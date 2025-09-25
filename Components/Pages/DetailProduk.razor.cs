@@ -44,6 +44,7 @@ namespace PacificWeb.Components.Pages
         [Parameter] public int Quantity { get; set; } = 1;
         [Parameter] public int QuantityProd { get; set; } = 1;
         public bool loadProses { get; set; } = false;
+        public bool loadContent { get; set; } = true;
         [Parameter] public EventCallback<int> QuantityChanged { get; set; }
         [Parameter] public EventCallback<int> QuantityProdChanged { get; set; }
 
@@ -54,10 +55,8 @@ namespace PacificWeb.Components.Pages
 
         public string ProductId => id;
 
-        public List<Produk> ListDataProdukApi { get; set; } = new List<Produk>();
-        public List<Produk> ListDataProduk { get; set; } = new List<Produk>();
-        public List<Kategori> ListDataKategori { get; set; } = new List<Kategori>();
-        public Produk DataProduk { get; set; } = new Produk();
+        public SourchData dataSourch { get; set; } = new();
+
         public Produk DataProdukModal { get; set; } = new Produk();
 
         protected override async Task OnInitializedAsync()
@@ -70,7 +69,20 @@ namespace PacificWeb.Components.Pages
             if (firstRender)
             {
 
-                ListDataProdukApi = await pdjService.GetProdukApi(new ParameterApi
+                var ProdukTask = pdjService.GetProdukApi(new ParameterApi
+                {
+                    routeApi = "produk",
+                    prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        pagesize = 12,
+                        show_variant = true,
+                        max_media = 10,
+                        no_id = ProductId
+                    }
+                });
+
+                var ListProdukTask = pdjService.GetProdukApi(new ParameterApi
                 {
                     routeApi = "produk",
                     prosesApi = "getAll",
@@ -80,39 +92,93 @@ namespace PacificWeb.Components.Pages
                         show_variant = true,
                     }
                 });
-                ListDataProduk.AddRange(ListDataProdukApi);
-                ListDataKategori = await pdjService.GetKategoriApi(new ParameterApi
+
+                var companyTask = pdjService.GetCompanyApi(new ParameterApi
                 {
-                    routeApi = "kategori",
+                    routeApi = "company",
+                    prosesApi = "get-profile",
+                    ParamUrl = new ParameterApi.ParameterUrl { no_id = "comp_1" }
+                });
+
+                var CartTask = pdjService.GetCartApi(new ParameterApi
+                {
+                    routeApi = "cart",
                     prosesApi = "getAll",
                     ParamUrl = new ParameterApi.ParameterUrl
                     {
-                        status = "aktif",
+                        id_customer = "cus_16",
+                        show_media = "true",
+                        orderBy = "Updated_At",
+                        orderDir = "desc"
                     }
                 });
-                var data = ListDataProdukApi.FirstOrDefault(x => x.No_Id == ProductId);
-                DataProduk = data != null || ListDataProdukApi.Count >= 1 ? data : new Produk();
-                Quantity = DataProduk.Min_Order;
-                var Opsi = DataProduk.Options.FirstOrDefault();
-                DataProduk.Id_Option_Default = Opsi?.Option_Id ?? "";
-                DataProduk.Option_Default = Opsi?.Option_Label ?? "";
 
-                var Size = DataProduk.Sizes.FirstOrDefault();
-                DataProduk.Id_Size_Default = Size?.Size_Id ?? "";
-                DataProduk.Size_Default = Size?.Size_Label ?? "";
+                var PesananTask = pdjService.GetPesananApi(new ParameterApi
+                {
+                    routeApi = "order",
+                    prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        id_customer = "cus_16",
+                        show_media = "true",
+                    }
+                });
+
+                var NavbarTask = pdjService.GetNavbarApi(new ParameterApi
+                {
+                    routeApi = "navbar",
+                    prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        no_id = "comp_1",
+                    }
+                });
+
+
+                // Tunggu semua task selesai
+                await Task.WhenAll(ProdukTask, ListProdukTask, companyTask, PesananTask, NavbarTask, CartTask);
+
+
+                // Assign semua data sekaligus
+                dataSourch.ListDataCompany = companyTask.Result;
+                dataSourch.DataPesanan = PesananTask.Result;
+                dataSourch.ListDataNavbar = NavbarTask.Result;
+                dataSourch.ListDataCart = CartTask.Result;
+
+
+                dataSourch.DataProduk = ProdukTask.Result.FirstOrDefault() ?? null;
+                dataSourch.ListDataProduk = ListProdukTask.Result;
+                dataSourch.Finised = true;
 
                 StateHasChanged();
+
+                if (dataSourch?.DataProduk != null && dataSourch?.DataProduk?.No_Id != "")
+                {
+                    Quantity = dataSourch.DataProduk.Min_Order;
+                    var Opsi = dataSourch?.DataProduk.Options.FirstOrDefault();
+                    dataSourch.DataProduk.Id_Option_Default = Opsi?.Option_Id ?? "";
+                    dataSourch.DataProduk.Option_Default = Opsi?.Option_Label ?? "";
+
+                    var Size = dataSourch?.DataProduk.Sizes.FirstOrDefault();
+                    dataSourch.DataProduk.Id_Size_Default = Size?.Size_Id ?? "";
+                    dataSourch.DataProduk.Size_Default = Size?.Size_Label ?? "";
+                    
+                    loadContent = false;
+                    StateHasChanged();
+                    await JSRuntime.InvokeVoidAsync("initFlayer");
+                } 
+                else
+                {
+                    loadContent = false;
+                    StateHasChanged();
+                }
+
+                StateHasChanged();
+
                 await JSRuntime.InvokeVoidAsync("initslideProduct");
-                await JSRuntime.InvokeVoidAsync("initFlayer");
-                await JSRuntime.InvokeVoidAsync("scrollToTop");
-                //await JSRuntime.InvokeVoidAsync("statusBarHidden");
                 await JSRuntime.InvokeVoidAsync("initBigDetailProdInfo");
-
-
+                
                 StateHasChanged();
-                await Task.Delay(500);
-                await JSRuntime.InvokeVoidAsync("fadeout");
-
             }
 
 
@@ -121,7 +187,7 @@ namespace PacificWeb.Components.Pages
 
         public async Task selectProduk(string id_kode)
         {
-            DataProdukModal = ListDataProduk.FirstOrDefault(x => x.No_Id == id_kode);
+            DataProdukModal = dataSourch?.ListDataProduk.FirstOrDefault(x => x.No_Id == id_kode);
             QuantityProd = DataProdukModal.Min_Order;
             StateHasChanged();
             await JSRuntime.InvokeVoidAsync("initSearchButton");
@@ -136,31 +202,31 @@ namespace PacificWeb.Components.Pages
 
         private void OnSizeChanged(string value)
         {
-            var Size = DataProduk.Sizes.FirstOrDefault(x => x.Size_Id == value);
-            DataProduk.Id_Size_Default = Size?.Size_Id ?? "";
-            DataProduk.Size_Default = Size?.Size_Label ?? "";
+            var Size = dataSourch?.DataProduk.Sizes.FirstOrDefault(x => x.Size_Id == value);
+            dataSourch.DataProduk.Id_Size_Default = Size?.Size_Id ?? "";
+            dataSourch.DataProduk.Size_Default = Size?.Size_Label ?? "";
         }
 
         private void OnVariantChanged(string value)
         {
-            var Opsi = DataProduk.Options.FirstOrDefault(x => x.Option_Id == value);
-            DataProduk.Id_Option_Default = Opsi?.Option_Id ?? "";
-            DataProduk.Option_Default = Opsi?.Option_Label ?? "";
+            var Opsi = dataSourch?.DataProduk.Options.FirstOrDefault(x => x.Option_Id == value);
+            dataSourch.DataProduk.Id_Option_Default = Opsi?.Option_Id ?? "";
+            dataSourch.DataProduk.Option_Default = Opsi?.Option_Label ?? "";
 
         }
 
         private void OnSizeChangedModal(string value)
         {
-            var Size = DataProduk.Sizes.FirstOrDefault(x => x.Size_Id == value);
-            DataProduk.Id_Size_Default = Size?.Size_Id ?? "";
-            DataProduk.Size_Default = Size?.Size_Label ?? "";
+            var Size = dataSourch?.DataProduk.Sizes.FirstOrDefault(x => x.Size_Id == value);
+            dataSourch.DataProduk.Id_Size_Default = Size?.Size_Id ?? "";
+            dataSourch.DataProduk.Size_Default = Size?.Size_Label ?? "";
         }
 
         private void OnVariantChangedModal(string value)
         {
-            var Opsi = DataProduk.Options.FirstOrDefault(x => x.Option_Id == value);
-            DataProduk.Id_Option_Default = Opsi?.Option_Id ?? "";
-            DataProduk.Option_Default = Opsi?.Option_Label ?? "";
+            var Opsi = dataSourch?.DataProduk.Options.FirstOrDefault(x => x.Option_Id == value);
+            dataSourch.DataProduk.Id_Option_Default = Opsi?.Option_Id ?? "";
+            dataSourch.DataProduk.Option_Default = Opsi?.Option_Label ?? "";
         }
 
         public class SizeOption
@@ -178,14 +244,14 @@ namespace PacificWeb.Components.Pages
         {
             var Qty = Quantity + 1;
 
-            if (Qty <= DataProduk.Min_Order)
+            if (Qty <= dataSourch?.DataProduk.Min_Order)
             {
-                DataProduk.Show_Min_Order = true;
+                dataSourch.DataProduk.Show_Min_Order = true;
             }
             else
             {
                 Quantity++;
-                DataProduk.Show_Min_Order = false;
+                dataSourch.DataProduk.Show_Min_Order = false;
                 await QuantityChanged.InvokeAsync(Quantity);
             }
             StateHasChanged();
@@ -197,14 +263,14 @@ namespace PacificWeb.Components.Pages
 
             if (Quantity > 1)
             {
-                if (Quantity <= DataProduk.Min_Order)
+                if (Quantity <= dataSourch?.DataProduk.Min_Order)
                 {
-                    DataProduk.Show_Min_Order = true;
+                    dataSourch.DataProduk.Show_Min_Order = true;
                 }
                 else
                 {
                     Quantity--;
-                    DataProduk.Show_Min_Order = false;
+                    dataSourch.DataProduk.Show_Min_Order = false;
                     await QuantityChanged.InvokeAsync(Quantity);
                 }
                 StateHasChanged();

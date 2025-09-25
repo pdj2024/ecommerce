@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.JSInterop;
@@ -12,6 +13,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Drawing;
 using System.Reflection;
+using System.Security.Claims;
 using System.Text;
 using static Models.Pesanan;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -62,12 +64,8 @@ namespace PacificWeb.Components.Pages
             public string Produk { get; set; }
         }
 
-        public List<Produk> ListDataProduk { get; set; } = new List<Produk>();
         public List<FilterItem> ListFilter { get; set; } = new List<FilterItem>();
         public Produk DataProduk { get; set; } = new Produk();
-        public (List<Brand> SearchBrand, List<Produk> SearchProduk, int TotalCount, bool hasMore) SearchList { get; set; } = (new (), new (), 0, false);
-        public List<Kategori> ListDataKategori { get; set; } = new List<Kategori>();
-        public List<Brand> ListDataBrand { get; set; } = new List<Brand>();
         public searchParam SearchQuery { get; set; } = new searchParam();
 
         private string SearchText = "";
@@ -76,14 +74,171 @@ namespace PacificWeb.Components.Pages
         [Parameter] public string? Keyword { get; set; }
         [Parameter] public int Quantity { get; set; } = 1;
 
+
+        public SourchData dataSourch = new();
         public int searchCount { get; set; } = 0;
         public bool loadProses { get; set; } = false;
+        public bool loadContent { get; set; } = true;
 
         MyHeader header_page;
         MyFooter footer_page;
 
         protected override async Task OnInitializedAsync()
         {
+            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            var user = authState.User;
+
+            if (user.Identity?.IsAuthenticated ?? false)
+            {
+                dataSourch.DataUser.Email = user.FindFirst(c => c.Type == ClaimTypes.Email)?.Value;
+                dataSourch.DataUser.No_Id = user.FindFirst(c => c.Type == ClaimTypes.Name)?.Value;
+            }
+        }
+
+
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                var uri = new Uri(NavigationManager.Uri);
+                var queryParams = QueryHelpers.ParseQuery(uri.Query);
+
+                if (queryParams.TryGetValue("keyword", out var dataKeyword))
+                {
+                    SearchQuery.Keyword = Encoding.UTF8.GetString(Convert.FromBase64String(dataKeyword));
+                }
+
+                if (queryParams.TryGetValue("produk", out var dataProduk))
+                {
+                    SearchQuery.Produk = Encoding.UTF8.GetString(Convert.FromBase64String(dataProduk));
+                }
+
+                if (queryParams.TryGetValue("kategori", out var dataKategori))
+                {
+                    SearchQuery.Kategori = Encoding.UTF8.GetString(Convert.FromBase64String(dataKategori));
+                }
+
+                SearchText = SearchQuery.Keyword;
+
+
+                var companyTask = pdjService.GetCompanyApi(new ParameterApi
+                {
+                    routeApi = "company",
+                    prosesApi = "get-profile",
+                    ParamUrl = new ParameterApi.ParameterUrl { no_id = "comp_1" }
+                });
+
+                var CartTask = pdjService.GetCartApi(new ParameterApi
+                {
+                    routeApi = "cart",
+                    prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        id_customer = dataSourch.DataUser.No_Id,
+                        show_media = "true",
+                        orderBy = "Updated_At",
+                        orderDir = "desc"
+                    }
+                });
+
+                var PesananTask = pdjService.GetPesananApi(new ParameterApi
+                {
+                    routeApi = "order",
+                    prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        id_customer = dataSourch.DataUser.No_Id,
+                        show_media = "true",
+                    }
+                });
+
+                var NavbarTask = pdjService.GetNavbarApi(new ParameterApi
+                {
+                    routeApi = "navbar",
+                    prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        no_id = "comp_1",
+                    }
+                });
+
+                var searchTask = pdjService.GetSearchApi(new ParameterApi
+                {
+                    routeApi = "produk",
+                    prosesApi = "search",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        keyword = SearchQuery.Keyword,
+                        id_kategori = SearchQuery.Kategori,
+                        noid_list = SearchQuery.Produk,
+                        strict_kategori = false,
+                        pagesize = 12,
+                        show_variant = true,
+                    }
+                });
+
+                var kategoriTask = pdjService.GetKategoriApi(new ParameterApi
+                {
+                    routeApi = "kategori",
+                    prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        status = "aktif",
+                    }
+                });
+
+                var brandTask = pdjService.GetBrandApi(new ParameterApi
+                {
+                    routeApi = "brand",
+                    prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        orderBy = "nama_brand",
+                        orderDir = "desc",
+                    }
+                });
+
+
+                // Tunggu semua task selesai
+                await Task.WhenAll(searchTask, brandTask, kategoriTask, companyTask, PesananTask, NavbarTask, CartTask);
+
+                // Assign semua data sekaligus
+                dataSourch.ListDataCompany = companyTask.Result;
+                dataSourch.DataPesanan = PesananTask.Result;
+                dataSourch.ListDataNavbar = NavbarTask.Result;
+                dataSourch.ListDataCart = CartTask.Result;
+
+
+                dataSourch.ListDataKategori = kategoriTask.Result;
+                dataSourch.ListDataBrand = brandTask.Result;
+                dataSourch.SearchList = searchTask.Result;
+
+
+
+                if (!string.IsNullOrWhiteSpace(SearchQuery.Kategori))
+                {
+                    foreach (var idKat in SearchQuery.Kategori.Split(","))
+                    {
+                        var kate = dataSourch.ListDataKategori.FirstOrDefault(x => x.No_Id == idKat);
+
+                        if (kate != null)
+                        {
+                            ListFilter.Add(new FilterItem { No_Id = kate.No_Id, Nama_Display = kate.Nama_Kategori, Checked = true });
+                            kate.Checked_Filter = true;
+                        }
+                    }
+                }
+
+                dataSourch.Finised = true;
+                StateHasChanged();
+
+                await JSRuntime.InvokeVoidAsync("scrollToTop");
+                await JSRuntime.InvokeVoidAsync("initslideProduct");
+
+                loadContent = false;
+                StateHasChanged();
+            }
 
         }
 
@@ -91,7 +246,7 @@ namespace PacificWeb.Components.Pages
         {
             SearchText = "";
 
-            SearchList = (new List<Brand>(), new List<Produk>(), 0, false);
+            dataSourch.SearchList = (new List<Brand>(), new List<Produk>(), 0, false);
 
             searchCount = 0;
 
@@ -101,7 +256,7 @@ namespace PacificWeb.Components.Pages
 
         public async Task selectProduk(string id_kode)
         {
-            DataProduk = SearchList.SearchProduk.FirstOrDefault(x => x.No_Id == id_kode);
+            DataProduk = dataSourch.SearchList.SearchProduk.FirstOrDefault(x => x.No_Id == id_kode);
             Quantity = 1;
             StateHasChanged();
             await JSRuntime.InvokeVoidAsync("initSearchButton");
@@ -112,13 +267,13 @@ namespace PacificWeb.Components.Pages
 
             foreach (var filter in ListFilter)
             {
-                var Item = ListDataKategori.FirstOrDefault(x => x.No_Id == filter.No_Id && x.Nama_Kategori == filter.Nama_Display);
+                var Item = dataSourch.ListDataKategori.FirstOrDefault(x => x.No_Id == filter.No_Id && x.Nama_Kategori == filter.Nama_Display);
                 if (Item != null)
                 {
                     Item.Checked_Filter = false;
                 }
 
-                var Item1 = ListDataBrand.FirstOrDefault(x => x.No_Id == filter.No_Id && x.Nama_Brand == filter.Nama_Display);
+                var Item1 = dataSourch.ListDataBrand.FirstOrDefault(x => x.No_Id == filter.No_Id && x.Nama_Brand == filter.Nama_Display);
                 if (Item1 != null)
                 {
                     Item1.Checked_Filter = false;
@@ -140,7 +295,7 @@ namespace PacificWeb.Components.Pages
         {
             if (dataKategori != null)
             {
-                var Item = ListDataKategori.FirstOrDefault( x => x.No_Id == dataKategori.No_Id);
+                var Item = dataSourch.ListDataKategori.FirstOrDefault( x => x.No_Id == dataKategori.No_Id);
                 var Data = ListFilter.FirstOrDefault(x => x.No_Id == Item.No_Id && x.Nama_Display == Item.Nama_Kategori);
 
                 if (Data == null) ListFilter.Add(new FilterItem { No_Id = Item.No_Id, Nama_Display = Item.Nama_Kategori, Checked = true });
@@ -160,7 +315,7 @@ namespace PacificWeb.Components.Pages
             
             else if (dataBrand != null)
             {
-                var Item = ListDataBrand.FirstOrDefault(x => x.No_Id == dataBrand.No_Id);
+                var Item = dataSourch.ListDataBrand.FirstOrDefault(x => x.No_Id == dataBrand.No_Id);
                 var Data = ListFilter.FirstOrDefault(x => x.No_Id == Item.No_Id && x.Nama_Display == Item.Nama_Brand);
 
                 if (Data == null) ListFilter.Add(new FilterItem { No_Id = Item.No_Id, Nama_Display = Item.Nama_Brand, Checked = true });
@@ -181,8 +336,8 @@ namespace PacificWeb.Components.Pages
             
             else
             {
-                var ItemBrand = ListDataBrand.FirstOrDefault(x => x.No_Id == dataFilter.No_Id);
-                var ItemKategori = ListDataKategori.FirstOrDefault( x => x.No_Id == dataFilter.No_Id);
+                var ItemBrand = dataSourch.ListDataBrand.FirstOrDefault(x => x.No_Id == dataFilter.No_Id);
+                var ItemKategori = dataSourch.ListDataKategori.FirstOrDefault( x => x.No_Id == dataFilter.No_Id);
 
                 if (ItemBrand != null)
                 {
@@ -231,93 +386,6 @@ namespace PacificWeb.Components.Pages
         }
 
 
-
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            if (firstRender)
-            {
-                var uri = new Uri(NavigationManager.Uri);
-                var queryParams = QueryHelpers.ParseQuery(uri.Query);
-
-                if (queryParams.TryGetValue("keyword", out var dataKeyword))
-                {
-                    SearchQuery.Keyword = Encoding.UTF8.GetString(Convert.FromBase64String(dataKeyword));
-                }
-
-                if (queryParams.TryGetValue("produk", out var dataProduk))
-                {
-                    SearchQuery.Produk = Encoding.UTF8.GetString(Convert.FromBase64String(dataProduk));
-                }
-
-                if (queryParams.TryGetValue("kategori", out var dataKategori))
-                {
-                    SearchQuery.Kategori = Encoding.UTF8.GetString(Convert.FromBase64String(dataKategori));
-                }
-
-
-
-                SearchText = SearchQuery.Keyword;
-
-
-                SearchList = await pdjService.GetSearchApi(new ParameterApi
-                {
-                    routeApi = "produk",
-                    prosesApi = "search",
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        keyword = SearchQuery.Keyword,
-                        id_kategori = SearchQuery.Kategori,
-                        noid_list = SearchQuery.Produk,
-                        strict_kategori = false,
-                        pagesize = 12,
-                        show_variant = true,
-                    }
-                });
-
-
-
-                ListDataKategori = await pdjService.GetKategoriApi(new ParameterApi
-                {
-                    routeApi = "kategori",
-                    prosesApi = "getAll",
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        status = "aktif",
-                    }
-                });
-
-                ListDataBrand = await pdjService.GetBrandApi(new ParameterApi
-                {
-                    routeApi = "brand",
-                    prosesApi = "getAll",
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        orderBy = "nama_brand",
-                        orderDir = "desc",
-                    }
-                });
-
-                if(!string.IsNullOrWhiteSpace(SearchQuery.Kategori))
-                {
-                    foreach (var idKat in SearchQuery.Kategori.Split(","))
-                    {
-                        var kate = ListDataKategori.FirstOrDefault(x => x.No_Id == idKat);
-
-                        if (kate != null) 
-                        { 
-                            ListFilter.Add(new FilterItem { No_Id = kate.No_Id, Nama_Display = kate.Nama_Kategori, Checked = true }); 
-                            kate.Checked_Filter = true;
-                        }
-                    }
-                }
-
-                StateHasChanged();
-                await JSRuntime.InvokeVoidAsync("scrollToTop");
-                await JSRuntime.InvokeVoidAsync("initslideProduct");
-            }
-
-        }
-
         private void OnSearchInput(string? value)
         {
             SearchText = value;
@@ -352,7 +420,7 @@ namespace PacificWeb.Components.Pages
 
         private async Task SearchDataAsync(string? query)
         {
-            SearchList = await pdjService.GetSearchApi(new ParameterApi
+            dataSourch.SearchList = await pdjService.GetSearchApi(new ParameterApi
             {
                 routeApi = "produk",
                 prosesApi = "search",
@@ -366,7 +434,7 @@ namespace PacificWeb.Components.Pages
                 }
             });
 
-            searchCount = SearchList.TotalCount == 0 ? -1 : SearchList.TotalCount;
+            searchCount = dataSourch.SearchList.TotalCount == 0 ? -1 : dataSourch.SearchList.TotalCount;
 
             StateHasChanged();
             await JSRuntime.InvokeVoidAsync("initslideProduct");
@@ -387,17 +455,17 @@ namespace PacificWeb.Components.Pages
                     pagesize = 12,
                     keyword = SearchText,
                     show_variant = true,
-                    cursor_id = SearchList.SearchProduk.LastOrDefault().No_Id,
+                    cursor_id = dataSourch.SearchList.SearchProduk.LastOrDefault().No_Id,
                     strict_kategori = true
                 }
             });
 
-            var data = SearchList.SearchProduk;
+            var data = dataSourch.SearchList.SearchProduk;
             data.AddRange(NewList.SearchProduk);
 
-            SearchList = (NewList.SearchBrand, data, NewList.TotalCount, NewList.hasMore);
+            dataSourch.SearchList = (NewList.SearchBrand, data, NewList.TotalCount, NewList.hasMore);
 
-            searchCount = SearchList.TotalCount == 0 ? -1 : SearchList.TotalCount;
+            searchCount = dataSourch.SearchList.TotalCount == 0 ? -1 : dataSourch.SearchList.TotalCount;
 
             loadProses = false;
             StateHasChanged();

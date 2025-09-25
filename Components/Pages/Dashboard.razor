@@ -1,7 +1,9 @@
 ﻿@rendermode InteractiveServer
 @page "/"
+@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
-<MyHeader ListDataProduk=@ListDataProduk CompanyData=@ListDataCompany ListDataKategori=@ListDataKategori @ref="header_page" />
+<MyHeader dataSourch=@dataSourch @ref="header_page" />
 
 @if (loadContent)
 {
@@ -28,7 +30,7 @@
                     <!-- Start Hero Slider -->
                     <div class="hero-slider">
                         <!-- Start Single Slider -->
-                        @foreach (var banner in ListDataBanner)
+                        @foreach (var banner in dataSourch?.ListDataBanner)
                         {
                             <div class="single-slider">
                                 <Image Src="@banner.Media_Desktop.Id_Media" Class="img-cover" Style="max-height:54rem"></Image>
@@ -47,7 +49,7 @@
                     <!-- Start Hero Slider -->
                     <div class="hero-slider-laptop">
                         <!-- Start Single Slider -->
-                        @foreach (var banner in ListDataBanner)
+                        @foreach (var banner in dataSourch?.ListDataBanner)
                         {
                             <div class="single-slider">
                                 <Image Src="@banner.Media_Desktop.Id_Media" Class="img-cover" Style="max-height:32rem"></Image>
@@ -66,7 +68,7 @@
                     <!-- Start Hero Slider -->
                     <div class="hero-slider-tablet">
                         <!-- Start Single Slider -->
-                        @foreach (var banner in ListDataBanner)
+                        @foreach (var banner in dataSourch?.ListDataBanner)
                         {
                             <div class="single-slider">
                                 <Image Src="@banner.Media_Tablet.Id_Media" Class="img-cover" Style="max-height:31rem"></Image>
@@ -85,7 +87,7 @@
                     <!-- Start Hero Slider -->
                     <div class="hero-slider-phone">
                         <!-- Start Single Slider -->
-                        @foreach (var banner in ListDataBanner)
+                        @foreach (var banner in dataSourch?.ListDataBanner)
                         {
                             <div class="single-slider">
                                 <Image Src="@banner.Media_Phone.Id_Media" Class="img-cover" Style="max-height:54rem"></Image>
@@ -107,17 +109,17 @@
 <section class="slider-container-brand">
     <div class="slider-brand">
         <div class="slide-track-brand">
-            @foreach (var brand in ListDataBrand)
+            @foreach (var brand in dataSourch?.ListDataBrand)
             {
                 <a class="slide-brand"><img src="@brand.Id_Media" alt="@brand.No_Id_Media"></a>
             }
 
-            @foreach (var brand in ListDataBrand)
+            @foreach (var brand in dataSourch?.ListDataBrand)
             {
                 <a class="slide-brand"><img src="@brand.Id_Media" alt="@brand.No_Id_Media"></a>
             }
 
-            @foreach (var brand in ListDataBrand)
+            @foreach (var brand in dataSourch?.ListDataBrand)
             {
                 <a class="slide-brand"><img src="@brand.Id_Media" alt="@brand.No_Id_Media"></a>
             }
@@ -141,31 +143,26 @@
             </div>
         </div>
         <div class="row"> 
-            @if (ListDataProduk.Count() <= 0 ) 
+                
+            @if (loadContent)
             {
-                @for (var i = 0; i == 8 ; i++ )
+                @for (var i = 0; i <= 11; i++)
                 {
-                    <div class="col-lg-3 col-md-4 col-6 pt-2 pb-2">
-                        <div class="card" aria-hidden="true">
-                            <div class="card-body">
-                                <h5 class="card-title placeholder-glow">
-                                    <span class="placeholder col-6"></span>
-                                </h5>
-                                <p class="card-text placeholder-glow">
-                                    <span class="placeholder col-7"></span>
-                                    <span class="placeholder col-4"></span>
-                                    <span class="placeholder col-4"></span>
-                                    <span class="placeholder col-6"></span>
-                                </p>
-                                <a class="btn btn-primary disabled placeholder col-4" aria-disabled="true"></a>
+                    <div class="col-lg-3 col-md-4 col-6 col-xxl-2 pt-2 pb-2">
+                        <div class="card p-3 border-0" style="border-radius:0px;" aria-busy="true">
+                            <div class="skeleton skeleton-rect mb-3"></div>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div style="flex:1" class="d-flex flex-column align-items-center">
+                                    <div class="skeleton skeleton-title mb-2" style="width:90%"></div>
+                                    <div class="skeleton skeleton-subtitle mb-2" style="width:50%"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 }
             } 
-            else
-            {
-                @foreach (var dataProduk in ListDataProduk)
+            
+            @foreach (var dataProduk in dataSourch?.ListDataProduk)
                 {
                     <div class="col-lg-3 col-md-4 col-6 col-xxl-2 pt-2 pb-2 product">
                         <!-- Start Single Product -->
@@ -226,7 +223,8 @@
                                         @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
                                         {
                                             @string.Format("Rp. {0:N0}", (dataProduk.Harga - ((dataProduk.Diskon1 / 100) * dataProduk.Harga)))
-                                        } else
+                                        }
+                                        else
                                         {
                                             @string.Format("Rp. {0:N0}", dataProduk.Harga)
                                         }
@@ -242,25 +240,6 @@
                     </div>
                 }
 
-            }
-            
-            @if (loadContent)
-            {
-                @for (var i = 0; i <= 11; i++)
-                {
-                    <div class="col-lg-3 col-md-4 col-6 col-xxl-2 pt-2 pb-2">
-                        <div class="card p-3 border-0" style="border-radius:0px;" aria-busy="true">
-                            <div class="skeleton skeleton-rect mb-3"></div>
-                            <div class="d-flex align-items-center justify-content-between">
-                                <div style="flex:1" class="d-flex flex-column align-items-center">
-                                    <div class="skeleton skeleton-title mb-2" style="width:90%"></div>
-                                    <div class="skeleton skeleton-subtitle mb-2" style="width:50%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
-            }
         </div>
     </div>
 </section>
@@ -311,7 +290,7 @@
 <section class="banner section px-0 px-lg-3 px-xl-5 px-xxl-10">
     <div class="container-fluid">
         <div class="row">
-            @foreach(var kategori in ListDataKategori)
+            @foreach (var kategori in dataSourch?.ListDataKategori)
             {
                 @if (kategori.Nama_Group_Kategori.ToLower() != "gender") { continue; }
                 <div class="col-lg-4 col-md-4 col-12" style="margin-bottom: 20px;">
@@ -334,5 +313,4 @@
 
 <PacificWeb.Components.Sections.SelectProduk DataProduk="DataProduk"  header_page="header_page"></PacificWeb.Components.Sections.SelectProduk>
 
-
-<MyFooter @ref="footer_page" CompanyData=@ListDataCompany />
+<MyFooter @ref="footer_page" dataSourch=@dataSourch />

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using Models;
@@ -9,6 +10,7 @@ using Services;
 using System.Configuration;
 using System.Drawing;
 using System.Reflection;
+using System.Security.Claims;
 using static Services.pdjService;
 
 
@@ -43,12 +45,12 @@ namespace PacificWeb.Components.Pages
         MyHeader header_page;
         MyFooter footer_page;
 
-        public List<Brand> ListDataBanner { get; set; } = new List<Brand>();
-        public List<Brand> ListDataBrand { get; set; } = new List<Brand>();
-        public List<Produk> ListDataProduk { get; set; } = new List<Produk>();
-        public List<Kategori> ListDataKategori { get; set; } = new List<Kategori>();
-        public List<Company> ListDataCompany { get; set; } = new List<Company>();
+        //Header and Footer DataSource
+        
+        public SourchData dataSourch = new();
+
         public Produk DataProduk { get; set; } = new Produk();
+
         public bool loadProses { get; set; } = false;
 
         public bool loadContent { get; set; } = true;
@@ -58,12 +60,21 @@ namespace PacificWeb.Components.Pages
 
         protected override async Task OnInitializedAsync()
         {
+            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            var user = authState.User;
+
+            if (user.Identity?.IsAuthenticated ?? false)
+            {
+                dataSourch.DataUser.Email = user.FindFirst(c => c.Type == ClaimTypes.Email)?.Value;
+                dataSourch.DataUser.No_Id = user.FindFirst(c => c.Type == ClaimTypes.Name)?.Value;
+            }
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
             {
+
                 // Jalankan semua request paralel
                 var produkTask = pdjService.GetProdukApi(new ParameterApi
                 {
@@ -100,22 +111,67 @@ namespace PacificWeb.Components.Pages
                     ParamUrl = new ParameterApi.ParameterUrl { no_id = "comp_1" }
                 });
 
+                var CartTask = pdjService.GetCartApi(new ParameterApi
+                {
+                    routeApi = "cart",
+                    prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        id_customer = dataSourch.DataUser.No_Id,
+                        show_media = "true",
+                        orderBy = "Updated_At",
+                        orderDir = "desc"
+                    }
+                });
+
+                var PesananTask = pdjService.GetPesananApi(new ParameterApi
+                {
+                    routeApi = "order",
+                    prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        id_customer = dataSourch.DataUser.No_Id,
+                        show_media = "true",
+                    }
+                });
+
+                var NavbarTask = pdjService.GetNavbarApi(new ParameterApi
+                {
+                    routeApi = "navbar",
+                    prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        no_id = "comp_1",
+                    }
+                });
+
+
                 // Tunggu semua task selesai
-                await Task.WhenAll(produkTask, bannerTask, brandTask, kategoriTask, companyTask);
+                await Task.WhenAll(produkTask, bannerTask, brandTask, kategoriTask, companyTask, PesananTask, NavbarTask, CartTask);
+
 
                 // Assign semua data sekaligus
-                ListDataProduk = produkTask.Result;
-                ListDataBanner = bannerTask.Result;
-                ListDataBrand = brandTask.Result;
-                ListDataKategori = kategoriTask.Result;
-                ListDataCompany = companyTask.Result;
+                dataSourch.ListDataCompany = companyTask.Result;
+                dataSourch.DataPesanan = PesananTask.Result;
+                dataSourch.ListDataNavbar = NavbarTask.Result;
+                dataSourch.ListDataCart = CartTask.Result;
 
+
+                dataSourch.ListDataProduk = produkTask.Result;
+                dataSourch.ListDataBanner = bannerTask.Result;
+                dataSourch.ListDataBrand = brandTask.Result;
+                dataSourch.ListDataKategori = kategoriTask.Result;
+
+                dataSourch.Finised = true;
                 // Render ulang satu kali setelah semua data tersedia
                 StateHasChanged();
 
                 // Jalankan JS interop setelah DOM terupdate
-                await JSRuntime.InvokeVoidAsync("initslideProduct");
-                await JSRuntime.InvokeVoidAsync("initTinySlider");
+                if (!this.Disposed) // tambahkan flag disposed manual
+                {
+                    await JSRuntime.InvokeVoidAsync("initslideProduct");
+                    await JSRuntime.InvokeVoidAsync("initTinySlider");
+                }
 
                 //await JSRuntime.InvokeVoidAsync("scrollToTop");
                 loadContent = false;
@@ -135,10 +191,11 @@ namespace PacificWeb.Components.Pages
 
         public async Task selectProduk(string id_kode)
         {
-            DataProduk = ListDataProduk.FirstOrDefault(x => x.No_Id == id_kode);
+            DataProduk = dataSourch.ListDataProduk.FirstOrDefault(x => x.No_Id == id_kode);
             Quantity = 1;
             StateHasChanged();
             await JSRuntime.InvokeVoidAsync("initSearchButton");
+            await JSRuntime.InvokeVoidAsync("scrollToTop");
         }
 
         private void OnSizeChanged(string value)
@@ -210,5 +267,12 @@ namespace PacificWeb.Components.Pages
                 StateHasChanged();
             }
         }
+
+        public void Dispose()
+        {
+            Disposed = true;
+        }
+
+        private bool Disposed;
     }
 }

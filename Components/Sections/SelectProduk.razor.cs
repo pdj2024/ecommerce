@@ -48,10 +48,6 @@ namespace PacificWeb.Components.Sections
         [Inject]
         public pdjService pdjService { get; set; }
 
-        public List<Brand> ListDataBanner { get; set; } = new List<Brand>();
-        public List<Brand> ListDataBrand { get; set; } = new List<Brand>();
-        public List<Produk> ListDataProduk { get; set; } = new List<Produk>();
-        public List<Kategori> ListDataKategori { get; set; } = new List<Kategori>();
         public bool loadProses { get; set; } = false;
         public bool auth { get; set; } = false;
 
@@ -59,6 +55,7 @@ namespace PacificWeb.Components.Sections
         [Parameter] public EventCallback<int> QuantityChanged { get; set; }
         [Parameter] public Produk DataProduk { get; set; } = new Produk();
         [Parameter] public MyHeader header_page { get; set; } = new MyHeader();
+
 
         protected override async Task OnInitializedAsync()
         {
@@ -87,14 +84,6 @@ namespace PacificWeb.Components.Sections
         public void NavigateToHome(string route)
         {
             NavigationManager.NavigateTo($"/{route}", forceLoad: true);
-        }
-
-        public async Task selectProduk(string id_kode)
-        {
-            DataProduk = ListDataProduk.FirstOrDefault(x => x.No_Id == id_kode);
-            Quantity = 1;
-            StateHasChanged();
-            await JSRuntime.InvokeVoidAsync("initSearchButton");
         }
 
         private void OnSizeChanged(string value)

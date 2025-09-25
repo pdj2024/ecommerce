@@ -2,16 +2,36 @@
 @rendermode InteractiveServer
 @using Models
 @using Services
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Authentication.Cookies
+@inject AuthenticationStateProvider AuthStateProvider
+@inject IHttpContextAccessor HttpContextAccessor
+@inject LoginService AuthService
 
-<!-- Start Header Area -->
-<header class="header navbar navbar-area">
+
+@if(loadContent)
+{
+    <header class="header navbar navbar-area">
+    <!-- Start Header Bottom -->
+        <div class="container-fluid px-md-5 px-2" style="height:100%">
+            <div class="row align-items-center vw-100" style="height:100%; width:100%; margin:0px">
+                <div class="col-4 d-flex align-items-center justify-content-start"><div class="skeleton skeleton-subtitle mb-2" style="width:50%"></div></div>
+                <div class="col-4 d-flex align-items-center justify-content-center"><div class="skeleton skeleton-subtitle mb-2" style="width:80%"></div></div>
+                <div class="col-4 d-flex align-items-center justify-content-end"><div class="skeleton skeleton-subtitle mb-2" style="width:50%"></div></div>
+            </div>
+        </div>
+    </header>
+}
+else 
+{
+    <header class="header navbar navbar-area">
     <!-- Start Header Bottom -->
     <div class="container-fluid px-md-5 px-2" style="height:100%">
         <div class="row align-items-center vw-100" style="height:100%; width:100%; margin:0px">
             <div class="col-xxl-3 col-lg-2 col-md-2 col-12 d-lg-flex d-none">
                 <!-- Start Header Logo -->
                 <NavLink class="navbar-brand" style="cursor:pointer;" @onclick="@(e => NavigateToHome(""))" >
-                    <img src="@(@CompanyData?.FirstOrDefault()?.Media?.FirstOrDefault( x => x.Media_Type == "landscape").Id_Media ?? "images/logo/logo-pdj.png")" alt="Logo">
+                    <img src="@(@dataSourch?.ListDataCompany?.FirstOrDefault()?.Media?.FirstOrDefault( x => x.Media_Type == "landscape").Id_Media ?? "images/logo/logo-pdj.png")" alt="Logo">
                 </NavLink>
                 <!-- End Header Logo -->
             </div>
@@ -28,9 +48,9 @@
                         </button>
                         <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent" style="height:100%">
                             <ul class="navbar-nav" style="height:100%">
-                                @if(DataNavbar?.Count() >= 1)
+                                @if(dataSourch?.ListDataNavbar?.Count() >= 1)
                                 {
-                                    @foreach(var Navbar in DataNavbar) {
+                                    @foreach(var Navbar in dataSourch?.ListDataNavbar) {
                                         @if (Navbar?.Nav_Type.Split("_")[0] == "special") {
                                             <li class="nav-item">
                                                 <a @onclick="@( x => searchContent(Navbar) )" class="a-menu" aria-label="Toggle navigation"><span class="add-after"  >@Navbar?.Display_Text</span></a>
@@ -168,8 +188,9 @@
             <div class="col-4 d-lg-none d-flex justify-content-center">
                 <!-- Start Header Logo -->
                 <NavLink class="navbar-brand" style="cursor:pointer;" @onclick="@(e => NavigateToHome(""))" >
-                    <img src="images/logo/logo-pdj.png" alt="Logo">
+                    <img src="@(@dataSourch?.ListDataCompany?.FirstOrDefault()?.Media?.FirstOrDefault( x => x.Media_Type == "landscape").Id_Media ?? "images/logo/logo-pdj.png")" alt="Logo">
                 </NavLink>
+
                 <!-- End Header Logo -->
             </div>
             
@@ -187,7 +208,7 @@
                             <div id="openCartProd" class="wishlist d-none d-md-none d-lg-flex" data-bs-toggle="offcanvas" data-bs-target="#offcanvascart" aria-controls="offcanvascart">
                                 <a href="javascript:void(0)" class="menu-logo">
                                     <i class="lni lni-cart-1"></i>
-                                    <span class="total-items">@ListDataCart.Count()</span>
+                                    <span class="total-items">@dataSourch?.ListDataCart.Count()</span>
                                 </a>
                             </div>
 
@@ -195,7 +216,7 @@
                         <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle item-head menu-logo" data-bs-toggle="dropdown" aria-expanded="false"> 
                             <i class="lni lni-user-4"></i>
                             <span class="total-items">
-                                @DataPesanan.Header.Count(x => new[] { "belum bayar", "dikirim", "dikemas" }.Any(s => x.Status_Order_1.ToLower().Contains(s)))
+                                @dataSourch?.DataPesanan.Header.Count(x => new[] { "belum bayar", "dikirim", "dikemas" }.Any(s => x.Status_Order_1.ToLower().Contains(s)))
                             </span> 
                         </a> 
                         <ul class="dropdown-menu text-small" style=""> 
@@ -205,7 +226,7 @@
                                         <i style="font-size:26px;" class="lni lni-cart-1"></i>
                                         <span>Keranjang</span>
                                     </div>
-                                    <span class="qty-info">@ListDataCart.Count()</span>
+                                    <span class="qty-info">@dataSourch?.ListDataCart.Count()</span>
                                 </button>
                             </li> 
                             <li style="cursor:pointer;">
@@ -214,7 +235,7 @@
                                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M200-200v-560 560Zm0 80q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v100h-80v-100H200v560h560v-100h80v100q0 33-23.5 56.5T760-120H200Zm320-160q-33 0-56.5-23.5T440-360v-240q0-33 23.5-56.5T520-680h280q33 0 56.5 23.5T880-600v240q0 33-23.5 56.5T800-280H520Zm280-80v-240H520v240h280Zm-160-60q25 0 42.5-17.5T700-480q0-25-17.5-42.5T640-540q-25 0-42.5 17.5T580-480q0 25 17.5 42.5T640-420Z"/></svg>
                                         <span>Belum Bayar</span>
                                     </div>
-                                    <span class="qty-info">@DataPesanan.Header.Count(x => x.Status_Order_1.ToLower() == "belum bayar")</span>
+                                    <span class="qty-info">@dataSourch?.DataPesanan.Header.Count(x => x.Status_Order_1.ToLower() == "belum bayar")</span>
                                 </button>
                             </li> 
                             <li style="cursor:pointer;">
@@ -223,7 +244,7 @@
                                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M200-640v440h560v-440H640v320l-160-80-160 80v-320H200Zm0 520q-33 0-56.5-23.5T120-200v-499q0-14 4.5-27t13.5-24l50-61q11-14 27.5-21.5T250-840h460q18 0 34.5 7.5T772-811l50 61q9 11 13.5 24t4.5 27v499q0 33-23.5 56.5T760-120H200Zm16-600h528l-34-40H250l-34 40Zm184 80v190l80-40 80 40v-190H400Zm-200 0h560-560Z"/></svg>
                                         <span>Dikemas</span>
                                     </div>
-                                    <span class="qty-info">@DataPesanan.Header.Count(x => x.Status_Order_1.ToLower() == "dikemas")</span>
+                                    <span class="qty-info">@dataSourch?.DataPesanan.Header.Count(x => x.Status_Order_1.ToLower() == "dikemas")</span>
                                 </button>
                             </li> 
                             <li style="cursor:pointer;">
@@ -232,7 +253,7 @@
                                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M280-160q-50 0-85-35t-35-85H60l18-80h113q17-19 40-29.5t49-10.5q26 0 49 10.5t40 29.5h167l84-360H182l4-17q6-28 27.5-45.5T264-800h456l-37 160h117l120 160-40 200h-80q0 50-35 85t-85 35q-50 0-85-35t-35-85H400q0 50-35 85t-85 35Zm357-280h193l4-21-74-99h-95l-28 120Zm-19-273 2-7-84 360 2-7 34-146 46-200ZM20-427l20-80h220l-20 80H20Zm80-146 20-80h260l-20 80H100Zm180 333q17 0 28.5-11.5T320-280q0-17-11.5-28.5T280-320q-17 0-28.5 11.5T240-280q0 17 11.5 28.5T280-240Zm400 0q17 0 28.5-11.5T720-280q0-17-11.5-28.5T680-320q-17 0-28.5 11.5T640-280q0 17 11.5 28.5T680-240Z"/></svg>
                                         <span>Dikirim</span>
                                     </div>
-                                    <span class="qty-info">@DataPesanan.Header.Count(x => x.Status_Order_1.ToLower() == "dikirim")</span>
+                                    <span class="qty-info">@dataSourch?.DataPesanan.Header.Count(x => x.Status_Order_1.ToLower() == "dikirim")</span>
                                 </button>
                             </li> 
                             <li style="cursor:pointer;">
@@ -253,7 +274,7 @@
                                 </button>
                             </li> 
                             <li style="cursor:pointer;">
-                                <button class="dropdown-item dropdown-item-custom">
+                                <button class="dropdown-item dropdown-item-custom" @onclick=@(() => Logout())>
                                     <div class="d-flex flex-row justify-content-end gap-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/>
                                         </svg>
@@ -272,8 +293,8 @@
                                 <span class="position-relative underline-anim" style="font-size:13px" >SIGN UP</span>
                             </button>
 
-                            <button class="btn-slide py-0 px-3 d-none d-xl-flex" @onclick="@(x => changeLogin("log-in", true))" style="width:fit-content" type="button" data-bs-toggle="modal" id="buttonLogIn" data-bs-target="#exampleModal-login">
-                                <span class="position-relative" style="font-weight:400" >LOG IN</span>
+                            <button class="btn-slide py-0 px-3 d-none d-xl-flex" style="width:fit-content" type="button">
+                                <span class="position-relative" style="font-weight:400" @onclick="@(() => LoginStart())" >LOG IN</span>
                             </button>
 
                         </NotAuthorized>
@@ -416,7 +437,7 @@
                 <div class="offcanvas-header">
                     <h5 id="offcanvascartLabel" style="font-size: 1.5rem;font-weight: 800; position:relative">
                         Keranjang
-                        <span class="total-items-cart">@ListDataCart.Count()</span>
+                        <span class="total-items-cart">@dataSourch?.ListDataCart.Count()</span>
                     </h5>
                     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
@@ -424,7 +445,7 @@
                     <div class="row" style="height:100%;">
                         <div class="col-12 col-data" style="display: flex;flex-direction: column;justify-content: space-between;">
                             <ul class="shopping-list">
-                                @foreach(var cart in ListDataCart)
+                                @foreach(var cart in dataSourch?.ListDataCart)
                                 {
                                     <li>
                                         <div class="cart-img-head">
@@ -522,8 +543,10 @@
         </div>
     </div>
 </header>
+}
+<!-- Start Header Area -->
 
-<div class="modal fade review-modal" id="exampleModal-login" tabindex="-1" aria-labelledby="exampleModalLabel"
+<div class="modal fade review-modal" id="exampleModal-regist" tabindex="-1" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" style="max-width:480px;height: 33rem;">
         <div class="modal-content" style="border-radius: 0px; border-radius: 0px; height: fit-content; overflow: hidden;" >
@@ -535,6 +558,7 @@
                         <p style="font-size:13px; font-weight:300 " class="text-xl-center w-100">you already have an account? 
                             <span class="underline-anim" style="font-weight:500" @onclick="@(x => changeLogin("log-in"))">Log in</span> .
                         </p>
+                        <button type="button" id="closeLoginRegis" style="position: absolute;top: 25px;right: 25px;" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body pb-3">
                         <div class="row">
@@ -572,31 +596,115 @@
                 <div class="login-page" style="">
                     <div class="modal-header justify-content-center d-flex flex-column border-bottom-0 pb-0">
                         <h5 class="modal-title w-100 text-xl-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">Log In Here</h5>
-                        <p style="font-size:13px; font-weight:300 " class="text-xl-center w-100">don't have an account? 
-                            <span class="underline-anim" style="font-weight:500" @onclick="@(x => changeLogin("sign-up"))" >Sign Up</span> .
+                        <p style="font-size:13px; font-weight:300 " class="text-xl-center w-100">
+                            don't have an account?
+                            <span class="underline-anim" style="font-weight:500">Sign Up</span> .
                         </p>
                     </div>
-                    <div class="modal-body pb-3">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="input-group mb-3 style-grup px-1 border-1 py-1 pb-2 form-style">
-                                    <input type="text" style="font-size: 14px;" class="form-control search-form form-text" placeholder="Your email*" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" required />
+
+                    <EditForm Model="Model" OnValidSubmit="LoginStart" FormName="LoginForm">
+                        <DataAnnotationsValidator />
+                        <div class="modal-body pb-3">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="input-group mb-3 style-grup px-1 border-1 py-1 pb-2 form-style">
+                                        <InputText type="text" style="font-size: 14px;" @bind-Value="Model.Email" id="Email" class="form-control search-form form-text" placeholder="Your email*" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" required />
+                                    </div>
+                                    <div class="input-group mb-3 style-grup px-1 border-1 py-1 pb-2 form-style">
+                                        <InputText type="password" @bind-Value="Model.Password" id="Password" style="font-size: 14px;" class="form-control search-form form-text" placeholder="Your password*" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" required />
+                                    </div>
+                                    <p style="font-size:13px; font-weight:300; font-style:italic;">The fields marked * are required.</p>
                                 </div>
-                                <div class="input-group mb-3 style-grup px-1 border-1 py-1 pb-2 form-style">
-                                    <input type="password" style="font-size: 14px;" class="form-control search-form form-text" placeholder="Your password*" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" required />
-                                </div>
-                                <p style="font-size:13px; font-weight:300; font-style:italic;">The fields marked * are required.</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer justify-content-center button border-top-0 pt-5 pb-3 px-5">
+                            <button type="submit" class="btn-slide py-2 px-4" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;">
+                                <span class="position-relative">Log In</span>
+                            </button>
+                        </div>
+                    </EditForm>
+
+                    <button type="button" class="btn btn-primary border-0" id="liveToastBtn" style="width:0px; height:0px; overflow:hidden"></button>
+
+                    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                        <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="toast-header">
+                                <strong class="me-auto">email dan password tidak sesuai!</strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer justify-content-center button border-top-0 pt-5 pb-3 px-5">
-                        <button type="button" class="btn-slide py-2 px-4" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;">
-                            <span class="position-relative">Sign Up</span>
-                        </button>
-                    </div>
+
                     <div class="modal-footer justify-content-center button border-top-0 pt-2 pb-0 px-5">
                         <p style="font-size:13px; font-weight:300" class="text-center">log in with a Google account?</p>
                     </div>
+                    
+                    <div class="modal-footer justify-content-center button border-top-0 pt-0 px-5">
+                        <button type="button" class="btn-slide py-2" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;">
+                            <i class="lni lni-google me-3"></i>
+                            <span class="position-relative">Log in with google</span>
+                        </button>
+                    </div>
+
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade review-modal" id="exampleModal-login" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width:480px;height: 33rem;">
+        <div class="modal-content" style="border-radius: 0px; border-radius: 0px; height: fit-content; overflow: hidden;" >
+            <div class="d-flex flex-column login-effect">
+
+                <div class="login-page" style="visibility: visible;position: relative;opacity: 1;top: 0px;height: 100%;overflow: hidden;">
+                    <div class="modal-header justify-content-center d-flex flex-column border-bottom-0 pb-0">
+                        <h5 class="modal-title w-100 text-xl-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">Log In Here</h5>
+                        <p style="font-size:13px; font-weight:300 " class="text-xl-center w-100">
+                            don't have an account?
+                            <span class="underline-anim" style="font-weight:500">Sign Up</span> .
+                        </p>
+                    </div>
+
+                    <EditForm Model="Model" OnValidSubmit="LoginStart" FormName="LoginForm">
+                        <DataAnnotationsValidator />
+                        <div class="modal-body pb-3">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="input-group mb-3 style-grup px-1 border-1 py-1 pb-2 form-style">
+                                        <InputText type="text" style="font-size: 14px;" @bind-Value="Model.Email" id="Email" class="form-control search-form form-text" placeholder="Your email*" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" required />
+                                    </div>
+                                    <div class="input-group mb-3 style-grup px-1 border-1 py-1 pb-2 form-style">
+                                        <InputText type="password" @bind-Value="Model.Password" id="Password" style="font-size: 14px;" class="form-control search-form form-text" placeholder="Your password*" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" required />
+                                    </div>
+                                    <p style="font-size:13px; font-weight:300; font-style:italic;">The fields marked * are required.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer justify-content-center button border-top-0 pt-5 pb-3 px-5">
+                            <button type="submit" class="btn-slide py-2 px-4" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;">
+                                <span class="position-relative">Log In</span>
+                            </button>
+                        </div>
+                    </EditForm>
+
+                    <button type="button" class="btn btn-primary border-0" id="liveToastBtn" style="width:0px; height:0px; overflow:hidden"></button>
+
+                    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                        <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="toast-header">
+                                <strong class="me-auto">email dan password tidak sesuai!</strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer justify-content-center button border-top-0 pt-2 pb-0 px-5">
+                        <p style="font-size:13px; font-weight:300" class="text-center">log in with a Google account?</p>
+                    </div>
+                    
                     <div class="modal-footer justify-content-center button border-top-0 pt-0 px-5">
                         <button type="button" class="btn-slide py-2" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;">
                             <i class="lni lni-google me-3"></i>

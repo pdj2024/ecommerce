@@ -4,10 +4,10 @@ namespace Models
 {
     public class LoginViewModel
     {
-       // [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter User Name")]
-        public string? UserName { get; set; }
+        [Required(ErrorMessage = "Email wajib diisi")]
+        public string? Email { get; set; }
 
-      //  [Required(AllowEmptyStrings = false, ErrorMessage = "Please enter Password")]
+        [Required(ErrorMessage = "Password wajib diisi")]
         public string? Password { get; set; }
     }
 }

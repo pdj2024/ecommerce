@@ -18,6 +18,7 @@ namespace Models
         public class ParameterUrl
         {
             public string no_id { get; set; }
+            public string email { get; set; }
             public string id_media { get; set; }
             public int pagesize { get; set; } = 8;
             public string min_harga { get; set; }

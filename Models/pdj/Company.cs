@@ -30,6 +30,34 @@ namespace Models
         public string No_Id_Media { get; set; } = "";
     }
 
+    public class SourchData
+    {
+        public List<Company> ListDataCompany { get; set; } = new List<Company>();
+        public List<Brand> ListDataBanner { get; set; } = new List<Brand>();
+        public List<Brand> ListDataBrand { get; set; } = new List<Brand>();
+        public List<Produk> ListDataProduk { get; set; } = new List<Produk>();
+        public List<Kategori> ListDataKategori { get; set; } = new List<Kategori>();
+        public List<Cart> ListDataCart { get; set; } = new List<Cart>();
+        public List<Navbar> ListDataNavbar { get; set; } = new List<Navbar>();
+        public List<DataUser> ListDataUser { get; set; } = new List<DataUser>();
+
+
+
+        public Company DataCompany { get; set; } = new Company();
+        public Produk DataProduk { get; set; } = new Produk();
+        public Cart DataCart { get; set; } = new Cart();
+        public Brand DataBanner { get; set; } = new Brand();
+        public DataUser DataUser { get; set; } = new DataUser();
+        public Brand DataBrand { get; set; } = new Brand();
+        public Pesanan DataPesanan { get; set; } = new Pesanan();
+        public Navbar DataNavbar { get; set; } = new Navbar();
+
+
+        public (List<Brand> SearchBrand, List<Produk> SearchProduk, int TotalCount, bool hasMore) SearchList { get; set; } = (new(), new(), 0, false);
+
+        public bool Finised { get; set; } = false;
+    }
+
     public partial class Company
     {
         public string No_Id { get; set; } = "";
