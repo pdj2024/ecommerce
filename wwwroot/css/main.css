@@ -1129,14 +1129,12 @@ body {
 }
 
 .item-name {
-    font-size: 1.125rem;
-    margin: 0 0 8px;
+    font-size: 0.9rem;
 }
 
 .item-price {
     font-size: 1rem;
     color: #6b7280;
-    margin-bottom: 12px;
 }
 
 .item-qty button {
@@ -1172,7 +1170,7 @@ body {
 }
 
 .summary-title {
-    font-size: 1.25rem;
+    font-size: 1rem;
     margin-bottom: 12px;
 }
 
@@ -1184,12 +1182,12 @@ body {
 
 .summary-line.total {
     font-weight: 700;
-    font-size: 1.25rem;
+    font-size: 1rem;
     margin-top: 8px;
 }
 
 .btn-checkout {
-    margin-top: 16px;
+    margin-top: 5px;
     padding: 14px;
     background: #111827;
     color: #fff;

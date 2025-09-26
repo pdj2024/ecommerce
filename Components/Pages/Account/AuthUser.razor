@@ -1,0 +1,126 @@
+﻿@using Models
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Authentication.Cookies
+@using System.Text.Json;
+@inject NavigationManager navigationManager
+@using Services
+@using System.Text
+@inject LoginService AuthService
+@inject pdjService pdjService
+@inject IJSRuntime jsRuntime
+@page "/auth-user/{email}/{proses}/{pw}/{info}"
+@page "/auth-user/{proses}/{info}"
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+
+@code {
+
+    [Parameter]
+    public string? email { get; set; }
+
+    [Parameter]
+    public string? proses { get; set; }
+
+    [Parameter]
+    public string? pw { get; set; }
+
+    [Parameter]
+    public string? info { get; set; }
+
+    [CascadingParameter]
+    public HttpContext? HttpContext { get; set; }
+
+    [SupplyParameterFromForm]
+    public LoginViewModel Model { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity?.IsAuthenticated ?? false)
+        {
+            navigationManager.NavigateTo("/", forceLoad: true);
+            return;
+        }
+
+
+        var decoded_proses = await pdjService.DecodeEncode(false, new List<string> { email, pw, info });
+
+        if (proses.ToLower() == "login")
+        {
+            var param = new ParameterApi
+            {
+                routeApi = "customer",
+                prosesApi = "getAll",
+                ParamUrl = new ParameterApi.ParameterUrl { email = decoded_proses[0] }
+            };
+
+            Model.Email = decoded_proses[0];
+            Model.Password = decoded_proses[1];
+
+            var loginStatus = await pdjService.LoginUserApi(param, Model);
+
+            if (loginStatus.Item2)
+            {
+                navigationManager.NavigateTo("/", forceLoad: true);
+                pdjService.writeLog($"User berhasil login {Model.Email} {DateTime.Now}");
+            }
+            else
+            {
+                Console.WriteLine("gagal login");
+                pdjService.writeLog($"User gagal login {Model.Email} {DateTime.Now}");
+                navigationManager.NavigateTo("/login", forceLoad: true);
+            }
+
+        } 
+        
+        else if (proses.ToLower() == "logout")
+        {
+            await AuthService.LogoutAsync();
+            pdjService.writeLog($"User logout {Model.Email} {DateTime.Now}");
+            navigationManager.NavigateTo("/", forceLoad: true);
+        } 
+        
+        else if (proses.ToLower() == "register")
+        {
+            
+        }
+
+        else
+        {
+            navigationManager.NavigateTo("/Page-Not-Found", forceLoad: true);
+            return;
+        }
+
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        
+    }
+
+    private async Task Authenticate()
+    {
+
+        var param = new ParameterApi
+            {
+                routeApi = "customer",
+                prosesApi = "getAll",
+                ParamUrl = new ParameterApi.ParameterUrl { email = Model.Email }
+            };
+
+        var loginStatus = await pdjService.LoginUserApi(param, Model);
+
+        if (loginStatus.Item2)
+        {
+            navigationManager.NavigateTo("/", forceLoad: true);
+        } else
+        {
+            Console.WriteLine("gagal login");
+        }
+
+    }
+
+}

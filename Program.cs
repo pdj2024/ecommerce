@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.JSInterop;
 using Models;
+using PacificWeb.Controllers;
 using PacificWeb.Components;
 using Radzen;
 using Services;
@@ -41,10 +42,13 @@ builder.Services.AddAuthorization(config =>
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
+
         options.Cookie.Name = "auth_token";
         options.LoginPath = "/login";
         options.Cookie.MaxAge = TimeSpan.FromMinutes(30);
+        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
         options.AccessDeniedPath = "/access-denied";
+        options.Cookie.SameSite = SameSiteMode.Lax;
     });
 
 builder.Services.AddCascadingAuthenticationState();
@@ -92,6 +96,17 @@ builder.Services.AddScoped(sp =>
     return new Services.pdjService(navigationManager, dialogService, jsRuntime, authProvider, httpContextAccessor); // Pass dialogService and jsRuntime
 });
 
+builder.Services.AddScoped(sp =>
+{
+
+    var navigationManager = sp.GetRequiredService<NavigationManager>();
+    var jsRuntime = sp.GetRequiredService<IJSRuntime>(); // Add this
+    var authProvider = sp.GetRequiredService<AuthenticationStateProvider>();
+    var httpContextAccessor = sp.GetRequiredService<IHttpContextAccessor>();
+
+    return new PacificWeb.Controllers.LoginController(navigationManager, jsRuntime, authProvider, httpContextAccessor); // Pass dialogService and jsRuntime
+});
+
 
 
 
@@ -115,6 +130,9 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseHttpsRedirection();
 app.MapControllers();

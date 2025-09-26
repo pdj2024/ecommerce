@@ -23,7 +23,6 @@ namespace PacificWeb.Components.Sections
 {
     public partial class SelectProduk : ComponentBase
     {
-
         [Inject]
         protected IJSRuntime JSRuntime { get; set; }
 
@@ -51,6 +50,8 @@ namespace PacificWeb.Components.Sections
         public bool loadProses { get; set; } = false;
         public bool auth { get; set; } = false;
 
+
+        [Parameter]  public SourchData dataSourch { get; set; } = new();
         [Parameter] public int Quantity { get; set; } = 1;
         [Parameter] public EventCallback<int> QuantityChanged { get; set; }
         [Parameter] public Produk DataProduk { get; set; } = new Produk();
@@ -148,7 +149,7 @@ namespace PacificWeb.Components.Sections
             };
 
             item.Id_Variant = item.Variants.FirstOrDefault(x => x.Option_Id == item.Id_Option_Default && x.Size_Id == item.Id_Size_Default)?.No_Id ?? "";
-            Cart itemCart = new Cart { Id_Variant = item.Id_Variant, Qty = Quantity, Id_Customer = "cus_16" };
+            Cart itemCart = new Cart { Id_Variant = item.Id_Variant, Qty = Quantity, Id_Customer = dataSourch?.DataUser.No_Id  };
            (string statusMessage, bool statusRespon, int statusCode, string proses) = await pdjService.CudCartApi("TAMBAH", itemCart, paramApi);
 
             if (statusRespon && statusCode == 200)

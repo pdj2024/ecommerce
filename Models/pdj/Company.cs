@@ -40,7 +40,8 @@ namespace Models
         public List<Cart> ListDataCart { get; set; } = new List<Cart>();
         public List<Navbar> ListDataNavbar { get; set; } = new List<Navbar>();
         public List<DataUser> ListDataUser { get; set; } = new List<DataUser>();
-
+        public List<Pembayaran> ListDataPembayaran { get; set; } = new List<Pembayaran>();
+        public List<Pengiriman> ListDataPengiriman { get; set; } = new List<Pengiriman>();
 
 
         public Company DataCompany { get; set; } = new Company();
@@ -51,6 +52,8 @@ namespace Models
         public Brand DataBrand { get; set; } = new Brand();
         public Pesanan DataPesanan { get; set; } = new Pesanan();
         public Navbar DataNavbar { get; set; } = new Navbar();
+        public Pembayaran DataPembayaran { get; set; } = new Pembayaran();
+        public Pengiriman DataPengiriman { get; set; } = new Pengiriman();
 
 
         public (List<Brand> SearchBrand, List<Produk> SearchProduk, int TotalCount, bool hasMore) SearchList { get; set; } = (new(), new(), 0, false);

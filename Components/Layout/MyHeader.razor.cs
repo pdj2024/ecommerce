@@ -71,11 +71,10 @@ namespace PacificWeb.Components.Layout
 
         }
 
-
         private async Task Logout()
         {
-            await AuthService.LogoutAsync();
-            NavigationManager.NavigateTo("/login", forceLoad: true);
+            var dataDecode = await pdjService.DecodeEncode(true, new List<string> { "kosong" });
+            NavigationManager.NavigateTo($"/auth-user/logout/{dataDecode}", forceLoad: true);
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -198,7 +197,7 @@ namespace PacificWeb.Components.Layout
                 prosesApi = "getAll",
                 ParamUrl = new ParameterApi.ParameterUrl
                 {
-                    id_customer = "cus_16",
+                    id_customer = dataSourch?.DataUser.No_Id ,
                     show_media = "true"
                 }
             };
@@ -276,7 +275,7 @@ namespace PacificWeb.Components.Layout
                 StateHasChanged();
             }
             data.Qty++;
-            Cart itemcart = new Cart { Id_Variant = data.Id_Variant, Qty = 1, Id_Customer = "cus_16" };
+            Cart itemcart = new Cart { Id_Variant = data.Id_Variant, Qty = 1, Id_Customer = dataSourch?.DataUser.No_Id  };
             (string statusMessage, bool statusRespon, int statusCode, string proses) = await pdjService.CudCartApi("TAMBAH", itemcart, paramApi);
 
             if (statusRespon && statusCode == 200)
@@ -294,19 +293,6 @@ namespace PacificWeb.Components.Layout
 
             loadProsesNetto = false;
             StateHasChanged();
-        }
-
-        public async Task CheckoutCart() {
-
-            string text = "";
-            foreach (var item in dataSourch?.ListDataCart)
-            {
-                if (item.SelectCart) text += $"{item.Id_Cart}%section%";
-            }
-            string encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(text));
-
-            NavigationManager.NavigateTo($"/payment-page/{encoded}", forceLoad: true);
-
         }
 
         private async Task Decrease(string id_cart)
@@ -327,7 +313,7 @@ namespace PacificWeb.Components.Layout
             if (data.Qty > 1)
             {
                 data.Qty--;
-                Cart itemcart = new Cart { Id_Variant = data.Id_Variant, Qty = -1, Id_Customer = "cus_16" };
+                Cart itemcart = new Cart { Id_Variant = data.Id_Variant, Qty = -1, Id_Customer = dataSourch?.DataUser.No_Id  };
                 (string statusMessage, bool statusRespon, int statusCode, string proses) = await pdjService.CudCartApi("TAMBAH", itemcart, paramApi);
                 
                 if (statusRespon && statusCode == 200)
@@ -346,6 +332,20 @@ namespace PacificWeb.Components.Layout
             loadProsesNetto = false;
             StateHasChanged();
         }
+        
+        public async Task CheckoutCart() {
+
+            string text = "";
+            foreach (var item in dataSourch?.ListDataCart)
+            {
+                if (item.SelectCart) text += $"{item.Id_Cart}%section%";
+            }
+            string encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(text));
+
+            NavigationManager.NavigateTo($"/payment-page/{encoded}", forceLoad: true);
+
+        }
+
 
         private void HandleKeyDown(KeyboardEventArgs e)
         {
@@ -382,22 +382,10 @@ namespace PacificWeb.Components.Layout
             await JSRuntime.InvokeVoidAsync("initLoginEffect", value, direct);
         }
 
-
-
-
         private async Task LoginStart()
         {
-            NavigationManager.NavigateTo("/login", forceLoad: true);
-
-            //var loginStatus = await pdjService.LoginUserApi(Model);
-
-            //if (loginStatus.Item2)
-            //{
-            //}
-            //else
-            //{
-            //    Console.WriteLine("gagal login");
-            //}
+            var dataDecode = await pdjService.DecodeEncode(true, new List<string> { Model.Email, Model.Password, "kosong"});
+            NavigationManager.NavigateTo($"/auth-user/{dataDecode[0]}/login/{dataDecode[1]}/{dataDecode[2]}", forceLoad: true);
         }
 
 

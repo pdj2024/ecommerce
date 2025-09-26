@@ -8,7 +8,6 @@
 @inject IHttpContextAccessor HttpContextAccessor
 @inject LoginService AuthService
 
-
 @if(loadContent)
 {
     <header class="header navbar navbar-area">
@@ -289,12 +288,12 @@ else
 
                         <NotAuthorized>
 
-                            <button class="py-0 px-2 border-0 bg-transparent me-3 d-none d-xl-block" @onclick="@(x => changeLogin("sign-up", true))" type="button" data-bs-toggle="modal" id="buttonSignUp" data-bs-target="#exampleModal-login" style="width:fit-content">
+                            <button class="py-0 px-2 border-0 bg-transparent me-3 d-none d-xl-block" @onclick="@(x => changeLogin("sign-up", true))" type="button" data-bs-toggle="modal" id="buttonSignUp" data-bs-target="#exampleModal" style="width:fit-content">
                                 <span class="position-relative underline-anim" style="font-size:13px" >SIGN UP</span>
                             </button>
 
-                            <button class="btn-slide py-0 px-3 d-none d-xl-flex" style="width:fit-content" type="button">
-                                <span class="position-relative" style="font-weight:400" @onclick="@(() => LoginStart())" >LOG IN</span>
+                            <button class="btn-slide py-0 px-3 d-none d-xl-flex" data-bs-toggle="modal" id="buttonSignUp" data-bs-target="#exampleModal" style="width:fit-content" type="button">
+                                <span class="position-relative" style="font-weight:400" @onclick="@(x => changeLogin("log-in", true))" >LOG IN</span>
                             </button>
 
                         </NotAuthorized>
@@ -474,7 +473,7 @@ else
                                         </div>
 
                                         <div class="content content-qty">
-                                            <div style="display: flex;justify-content:space-between;flex-direction: row;width:80%;">
+                                            <div style="display: flex;justify-content:space-between;flex-direction: row-reverse;width:80%;">
                                                 <a @onclick=@(() => deleteItemCart(cart)) class="hapus-card-item" style="cursor:pointer;" title="Remove this item">
                                                     @if(loadProses)
                                                     {
@@ -483,7 +482,11 @@ else
                                                         </div>
                                                     } else
                                                     {
-                                                        <span>hapus</span>
+                                                        <span>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" height="25px" viewBox="0 -960 960 960" width="25px" fill="currentColor">
+                                                                <path d="M312-144q-29.7 0-50.85-21.15Q240-186.3 240-216v-480h-48v-72h192v-48h192v48h192v72h-48v479.57Q720-186 698.85-165T648-144H312Zm336-552H312v480h336v-480ZM384-288h72v-336h-72v336Zm120 0h72v-336h-72v336ZM312-696v480-480Z" />
+                                                            </svg>
+                                                        </span>
                                                     }
                                                 </a>
                                                 <label class="custom-checkbox">
@@ -546,7 +549,7 @@ else
 }
 <!-- Start Header Area -->
 
-<div class="modal fade review-modal" id="exampleModal-regist" tabindex="-1" aria-labelledby="exampleModalLabel"
+<div class="modal fade review-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" style="max-width:480px;height: 33rem;">
         <div class="modal-content" style="border-radius: 0px; border-radius: 0px; height: fit-content; overflow: hidden;" >
@@ -594,72 +597,6 @@ else
                 </div>
                 
                 <div class="login-page" style="">
-                    <div class="modal-header justify-content-center d-flex flex-column border-bottom-0 pb-0">
-                        <h5 class="modal-title w-100 text-xl-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">Log In Here</h5>
-                        <p style="font-size:13px; font-weight:300 " class="text-xl-center w-100">
-                            don't have an account?
-                            <span class="underline-anim" style="font-weight:500">Sign Up</span> .
-                        </p>
-                    </div>
-
-                    <EditForm Model="Model" OnValidSubmit="LoginStart" FormName="LoginForm">
-                        <DataAnnotationsValidator />
-                        <div class="modal-body pb-3">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="input-group mb-3 style-grup px-1 border-1 py-1 pb-2 form-style">
-                                        <InputText type="text" style="font-size: 14px;" @bind-Value="Model.Email" id="Email" class="form-control search-form form-text" placeholder="Your email*" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" required />
-                                    </div>
-                                    <div class="input-group mb-3 style-grup px-1 border-1 py-1 pb-2 form-style">
-                                        <InputText type="password" @bind-Value="Model.Password" id="Password" style="font-size: 14px;" class="form-control search-form form-text" placeholder="Your password*" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" required />
-                                    </div>
-                                    <p style="font-size:13px; font-weight:300; font-style:italic;">The fields marked * are required.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer justify-content-center button border-top-0 pt-5 pb-3 px-5">
-                            <button type="submit" class="btn-slide py-2 px-4" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;">
-                                <span class="position-relative">Log In</span>
-                            </button>
-                        </div>
-                    </EditForm>
-
-                    <button type="button" class="btn btn-primary border-0" id="liveToastBtn" style="width:0px; height:0px; overflow:hidden"></button>
-
-                    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-                        <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
-                            <div class="toast-header">
-                                <strong class="me-auto">email dan password tidak sesuai!</strong>
-                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer justify-content-center button border-top-0 pt-2 pb-0 px-5">
-                        <p style="font-size:13px; font-weight:300" class="text-center">log in with a Google account?</p>
-                    </div>
-                    
-                    <div class="modal-footer justify-content-center button border-top-0 pt-0 px-5">
-                        <button type="button" class="btn-slide py-2" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;">
-                            <i class="lni lni-google me-3"></i>
-                            <span class="position-relative">Log in with google</span>
-                        </button>
-                    </div>
-
-                </div>
-            
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade review-modal" id="exampleModal-login" tabindex="-1" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" style="max-width:480px;height: 33rem;">
-        <div class="modal-content" style="border-radius: 0px; border-radius: 0px; height: fit-content; overflow: hidden;" >
-            <div class="d-flex flex-column login-effect">
-
-                <div class="login-page" style="visibility: visible;position: relative;opacity: 1;top: 0px;height: 100%;overflow: hidden;">
                     <div class="modal-header justify-content-center d-flex flex-column border-bottom-0 pb-0">
                         <h5 class="modal-title w-100 text-xl-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">Log In Here</h5>
                         <p style="font-size:13px; font-weight:300 " class="text-xl-center w-100">

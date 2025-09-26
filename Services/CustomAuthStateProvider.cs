@@ -25,5 +25,7 @@ namespace Services
             _currentUser = new ClaimsPrincipal(new ClaimsIdentity());
             NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(_currentUser)));
         }
+
+
     }
 }

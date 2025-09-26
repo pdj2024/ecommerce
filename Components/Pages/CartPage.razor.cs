@@ -1,15 +1,19 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using Models;
 using PacificWeb.Components.Layout;
 using Radzen;
 using Services;
+using SixLabors.Fonts;
 using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
-using SixLabors.ImageSharp.Drawing.Processing;
-using SixLabors.Fonts;
 using System.Globalization;
+using System.Security.Claims;
+using System.Text;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
@@ -43,22 +47,27 @@ namespace PacificWeb.Components.Pages
         [Inject]
         public IHttpClientFactory HttpClientFactory { get; set; }
 
-        public List<Pembayaran> ListDataDb { get; set; } = new List<Pembayaran>();
         public TextInfo ti { get; set; } = CultureInfo.CurrentCulture.TextInfo;
-        public List<Produk> ListDataProduk { get; set; } = new List<Produk>();
-        public Produk DataProduk { get; set; } = new Produk();
-        public List<Pesanan> ListDataPesanan { get; set; } = new List<Pesanan>();
-        public List<Cart> ListDataCart { get; set; } = new List<Cart>();
-        public Pesanan DataPesanan { get; set; } = new Pesanan();
         public List<Produk> ListDisplayProduk { get; set; } = new List<Produk>();
-        public List<Pembayaran> ListData { get; set; } = new List<Pembayaran>();
+        public List<Cart> ListDataCartCheck { get; set; } = new List<Cart>();
+
+
         [Parameter] public int Quantity { get; set; } = 1;
+        public decimal nettoKeranjang { get; set; } = 0;
         [Parameter] public string pageTabs { get; set; } = "";
         [Parameter] public EventCallback<int> QuantityChanged { get; set; }
+
+        public bool loadProsesNetto { get; set; } = false;
+
         public bool loadProses { get; set; } = false;
+        public bool loadContent { get; set; } = true;
         public Pesanan Pesanan_Create { get; set; } = new Pesanan();
+
         MyHeadProfile header_page;
         MyFooter footer_page;
+
+        public SourchData dataSourch { get; set; } = new();
+
 
         protected override async Task OnInitializedAsync()
         {
@@ -67,68 +76,89 @@ namespace PacificWeb.Components.Pages
             Pesanan_Create.Header.Add(new Pesanan.Headers());
             Pesanan_Create.Items.Add(new Pesanan.Item());
             Pesanan_Create.Biaya.Add(new Pesanan.Biayas());
+
+            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            var user = authState.User;
+
+            if (user.Identity?.IsAuthenticated ?? false)
+            {
+                dataSourch.DataUser.Email = user.FindFirst(c => c.Type == ClaimTypes.Email)?.Value;
+                dataSourch.DataUser.No_Id = user.FindFirst(c => c.Type == ClaimTypes.Name)?.Value;
+            }
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
             {
-                ListDataDb = await pdjService.GetMetodeBayarApi(new ParameterApi
+                var companyTask = pdjService.GetCompanyApi(new ParameterApi
                 {
-                    routeApi = "payment",
-                    prosesApi = "option",
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        orderBy = "fee",
-                        orderDir = "desc",
-                    }
+                    routeApi = "company",
+                    prosesApi = "get-profile",
+                    ParamUrl = new ParameterApi.ParameterUrl { no_id = "comp_1" }
                 });
 
-                ListDataProduk = await pdjService.GetProdukApi(new ParameterApi
-                {
-                    routeApi = "produk",
-                    prosesApi = "getAll",
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        pagesize = 8,
-                        show_variant = true,
-                    }
-                });
-
-                ListDataCart = await pdjService.GetCartApi(new ParameterApi
+                var CartTask = pdjService.GetCartApi(new ParameterApi
                 {
                     routeApi = "cart",
                     prosesApi = "getAll",
                     ParamUrl = new ParameterApi.ParameterUrl
                     {
-                        id_customer = "cus_16",
+                        id_customer = dataSourch.DataUser.No_Id,
                         show_media = "true",
                         orderBy = "Updated_At",
                         orderDir = "desc"
                     }
                 });
 
-                DataPesanan = await pdjService.GetPesananApi(new ParameterApi
+                var PesananTask = pdjService.GetPesananApi(new ParameterApi
                 {
                     routeApi = "order",
                     prosesApi = "getAll",
                     ParamUrl = new ParameterApi.ParameterUrl
                     {
-                        id_customer = "cus_16",
+                        id_customer = dataSourch.DataUser.No_Id,
                         show_media = "true",
                         orderBy = "Updated_At",
                         orderDir = "desc",
                     }
                 });
 
-                ListData.AddRange(ListDataDb);
-                await JSRuntime.InvokeVoidAsync("initslideProduct");
-                await JSRuntime.InvokeVoidAsync("scrollToTop");
+                var NavbarTask = pdjService.GetNavbarApi(new ParameterApi
+                {
+                    routeApi = "navbar",
+                    prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        no_id = "comp_1",
+                    }
+                });
+
+                var kategoriTask = pdjService.GetKategoriApi(new ParameterApi
+                {
+                    routeApi = "kategori",
+                    prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        status = "aktif",
+                    }
+                });
+
+
+                // Tunggu semua task selesai
+                await Task.WhenAll(companyTask, PesananTask, NavbarTask, CartTask);
+
+                // Assign semua data sekaligus
+                dataSourch.ListDataCompany = companyTask.Result;
+                dataSourch.DataPesanan = PesananTask.Result;
+                dataSourch.ListDataNavbar = NavbarTask.Result;
+                dataSourch.ListDataCart = CartTask.Result;
+
+                dataSourch.Finised = true;
                 StateHasChanged();
 
+                loadContent = false;
                 StateHasChanged();
-                await Task.Delay(500);
-                await JSRuntime.InvokeVoidAsync("fadeout");
             }
 
         }
@@ -141,18 +171,17 @@ namespace PacificWeb.Components.Pages
             //NavigationManager.NavigateTo(url, true, true);
         }
 
-
         public async Task refreshStatus(Pesanan.Headers item)
         {
             loadProses = true;
             StateHasChanged();
-            DataPesanan = await pdjService.GetPesananApi(new ParameterApi
+            dataSourch.DataPesanan = await pdjService.GetPesananApi(new ParameterApi
             {
                 routeApi = "order",
                 prosesApi = "getAll",
                 ParamUrl = new ParameterApi.ParameterUrl
                 {
-                    id_customer = "cus_16",
+                    id_customer = dataSourch.DataUser.No_Id,
                     show_media = "true",
                     orderBy = "no_bukti",
                     orderDir = "desc",
@@ -160,7 +189,7 @@ namespace PacificWeb.Components.Pages
             });
 
 
-            var produk = DataPesanan.Header.FirstOrDefault(x => x.No_Bukti == item.No_Bukti);
+            var produk = dataSourch?.DataPesanan.Header.FirstOrDefault(x => x.No_Bukti == item.No_Bukti);
 
             if (produk.Metode_Bayar == "QRIS" && produk.Status_Order_1 == "belum bayar")
             {
@@ -176,7 +205,6 @@ namespace PacificWeb.Components.Pages
             loadProses = false;
             StateHasChanged();
         }
-
 
         private async Task<string> GenerateImage(string qrUrl, DateTime? ValidDate)
         {
@@ -222,7 +250,6 @@ namespace PacificWeb.Components.Pages
             return $"data:image/png;base64,{base64}";
         }
 
-
         private async Task DownloadImage(Pesanan.Headers item)
         {
             var GeneratedImageBase64 = item.QrBase64;
@@ -234,25 +261,10 @@ namespace PacificWeb.Components.Pages
             }
         }
 
-
         public async Task clickCopy(Pesanan.Headers item, string init = "")
         {
            
             await JSRuntime.InvokeVoidAsync("copyVa", item.No_Bukti + init);
-        }
-
-        public async Task NavigateToDetailProduk(string id)
-        {
-            NavigationManager.NavigateTo($"/detail-produk/{id}");
-        }
-
-
-        public async void selectProduk(string id_kode)
-        {
-            DataProduk = ListDataProduk.FirstOrDefault(x => x.No_Id == id_kode);
-            Quantity = 1;
-            StateHasChanged();
-            await JSRuntime.InvokeVoidAsync("initSearchButton");
         }
 
         public async void openDropdown(string id_kode)
@@ -275,19 +287,6 @@ namespace PacificWeb.Components.Pages
             StateHasChanged();
         }
 
-        private void OnSizeChanged(string value)
-        {
-            var Size = DataProduk.Sizes.FirstOrDefault(x => x.Size_Id == value);
-            DataProduk.Id_Size_Default = Size?.Size_Id ?? "";
-            DataProduk.Size_Default = Size?.Size_Label ?? "";
-        }
-        private void OnVariantChanged(string value)
-        {
-            var Opsi = DataProduk.Options.FirstOrDefault(x => x.Option_Id == value);
-            DataProduk.Id_Option_Default = Opsi?.Option_Id ?? "";
-            DataProduk.Option_Default = Opsi?.Option_Label ?? "";
-        }
-
         public class SizeOption
         {
             public string Value { get; set; }
@@ -299,31 +298,65 @@ namespace PacificWeb.Components.Pages
             }
         }
 
-        private async Task Increase()
+        public async Task deleteItemCart(Cart cart)
         {
-            Quantity++;
-            await QuantityChanged.InvokeAsync(Quantity);
-        }
-
-        private async Task Decrease()
-        {
-            if (Quantity > 1)
+            ParameterApi paramApi = new ParameterApi
             {
-                Quantity--;
-                await QuantityChanged.InvokeAsync(Quantity);
-            }
-        }
-
-        private async Task showPayment(Pesanan.Headers data)
-        {
-            Pesanan_Create.Header.Add(data);
-        }
-
-        private async Task tambahKeranjang(Produk item)
-        {
+                routeApi = "cart",
+                prosesApi = "delete",
+                ParamUrl = new ParameterApi.ParameterUrl
+                {
+                    no_id = cart.Id_Cart
+                }
+            };
             loadProses = true;
             StateHasChanged();
+            (string statusMessage, bool statusRespon, int statusCode, string proses) = await pdjService.CudCartApi("HAPUS", cart, paramApi);
 
+            if (statusRespon && statusCode == 200)
+            {
+                await RefreshCart();
+            }
+
+            loadProses = false;
+            StateHasChanged();
+        }
+        private async Task Increase(string id_cart)
+        {
+            ParameterApi paramApi = new ParameterApi
+            {
+                routeApi = "cart",
+                prosesApi = "create",
+                ParamUrl = new ParameterApi.ParameterUrl()
+            };
+            var data = dataSourch?.ListDataCart.FirstOrDefault(x => x.Id_Cart == id_cart);
+            if (data.SelectCart)
+            {
+                loadProsesNetto = true;
+                StateHasChanged();
+            }
+            data.Qty++;
+            Cart itemcart = new Cart { Id_Variant = data.Id_Variant, Qty = 1, Id_Customer = dataSourch?.DataUser.No_Id  };
+            (string statusMessage, bool statusRespon, int statusCode, string proses) = await pdjService.CudCartApi("TAMBAH", itemcart, paramApi);
+
+            if (statusRespon && statusCode == 200)
+            {
+                await RefreshCart();
+            }
+
+
+            nettoKeranjang = 0;
+            foreach (var dataCart in dataSourch?.ListDataCart)
+            {
+                if (!dataCart.SelectCart) continue;
+                nettoKeranjang += dataCart.Qty * dataCart.Harga;
+            }
+
+            loadProsesNetto = false;
+            StateHasChanged();
+        }
+        private async Task Decrease(string id_cart)
+        {
             ParameterApi paramApi = new ParameterApi
             {
                 routeApi = "cart",
@@ -331,25 +364,94 @@ namespace PacificWeb.Components.Pages
                 ParamUrl = new ParameterApi.ParameterUrl()
             };
 
-            item.Id_Variant = item.Variants.FirstOrDefault(x => x.Option_Id == item.Id_Option_Default && x.Size_Id == item.Id_Size_Default)?.No_Id ?? "";
-            Cart itemCart = new Cart { Id_Variant = item.Id_Variant, Qty = Quantity };
-            (string statusMessage, bool statusRespon, int statusCode, string proses) = await pdjService.CudCartApi("TAMBAH", itemCart, paramApi);
+            var data = dataSourch?.ListDataCart.FirstOrDefault(x => x.Id_Cart == id_cart);
+            if (data.SelectCart)
+            {
+                loadProsesNetto = true;
+                StateHasChanged();
+            }
+            if (data.Qty > 1)
+            {
+                data.Qty--;
+                Cart itemcart = new Cart { Id_Variant = data.Id_Variant, Qty = -1, Id_Customer = dataSourch.DataUser.No_Id };
+                (string statusMessage, bool statusRespon, int statusCode, string proses) = await pdjService.CudCartApi("TAMBAH", itemcart, paramApi);
 
-            if (statusRespon && statusCode == 200)
-            {
-                loadProses = false;
-                await header_page.RefreshCart();
-                StateHasChanged();
-                await JSRuntime.InvokeVoidAsync("buttonClick", "#closeDetailProd");
-                await Task.Delay(1000);
-                await JSRuntime.InvokeVoidAsync("buttonClick", "#openCartProd");
+                if (statusRespon && statusCode == 200)
+                {
+                    await RefreshCart();
+                }
+
+                nettoKeranjang = 0;
+                foreach (var dataCart in dataSourch?.ListDataCart)
+                {
+                    if (!dataCart.SelectCart) continue;
+                    nettoKeranjang += dataCart.Qty * dataCart.Harga;
+                }
+
             }
-            else
-            {
-                loadProses = false;
-                StateHasChanged();
-            }
+            loadProsesNetto = false;
+            StateHasChanged();
         }
 
+        public async Task SelectItemCart(Cart cart)
+        {
+            loadProsesNetto = true;
+            StateHasChanged();
+            var data = dataSourch?.ListDataCart.FirstOrDefault(x => x.Id_Cart == cart.Id_Cart);
+            data.SelectCart = !data.SelectCart;
+
+            nettoKeranjang = 0;
+            foreach (var dataCart in dataSourch?.ListDataCart)
+            {
+                if (!dataCart.SelectCart) continue;
+                nettoKeranjang += dataCart.Qty * dataCart.Harga;
+            }
+
+            loadProsesNetto = false;
+            StateHasChanged();
+        }
+
+        public async Task RefreshCart()
+        {
+            ParameterApi paramApi = new ParameterApi
+            {
+                routeApi = "cart",
+                prosesApi = "getAll",
+                ParamUrl = new ParameterApi.ParameterUrl
+                {
+                    id_customer = dataSourch.DataUser.No_Id,
+                    show_media = "true"
+                }
+            };
+            ListDataCartCheck.Clear();
+            ListDataCartCheck.AddRange(dataSourch?.ListDataCart?.FindAll(x => x.SelectCart == true));
+            dataSourch.ListDataCart = await pdjService.GetCartApi(paramApi);
+            if (ListDataCartCheck.Count() >= 1)
+            {
+                foreach (var item in dataSourch?.ListDataCart)
+                {
+                    if (ListDataCartCheck.Any(x => x.Id_Cart == item.Id_Cart))
+                    {
+                        item.SelectCart = true;
+                    }
+                }
+            }
+
+            StateHasChanged();
+        }
+
+        public async Task CheckoutCart()
+        {
+
+            string text = "";
+            foreach (var item in dataSourch?.ListDataCart)
+            {
+                if (item.SelectCart) text += $"{item.Id_Cart}%section%";
+            }
+            string encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(text));
+
+            NavigationManager.NavigateTo($"/payment-page/{encoded}", forceLoad: true);
+
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using BlazorBootstrap;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using Models;
@@ -16,6 +17,7 @@ using System.Configuration;
 using System.Globalization;
 using System.Net.Http;
 using System.Reflection;
+using System.Security.Claims;
 using System.Text;
 using static Models.Pesanan;
 
@@ -59,14 +61,11 @@ namespace PacificWeb.Components.Pages
         public string? CartList { get; set; }   // otomatis bind dari URL
         public TextInfo ti { get; set; } = CultureInfo.CurrentCulture.TextInfo;
         public string[] listCard { get; set; } = new string[0];
-        public List<Pembayaran> ListDataDb { get; set; } = new List<Pembayaran>();
         public Pesanan Pesanan_Info { get; set; } = new Pesanan();
         public Pesanan Pesanan_Create { get; set; } = new Pesanan();
-        public List<Cart> ListDisplayProduk { get; set; } = new();
-        public List<Pembayaran> ListData { get; set; } = new List<Pembayaran>();
-        public List<Pengiriman> ListDataKirim { get; set; } = new List<Pengiriman>();
         public Pengiriman dataKirim { get; set; } = new Pengiriman();
         public Pembayaran dataLayanan { get; set; } = new Pembayaran();
+        public SourchData dataSourch { get; set; } = new();
         public decimal nettoKeranjang { get; set; } = 0;
         public decimal paymentMethodFee { get; set; } = 0;
         public decimal shipingMethodFee { get; set; } = 0;
@@ -83,17 +82,32 @@ namespace PacificWeb.Components.Pages
             Pesanan_Info.Header.Add(new Pesanan.Headers());
             Pesanan_Info.Items.Add(new Pesanan.Item());
             Pesanan_Info.Biaya.Add(new Pesanan.Biayas());
-            //Pesanan_Create.Header.Add(new Pesanan.Headers());
-            //Pesanan_Create.Items.Add(new Pesanan.Item());
-            //Pesanan_Create.Biaya.Add(new Pesanan.Biayas());
-            
+
+
+            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            var user = authState.User;
+
+            if (user.Identity?.IsAuthenticated ?? false)
+            {
+                dataSourch.DataUser.Email = user.FindFirst(c => c.Type == ClaimTypes.Email)?.Value;
+                dataSourch.DataUser.No_Id = user.FindFirst(c => c.Type == ClaimTypes.Name)?.Value;
+            }
+
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
             {
-                ListData = await pdjService.GetMetodeBayarApi(new ParameterApi
+
+                var companyTask = pdjService.GetCompanyApi(new ParameterApi
+                {
+                    routeApi = "company",
+                    prosesApi = "get-profile",
+                    ParamUrl = new ParameterApi.ParameterUrl { no_id = "comp_1" }
+                });
+
+                var metodeBayarTask = pdjService.GetMetodeBayarApi(new ParameterApi
                 {
                     routeApi = "payment",
                     prosesApi = "option",
@@ -104,7 +118,7 @@ namespace PacificWeb.Components.Pages
                     }
                 });
 
-                ListDataKirim = await pdjService.GetMetodeKirimApi(new ParameterApi
+                var metodeKirimTask = pdjService.GetMetodeKirimApi(new ParameterApi
                 {
                     routeApi = "shipping",
                     prosesApi = "getAll",
@@ -131,24 +145,33 @@ namespace PacificWeb.Components.Pages
 
                     if (dataCard?.Any() == true)
                     {
-                        ListDisplayProduk.Add(dataCard.First());
+                        dataSourch.ListDataCart.Add(dataCard.First());
                     }
                 }
 
-                nettoKeranjang = ListDisplayProduk.Sum(x => x.Harga * x.Qty);
+
+                // Tunggu semua task selesai
+                await Task.WhenAll(companyTask, metodeBayarTask, metodeKirimTask);
+
+                // Assign semua data sekaligus
+                dataSourch.ListDataCompany = companyTask.Result;
+                dataSourch.ListDataPembayaran = metodeBayarTask.Result;
+                dataSourch.ListDataPengiriman = metodeKirimTask.Result;
+
+
+
+                nettoKeranjang = dataSourch.ListDataCart.Sum(x => x.Harga * x.Qty);
                 StateHasChanged();
 
-                await JSRuntime.InvokeVoidAsync("scrollToTop");
                 StateHasChanged();
-                await Task.Delay(500);
-                await JSRuntime.InvokeVoidAsync("fadeout");
+
             }
         }
 
         public async Task SelectPaymentMethod(Pembayaran payment)
         {
-            var active = ListData.FirstOrDefault(x => x.selectPayment == true);
-            var method = ListData.FirstOrDefault(x => x.Cara_Bayar == payment.Cara_Bayar);
+            var active = dataSourch?.ListDataPembayaran.FirstOrDefault(x => x.selectPayment == true);
+            var method = dataSourch?.ListDataPembayaran.FirstOrDefault(x => x.Cara_Bayar == payment.Cara_Bayar);
 
             if (active == null)
             {
@@ -163,14 +186,14 @@ namespace PacificWeb.Components.Pages
             paymentMethodFee = method.Fee;
             cara_bayar = method.Cara_Bayar.Split(" ")[0];
             dataLayanan = method;
-            nettoKeranjang = ListDisplayProduk.Sum(x => x.Harga * x.Qty) + paymentMethodFee + shipingMethodFee;
+            nettoKeranjang = dataSourch.ListDataCart.Sum(x => x.Harga * x.Qty) + paymentMethodFee + shipingMethodFee;
             StateHasChanged();
         }
 
         public async Task SelectShipingMethod(Pengiriman shipping)
         {
-            var active = ListDataKirim.FirstOrDefault(x => x.selectShipping == true);
-            var method = ListDataKirim.FirstOrDefault(x => x.No_Id == shipping.No_Id);
+            var active = dataSourch?.ListDataPengiriman.FirstOrDefault(x => x.selectShipping == true);
+            var method = dataSourch?.ListDataPengiriman.FirstOrDefault(x => x.No_Id == shipping.No_Id);
 
             if (active == null)
             {
@@ -184,7 +207,7 @@ namespace PacificWeb.Components.Pages
 
             shipingMethodFee = shipping.Fee;
             dataKirim = shipping;
-            nettoKeranjang = ListDisplayProduk.Sum(x => x.Harga * x.Qty) + paymentMethodFee + shipingMethodFee;
+            nettoKeranjang = dataSourch.ListDataCart.Sum(x => x.Harga * x.Qty) + paymentMethodFee + shipingMethodFee;
             StateHasChanged();
         }
 
@@ -196,8 +219,8 @@ namespace PacificWeb.Components.Pages
         public async Task FinisedOrder()
         {
 
-            dataKirim = ListDataKirim.FirstOrDefault(x => x.selectShipping == true);
-            dataLayanan = ListData.FirstOrDefault(x => x.selectPayment == true);
+            dataKirim = dataSourch?.ListDataPengiriman.FirstOrDefault(x => x.selectShipping == true);
+            dataLayanan = dataSourch?.ListDataPembayaran.FirstOrDefault(x => x.selectPayment == true);
 
             if (dataKirim == null || dataLayanan == null)
             {
@@ -340,14 +363,14 @@ namespace PacificWeb.Components.Pages
         {
             loadProses = true;
             StateHasChanged();
-            dataKirim = ListDataKirim.FirstOrDefault(x => x.selectShipping == true);
-            dataLayanan = ListData.FirstOrDefault(x => x.selectPayment == true);
+            dataKirim = dataSourch?.ListDataPengiriman.FirstOrDefault(x => x.selectShipping == true);
+            dataLayanan = dataSourch?.ListDataPembayaran.FirstOrDefault(x => x.selectPayment == true);
 
             List<object> ListDataItem = new List<object>();
             List<object> ListDataBiaya = new List<object>();
 
 
-            foreach (var item in ListDisplayProduk)
+            foreach (var item in dataSourch.ListDataCart)
             {
                 item.Jenis_Item = "stock";
                 item.Harga_Satuan = item.Harga;
@@ -383,7 +406,7 @@ namespace PacificWeb.Components.Pages
 
             var dataOrderCart = new
             {
-                Id_Customer = "cus_16",
+                Id_Customer = dataSourch?.DataUser.No_Id ,
                 Status_Bayar = "",
                 Id_Payment_Gateway = "",
                 Payment_Type = dataLayanan.Cara_Bayar,

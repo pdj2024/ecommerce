@@ -106,7 +106,7 @@ namespace PacificWeb.Components.Pages
                     prosesApi = "getAll",
                     ParamUrl = new ParameterApi.ParameterUrl
                     {
-                        id_customer = "cus_16",
+                        id_customer = dataSourch?.DataUser.No_Id ,
                         show_media = "true",
                         orderBy = "Updated_At",
                         orderDir = "desc"
@@ -119,7 +119,7 @@ namespace PacificWeb.Components.Pages
                     prosesApi = "getAll",
                     ParamUrl = new ParameterApi.ParameterUrl
                     {
-                        id_customer = "cus_16",
+                        id_customer = dataSourch?.DataUser.No_Id ,
                         show_media = "true",
                     }
                 });
@@ -332,7 +332,7 @@ namespace PacificWeb.Components.Pages
             };
 
             item.Id_Variant = item.Variants.FirstOrDefault(x => x.Option_Id == item.Id_Option_Default && x.Size_Id == item.Id_Size_Default)?.No_Id ?? "";
-            Cart itemCart = new Cart { Id_Variant = item.Id_Variant, Qty = via == "modal" ? QuantityProd : Quantity , Id_Customer = "cus_16" };
+            Cart itemCart = new Cart { Id_Variant = item.Id_Variant, Qty = via == "modal" ? QuantityProd : Quantity , Id_Customer = dataSourch?.DataUser.No_Id  };
             (string statusMessage, bool statusRespon, int statusCode, string proses) = await pdjService.CudCartApi("TAMBAH", itemCart, paramApi);
 
             if (statusRespon && statusCode == 200)

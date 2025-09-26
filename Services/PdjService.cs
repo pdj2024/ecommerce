@@ -118,6 +118,25 @@ namespace Services
         }
 
 
+        public Task<List<string>> DecodeEncode(bool proses, List<string> dataString)
+        {
+            var list = new List<string>();
+
+            foreach (var Stringitem in dataString)
+            {
+                if (proses)
+                {
+                    list.Add(Convert.ToBase64String(Encoding.UTF8.GetBytes(Stringitem)));
+                }
+                else
+                {
+                    list.Add(Encoding.UTF8.GetString(Convert.FromBase64String(Stringitem)));
+                }
+            }
+
+            return Task.FromResult(list);
+        }
+
         public async Task<(int statusCode, bool statusResponse, string MessageInfo)> CheckAPI(HttpResponseMessage response, string url, string? proses = "AMBIL")
         {
             var content = "";
@@ -987,6 +1006,7 @@ namespace Services
         {
             try
             {
+                var httpReq = new HttpClient { BaseAddress = new Uri("https://localhost:5001") };
                 var DataUser = await GetUserApi(urlParam);
                 var UserLogin = DataUser.FirstOrDefault();
 
@@ -1013,7 +1033,7 @@ namespace Services
                     var principal = new ClaimsPrincipal(identity);
 
                     await HttpContext?.SignInAsync(principal);
-                
+
                     return (UserLogin, true);
                 }
                 else
