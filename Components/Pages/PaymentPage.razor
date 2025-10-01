@@ -1,6 +1,6 @@
 ﻿@rendermode InteractiveServer
 @inject AuthenticationStateProvider AuthenticationStateProvider
-@page "/payment-page/{CartList}"
+@page "/payment-page/{CartList}/{itemVariant}"
 
 
 <!-- Start Content Area -->
@@ -17,6 +17,7 @@
                 <i class="lni lni-cart-1 cart-icon-pay" </i>
             </NavLink>
         </div>
+        
         <div class="accordion accordion-flush d-block d-md-block d-lg-none" id="accordionFlushExample">
           <div class="accordion-item" style="background-color:#f5f5f5">
             <h2 class="accordion-header" id="flush-headingOne">
@@ -32,7 +33,16 @@
                         {
                             <div class="summary-item" style="padding-bottom: 10px;border-bottom: 1px solid #e5e7eb;">
                                 <div class="summary-item__thumb">
-                                    <Image Src="@display?.Id_Media" />
+                                    @if(@display?.Id_Media != null)
+                                    {
+                                        <Image Src="@display?.Id_Media" />
+                                    }
+                                    else
+                                    {
+                                        <div class="w-100 h-100" style="display:flex; align-items:center;justify-content:center; border-radius:5px; background-color:lightgray; color:dimgrey">
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M73-889 889-73l-57 57-104-104H200q-33 0-56.5-23.5T120-200v-528L16-832l57-57Zm287 447L200-282v82h448L544-304l-22 24-162-162ZM200-648v252l126-126-126-126Zm36-192h524q33 0 56.5 23.5T840-760v524l-80-80v-234L650-426l-57-57 167-187v-90H316l-80-80Zm357 357Zm-158 70ZM326-522Zm34 80Zm176-98Z"/></svg>
+                                        </div>
+                                    }
                                 </div>
                                 <div style="height: 100%;display: flex;flex-direction: column;justify-content: space-between;padding: 2px 0px;">
                                     <div class="summary-item__title">
@@ -51,6 +61,7 @@
             </div>
           </div>
         </div>
+        
         <div class="panel section-payment">
             <div class="panel__header">Informasi Pengiriman</div>
             <div class="panel__body panel_custom">
@@ -117,7 +128,16 @@
                     {
                         <div class="summary-item" style="padding-bottom: 10px;border-bottom: 1px solid #e5e7eb;">
                             <div class="summary-item__thumb">
-                                <Image Src="@display?.Id_Media" />
+                                @if(@display?.Id_Media != null)
+                                {
+                                    <Image Src="@display?.Id_Media" />
+                                }
+                                else
+                                {
+                                    <div class="w-100 h-100" style="display:flex; align-items:center;justify-content:center; border-radius:5px; background-color:lightgray; color:dimgrey">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M73-889 889-73l-57 57-104-104H200q-33 0-56.5-23.5T120-200v-528L16-832l57-57Zm287 447L200-282v82h448L544-304l-22 24-162-162ZM200-648v252l126-126-126-126Zm36-192h524q33 0 56.5 23.5T840-760v524l-80-80v-234L650-426l-57-57 167-187v-90H316l-80-80Zm357 357Zm-158 70ZM326-522Zm34 80Zm176-98Z"/></svg>
+                                    </div>
+                                }
                             </div>
                             <div style="height: 100%;display: flex;flex-direction: column;justify-content: space-between;padding: 2px 0px;">
                                 <div class="summary-item__title">
@@ -191,7 +211,16 @@
                 {
                     <div class="summary-item" style="padding-bottom: 10px;border-bottom: 1px solid #e5e7eb;">
                         <div class="summary-item__thumb">
-                            <Image Src="@display?.Id_Media" />
+                            @if(@display?.Id_Media != null)
+                            {
+                                <Image Src="@display?.Id_Media" />
+                            }
+                            else
+                            {
+                                <div class="w-100 h-100" style="display:flex; align-items:center;justify-content:center; border-radius:5px; background-color:lightgray; color:dimgrey">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M73-889 889-73l-57 57-104-104H200q-33 0-56.5-23.5T120-200v-528L16-832l57-57Zm287 447L200-282v82h448L544-304l-22 24-162-162ZM200-648v252l126-126-126-126Zm36-192h524q33 0 56.5 23.5T840-760v524l-80-80v-234L650-426l-57-57 167-187v-90H316l-80-80Zm357 357Zm-158 70ZM326-522Zm34 80Zm176-98Z"/></svg>
+                                </div>
+                            }
                         </div>
                         <div style="height: 100%;display: flex;flex-direction: column;justify-content: space-between;padding: 2px 0px;">
                             <div class="summary-item__title">
@@ -227,187 +256,210 @@
     </aside>
 
     <!-- Modal -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body" style="padding: 2rem 2rem 1rem 2rem;gap: 10px;display: flex;flex-direction: column;">
-                    
-                    @foreach(var Head in Pesanan_Info.Header) 
-                    {
-                        <div style="display:flex; flex-direction:row;">
-                            <div style="display:flex; flex-direction:column; gap:5px; width:50%;">
-                                <h5 class="va-title">Nama Penerima</h5>
-                                <h4 class="va-title-sec">@Head.Nama_Penerima</h4>
+
+    <div class="modal fade review-modal" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
+        <div class="modal-dialog modal-dialog-centered" style="max-width:600px;">
+            <div class="modal-content" style="border-radius: 0px;" >
+                <div class="modal-header justify-content-between d-flex border-bottom-0 pb-0">
+                    <h5 class="modal-title w-100 text-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">Informasi Pesanan</h5>
+                </div>
+
+                @foreach (var Head in Pesanan_Info.Header)
+                {
+                    <div class="modal-body">
+                        <div class="row">
+
+                            <div class="col-12">
+                                <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
+                                    <input readonly style="background-color:transparent !important; font-weight: 700; font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your name*" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.Nama_Penerima" />
+                                    <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Nama Penerima</label>
+                                </div>
                             </div>
-                            <div style="display:flex; flex-direction:column; gap:5px; width:50%;">
-                                <h5 class="va-title">Telpon Penerima</h5>
-                                <h4 class="va-title-sec">@Head.Telpon_Penerima</h4>
+                            <div class="col-12">
+                                <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
+                                    <input readonly style="background-color:transparent !important; font-weight: 700; font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your name*" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.Telpon_Penerima" />
+                                    <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Telpon Penerima</label>
+                                </div>
                             </div>
-                        </div>
-                        <div style="display:flex; flex-direction:column; gap:5px;">
-                            <h5 class="va-title">Alamat Kirim</h5>
-                            <h4 class="va-title-sec">@Head.Alamat_Kirim</h4>
-                        </div>
-                    }
+                            <div class="col-12">
+                                <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
+                                    <textarea rows="4" readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;"  class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.Alamat_Kirim"/>
+                                    <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Alamat Kirim</label>
+                                </div>
+                            </div>
+                            
+                            <div class="col-6">
+                                <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
+                                    <input readonly style="background-color:transparent !important; font-weight: 700; font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your name*" aria-label="Search" aria-describedby="basic-addon1" required value="@($"{dataLayanan?.Cara_Bayar}")" />
+                                    <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Metode Pembayaran</label>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
+                                    <input readonly style="background-color:transparent !important; font-weight: 700; font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your name*" aria-label="Search" aria-describedby="basic-addon1" required value="@($"{dataKirim?.Nama}")" />
+                                    <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Pengiriman</label>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <aside class="checkout-summary2 panel" style="background-color:white; padding:0px; height:fit-content; margin-bottom:0px; margin-top:20px">
+                                    <div>
+                                        <div class="summary__line" style="border-top: unset;">
+                                            <span>Subtotal Item</span>
+                                            <span style="font-weight:600;">@string.Format("Rp. {0:N0}", dataSourch?.ListDataCart.Sum(x => x.Qty * x.Harga))</span>
+                                        </div>
+                                        <div class="summary__line">
+                                            <span>Pengiriman</span>
+                                            <span style="font-weight:600;">@string.Format("Rp. {0:N0}", shipingMethodFee)</span>
+                                        </div>
+                                        <div class="summary__line">
+                                            <span>Biaya Platform</span>
+                                            <span style="font-weight:600;">@string.Format("Rp. {0:N0}", paymentMethodFee)</span>
+                                        </div>
+                                        <div class="summary__line summary__line--bold">
+                                            <span>Total</span>
+                                            <span>@string.Format("Rp. {0:N0}", nettoKeranjang)</span>
+                                        </div>
+                                    </div>
+                                </aside>
                     
-                    
-                    <div style="display:flex; flex-direction:row;">
-                        <div style="display:flex; flex-direction:column; gap:5px; width:50%;">
-                            <h5 class="va-title">Metode Pembayaran</h5>
-                            <h4 class="va-title-sec" style="font-size:16px;">@($"{dataLayanan?.Cara_Bayar} ")</h4>
-                        </div>
-                        <div style="display:flex; flex-direction:column; gap:5px; width:50%;">
-                            <h5 class="va-title">Pengiriman</h5>
-                            <h4 class="va-title-sec" style="font-size:16px;">@($"{dataKirim?.Nama} ")</h4>
+                                @if(alertCreate) {
+                                    <span class="mt-1" style="color:red;">
+                                        * Terjadi kesalahan ketika membuat order, coba lagi.
+                                    </span>
+                                }
+                            </div>                        
                         </div>
                     </div>
-
-
-                    <aside class="checkout-summary2 panel" style="background-color:white; padding:0px; height:fit-content; margin-bottom:0px; margin-top:20px">
-                        <div>
-                            <div class="summary__line" style="border-top: unset;">
-                                <span>Subtotal Item</span>
-                                <span style="font-weight:600;">@string.Format("Rp. {0:N0}", dataSourch?.ListDataCart.Sum(x => x.Qty * x.Harga))</span>
-                            </div>
-                            <div class="summary__line">
-                                <span>Pengiriman</span>
-                                <span style="font-weight:600;">@string.Format("Rp. {0:N0}", shipingMethodFee)</span>
-                            </div>
-                            <div class="summary__line">
-                                <span>Biaya Platform</span>
-                                <span style="font-weight:600;">@string.Format("Rp. {0:N0}", paymentMethodFee)</span>
-                            </div>
-                            <div class="summary__line summary__line--bold">
-                                <span>Total</span>
-                                <span>@string.Format("Rp. {0:N0}", nettoKeranjang)</span>
-                            </div>
-                        </div>
-                    </aside>
-                    @if(alertCreate) {
-                        <span class="mt-1" style="color:red;">
-                            * Terjadi kesalahan ketika membuat order, coba lagi.
-                        </span>
-                    }
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" id="batalBayar" data-bs-dismiss="modal">Batal</button>
-                    <button type="button" class="btn btn-primary" @onclick="@( () => PayOrder())" >
-                        @if(loadProses) 
-                        {
-                            <div class="spinner-border" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        } 
-                        else
-                        {
-                            @("Buat Pembayaran")
-                        }
-                    </button>
-                </div>
+            
+                    <div class="modal-footer justify-content-center button border-top-0 pt-2 px-5">
+                        <button type="button" class="btn btn-secondary bg-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="button" class="btn btn-primary" @onclick="@( () => PayOrder())" >
+                            @if(loadProses) 
+                            {
+                                <div class="spinner-border spinner-border-sm" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            } 
+                            else
+                            {
+                                @("Buat Pembayaran")
+                            }
+                        </button>
+                    </div>
+                    
+                }
+            
             </div>
         </div>
     </div>
 
+    <div class="modal fade review-modal" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
+        <div class="modal-dialog modal-dialog-centered" style="max-width:600px; overflow:auto !important;">
+            <div class="modal-content" style="border-radius: 0px;" >
+                <div class="modal-header justify-content-between d-flex border-bottom-0 pb-0">
+                    <h5 class="modal-title w-100 text-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">Informasi Pembayaran</h5>
+                </div>
 
-    <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                @foreach(var Head in Pesanan_Create.Header)
+                @foreach (var Head in Pesanan_Create.Header)
                 {
-                    <div class="modal-body" style="padding: 2rem 2rem 1rem 2rem; gap: 10px; display: flex; flex-direction: column;">
-
-                        <div style="display:flex; flex-direction:row;">
-                            <div style="display:flex; flex-direction:column; gap:5px; width:50%;">
-                                <h5 class="va-title">Order Id</h5>
-                                <h4 class="va-title-sec">@Head?.No_Bukti</h4>
-                            </div>
-                            <div style="display:flex; flex-direction:column; gap:5px; width:50%;">
-                                <h5 class="va-title">Status</h5>
-                                <h4 class="va-title-sec" style=@(Head?.Status_Order_1 == "belum bayar" ? "color:red" : "color:orange")> 
-                                    @ti.ToTitleCase(Head?.Status_Order_1) 
-                                </h4>
-                            </div>
-                        </div>
-
-                        <div style="display:flex; flex-direction:row;">
-                            <div style="display:flex; flex-direction:column; gap:5px; width:50%;">
-                                <h5 class="va-title">Total Pembayaran</h5>
-                                <h4 class="va-title-total">@string.Format("Rp. {0:N0}", @Head?.Grand_Total)</h4>
-                            </div>
-                            <div style="display:flex; flex-direction:column; gap:5px; width:50%;">
-                                <h5 class="va-title">Metode</h5>
-                                <h4 class="va-title-sec">@Head?.Metode_Bayar</h4>
-                            </div>
-                        </div>
-
-                        @if (@Head?.Metode_Bayar != "QRIS" && @Head?.Status_Order_1 == "belum bayar") 
-                        {
-                            <div style="display:flex; flex-direction:row;">
-                                <div style="display:flex; flex-direction:column; gap:5px; width:50%;">
-                                    <h5 class="va-title">Expired</h5>
-                                    <h4 class="va-title-total">@Head?.Expiry_Time?.ToLocalTime()</h4>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
+                                    <input readonly style="background-color:transparent !important; font-weight: 700; font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your name*" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.No_Bukti" />
+                                    <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Order Id</label>
                                 </div>
                             </div>
-                        }
-                    
-                        @if (@Head?.Metode_Bayar == "QRIS" && @Head?.Status_Order_1 == "belum bayar") 
-                        {
-                            <div class="d-flex align-items-center justify-content-center mt-3">
-                                <img class="qr-payment" style="max-width:50%" src="@Head?.QrBase64" alt="Alternate Text" />
-                            </div>
-                        }
-                        else if (@Head?.Metode_Bayar != "QRIS" && @Head?.Status_Order_1 == "belum bayar")
-                        {
-                            @if (@Head?.Metode_Bayar == "VA MANDIRI" || @Head?.Metode_Bayar == "COUNTER INDOMARET") {
-                                <div>
-                                    <div class="va-box" data-va="@Head?.Payment_Number_1">
-                                        <div class="va-content">
-                                            <div class="va-header">@(Head?.Metode_Bayar == "VA MANDIRI" ? "Biller Code" : "Payment Code")</div>
-                                            <div class="va-body" id="va-text">
-                                                @Head?.Payment_Number_1
-                                                <button class="copy-btn copy-btn-@Head?.No_Bukti-code" type="button" aria-label="Copy VA" @onclick=@( x => clickCopy(Head,"-code"))>Copy</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="va-box" data-va="@Head?.Payment_Number_2">
-                                        <div class="va-content">
-                                            <div class="va-header">@(Head?.Metode_Bayar == "VA MANDIRI" ? "Bill Key" : "Merchant Id")</div>
-                                            <div class="va-body" id="va-text">
-                                                @Head?.Payment_Number_2
-                                                <button class="copy-btn copy-btn-@Head?.No_Bukti-key" type="button" aria-label="Copy VA" @onclick=@( x => clickCopy(Head,"-key"))>Copy</button>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div class="col-6">
+                                <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
+                                    <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px; @(Head?.Status_Order_1 == "belum bayar" ? "color:red" : "color:orange")" type="text" class="form-control search-form form-text" placeholder="Your email*" aria-label="Search" aria-describedby="basic-addon1" required value="@ti.ToTitleCase(Head?.Status_Order_1)"/>
+                                    <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Status</label>
                                 </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
+                                    <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.Metode_Bayar"/>
+                                    <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Metode Pembayaran</label>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
+                                    <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.Expiry_Time.ToString()" />
+                                    <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Expired</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
+                                    <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value="@string.Format("Rp. {0:N0}", @Head?.Grand_Total)" />
+                                    <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Total Pembayaran</label>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                @if (@Head?.Metode_Bayar == "QRIS" && @Head?.Status_Order_1 == "belum bayar") 
+                                {
+                                    <div class="d-flex align-items-center justify-content-center mt-3">
+                                        <img class="qr-payment" style="max-width:50%" src="@Head?.QrBase64" alt="Alternate Text" />
+                                    </div>
+                                }
+                                else if (@Head?.Metode_Bayar != "QRIS" && @Head?.Status_Order_1 == "belum bayar")
+                                {
+                                    @if (@Head?.Metode_Bayar == "VA MANDIRI" || @Head?.Metode_Bayar == "COUNTER INDOMARET") {
+                                        <div class="col-12 ">
+                                            <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3 va-box" style="border-radius:0px; max-width:100%" data-va="@Head?.Payment_Number_1">
+                                                <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.Payment_Number_1" />
+                                                <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">
+                                                    @(Head?.Metode_Bayar == "VA MANDIRI" ? "Biller Code" : "Payment Code")
+                                                </label>
+                                                <button class="copy-btn copy-btn-@Head?.Payment_Number_1-code border-0" style="border-radius: 0px;position: absolute;top: 12px;right: 15px;" type="button" aria-label="Copy VA" @onclick=@( x => clickCopy(Head, $"{Head?.Payment_Number_1}-code"))>Copy</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3 va-box" style="border-radius:0px; max-width:100%" data-va="@Head?.Payment_Number_2">
+                                                <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.Payment_Number_2" />
+                                                <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">
+                                                    @(Head?.Metode_Bayar == "VA MANDIRI" ? "Bill Key" : "Merchant Id")
+                                                </label>
+
+                                                <button class="copy-btn copy-btn-@Head?.Payment_Number_2-code border-0" style="border-radius: 0px;position: absolute;top: 12px;right: 15px;" type="button" aria-label="Copy VA" @onclick=@( x => clickCopy(Head, $"{Head?.Payment_Number_2}-code"))>Copy</button>
+                                            </div>
+                                        </div>
+                                    }
+                                    else {
+                                        <div class="col-12">
+                                            <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3 va-box" style="border-radius:0px; max-width:100%" data-va="@Head?.Payment_Number_1">
+                                                <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.Payment_Number_1" />
+                                                <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">
+                                                    Virtual Account
+                                                </label>
+                                                <button class="copy-btn copy-btn-@Head?.Payment_Number_1-code border-0" style="border-radius: 0px;position: absolute;top: 12px;right: 15px;" type="button" aria-label="Copy VA" @onclick=@( x => clickCopy(Head, $"{Head?.Payment_Number_1}-code"))>Copy</button>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+
+                            @if (@Head?.Status_Order_1 != "belum bayar")
+                            {
+                                <p style="font-size:13px; font-weight:500; font-style:italic;" class="text-success">
+                                    Pembayaran berhasil, dalam @countRedirect detik anda akan berpindah halaman
+                                </p>
                             }
-                            else {
-                                <div>
-                                    <div class="va-box" data-va="@Head?.Payment_Number_1">
-                                        <div class="va-content">
-                                            <div class="va-header">Nomor VA</div>
-                                            <div class="va-body" id="va-text">
-                                                @Head?.Payment_Number_1
-                                                <button class="copy-btn copy-btn-@Head?.No_Bukti" type="button" aria-label="Copy VA" @onclick=@( x => clickCopy(Head))>Copy</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-                        }
 
+                        </div>
                     </div>
-
-                    <div class="modal-footer">
+            
+                    <div class="modal-footer justify-content-center button border-top-0 pt-2 px-5">
                         @if (@Head?.Status_Order_1 == "belum bayar") {
-                            <button type="button" style="min-width:7rem;" disabled=@loadProses class="btn btn-primary" @onclick="@( x => refreshStatus(Head))" >
+                            <button type="button" style="min-width:7rem; border-radius:0px;" disabled=@loadProses class="btn btn-primary" @onclick="@( x => refreshStatus(Head))" >
                                 @if(loadProses) 
                                 {
-                                    <div class="spinner-border" role="status">
+                                    <div class="spinner-border spinner-border-sm" role="status">
                                         <span class="visually-hidden">Loading...</span>
                                     </div>
                                 } 
-                            
                                 else
                                 {
                                     @("Refresh")
@@ -423,11 +475,63 @@
                         <button type="button" class="@( @Head?.Status_Order_1 == "belum bayar" ? "btn btn-secondary" : "btn btn-success" )" @onclick="@( x => directStatus(@Head))" > @(Head.Status_Order_1 == "belum bayar" ? "Selesaikan Nanti" : "Lihat Pesanan")</button>
                     </div>
 
-                }        
+                }
+                
+                @if(loadRefresh) 
+                {
+                    <form aria-busy="true" class="mb-5 px-3">
+                        <div class="mb-3">
+                            <div class="skeleton skeleton-subtitle mb-2" style="width:25%"></div>
+                            <div class="skeleton" style="height:38px;width:100%;border-radius:.375rem"></div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="skeleton skeleton-subtitle mb-2" style="width:20%"></div>
+                            <div class="skeleton" style="height:38px;width:100%;border-radius:.375rem"></div>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <div class="skeleton" style="width:120px;height:38px;border-radius:.375rem"></div>
+                            <div class="skeleton" style="width:80px;height:38px;border-radius:.375rem"></div>
+                        </div>
+                    </form>
+
+                    <div class="modal-footer justify-content-center button border-top-0 pt-2 px-5"> 
+                        <button type="button" style="min-width:7rem; border-radius:0px;" disabled=@(!loadRefresh) class="btn btn-primary" @onclick="@( x => refreshStatus(Pesanan_Create.Header.FirstOrDefault()))" >
+                            @("Refresh")
+                        </button>
+
+                    </div>
+                }
+            
+
             
             </div>
         </div>
     </div>
+
+    <div class="modal fade review-modal" id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
+        <div class="modal-dialog modal-dialog-centered" style="max-width:600px; overflow:auto !important;">
+            <div class="modal-content" style="border-radius: 0px;" >
+                <div class="modal-header justify-content-between d-flex border-bottom-0 pb-0">
+                    <h5 class="modal-title w-100 text-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">Informasi Pesanan</h5>
+                </div>
+
+                @foreach (var Head in Pesanan_Create.Header)
+                {
+                    <div class="modal-body">
+                        <div class="row">
+                            <p style="font-size:13px; font-weight:500; font-style:italic;" class="text-danger">
+                                Jumlah pembelian melebihi stock, periksa kembali pesanan anda.
+                            </p>
+                            <p style="font-size:13px; font-weight:500; font-style:italic;">
+                                Anda akan diarahkan kembali ke halamana sebelumnya.
+                            </p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
 
 </div>
 

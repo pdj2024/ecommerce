@@ -92,12 +92,16 @@ namespace PacificWeb.Components.Sections
             var Size = DataProduk.Sizes.FirstOrDefault(x => x.Size_Id == value);
             DataProduk.Id_Size_Default = Size?.Size_Id ?? "";
             DataProduk.Size_Default = Size?.Size_Label ?? "";
+
+            Quantity = DataProduk.Min_Order;
         }
         private void OnVariantChanged(string value)
         {
             var Opsi = DataProduk.Options.FirstOrDefault(x => x.Option_Id == value);
             DataProduk.Id_Option_Default = Opsi?.Option_Id ?? "";
             DataProduk.Option_Default = Opsi?.Option_Label ?? "";
+
+            Quantity = DataProduk.Min_Order;
         }
 
         public class SizeOption
@@ -113,16 +117,49 @@ namespace PacificWeb.Components.Sections
 
         private async Task Increase()
         {
-            Quantity++;
-            await QuantityChanged.InvokeAsync(Quantity);
+            var data = DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == DataProduk?.Id_Option_Default && x.Size_Id == DataProduk?.Id_Size_Default);
+            
+            if (Quantity >= data.Stock)
+            {
+                DataProduk.Show_Min_Order = false;
+                DataProduk.Show_Max_Order = true;
+            }
+            else
+            {
+                Quantity++;
+                DataProduk.Show_Max_Order = false;
+                DataProduk.Show_Min_Order = false;
+                await QuantityChanged.InvokeAsync(Quantity);
+            }
+
+
+            StateHasChanged();
+            return;
         }
 
         private async Task Decrease()
         {
+
             if (Quantity > 1)
             {
-                Quantity--;
-                await QuantityChanged.InvokeAsync(Quantity);
+
+                var data = DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == DataProduk?.Id_Option_Default && x.Size_Id == DataProduk?.Id_Size_Default);
+
+                if (Quantity <= DataProduk?.Min_Order)
+                {
+                    DataProduk.Show_Min_Order = true;
+                    DataProduk.Show_Max_Order = false;
+                }
+                else
+                {
+                    Quantity--;
+                    DataProduk.Show_Max_Order = false;
+                    DataProduk.Show_Min_Order = false;
+                    await QuantityChanged.InvokeAsync(Quantity);
+                }
+
+                StateHasChanged();
+                return;
             }
         }
 
@@ -135,6 +172,7 @@ namespace PacificWeb.Components.Sections
                 await Task.Delay(200);
 
                 await JSRuntime.InvokeVoidAsync("buttonClick", "#buttonLogIn");
+                header_page.changeLogin("log-in", true);
                 return;
             }
 

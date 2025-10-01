@@ -38,6 +38,7 @@ namespace Models
         public string Satuan { get; set; } = "";
         public int Min_Order { get; set; } = 0;
         public bool Show_Min_Order { get; set; } = false;
+        public bool Show_Max_Order { get; set; } = false;
         public int Order_Qty { get; set; } = 0;
         public string Deskripsi { get; set; } = "";
         public List<Size> Sizes { get; set; } = new();

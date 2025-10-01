@@ -154,12 +154,14 @@ namespace PacificWeb.Components.Pages
 
                 if (dataSourch?.DataProduk != null && dataSourch?.DataProduk?.No_Id != "")
                 {
+                    var dataProd = dataSourch.DataProduk.Variants.FirstOrDefault(x => x.Stock >= dataSourch.DataProduk.Min_Order);
+
                     Quantity = dataSourch.DataProduk.Min_Order;
-                    var Opsi = dataSourch?.DataProduk.Options.FirstOrDefault();
+                    var Opsi = dataSourch?.DataProduk.Options.FirstOrDefault( x => x.Option_Id == dataProd.Option_Id);
                     dataSourch.DataProduk.Id_Option_Default = Opsi?.Option_Id ?? "";
                     dataSourch.DataProduk.Option_Default = Opsi?.Option_Label ?? "";
 
-                    var Size = dataSourch?.DataProduk.Sizes.FirstOrDefault();
+                    var Size = dataSourch?.DataProduk.Sizes.FirstOrDefault( x => x.Size_Id == dataProd.Size_Id);
                     dataSourch.DataProduk.Id_Size_Default = Size?.Size_Id ?? "";
                     dataSourch.DataProduk.Size_Default = Size?.Size_Label ?? "";
                     
@@ -187,10 +189,23 @@ namespace PacificWeb.Components.Pages
 
         public async Task selectProduk(string id_kode)
         {
+
             DataProdukModal = dataSourch?.ListDataProduk.FirstOrDefault(x => x.No_Id == id_kode);
-            QuantityProd = DataProdukModal.Min_Order;
+
+            var dataProd = DataProdukModal?.Variants.FirstOrDefault(x => x.Stock >= DataProdukModal?.Min_Order);
+
+            var Opsi = DataProdukModal?.Options.FirstOrDefault(x => x.Option_Id == dataProd.Option_Id);
+            DataProdukModal.Id_Option_Default = Opsi?.Option_Id ?? "";
+            DataProdukModal.Option_Default = Opsi?.Option_Label ?? "";
+
+            var Size = DataProdukModal?.Sizes.FirstOrDefault(x => x.Size_Id == dataProd.Size_Id);
+            DataProdukModal.Id_Size_Default = Size?.Size_Id ?? "";
+            DataProdukModal.Size_Default = Size?.Size_Label ?? "";
+
+            QuantityProd = DataProdukModal?.Min_Order ?? 0;
             StateHasChanged();
             await JSRuntime.InvokeVoidAsync("initSearchButton");
+
         }
 
 
@@ -205,6 +220,7 @@ namespace PacificWeb.Components.Pages
             var Size = dataSourch?.DataProduk.Sizes.FirstOrDefault(x => x.Size_Id == value);
             dataSourch.DataProduk.Id_Size_Default = Size?.Size_Id ?? "";
             dataSourch.DataProduk.Size_Default = Size?.Size_Label ?? "";
+            Quantity = dataSourch.DataProduk.Min_Order;
         }
 
         private void OnVariantChanged(string value)
@@ -212,6 +228,7 @@ namespace PacificWeb.Components.Pages
             var Opsi = dataSourch?.DataProduk.Options.FirstOrDefault(x => x.Option_Id == value);
             dataSourch.DataProduk.Id_Option_Default = Opsi?.Option_Id ?? "";
             dataSourch.DataProduk.Option_Default = Opsi?.Option_Label ?? "";
+            Quantity = dataSourch.DataProduk.Min_Order;
 
         }
 
@@ -242,18 +259,22 @@ namespace PacificWeb.Components.Pages
 
         private async Task Increase()
         {
-            var Qty = Quantity + 1;
+            var data = dataSourch?.DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == dataSourch?.DataProduk?.Id_Option_Default && x.Size_Id == dataSourch?.DataProduk?.Id_Size_Default);
 
-            if (Qty <= dataSourch?.DataProduk.Min_Order)
+            if(Quantity >= data.Stock)
             {
-                dataSourch.DataProduk.Show_Min_Order = true;
+                dataSourch.DataProduk.Show_Min_Order = false;
+                dataSourch.DataProduk.Show_Max_Order = true;
             }
             else
             {
                 Quantity++;
+                dataSourch.DataProduk.Show_Max_Order = false;
                 dataSourch.DataProduk.Show_Min_Order = false;
                 await QuantityChanged.InvokeAsync(Quantity);
             }
+
+
             StateHasChanged();
             return;
         }
@@ -263,16 +284,22 @@ namespace PacificWeb.Components.Pages
 
             if (Quantity > 1)
             {
+
+                var data = dataSourch?.DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == dataSourch?.DataProduk?.Id_Option_Default && x.Size_Id == dataSourch?.DataProduk?.Id_Size_Default);
+
                 if (Quantity <= dataSourch?.DataProduk.Min_Order)
                 {
                     dataSourch.DataProduk.Show_Min_Order = true;
+                    dataSourch.DataProduk.Show_Max_Order = false;
                 }
                 else
                 {
                     Quantity--;
+                    dataSourch.DataProduk.Show_Max_Order = false;
                     dataSourch.DataProduk.Show_Min_Order = false;
                     await QuantityChanged.InvokeAsync(Quantity);
                 }
+
                 StateHasChanged();
                 return;
             }

@@ -58,6 +58,8 @@ namespace PacificWeb.Components.Pages
         [Parameter] public int Quantity { get; set; } = 1;
         [Parameter] public EventCallback<int> QuantityChanged { get; set; }
 
+
+
         protected override async Task OnInitializedAsync()
         {
             var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
@@ -69,6 +71,8 @@ namespace PacificWeb.Components.Pages
                 dataSourch.DataUser.No_Id = user.FindFirst(c => c.Type == ClaimTypes.Name)?.Value;
             }
         }
+
+
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -179,10 +183,13 @@ namespace PacificWeb.Components.Pages
             }
         }
 
+
+
         public void NavigateToDetailProduk(string id)
         {
             NavigationManager.NavigateTo($"/detail-produk/{id}", forceLoad: true);
         }
+
 
         public void NavigateToHome(string route)
         {
@@ -191,11 +198,36 @@ namespace PacificWeb.Components.Pages
 
         public async Task selectProduk(string id_kode)
         {
-            DataProduk = dataSourch.ListDataProduk.FirstOrDefault(x => x.No_Id == id_kode);
-            Quantity = 1;
+            var produkTask = await pdjService.GetProdukApi(new ParameterApi
+            {
+                routeApi = "produk",
+                prosesApi = "getAll",
+                ParamUrl = new ParameterApi.ParameterUrl { pagesize = 2, show_variant = true, max_media = 10, no_id = id_kode }
+            });
+
+            DataProduk = produkTask.FirstOrDefault(x => x.No_Id == id_kode);
+
+            if (DataProduk == null)
+            {
+                await JSRuntime.InvokeVoidAsync("initSearchButton");
+                StateHasChanged();
+                return;
+            }
+
+            var dataProd = DataProduk?.Variants.FirstOrDefault(x => x.Stock >= DataProduk?.Min_Order);
+
+            var Opsi = DataProduk?.Options.FirstOrDefault(x => x.Option_Id == dataProd.Option_Id);
+            DataProduk.Id_Option_Default = Opsi?.Option_Id ?? "";
+            DataProduk.Option_Default = Opsi?.Option_Label ?? "";
+
+            var Size = DataProduk?.Sizes.FirstOrDefault(x => x.Size_Id == dataProd.Size_Id);
+            DataProduk.Id_Size_Default = Size?.Size_Id ?? "";
+            DataProduk.Size_Default = Size?.Size_Label ?? "";
+
+            Quantity = DataProduk?.Min_Order ?? 0;
             StateHasChanged();
             await JSRuntime.InvokeVoidAsync("initSearchButton");
-            await JSRuntime.InvokeVoidAsync("scrollToTop");
+
         }
 
         private void OnSizeChanged(string value)
@@ -204,6 +236,8 @@ namespace PacificWeb.Components.Pages
             DataProduk.Id_Size_Default = Size?.Size_Id ?? "";
             DataProduk.Size_Default = Size?.Size_Label ?? "";
         }
+
+
         private void OnVariantChanged(string value)
         {
             var Opsi = DataProduk.Options.FirstOrDefault(x => x.Option_Id == value);

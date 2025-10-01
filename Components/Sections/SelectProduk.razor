@@ -4,125 +4,255 @@
     <div class="offcanvas-body" style="padding:0px 0px 10px 0px !important;">
         <button id="closeDetailProd" type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" style="position: absolute;top: 10px;right: 25px;padding: 1rem; z-index: 20; background-color: white;border-radius: 100%;" aria-label="Close"></button>
         
-        <div class="row" style="gap:2rem;width: 100%;margin-left: 0px !important;">
-            <div class="col-12" style="padding:0px">
-                <div class="swiper mySwiper1">
-                    <div class="swiper-wrapper">
-                        @foreach (var img in DataProduk?.MediaUrls)
-                        {
-                            <div class="swiper-slide">
-                                <Image Src="@img.Id_Media" Class="vw-100 h-100" />
-                            </div>
-                        }
+        @if(DataProduk == null)
+        {
+            <div class="row" style="gap:2rem;width: 100%;margin-left: 0px !important;">
+                <div class="col-12">
+                    <div class="d-flex flex-column align-items-center mt-4" style="color:#6b7280">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="5rem" viewBox="0 -960 960 960" width="5rem" class="mb-3" fill="currentColor">
+                            <path d="m634-440-81-80h69l110-200H353l-80-80h525q23 0 35.5 19.5t.5 42.5L692-482q-11 20-28 31t-30 11ZM280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm540 52L566-280H304q-44 0-67-37.5t-3-78.5l42-86-72-162L28-820l56-56L876-84l-56 56ZM486-360l-80-80h-62l-40 80h182Zm136-160h-69 69Zm58 440q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80Z" />
+                        </svg>
+                        <h5 style="color:#6b7280">Product Not Found</h5>
                     </div>
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-pagination"></div>
                 </div>
             </div>
-
-            <div class="col-12 item-details" style="background-color:white;padding: 0px 20px 80px 20px;">
-                <div class="product-info" style="padding:0px;">
-                    <h2 class="title">@DataProduk?.Nama_Display</h2>
-                    <p class="category" style="display: flex;align-items: center;">
-                        <svg xmlns="http://www.w3.org/2000/svg" style="width: 14px;transform: scaleX(-1);margin-right: 6px;" viewBox="0 0 640 640">
-                            <path d="M96.5 160L96.5 309.5C96.5 326.5 103.2 342.8 115.2 354.8L307.2 546.8C332.2 571.8 372.7 571.8 397.7 546.8L547.2 397.3C572.2 372.3 572.2 331.8 547.2 306.8L355.2 114.8C343.2 102.7 327 96 310 96L160.5 96C125.2 96 96.5 124.7 96.5 160zM208.5 176C226.2 176 240.5 190.3 240.5 208C240.5 225.7 226.2 240 208.5 240C190.8 240 176.5 225.7 176.5 208C176.5 190.3 190.8 176 208.5 176z" /></svg>
-                        Kategori:
-                        @foreach (var kategori in DataProduk.Nama_Kategori)
-                        {
-                            <a href="javascript:void(0)">
-                                @kategori
-                            </a>
-                        }
-                    </p>
-                    <h3 class="price">
-                        @string.Format("Rp. {0:N0}", DataProduk?.Harga) @if (DataProduk?.Diskon1 != null || DataProduk?.Diskon1 >= 1) {
-                        <span>@string.Format("Rp. {0:N0}", ((DataProduk?.Diskon1 / 100) * DataProduk?.Harga))</span>
-                                                }
-                    </h3>
-                    <p class="info-text">
-                        @DataProduk?.Deskripsi
-                    </p>
-
-                    <div class="row" style="margin-bottom:20px;">
-                        <h5 class="tag-variasi" style="font-weight:400;"><span style="font-weight:800">Opsi:</span> @DataProduk.Option_Default</h5>
-                        <div class="size-options d-flex flex-row flex-wrap" style="gap: 10px;">
-                            @foreach (var Option in DataProduk?.Options)
+        } 
+        else
+        {
+            <div class="row" style="gap:2rem;width: 100%;margin-left: 0px !important;">
+                <div class="col-12" style="padding:0px">
+                    <div class="swiper mySwiper1">
+                        <div class="swiper-wrapper">
+                            @foreach (var img in DataProduk?.MediaUrls)
                             {
-                                <label style="gap: 15px; width:fit-content; justify-content:start;" class="size-box pe-3 @(DataProduk.Id_Option_Default == Option.Option_Id ? "active" : "")">
-                                    <Image Style="width:50px; height:50px;" Src="@Option.MediaUrl?.Id_Media" />
-                                    <input type="radio" name="variant" value="@Option.Option_Id"
-                                            checked="@(DataProduk.Id_Option_Default == Option.Option_Id)"
-                                            @onchange="() => OnVariantChanged(Option.Option_Id)" />
-                                    <span style="width: fit-content;overflow: hidden;text-overflow: ellipsis; text-align:center;">@Option.Option_Label</span>
-                                </label>
-                            }
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <h5 class="tag-variasi" style="font-weight:400;"><span style="font-weight:800">Size:</span> @DataProduk.Size_Default</h5>
-                        <div class="size-options d-flex flex-row flex-wrap" style="gap: 10px;">
-                            @foreach (var size in DataProduk?.Sizes)
-                            {
-                                <label class="size-box @(DataProduk.Id_Size_Default == size.Size_Id ? "active" : "")">
-                                    <input type="radio" name="size" value="@size.Size_Id"
-                                            checked="@(DataProduk.Id_Size_Default == size.Size_Id)"
-                                            @onchange="() => OnSizeChanged(size.Size_Id)" />
-                                    <span style="">@size.Size_Label</span>
-                                </label>
-                            }
-                        </div>
-                    </div>
-
-
-                    <div class="bottom-content">
-                        <div class="row align-items-end row-style" style="">
-                            <div class="col-lg-4 col-md-4 col-12 rowbox-style">
-                                <div class="qty-box">
-                                    <button @onclick="Decrease">-</button>
-                                    <span style="font-size:15px;">@Quantity</span>
-                                    <button @onclick="Increase">+</button>
+                                <div class="swiper-slide">
+                                    <Image Src="@img.Id_Media" Class="vw-100 h-100" />
                                 </div>
+                            }
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+
+                <div class="col-12 item-details" style="background-color:white;padding: 0px 20px 80px 20px;">
+                    <div class="product-info" style="padding:0px;">
+                        <h2 class="title">@DataProduk?.Nama_Display</h2>
+                        <p class="category" style="display: flex;align-items: center;">
+                            <svg xmlns="http://www.w3.org/2000/svg" style="width: 14px;transform: scaleX(-1);margin-right: 6px;" viewBox="0 0 640 640">
+                                <path d="M96.5 160L96.5 309.5C96.5 326.5 103.2 342.8 115.2 354.8L307.2 546.8C332.2 571.8 372.7 571.8 397.7 546.8L547.2 397.3C572.2 372.3 572.2 331.8 547.2 306.8L355.2 114.8C343.2 102.7 327 96 310 96L160.5 96C125.2 96 96.5 124.7 96.5 160zM208.5 176C226.2 176 240.5 190.3 240.5 208C240.5 225.7 226.2 240 208.5 240C190.8 240 176.5 225.7 176.5 208C176.5 190.3 190.8 176 208.5 176z" /></svg>
+                            Kategori:
+                            @foreach (var kategori in DataProduk?.Nama_Kategori)
+                            {
+                                <a href="javascript:void(0)">
+                                    @kategori
+                                </a>
+                            }
+                        </p>
+                        <h3 class="price">
+                            @if (DataProduk?.Diskon1 != null || DataProduk?.Diskon1 >= 1)
+                            {
+                                @string.Format("Rp. {0:N0}", (DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == DataProduk?.Id_Option_Default && x.Size_Id == DataProduk?.Id_Size_Default)?.Harga - ((DataProduk?.Diskon1 / 100) * DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == DataProduk?.Id_Option_Default && x.Size_Id == DataProduk?.Id_Size_Default)?.Harga)))
+                            }
+                            else
+                            {
+                                @string.Format("Rp. {0:N0}", DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == DataProduk?.Id_Option_Default && x.Size_Id == DataProduk?.Id_Size_Default)?.Harga)
+                            }
+                            @if (DataProduk?.Diskon1 != null || DataProduk?.Diskon1 >= 1)
+                            {
+                                <span style="font-size:20px">@string.Format("Rp. {0:N0}", DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == DataProduk?.Id_Option_Default && x.Size_Id == DataProduk?.Id_Size_Default)?.Harga)</span>
+                            }
+                        </h3>
+                        <p class="info-text">
+                            @DataProduk?.Deskripsi
+                        </p>
+
+                        <div class="row" style="margin-bottom:20px;">
+                            <h5 class="tag-variasi" style="font-weight:400;"><span style="font-weight:800">Opsi:</span> @DataProduk.Option_Default</h5>
+                            <div class="size-options d-flex flex-row flex-wrap" style="gap: 10px;">
+                                @foreach (var Option in DataProduk?.Options)
+                                {
+                                    <label style="gap: 15px; width:fit-content; justify-content:start;" class="size-box pe-3 @(DataProduk.Id_Option_Default == Option.Option_Id ? "active" : "")">
+                                        <Image Style="width:50px; height:50px;" Src="@Option.MediaUrl?.Id_Media" />
+                                        <input type="radio" name="variant" value="@Option.Option_Id"
+                                                checked="@(DataProduk.Id_Option_Default == Option.Option_Id)"
+                                                disabled="@(DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == Option.Option_Id && x.Size_Id == DataProduk?.Id_Size_Default).Stock >= DataProduk?.Min_Order ? false : true)"
+                                                @onchange="() => OnVariantChanged(Option.Option_Id)" />
+                                        <span style="width: fit-content;overflow: hidden;text-overflow: ellipsis; text-align:center; z-index:1; position:relative;">@Option.Option_Label</span>
+                                    </label>
+                                }
                             </div>
-                            <div class="col-lg-8 col-md-8 col-12 rowbox-style ps-md-2 ps-0">
-                                <div class="wish-button">
-                                    <button @onclick=@(() => tambahKeranjang(DataProduk)) class="btn" style="border-radius:0px;">
-                                    @if(loadProses)
-                                    {
-                                        <div class="spinner-border" role="status">
-                                            <span class="visually-hidden">Loading...</span>
+                        </div>
+
+                        <div class="row">
+                            <h5 class="tag-variasi" style="font-weight:400;"><span style="font-weight:800">Size:</span> @DataProduk.Size_Default</h5>
+                            <div class="size-options d-flex flex-row flex-wrap" style="gap: 10px;">
+                                @foreach (var size in DataProduk?.Sizes)
+                                {
+                                    <label class="size-box @(DataProduk.Id_Size_Default == size.Size_Id ? "active" : "")">
+                                        <input type="radio" name="size" value="@size.Size_Id"
+                                                checked="@(DataProduk.Id_Size_Default == size.Size_Id)"
+                                                disabled="@(DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == DataProduk?.Id_Option_Default && x.Size_Id == size.Size_Id).Stock >= DataProduk?.Min_Order ? false : true)"
+                                                @onchange="() => OnSizeChanged(size.Size_Id)" />
+                                        <span style="z-index:1; position:relative;">@size.Size_Label</span>
+                                    </label>
+                                }
+                            </div>
+                        </div>
+
+                        @if (DataProduk.Id_Option_Default != "" && DataProduk.Id_Size_Default != "")
+                        {
+                            if (DataProduk.Variants.FirstOrDefault(x => x.Option_Id == DataProduk.Id_Option_Default && x.Size_Id == DataProduk.Id_Size_Default) != null)
+                            {
+                                <div class="row mt-4">
+
+                                    @if((DataProduk.Variants.FirstOrDefault(x => x.Option_Id == DataProduk.Id_Option_Default && x.Size_Id == DataProduk.Id_Size_Default)?.Stock ?? 1) - (DataProduk.Min_Order) <= 5) {
+                                        <div class="col-12">
+                                            <div style="position:relative" class="d-flex flex-column justify-content-center">
+                                                <div class="spinner-grow spinner-grow-sm text-warning position-absolute top-2 left-0" style="animation: .85s linear infinite spinner-grow;" role="status">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                </div>
+
+                                                <div class="spinner-grow spinner-grow-sm text-warning position-absolute top-2 left-0" role="status">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                </div>
+
+                                                <div class="spinner-grow spinner-grow-sm text-warning position-absolute top-2 left-0" style="animation: .65s linear infinite spinner-grow;" role="status">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                </div>
+                                                <p class="ms-4 text-warning">
+                                                    Cepat, hanya tersisa @( DataProduk.Variants.FirstOrDefault(x => x.Option_Id == DataProduk.Id_Option_Default && x.Size_Id == DataProduk.Id_Size_Default)?.Stock.ToString()) barang dalam stok.
+                                                
+                                                    @if (DataProduk.Show_Min_Order)
+                                                    {
+                                                        <span class="ms-3 text-danger" style="font-size: 13px; font-weight: 700;">
+                                                            *Minimal order @DataProduk?.Min_Order item
+                                                        </span>
+                                                    }
+
+                                                    @if (DataProduk.Show_Max_Order)
+                                                    {
+                                                        <span class="ms-3 text-danger" style="font-size: 13px; font-weight: 700;">
+                                                            *Maximal order @DataProduk.Variants.FirstOrDefault(x => x.Option_Id == DataProduk.Id_Option_Default && x.Size_Id == DataProduk.Id_Size_Default).Stock item
+                                                        </span>
+                                                    }
+                                                </p>
+                                            </div>
                                         </div>
-                                    } else
-                                    {
-                                        <span>Tambahkan</span><i class="lni lni-cart-2 ms-2"/>
-                                    }
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row align-items-end mt-3 row-style">
-                            <div class="col-12 rowbox-style">
-                                <div class="button cart-button" >
-                                    <button class="btn" @onclick="@(e => NavigateToHome("payment-page"))" style="width: 100%;display: flex; border-radius:0px; z-index:0;">Beli Sekarang</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                                    } else {
+                                        <div class="col-12">
+                                            <div style="position:relative" class="d-flex flex-column justify-content-center">
+                                                <div class="spinner-grow spinner-grow-sm text-primary position-absolute top-2 left-0" style="animation: .85s linear infinite spinner-grow;" role="status">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                </div>
 
-            </div>
+                                                <div class="spinner-grow spinner-grow-sm text-primary position-absolute top-2 left-0" role="status">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                </div>
+
+                                                <div class="spinner-grow spinner-grow-sm text-primary position-absolute top-2 left-0" style="animation: .65s linear infinite spinner-grow;" role="status">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                </div>
+                                                <p class="ms-4 text-primary">
+                                                    Tersisa @( DataProduk.Variants.FirstOrDefault(x => x.Option_Id == DataProduk.Id_Option_Default && x.Size_Id == DataProduk.Id_Size_Default)?.Stock.ToString()) stok.
+
+                                                    @if (DataProduk.Show_Min_Order)
+                                                    {
+                                                        <span class="ms-3 text-danger" style="font-size: 13px; font-weight: 700;">
+                                                            *Minimal order @DataProduk?.Min_Order item
+                                                        </span>
+                                                    }
+
+                                                    @if (DataProduk.Show_Max_Order)
+                                                    {
+                                                        <span class="ms-3 text-danger" style="font-size: 13px; font-weight: 700;">
+                                                            *Maximal order @DataProduk.Variants.FirstOrDefault(x => x.Option_Id == DataProduk.Id_Option_Default && x.Size_Id == DataProduk.Id_Size_Default).Stock item
+                                                        </span>
+                                                    }
+                                                </p>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            } else
+                            {
+                                <p class="text-danger">
+                                    Stock tidak tersedia
+                                    @if (DataProduk.Show_Min_Order)
+                                    {
+                                        <span class="ms-3 text-danger" style="font-size: 13px; font-weight: 700;">
+                                            *Minimal order @DataProduk?.Min_Order item
+                                        </span>
+                                    }
+
+                                    @if (DataProduk.Show_Max_Order)
+                                    {
+                                        <span class="ms-3 text-danger" style="font-size: 13px; font-weight: 700;">
+                                            *Maximal order @DataProduk.Variants.FirstOrDefault(x => x.Option_Id == DataProduk.Id_Option_Default && x.Size_Id == DataProduk.Id_Size_Default).Stock item
+                                        </span>
+                                    }
+                                </p>
+                            }
+                        }
+
+
+                        <div class="bottom-content mt-3">
+                            <div class="row align-items-end row-style" style="">
+                                <div class="col-lg-4 col-md-4 col-12 rowbox-style">
+                                    <div class="qty-box">
+                                        <button @onclick="Decrease">-</button>
+                                        <span style="font-size:15px;">@Quantity</span>
+                                        <button @onclick="Increase">+</button>
+                                    </div>
+                                    @* <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                                        <div id="liveToast" class="toast @(dataSourch.DataProduk.Show_Min_Order ? "show" : "hide") fade" role="alert" aria-live="assertive" aria-atomic="true">
+                                            <div class="toast-header">
+                                                <strong class="me-auto">Jumlah pembelian kurang dari minimum order</strong>
+                                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                            </div>
+                                        </div>
+                                    </div> *@
+                                </div>
+                                <div class="col-lg-8 col-md-8 col-12 rowbox-style ps-md-2 ps-0">
+                                    <div class="wish-button">
+                                        <button @onclick=@(() => tambahKeranjang(DataProduk)) class="btn" style="border-radius:0px;">
+                                        @if(loadProses)
+                                        {
+                                            <div class="spinner-border" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                        } else
+                                        {
+                                            <span>Tambahkan</span><i class="lni lni-cart-2 ms-2"/>
+                                        }
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row align-items-end mt-3 row-style">
+                                <div class="col-12 rowbox-style">
+                                    <div class="button cart-button" >
+                                        <button class="btn" @onclick="@(e => NavigateToHome("payment-page"))" style="width: 100%;display: flex; border-radius:0px; z-index:0;">Beli Sekarang</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             
-            <div class="ps-0" style="position:fixed; bottom:0px; width:500px;">
-                <div class="" style="width:100%; padding-right:5px;">
-                    <div class="btn-group w-100">
-                        <button @onclick="@(e => NavigateToDetailProduk(DataProduk.No_Id))" class="btn-slide border-start-0 border-bottom-0 border-end-0 justify-content-between" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 20px 12px 20px 20px;font-size: 15px;font-weight: 500;">
-                            View Full Details <i class="lni lni-chevron-up" style="transform: rotateZ(90deg);font-size: 20px;font-weight: 400;"></i>
-                        </button>
+                <div class="ps-0" style="position:fixed; bottom:0px; width:500px; z-index:1">
+                    <div class="" style="width:100%; padding-right:5px;">
+                        <div class="btn-group w-100">
+                            <button @onclick="@(e => NavigateToDetailProduk(DataProduk.No_Id))" class="btn-slide border-start-0 border-bottom-0 border-end-0 justify-content-between" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 20px 12px 20px 20px;font-size: 15px;font-weight: 500;">
+                                View Full Details <i class="lni lni-chevron-up" style="transform: rotateZ(90deg);font-size: 20px;font-weight: 400;"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        }
         
     </div>
 </div>

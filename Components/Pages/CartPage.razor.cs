@@ -84,6 +84,9 @@ namespace PacificWeb.Components.Pages
             {
                 dataSourch.DataUser.Email = user.FindFirst(c => c.Type == ClaimTypes.Email)?.Value;
                 dataSourch.DataUser.No_Id = user.FindFirst(c => c.Type == ClaimTypes.Name)?.Value;
+            } else
+            {
+                NavigationManager.NavigateTo("/", true);
             }
         }
 
@@ -191,9 +194,9 @@ namespace PacificWeb.Components.Pages
 
             var produk = dataSourch?.DataPesanan.Header.FirstOrDefault(x => x.No_Bukti == item.No_Bukti);
 
-            if (produk.Metode_Bayar == "QRIS" && produk.Status_Order_1 == "belum bayar")
+            if (produk?.Metode_Bayar == "QRIS" && produk?.Status_Order_1 == "belum bayar")
             {
-                var base64Image = await GenerateImage(produk.Payment_Number_1, produk.Expiry_Time);
+                var base64Image = await GenerateImage(produk?.Payment_Number_1, produk?.Expiry_Time);
                 produk.QrBase64 = base64Image;
             }
 
@@ -202,7 +205,14 @@ namespace PacificWeb.Components.Pages
 
             Pesanan_Create.Header.Add(produk);
 
-            loadProses = false;
+            if(produk?.Status_Order_1 != "belum bayar") 
+            {
+
+                await JSRuntime.InvokeVoidAsync("scrollToTop");
+                await JSRuntime.InvokeVoidAsync("buttonClick", $"#pills-{produk?.Status_Order_1}-tab");
+            }
+
+                loadProses = false;
             StateHasChanged();
         }
 
@@ -263,8 +273,7 @@ namespace PacificWeb.Components.Pages
 
         public async Task clickCopy(Pesanan.Headers item, string init = "")
         {
-           
-            await JSRuntime.InvokeVoidAsync("copyVa", item.No_Bukti + init);
+            await JSRuntime.InvokeVoidAsync("copyVa", init);
         }
 
         public async void openDropdown(string id_kode)

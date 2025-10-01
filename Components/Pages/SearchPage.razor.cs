@@ -15,6 +15,7 @@ using System.Drawing;
 using System.Reflection;
 using System.Security.Claims;
 using System.Text;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using static Models.Pesanan;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -69,6 +70,8 @@ namespace PacificWeb.Components.Pages
         public searchParam SearchQuery { get; set; } = new searchParam();
 
         private string SearchText = "";
+        private string ShortActive = "Name, A - Z";
+        private bool ShortDirect = true;
 
         private System.Timers.Timer? _debounceTimer;
         [Parameter] public string? Keyword { get; set; }
@@ -172,9 +175,15 @@ namespace PacificWeb.Components.Pages
                         keyword = SearchQuery.Keyword,
                         id_kategori = SearchQuery.Kategori,
                         noid_list = SearchQuery.Produk,
-                        strict_kategori = false,
-                        pagesize = 12,
+                        strict_kategori = true,
+                        pagesize = 4,
                         show_variant = true,
+                        show_media = "true",
+                        cursor_id = "",
+                        cursor_nama = "",
+                        cursor_harga = "",
+                        orderBy = ShortActive == "Name, A - Z" || ShortActive == "Name, Z - A" ? "nama_display" : "harga",
+                        orderDir = ShortDirect ? "asc" : "desc"
                     }
                 });
 
@@ -242,6 +251,41 @@ namespace PacificWeb.Components.Pages
 
         }
 
+
+        private void OnShortChanged(string value, bool orderDir)
+        {
+            ShortActive = value;
+            ShortDirect = orderDir;
+
+            _debounceTimer?.Stop();
+            _debounceTimer?.Dispose();
+
+            _debounceTimer = new System.Timers.Timer(500); // 500ms delay
+
+            _debounceTimer.Elapsed += async (s, e) =>
+            {
+                _debounceTimer?.Stop();
+                _debounceTimer?.Dispose();
+
+                await InvokeAsync(async () =>
+                {
+                    loadProses = true;
+                    StateHasChanged();
+
+                    await SearchDataAsync(SearchText);
+
+                    loadProses = false;
+                    StateHasChanged();
+                });
+            };
+
+            _debounceTimer.AutoReset = false;
+            _debounceTimer.Start();
+
+            StateHasChanged();
+        }
+
+
         private async void OnClearInput()
         {
             SearchText = "";
@@ -256,8 +300,34 @@ namespace PacificWeb.Components.Pages
 
         public async Task selectProduk(string id_kode)
         {
-            DataProduk = dataSourch.SearchList.SearchProduk.FirstOrDefault(x => x.No_Id == id_kode);
-            Quantity = 1;
+
+            var produkTask = await pdjService.GetProdukApi(new ParameterApi
+            {
+                routeApi = "produk",
+                prosesApi = "getAll",
+                ParamUrl = new ParameterApi.ParameterUrl { pagesize = 2, show_variant = true, max_media = 10, no_id = id_kode }
+            });
+
+            DataProduk = produkTask.FirstOrDefault(x => x.No_Id == id_kode);
+
+            if (DataProduk == null)
+            {
+                await JSRuntime.InvokeVoidAsync("initSearchButton");
+                StateHasChanged();
+                return;
+            }
+
+            var dataProd = DataProduk?.Variants.FirstOrDefault(x => x.Stock >= DataProduk?.Min_Order);
+
+            var Opsi = DataProduk?.Options.FirstOrDefault(x => x.Option_Id == dataProd.Option_Id);
+            DataProduk.Id_Option_Default = Opsi?.Option_Id ?? "";
+            DataProduk.Option_Default = Opsi?.Option_Label ?? "";
+
+            var Size = DataProduk?.Sizes.FirstOrDefault(x => x.Size_Id == dataProd.Size_Id);
+            DataProduk.Id_Size_Default = Size?.Size_Id ?? "";
+            DataProduk.Size_Default = Size?.Size_Label ?? "";
+
+            Quantity = DataProduk?.Min_Order ?? 0;
             StateHasChanged();
             await JSRuntime.InvokeVoidAsync("initSearchButton");
         }
@@ -426,11 +496,17 @@ namespace PacificWeb.Components.Pages
                 prosesApi = "search",
                 ParamUrl = new ParameterApi.ParameterUrl
                 {
-                    id_kategori = string.Join(",", ListFilter.Select(x => x.No_Id)),
-                    pagesize = 12,
                     keyword = query,
+                    id_kategori = string.Join(",", dataSourch.ListDataKategori.Select(x => x.Checked_Filter == true ? x.No_Id : "")),
+                    strict_kategori = true,
+                    pagesize = 4,
                     show_variant = true,
-                    strict_kategori = true
+                    show_media = "true",
+                    cursor_id = "",
+                    cursor_nama = "",
+                    cursor_harga =  "",
+                    orderBy = ShortActive == "Name, A - Z" || ShortActive == "Name, Z - A" ? "nama_display" : "harga",
+                    orderDir = ShortDirect ? "asc" : "desc"
                 }
             });
 
@@ -451,12 +527,17 @@ namespace PacificWeb.Components.Pages
                 prosesApi = "search",
                 ParamUrl = new ParameterApi.ParameterUrl
                 {
-                    id_kategori = string.Join(",", ListFilter.Select(x => x.No_Id)),
-                    pagesize = 12,
                     keyword = SearchText,
+                    id_kategori = string.Join(",", dataSourch.ListDataKategori.Select(x => x.Checked_Filter == true ? x.No_Id : "")),
+                    strict_kategori = true,
+                    pagesize = 4,
                     show_variant = true,
-                    cursor_id = dataSourch.SearchList.SearchProduk.LastOrDefault().No_Id,
-                    strict_kategori = true
+                    show_media = "true",
+                    cursor_id = dataSourch.SearchList.SearchProduk.LastOrDefault()?.No_Id ?? "",
+                    cursor_nama = ShortActive == "Name, A - Z" || ShortActive == "Name, Z - A" ? dataSourch.SearchList.SearchProduk.LastOrDefault()?.Nama_Display ?? "" : "",
+                    cursor_harga = ShortActive == "Name, A - Z" || ShortActive == "Name, Z - A" ? "" : dataSourch.SearchList.SearchProduk.LastOrDefault()?.Harga.ToString() ?? "",
+                    orderBy = ShortActive == "Name, A - Z" || ShortActive == "Name, Z - A" ? "nama_display" : "harga",
+                    orderDir = ShortDirect ? "asc" : "desc"
                 }
             });
 

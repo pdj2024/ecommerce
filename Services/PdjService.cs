@@ -118,6 +118,16 @@ namespace Services
         }
 
 
+        public async Task GoBack()
+        {
+            await _jsRuntime.InvokeVoidAsync("history.back");
+        }
+
+        public async Task ButtonCLick(string Idbutton)
+        {
+            await _jsRuntime.InvokeVoidAsync("buttonClick", $"#{Idbutton}");
+        }
+
         public Task<List<string>> DecodeEncode(bool proses, List<string> dataString)
         {
             var list = new List<string>();

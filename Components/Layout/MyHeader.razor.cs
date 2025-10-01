@@ -342,7 +342,7 @@ namespace PacificWeb.Components.Layout
             }
             string encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(text));
 
-            NavigationManager.NavigateTo($"/payment-page/{encoded}", forceLoad: true);
+            NavigationManager.NavigateTo($"/payment-page/cart/{encoded}", forceLoad: true);
 
         }
 
@@ -377,7 +377,7 @@ namespace PacificWeb.Components.Layout
             NavigationManager.NavigateTo($"/search-page?keyword={Uri.EscapeDataString(keywordText)}&produk={Uri.EscapeDataString(prod)}&kategori={Uri.EscapeDataString(kate)}", true);
         }
 
-        private async void changeLogin(string value, bool direct = false)
+        public async void changeLogin(string value, bool direct = false)
         {
             await JSRuntime.InvokeVoidAsync("initLoginEffect", value, direct);
         }

@@ -13,6 +13,7 @@ using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
 using System.Net.Http;
@@ -59,8 +60,13 @@ namespace PacificWeb.Components.Pages
 
         [Parameter]
         public string? CartList { get; set; }   // otomatis bind dari URL
+
+        [Parameter]
+        public string? itemVariant { get; set; }   // otomatis bind dari URL
+
         public TextInfo ti { get; set; } = CultureInfo.CurrentCulture.TextInfo;
-        public string[] listCard { get; set; } = new string[0];
+        public string listCard { get; set; }
+        public string[] listDirectItem { get; set; }
         public Pesanan Pesanan_Info { get; set; } = new Pesanan();
         public Pesanan Pesanan_Create { get; set; } = new Pesanan();
         public Pengiriman dataKirim { get; set; } = new Pengiriman();
@@ -69,20 +75,16 @@ namespace PacificWeb.Components.Pages
         public decimal nettoKeranjang { get; set; } = 0;
         public decimal paymentMethodFee { get; set; } = 0;
         public decimal shipingMethodFee { get; set; } = 0;
+        public int countRedirect { get; set; } = 5;
         public string cara_bayar { get; set; } = "";
         public bool alertPayment { get; set; } = false;
         public bool alertProfile { get; set; } = false;
         public bool alertCreate { get; set; } = false;
         public bool loadProses { get; set; } = false;
+        public bool loadContent { get; set; } = false;
+        public bool loadRefresh { get; set; } = true;
         protected override async Task OnInitializedAsync()
         {
-            string decoded = Encoding.UTF8.GetString(Convert.FromBase64String(CartList));
-            listCard = decoded.Split("%section%");
-
-            Pesanan_Info.Header.Add(new Pesanan.Headers());
-            Pesanan_Info.Items.Add(new Pesanan.Item());
-            Pesanan_Info.Biaya.Add(new Pesanan.Biayas());
-
 
             var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
             var user = authState.User;
@@ -92,7 +94,29 @@ namespace PacificWeb.Components.Pages
                 dataSourch.DataUser.Email = user.FindFirst(c => c.Type == ClaimTypes.Email)?.Value;
                 dataSourch.DataUser.No_Id = user.FindFirst(c => c.Type == ClaimTypes.Name)?.Value;
             }
+            else
+            {
+                NavigationManager.NavigateTo("/", true);
+            }
 
+
+            if (CartList == "cart")
+            {
+                string decoded = Encoding.UTF8.GetString(Convert.FromBase64String(itemVariant));
+                listCard = decoded.Replace("%section%", ",");
+            }
+            else if (CartList == "direct") {
+                string decoded = Encoding.UTF8.GetString(Convert.FromBase64String(itemVariant));
+                listDirectItem = decoded.Split("%section%");
+            }
+            else
+            {
+                NavigationManager.NavigateTo("/", true);
+            }
+
+                Pesanan_Info.Header.Add(new Pesanan.Headers());
+                Pesanan_Info.Items.Add(new Pesanan.Item());
+                Pesanan_Info.Biaya.Add(new Pesanan.Biayas());
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -130,7 +154,7 @@ namespace PacificWeb.Components.Pages
                 });
 
 
-                for (var i = 0; i < listCard.Length -1 ; i++)
+                if (CartList == "cart")
                 {
                     var dataCard = await pdjService.GetCartApi(new ParameterApi
                     {
@@ -138,20 +162,45 @@ namespace PacificWeb.Components.Pages
                         prosesApi = "getAll",
                         ParamUrl = new ParameterApi.ParameterUrl
                         {
-                            id_cart = listCard[i],
+                            noid_list = listCard,
                             show_media = "true"
                         }
                     });
 
-                    if (dataCard?.Any() == true)
+                    dataSourch.ListDataCart.AddRange(dataCard);
+                }
+                else
+                {
+                    var dataDirect = await pdjService.GetProdukApi(new ParameterApi
                     {
-                        dataSourch.ListDataCart.Add(dataCard.First());
+                        routeApi = "produk",
+                        prosesApi = "getAll",
+                        ParamUrl = new ParameterApi.ParameterUrl
+                        {
+                            no_id = listDirectItem[0],
+                            show_media = "true"
+                        }
+                    });
+
+                    var itemDirect = dataDirect.FirstOrDefault(x => x.No_Id == listDirectItem[0])?.Variants.FirstOrDefault(x => x.No_Id == listDirectItem[1]);
+
+                    if (itemDirect != null && itemDirect.Stock >= int.Parse(listDirectItem[3]))
+                    {
+                        dataSourch.ListDataCart.Add(new Cart { Id_Variant = itemDirect.No_Id, Qty = int.Parse(listDirectItem[3]), Harga = itemDirect.Harga});
                     }
+                    else if (itemDirect != null && itemDirect.Stock < int.Parse(listDirectItem[3]))
+                    {
+                        pdjService.ButtonCLick("modalPaymentStatus3");
+                        Task.Delay(3000);
+                        pdjService.GoBack();
+                    }
+
+
                 }
 
 
-                // Tunggu semua task selesai
-                await Task.WhenAll(companyTask, metodeBayarTask, metodeKirimTask);
+                    // Tunggu semua task selesai
+                    await Task.WhenAll(companyTask, metodeBayarTask, metodeKirimTask);
 
                 // Assign semua data sekaligus
                 dataSourch.ListDataCompany = companyTask.Result;
@@ -161,8 +210,6 @@ namespace PacificWeb.Components.Pages
 
 
                 nettoKeranjang = dataSourch.ListDataCart.Sum(x => x.Harga * x.Qty);
-                StateHasChanged();
-
                 StateHasChanged();
 
             }
@@ -270,6 +317,8 @@ namespace PacificWeb.Components.Pages
         public async Task refreshStatus(Pesanan.Headers item)
         {
             loadProses = true;
+            loadRefresh = true;
+
             StateHasChanged();
 
             var dataOrder = await pdjService.GetPesananApi(new ParameterApi
@@ -300,8 +349,24 @@ namespace PacificWeb.Components.Pages
 
             StateHasChanged();
 
+
+
             loadProses = false;
+            loadRefresh = false;
             StateHasChanged();
+
+            if (Pesanan_Create.Header.FirstOrDefault()?.Status_Order_1 != "belum bayar")
+            {
+                while (countRedirect != 0)
+                {
+                    await Task.Delay(1000);
+                    countRedirect--;
+                    StateHasChanged();
+                }
+
+                await directStatus(Pesanan_Create.Header.FirstOrDefault());
+            }
+
         }
 
         private async Task<string> GenerateImage(string qrUrl, DateTime? ValidDate)
@@ -362,6 +427,7 @@ namespace PacificWeb.Components.Pages
         public async Task PayOrder()
         {
             loadProses = true;
+            loadRefresh = true;
             StateHasChanged();
             dataKirim = dataSourch?.ListDataPengiriman.FirstOrDefault(x => x.selectShipping == true);
             dataLayanan = dataSourch?.ListDataPembayaran.FirstOrDefault(x => x.selectPayment == true);
@@ -460,12 +526,24 @@ namespace PacificWeb.Components.Pages
                 }
 
 
-                loadProses = true;
+
+                loadProses = false;
                 StateHasChanged();
                 await JSRuntime.InvokeVoidAsync("buttonClick", "#modalPaymentStatus2");
+
+                if (Pesanan_Create.Header.FirstOrDefault() == null) { 
+                    loadRefresh = true;
+                    Pesanan_Create.Header.Add(new Headers { No_Bukti = noBukti });
+                } 
+                else {
+                    loadRefresh = false;
+                }
+
             } else
             {
                 alertCreate = true;
+                loadProses = false; 
+                StateHasChanged();
                 return;
             }
 
