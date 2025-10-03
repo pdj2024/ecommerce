@@ -5,8 +5,12 @@
 @page "/cart-page/{pageTabs}"
 
 
-
-<PageTitle>@ti.ToTitleCase(pageTabs)</PageTitle>
+@if(pageTabs == "keranjang"){
+    <PageTitle>@ti.ToTitleCase(pageTabs)</PageTitle>
+} else
+{
+    <PageTitle>Pesanan - @ti.ToTitleCase(pageTabs)</PageTitle>
+}
 
 <MyHeadProfile dataSourch=@dataSourch pageRoute=@pageTabs @ref="header_page"/>
 
@@ -133,7 +137,7 @@
                     
                     
                         <div class="cart-item d-flex d-lg-none flex-column" style="padding: 0px 16px;">
-                            <ul class="shopping-list w-100">
+                            <ul class="shopping-list w-100" style="overflow:unset; max-height: unset">
                                 @foreach (var cart in dataSourch?.ListDataCart)
                                 {
                                     <li>
@@ -281,7 +285,19 @@
 
                                                 <div class="d-flex flex-lg-row flex-column justify-content-between w-100 gap-3">
                                                     <div class="d-flex flex-col gap-3 w-100">
-                                                        <img class="cart-img img-payment" src="@dataSourch?.DataPesanan?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media" alt="#">
+                                                        
+                                                        @if(@dataSourch?.DataPesanan?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media != null && @dataSourch?.DataPesanan?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media != "")
+                                                        {
+                                                            <img class="cart-img img-payment" src="@dataSourch?.DataPesanan?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media" style="" alt="#">
+                                                        } 
+                                                        
+                                                        else
+                                                        {
+                                                            <div class="cart-img img-payment" style="display:flex; align-items:center;justify-content:center; background-color:lightgray; color:dimgrey">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M73-889 889-73l-57 57-104-104H200q-33 0-56.5-23.5T120-200v-528L16-832l57-57Zm287 447L200-282v82h448L544-304l-22 24-162-162ZM200-648v252l126-126-126-126Zm36-192h524q33 0 56.5 23.5T840-760v524l-80-80v-234L650-426l-57-57 167-187v-90H316l-80-80Zm357 357Zm-158 70ZM326-522Zm34 80Zm176-98Z"/></svg>
+                                                            </div>
+                                                        }
+
                                                         <div class="d-flex flex-column gap-2 w-100 justify-content-between">
                                                             <div class="d-flex flex-column gap-2">
                                                                 <h5 style="font-size:15px;" class="line-clamp-1">
@@ -356,7 +372,17 @@
                                                     @if(produk.Id_Detil == @dataSourch?.DataPesanan?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Id_Detil) { continue; }
 
                                                     <div class="d-flex flex-col gap-3 w-100">
-                                                        <img class="cart-img img-payment" src="@produk.Var_Id_Media" alt="#">
+                                                        @if(@produk.Var_Id_Media != null && @produk.Var_Id_Media != "")
+                                                        {
+                                                            <img class="cart-img img-payment" src="@produk.Var_Id_Media" style="" alt="#">
+                                                        } 
+                                                        
+                                                        else
+                                                        {
+                                                            <div class="cart-img img-payment" style="display:flex; align-items:center;justify-content:center; background-color:lightgray; color:dimgrey">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M73-889 889-73l-57 57-104-104H200q-33 0-56.5-23.5T120-200v-528L16-832l57-57Zm287 447L200-282v82h448L544-304l-22 24-162-162ZM200-648v252l126-126-126-126Zm36-192h524q33 0 56.5 23.5T840-760v524l-80-80v-234L650-426l-57-57 167-187v-90H316l-80-80Zm357 357Zm-158 70ZM326-522Zm34 80Zm176-98Z"/></svg>
+                                                            </div>
+                                                        }
                                                         <div class="d-flex flex-column gap-2 w-100 justify-content-between">
                                                             <div class="d-flex flex-column gap-2">
                                                                 <h5 style="font-size:15px;" class="line-clamp-1">
@@ -454,74 +480,154 @@
         {
 
             @if (dataSourch?.DataPesanan?.Header.Count(x => x.Status_Order_1.ToLower() == "dikemas") >= 1) {
+            
             <div class="cart-page" style="padding: 0px 20px 20px 20px; margin-top:20px;">
-            <div class="cart-container p-0 px-lg-5">
-                <div class="cart-items">
+                <div class="cart-container p-0 px-lg-5">
+                    <div class="cart-items">
 
-                    <div class="accordion" style="gap: 15px;display: flex;flex-direction: column;" id="accordionPanelsStayOpenExample">
+                        <div class="accordion" style="gap: 15px;display: flex;flex-direction: column;" id="accordionPanelsStayOpenExample">
                       
-                        @foreach (var item in dataSourch?.DataPesanan?.Header.Where(x => x.Status_Order_1.ToLower() == "dikemas").ToList())
-                        {
-                            <div class="accordion-item rounded-0">
-                                <h2 class="accordion-header rounded-0" id="panelsStayOpen-headingOne">
-                                    <div class="d-flex w-100 flex-column gap-3 p-3 p-lg-4">
-                                        <div class="d-flex flex-row justify-content-between gap-3 py-1 ">
-                                            <h5>
-                                                @item.No_Bukti
-                                            </h5>
-                                            <p style="color:#1500b2">
-                                                @ti.ToTitleCase(item.Status_Order_1)
-                                            </p>
-                                        </div>
+                            @foreach (var item in dataSourch?.DataPesanan?.Header.Where(x => x.Status_Order_1.ToLower() == "dikemas").ToList())
+                            {
+                                <div class="accordion-item rounded-0">
+                                    <h2 class="accordion-header rounded-0" id="panelsStayOpen-headingOne">
+                                        <div class="d-flex w-100 flex-column gap-3 p-3 p-lg-4">
+                                            <div class="d-flex flex-row justify-content-between gap-3 py-1 ">
+                                                <h5>
+                                                    @item.No_Bukti
+                                                </h5>
+                                                <p style="color:#1500b2">
+                                                    @ti.ToTitleCase(item.Status_Order_1)
+                                                </p>
+                                            </div>
 
 
-                                        <div class="d-flex flex-lg-row flex-column justify-content-between w-100 gap-3">
-                                            <div class="d-flex flex-col gap-3 w-100">
-                                                <img class="cart-img img-payment" src="@dataSourch?.DataPesanan?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media" alt="#">
-                                                <div class="d-flex flex-column gap-2 w-100 justify-content-between">
-                                                    <div class="d-flex flex-column gap-2">
-                                                        <h5 style="font-size:15px;" class="line-clamp-1">
-                                                            @dataSourch?.DataPesanan?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Nama_Display
-                                                        </h5>
-                                                        <p class="variant" style="background-color: #eee;width: fit-content;padding: 1px 5px;border-radius: 0px;">
-                                                            @($"{@dataSourch?.DataPesanan?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Option}, {@dataSourch?.DataPesanan?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Size}")
-                                                        </p>
-                                                        <h5 style="font-size:15px;" class="">
-                                                            @string.Format("Rp. {0:N0}", @dataSourch?.DataPesanan?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Satuan) 
-                                                            @($" x {dataSourch?.DataPesanan?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Qty} = ")
-                                                            <span style="color:#1500b2; font-weight:700;" class="d-lg-inline d-none">
-                                                                @string.Format("Rp. {0:N0}", dataSourch?.DataPesanan?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
-                                                            </span>
-                                                        </h5>
-                                                        <h5 style="font-size:15px;" class="d-lg-none d-flex line-clamp-1">
-                                                            <span style="color:#1500b2; font-weight:700;">
-                                                                @string.Format("Rp. {0:N0}", dataSourch?.DataPesanan?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
-                                                            </span>
-                                                        </h5>
-                                                    </div>
-                                                    <div class="d-lg-flex d-none flex-row gap-2 w-100 justify-content-between align-items-center">
-                                                        <div class="d-flex none-accord-@item.No_Bukti flex-column gap-1">
-                                                            <h5 style="font-size:15px; " class="">
-                                                                @($"Total {@dataSourch?.DataPesanan?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
-                                                                <span style="color:#1500b2;">
-                                                                    @string.Format("Rp. {0:N0}", item.Grand_Total)
+                                            <div class="d-flex flex-lg-row flex-column justify-content-between w-100 gap-3">
+                                                <div class="d-flex flex-col gap-3 w-100">
+                                                    @if(@dataSourch?.DataPesanan?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media != null && @dataSourch?.DataPesanan?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media != "")
+                                                    {
+                                                        <img class="cart-img img-payment" src="@dataSourch?.DataPesanan?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media" style="" alt="#">
+                                                    } 
+                                                        
+                                                    else
+                                                    {
+                                                        <div class="cart-img img-payment" style="display:flex; align-items:center;justify-content:center; background-color:lightgray; color:dimgrey">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M73-889 889-73l-57 57-104-104H200q-33 0-56.5-23.5T120-200v-528L16-832l57-57Zm287 447L200-282v82h448L544-304l-22 24-162-162ZM200-648v252l126-126-126-126Zm36-192h524q33 0 56.5 23.5T840-760v524l-80-80v-234L650-426l-57-57 167-187v-90H316l-80-80Zm357 357Zm-158 70ZM326-522Zm34 80Zm176-98Z"/></svg>
+                                                        </div>
+                                                    }
+
+                                                    <div class="d-flex flex-column gap-2 w-100 justify-content-between">
+                                                        <div class="d-flex flex-column gap-2">
+                                                            <h5 style="font-size:15px;" class="line-clamp-1">
+                                                                @dataSourch?.DataPesanan?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Nama_Display
+                                                            </h5>
+                                                            <p class="variant" style="background-color: #eee;width: fit-content;padding: 1px 5px;border-radius: 0px;">
+                                                                @($"{@dataSourch?.DataPesanan?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Option}, {@dataSourch?.DataPesanan?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Size}")
+                                                            </p>
+                                                            <h5 style="font-size:15px;" class="">
+                                                                @string.Format("Rp. {0:N0}", @dataSourch?.DataPesanan?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Satuan) 
+                                                                @($" x {dataSourch?.DataPesanan?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Qty} = ")
+                                                                <span style="color:#1500b2; font-weight:700;" class="d-lg-inline d-none">
+                                                                    @string.Format("Rp. {0:N0}", dataSourch?.DataPesanan?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
                                                                 </span>
                                                             </h5>
-                                                            @if(@dataSourch?.DataPesanan?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
-                                                            {
-                                                                <button @onclick="@( x => openDropdown(@item.No_Bukti))" class="accordion-button header-accord-@item.No_Bukti collapsed rounded-0 mt-1" style="padding: 0px;font-size: 13px;width: fit-content;display: flex;gap: 10px;" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-@item.No_Bukti" aria-expanded="true" aria-controls="panelsStayOpen-@item.No_Bukti"> Tampil Selangkapnya
-                                                                </button>
-                                                            }
+                                                            <h5 style="font-size:15px;" class="d-lg-none d-flex line-clamp-1">
+                                                                <span style="color:#1500b2; font-weight:700;">
+                                                                    @string.Format("Rp. {0:N0}", dataSourch?.DataPesanan?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
+                                                                </span>
+                                                            </h5>
                                                         </div>
-                                                        <button @onclick="@( x => openPayment(@item))" class="btn none-accord-@item.No_Bukti btn-primary" style="height: 36px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
-                                                            Lihat Status
-                                                        </button>
+                                                        <div class="d-lg-flex d-none flex-row gap-2 w-100 justify-content-between align-items-center">
+                                                            <div class="d-flex none-accord-@item.No_Bukti flex-column gap-1">
+                                                                <h5 style="font-size:15px; " class="">
+                                                                    @($"Total {@dataSourch?.DataPesanan?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
+                                                                    <span style="color:#1500b2;">
+                                                                        @string.Format("Rp. {0:N0}", item.Grand_Total)
+                                                                    </span>
+                                                                </h5>
+                                                                @if(@dataSourch?.DataPesanan?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
+                                                                {
+                                                                    <button @onclick="@( x => openDropdown(@item.No_Bukti))" class="accordion-button header-accord-@item.No_Bukti collapsed rounded-0 mt-1" style="padding: 0px;font-size: 13px;width: fit-content;display: flex;gap: 10px;" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-@item.No_Bukti" aria-expanded="true" aria-controls="panelsStayOpen-@item.No_Bukti"> Tampil Selangkapnya
+                                                                    </button>
+                                                                }
+                                                            </div>
+                                                            <button @onclick="@( x => openPayment(@item))" class="btn none-accord-@item.No_Bukti btn-primary" style="height: 36px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+                                                                Lihat Status
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
                                             
-                                            <div class="d-flex d-lg-none flex-row gap-2 w-100 justify-content-between align-items-center">
-                                                <div class="d-flex none-accord-@item.No_Bukti total-bottom flex-column gap-1 mt-2" style="width:60%;">
+                                                <div class="d-flex d-lg-none flex-row gap-2 w-100 justify-content-between align-items-center">
+                                                    <div class="d-flex none-accord-@item.No_Bukti total-bottom flex-column gap-1 mt-2" style="width:60%;">
+                                                        <h5 style="font-size:15px; " class="">
+                                                            @($"Total {@dataSourch?.DataPesanan?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
+                                                            <span style="color:#1500b2;">
+                                                                @string.Format("Rp. {0:N0}", item.Grand_Total)
+                                                            </span>
+                                                        </h5>
+                                                        @if(@dataSourch?.DataPesanan?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
+                                                        {
+                                                            <button @onclick="@( x => openDropdown(@item.No_Bukti))" class="accordion-button header-accord-@item.No_Bukti collapsed rounded-0 mt-1" style="padding: 0px;font-size: 13px;width: fit-content;display: flex;gap: 10px;" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-@item.No_Bukti" aria-expanded="true" aria-controls="panelsStayOpen-@item.No_Bukti"> Tampil Selangkapnya
+                                                            </button>
+                                                        }
+                                                    </div>
+                                                    <button @onclick="@( x => openPayment(@item))" class="btn none-accord-@item.No_Bukti btn-primary" style="height: 36px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+                                                        Lihat Status
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </h2>
+
+
+
+                                    <div id="panelsStayOpen-@item.No_Bukti" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
+                                        <div class="accordion-body px-3 px-lg-4">
+                                            @foreach(var produk in dataSourch?.DataPesanan?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList())
+                                            {
+                                                @if(produk.Id_Detil == @dataSourch?.DataPesanan?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Id_Detil) { continue; }
+
+                                                <div class="d-flex flex-col gap-3 w-100">
+                                                    @if(@produk.Var_Id_Media != null && @produk.Var_Id_Media != "")
+                                                        {
+                                                            <img class="cart-img img-payment" src="@produk.Var_Id_Media" style="" alt="#">
+                                                        } 
+                                                        
+                                                        else
+                                                        {
+                                                            <div class="cart-img img-payment" style="display:flex; align-items:center;justify-content:center; background-color:lightgray; color:dimgrey">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M73-889 889-73l-57 57-104-104H200q-33 0-56.5-23.5T120-200v-528L16-832l57-57Zm287 447L200-282v82h448L544-304l-22 24-162-162ZM200-648v252l126-126-126-126Zm36-192h524q33 0 56.5 23.5T840-760v524l-80-80v-234L650-426l-57-57 167-187v-90H316l-80-80Zm357 357Zm-158 70ZM326-522Zm34 80Zm176-98Z"/></svg>
+                                                            </div>
+                                                        }
+                                                    <div class="d-flex flex-column gap-2 w-100 justify-content-between">
+                                                        <div class="d-flex flex-column gap-2">
+                                                            <h5 style="font-size:15px;" class="line-clamp-1">
+                                                                @produk.Nama_Display
+                                                            </h5>
+                                                            <p class="variant" style="background-color: #eee;width: fit-content;padding: 1px 5px;border-radius: 0px;">
+                                                                @($"{@produk.Var_Option}, {@produk.Var_Size}")
+                                                            </p>
+                                                            <h5 style="font-size:15px;" class="">
+                                                                @string.Format("Rp. {0:N0}", @produk.Harga_Satuan) 
+                                                                @($" x {produk.Qty} = ")
+                                                                <span style="color:#1500b2; font-weight:700;" class="d-lg-inline d-none">
+                                                                    @string.Format("Rp. {0:N0}", produk.Harga_Total)
+                                                                </span>
+                                                            </h5>
+                                                            <h5 style="font-size:15px;" class="d-lg-none d-flex line-clamp-1">
+                                                                <span style="color:#1500b2; font-weight:700;">
+                                                                    @string.Format("Rp. {0:N0}", produk.Harga_Total)
+                                                                </span>
+                                                            </h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+
+                                            <div class="d-flex flex-row gap-1 w-100 justify-content-between align-items-center">
+                                                <div class="d-flex flex-column gap-1 total-bottom" style="width:60%;">
                                                     <h5 style="font-size:15px; " class="">
                                                         @($"Total {@dataSourch?.DataPesanan?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
                                                         <span style="color:#1500b2;">
@@ -534,84 +640,29 @@
                                                         </button>
                                                     }
                                                 </div>
-                                                <button @onclick="@( x => openPayment(@item))" class="btn none-accord-@item.No_Bukti btn-primary" style="height: 36px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+                                                <button @onclick="@( x => openPayment(@item))" class="btn btn-primary" style="height: 36px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
                                                     Lihat Status
                                                 </button>
                                             </div>
                                         </div>
-
-                                    </div>
-                                </h2>
-
-
-
-                                <div id="panelsStayOpen-@item.No_Bukti" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
-                                    <div class="accordion-body px-3 px-lg-4">
-                                        @foreach(var produk in dataSourch?.DataPesanan?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList())
-                                        {
-                                            @if(produk.Id_Detil == @dataSourch?.DataPesanan?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Id_Detil) { continue; }
-
-                                            <div class="d-flex flex-col gap-3 w-100">
-                                                <img class="cart-img img-payment" src="@produk.Var_Id_Media" alt="#">
-                                                <div class="d-flex flex-column gap-2 w-100 justify-content-between">
-                                                    <div class="d-flex flex-column gap-2">
-                                                        <h5 style="font-size:15px;" class="line-clamp-1">
-                                                            @produk.Nama_Display
-                                                        </h5>
-                                                        <p class="variant" style="background-color: #eee;width: fit-content;padding: 1px 5px;border-radius: 0px;">
-                                                            @($"{@produk.Var_Option}, {@produk.Var_Size}")
-                                                        </p>
-                                                        <h5 style="font-size:15px;" class="">
-                                                            @string.Format("Rp. {0:N0}", @produk.Harga_Satuan) 
-                                                            @($" x {produk.Qty} = ")
-                                                            <span style="color:#1500b2; font-weight:700;" class="d-lg-inline d-none">
-                                                                @string.Format("Rp. {0:N0}", produk.Harga_Total)
-                                                            </span>
-                                                        </h5>
-                                                        <h5 style="font-size:15px;" class="d-lg-none d-flex line-clamp-1">
-                                                            <span style="color:#1500b2; font-weight:700;">
-                                                                @string.Format("Rp. {0:N0}", produk.Harga_Total)
-                                                            </span>
-                                                        </h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        }
-
-                                        <div class="d-flex flex-row gap-1 w-100 justify-content-between align-items-center">
-                                            <div class="d-flex flex-column gap-1 total-bottom" style="width:60%;">
-                                                <h5 style="font-size:15px; " class="">
-                                                    @($"Total {@dataSourch?.DataPesanan?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
-                                                    <span style="color:#1500b2;">
-                                                        @string.Format("Rp. {0:N0}", item.Grand_Total)
-                                                    </span>
-                                                </h5>
-                                                @if(@dataSourch?.DataPesanan?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
-                                                {
-                                                    <button @onclick="@( x => openDropdown(@item.No_Bukti))" class="accordion-button header-accord-@item.No_Bukti collapsed rounded-0 mt-1" style="padding: 0px;font-size: 13px;width: fit-content;display: flex;gap: 10px;" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-@item.No_Bukti" aria-expanded="true" aria-controls="panelsStayOpen-@item.No_Bukti"> Tampil Selangkapnya
-                                                    </button>
-                                                }
-                                            </div>
-                                            <button @onclick="@( x => openPayment(@item))" class="btn btn-primary" style="height: 36px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
-                                                Lihat Status
-                                            </button>
-                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        }
+                            }
                     
                     
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        } else
-        {
-            <div class=" w-100 d-flex justify-content-center align-items-center" style="height: 10rem;margin-bottom: 10rem;" >
-                <h5 style="font-size:1rem; color:lightgray; text-decoration:underline" >Tidak Ada Transaksi</h5>
-            </div>
-        }
+            
+            } 
+            
+            else
+            {
+                <div class=" w-100 d-flex justify-content-center align-items-center" style="height: 10rem;margin-bottom: 10rem;" >
+                    <h5 style="font-size:1rem; color:lightgray; text-decoration:underline" >Tidak Ada Transaksi</h5>
+                </div>
+            }
     
         }
 
@@ -673,7 +724,17 @@
 
                                         <div class="d-flex flex-lg-row flex-column justify-content-between w-100 gap-3">
                                             <div class="d-flex flex-col gap-3 w-100">
-                                                <img class="cart-img img-payment" src="@dataSourch?.DataPesanan?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media" alt="#">
+                                                @if(@dataSourch?.DataPesanan?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media != null && @dataSourch?.DataPesanan?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media != "")
+                                                {
+                                                    <img class="cart-img img-payment" src="@dataSourch?.DataPesanan?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media" style="" alt="#">
+                                                } 
+                                                        
+                                                else
+                                                {
+                                                    <div class="cart-img img-payment" style="display:flex; align-items:center;justify-content:center; background-color:lightgray; color:dimgrey">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M73-889 889-73l-57 57-104-104H200q-33 0-56.5-23.5T120-200v-528L16-832l57-57Zm287 447L200-282v82h448L544-304l-22 24-162-162ZM200-648v252l126-126-126-126Zm36-192h524q33 0 56.5 23.5T840-760v524l-80-80v-234L650-426l-57-57 167-187v-90H316l-80-80Zm357 357Zm-158 70ZM326-522Zm34 80Zm176-98Z"/></svg>
+                                                    </div>
+                                                }
                                                 <div class="d-flex flex-column gap-2 w-100 justify-content-between">
                                                     <div class="d-flex flex-column gap-2">
                                                         <h5 style="font-size:15px;" class="line-clamp-1">
@@ -748,7 +809,17 @@
                                             @if(produk.Id_Detil == @dataSourch?.DataPesanan?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Id_Detil) { continue; }
 
                                             <div class="d-flex flex-col gap-3 w-100">
-                                                <img class="cart-img img-payment" src="@produk.Var_Id_Media" alt="#">
+                                                @if(@produk.Var_Id_Media != null && @produk.Var_Id_Media != "")
+                                                {
+                                                    <img class="cart-img img-payment" src="@produk.Var_Id_Media" style="" alt="#">
+                                                } 
+                                                        
+                                                else
+                                                {
+                                                    <div class="cart-img img-payment" style="display:flex; align-items:center;justify-content:center; background-color:lightgray; color:dimgrey">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M73-889 889-73l-57 57-104-104H200q-33 0-56.5-23.5T120-200v-528L16-832l57-57Zm287 447L200-282v82h448L544-304l-22 24-162-162ZM200-648v252l126-126-126-126Zm36-192h524q33 0 56.5 23.5T840-760v524l-80-80v-234L650-426l-57-57 167-187v-90H316l-80-80Zm357 357Zm-158 70ZM326-522Zm34 80Zm176-98Z"/></svg>
+                                                    </div>
+                                                }
                                                 <div class="d-flex flex-column gap-2 w-100 justify-content-between">
                                                     <div class="d-flex flex-column gap-2">
                                                         <h5 style="font-size:15px;" class="line-clamp-1">
@@ -871,93 +942,128 @@
                 <h5 class="modal-title w-100 text-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">Informasi Pembayaran</h5>
             </div>
 
-            @foreach (var Head in Pesanan_Create.Header)
+
+            @if(loadRefresh) 
             {
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
-                                <input readonly style="background-color:transparent !important; font-weight: 700; font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your name*" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.No_Bukti" />
-                                <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Order Id</label>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
-                                <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px; @(Head?.Status_Order_1 == "belum bayar" ? "color:red" : "color:orange")" type="text" class="form-control search-form form-text" placeholder="Your email*" aria-label="Search" aria-describedby="basic-addon1" required value="@ti.ToTitleCase(Head?.Status_Order_1)"/>
-                                <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Status</label>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
-                                <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.Metode_Bayar"/>
-                                <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Metode Pembayaran</label>
-                            </div>
-                        </div>
-                        @if (@Head?.Status_Order_1 == "belum bayar") {
+                <form aria-busy="true" class="mb-2 px-5">
+                    <div class="mb-3">
+                        <div class="skeleton skeleton-subtitle mb-2" style="width:25%"></div>
+                        <div class="skeleton" style="height:38px;width:100%;border-radius:.375rem"></div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="skeleton skeleton-subtitle mb-2" style="width:20%"></div>
+                        <div class="skeleton" style="height:38px;width:100%;border-radius:.375rem"></div>
+                    </div>
+                </form>
+                <form aria-busy="true" class="mb-5 px-5">
+                    <div class="mb-3">
+                        <div class="skeleton skeleton-subtitle mb-2" style="width:25%"></div>
+                        <div class="skeleton" style="height:38px;width:100%;border-radius:.375rem"></div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="skeleton skeleton-subtitle mb-2" style="width:20%"></div>
+                        <div class="skeleton" style="height:38px;width:100%;border-radius:.375rem"></div>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <div class="skeleton" style="width:120px;height:38px;border-radius:.375rem"></div>
+                        <div class="skeleton" style="width:80px;height:38px;border-radius:.375rem"></div>
+                    </div>
+                </form>
+
+                <div class="modal-footer justify-content-center button border-top-0 pt-2 px-5"> 
+                    <button type="button" data-bs-dismiss="modal" class="btn-slide" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;">
+                        <span class="position-relative">Tutup</span>
+                    </button>
+                </div>
+
+            } else {
+
+                @foreach (var Head in Pesanan_Create.Header)
+                {
+                    <div class="modal-body">
+                        <div class="row">
                             <div class="col-6">
                                 <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
-                                    <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.Expiry_Time.ToString()" />
-                                    <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Expired</label>
+                                    <input readonly style="background-color:transparent !important; font-weight: 700; font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your name*" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.No_Bukti" />
+                                    <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Order Id</label>
                                 </div>
                             </div>
-                        }
-                        <div class="col-12">
-                            <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
-                                <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value="@string.Format("Rp. {0:N0}", @Head?.Grand_Total)" />
-                                <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Total Pembayaran</label>
+                            <div class="col-6">
+                                <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
+                                    <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px; @(Head?.Status_Order_1 == "belum bayar" ? "color:red" : "color:orange")" type="text" class="form-control search-form form-text" placeholder="Your email*" aria-label="Search" aria-describedby="basic-addon1" required value="@ti.ToTitleCase(Head?.Status_Order_1)"/>
+                                    <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Status</label>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="col-12">
-                            @if (@Head?.Metode_Bayar == "QRIS" && @Head?.Status_Order_1 == "belum bayar") 
-                            {
-                                <div class="d-flex align-items-center justify-content-center mt-3">
-                                    <img class="qr-payment" style="max-width:50%" src="@Head?.QrBase64" alt="Alternate Text" />
+                            <div class="col-6">
+                                <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
+                                    <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.Metode_Bayar"/>
+                                    <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Metode Pembayaran</label>
+                                </div>
+                            </div>
+                            @if (@Head?.Status_Order_1 == "belum bayar") {
+                                <div class="col-6">
+                                    <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
+                                        <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.Expiry_Time.ToString()" />
+                                        <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Expired</label>
+                                    </div>
                                 </div>
                             }
-                            else if (@Head?.Metode_Bayar != "QRIS" && @Head?.Status_Order_1 == "belum bayar")
-                            {
-                                @if (@Head?.Metode_Bayar == "VA MANDIRI" || @Head?.Metode_Bayar == "COUNTER INDOMARET") 
-                                {
-                                    <div class="col-12 ">
-                                        <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3 va-box" style="border-radius:0px; max-width:100%" data-va="@Head?.Payment_Number_1">
-                                            <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.Payment_Number_1" />
-                                            <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">
-                                                @(Head?.Metode_Bayar == "VA MANDIRI" ? "Biller Code" : "Payment Code")
-                                            </label>
-                                            <button class="copy-btn copy-btn-@Head?.Payment_Number_1-code border-0" style="border-radius: 0px;position: absolute;top: 12px;right: 15px;" type="button" aria-label="Copy VA" @onclick=@( x => clickCopy(Head, $"{Head?.Payment_Number_1}-code"))>Copy</button>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3 va-box" style="border-radius:0px; max-width:100%" data-va="@Head?.Payment_Number_2">
-                                            <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.Payment_Number_2" />
-                                            <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">
-                                                @(Head?.Metode_Bayar == "VA MANDIRI" ? "Bill Key" : "Merchant Id")
-                                            </label>
+                            <div class="col-12">
+                                <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
+                                    <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value="@string.Format("Rp. {0:N0}", @Head?.Grand_Total)" />
+                                    <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Total Pembayaran</label>
+                                </div>
+                            </div>
 
-                                            <button class="copy-btn copy-btn-@Head?.Payment_Number_2-code border-0" style="border-radius: 0px;position: absolute;top: 12px;right: 15px;" type="button" aria-label="Copy VA" @onclick=@( x => clickCopy(Head, $"{Head?.Payment_Number_2}-code"))>Copy</button>
-                                        </div>
-                                    </div>
-                                }
-                                else 
+                            <div class="col-12">
+                                @if (@Head?.Metode_Bayar == "QRIS" && @Head?.Status_Order_1 == "belum bayar") 
                                 {
-                                    <div class="col-12">
-                                        <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3 va-box" style="border-radius:0px; max-width:100%" data-va="@Head?.Payment_Number_1">
-                                            <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.Payment_Number_1" />
-                                            <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">
-                                                Virtual Account
-                                            </label>
-                                            <button class="copy-btn copy-btn-@Head?.Payment_Number_1-code border-0" style="border-radius: 0px;position: absolute;top: 12px;right: 15px;" type="button" aria-label="Copy VA" @onclick=@( x => clickCopy(Head, $"{Head?.Payment_Number_1}-code"))>Copy</button>
-                                        </div>
+                                    <div class="d-flex align-items-center justify-content-center mt-3">
+                                        <img class="qr-payment" style="max-width:50%" src="@Head?.QrBase64" alt="Alternate Text" />
                                     </div>
                                 }
-                            }
+                                else if (@Head?.Metode_Bayar != "QRIS" && @Head?.Status_Order_1 == "belum bayar")
+                                {
+                                    @if (@Head?.Metode_Bayar == "VA MANDIRI" || @Head?.Metode_Bayar == "COUNTER INDOMARET") 
+                                    {
+                                        <div class="col-12 ">
+                                            <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3 va-box" style="border-radius:0px; max-width:100%" data-va="@Head?.Payment_Number_1">
+                                                <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.Payment_Number_1" />
+                                                <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">
+                                                    @(Head?.Metode_Bayar == "VA MANDIRI" ? "Biller Code" : "Payment Code")
+                                                </label>
+                                                <button class="copy-btn copy-btn-@Head?.Payment_Number_1-code border-0" style="border-radius: 0px;position: absolute;top: 12px;right: 15px;" type="button" aria-label="Copy VA" @onclick=@( x => clickCopy(Head, $"{Head?.Payment_Number_1}-code"))>Copy</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3 va-box" style="border-radius:0px; max-width:100%" data-va="@Head?.Payment_Number_2">
+                                                <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.Payment_Number_2" />
+                                                <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">
+                                                    @(Head?.Metode_Bayar == "VA MANDIRI" ? "Bill Key" : "Merchant Id")
+                                                </label>
+
+                                                <button class="copy-btn copy-btn-@Head?.Payment_Number_2-code border-0" style="border-radius: 0px;position: absolute;top: 12px;right: 15px;" type="button" aria-label="Copy VA" @onclick=@( x => clickCopy(Head, $"{Head?.Payment_Number_2}-code"))>Copy</button>
+                                            </div>
+                                        </div>
+                                    }
+                                    else 
+                                    {
+                                        <div class="col-12">
+                                            <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3 va-box" style="border-radius:0px; max-width:100%" data-va="@Head?.Payment_Number_1">
+                                                <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.Payment_Number_1" />
+                                                <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">
+                                                    Virtual Account
+                                                </label>
+                                                <button class="copy-btn copy-btn-@Head?.Payment_Number_1-code border-0" style="border-radius: 0px;position: absolute;top: 12px;right: 15px;" type="button" aria-label="Copy VA" @onclick=@( x => clickCopy(Head, $"{Head?.Payment_Number_1}-code"))>Copy</button>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
                         </div>
                     </div>
-                </div>
             
-                <div class="modal-footer justify-content-center button border-top-0 pt-2 px-5">
-                    @if (@Head?.Status_Order_1 == "belum bayar") {
+                    <div class="modal-footer justify-content-center button border-top-0 pt-2 px-5">
                         <button type="button" style="min-width:7rem; border-radius:0px;" disabled=@loadProses class="btn btn-primary" @onclick="@( x => refreshStatus(Head))" >
                             @if(loadProses) 
                             {
@@ -970,18 +1076,20 @@
                                 @("Refresh")
                             }
                         </button>
-                    }
 
-                    @if (@Head?.Metode_Bayar == "QRIS" && @Head?.Status_Order_1 == "belum bayar") 
-                    {
-                        <button type="button" class="btn btn-success" @onclick="@( x => DownloadImage(Head))" >Download</button>
-                    }
+                        @if (@Head?.Metode_Bayar == "QRIS" && @Head?.Status_Order_1 == "belum bayar") 
+                        {
+                            <button type="button" class="btn btn-success" @onclick="@( x => DownloadImage(Head))" >Download</button>
+                        }
 
-                    <button type="button" data-bs-dismiss="modal" class="btn-slide" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;">
-                        <span class="position-relative">Tutup</span>
-                    </button>
-                </div>
+                        <button type="button" data-bs-dismiss="modal" class="btn-slide" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;">
+                            <span class="position-relative">Tutup</span>
+                        </button>
+                    </div>
+                }
+
             }
+
         </div>
     </div>
 </div>

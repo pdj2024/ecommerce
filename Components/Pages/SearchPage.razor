@@ -93,10 +93,11 @@ using Microsoft.AspNetCore.Components.Authorization
 
             <div class="col-12 col-md-12 col-xl-9" style="margin-top:40px">
                 
-                <div class="row position-sticky top-0" style="height:fit-content; padding-top:85px; z-index:10;">
-                    <div class="col-12 d-flex justify-content-between align-items-center py-2 pt-3 px-0 px-xl-2 bg-white">
+                <div class="row position-sticky top-0" style="height:fit-content; padding-top:85px; z-index:30;">
+                    
+                    <div class="col-12 d-flex justify-content-between align-items-center py-md-2 py-3 px-0 px-xl-2 bg-white">
                         
-                        <button class="btn-slide px-3 py-2 justify-content-around d-flex d-lg-flex d-xl-none w-auto" type="button" style="z-index:0;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasFilter" aria-controls="offcanvasLeft"
+                        <button class="btn-slide px-3 py-2 justify-content-around d-flex d-md-none w-auto" type="button" style="z-index:0;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasFilter" aria-controls="offcanvasLeft"
                                 aria-expanded="false" aria-label="Toggle navigation">
                             <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor"><path d="M528-600v-72h108v-144h72v144h108v72H528Zm108 456v-384h72v384h-72Zm-384 0v-144H144v-72h288v72H324v144h-72Zm0-288v-384h72v384h-72Z" /></svg>
                             <span style="position:relative; z-index:1" class="ms-3">
@@ -104,18 +105,29 @@ using Microsoft.AspNetCore.Components.Authorization
                             </span>
                         </button>
 
+                        <div class="d-flex d-md-none w-auto gap-1">
+                            <button @onclick="@(x => OnChangeViewSm(true))" class="px-3 py-2 justify-content-around @(ShowOneLine ? "bg-primary border-0 text-white" : "btn-slide")" type="button" style="z-index:0;">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor"><path d="M200-520q-33 0-56.5-23.5T120-600v-160q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v160q0 33-23.5 56.5T760-520H200Zm0-80h560v-160H200v160Zm0 480q-33 0-56.5-23.5T120-200v-160q0-33 23.5-56.5T200-440h560q33 0 56.5 23.5T840-360v160q0 33-23.5 56.5T760-120H200Zm0-80h560v-160H200v160Zm0-560v160-160Zm0 400v160-160Z" /></svg>
+                            </button>
+                            <button @onclick="@(x => OnChangeViewSm(false))" class="px-3 py-2 justify-content-around @(ShowOneLine ? "btn-slide" : "bg-primary border-0 text-white")" type="button" style="z-index:0;">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor"><path d="M600-120q-33 0-56.5-23.5T520-200v-560q0-33 23.5-56.5T600-840h160q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H600Zm0-640v560h160v-560H600ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h160q33 0 56.5 23.5T440-760v560q0 33-23.5 56.5T360-120H200Zm0-640v560h160v-560H200Zm560 0H600h160Zm-400 0H200h160Z" /></svg>
+                            </button>
+                        </div>
+
+
+
                         @if (loadProses)
                         {
-                            <div class="spinner-border spinner-border-sm d-none d-lg-none d-xl-flex" role="status">
+                            <div class="spinner-border spinner-border-sm d-none d-md-none d-lg-flex" role="status">
                                 <span class="visually-hidden">Loading...</span>
                             </div>
                         }
                         else
                         {
-                            <p class="d-none d-lg-none d-xl-flex">@dataSourch?.SearchList.TotalCount results</p>
+                            <p class="d-none d-sm-none d-md-flex ps-md-2 ps-xl-0">@dataSourch?.SearchList.TotalCount results</p>
                         }
 
-                        <div class="d-flex gap-4 align-items-center">
+                        <div class="d-none d-sm-none d-md-flex  gap-4 align-items-center">
 
                             @if (loadProses)
                             {
@@ -178,12 +190,13 @@ using Microsoft.AspNetCore.Components.Authorization
 
 
                     </div>
+                
                 </div>
 
                 @if (ListFilter.Count() >= 1)
                 {
                     <div class="row pb-2 pt-3 pt-md-3 pt-lg-3 pt-xl-0">
-                        <div class="d-flex flex-row flex-wrap gap-2 px-0 px-md-0 px-lg-0 px-xl-2 ">
+                        <div class="d-flex flex-row flex-wrap gap-2 px-0 px-md-0 px-lg-0 px-xl-2 mt-2">
                             @foreach (var Filter in ListFilter)
                             {
                                 @if (!Filter.Checked) { continue; }
@@ -210,136 +223,117 @@ using Microsoft.AspNetCore.Components.Authorization
 
 
 
-                <div class="row pt-0">
+                <div class="row">
 
-                    @if (loadContent)
-                    {
-                        @for (var i = 0; i <= 11; i++)
+                    <div class="col-12">
+
+                    
+                        @if (loadContent)
                         {
-                            <div class="col-lg-3 col-md-4 col-6 col-xl-3 pt-2 pb-2">
-                                <div class="card p-3 border-0" style="border-radius:0px;" aria-busy="true">
-                                    <div class="skeleton skeleton-rect mb-3"></div>
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <div style="flex:1" class="d-flex flex-column align-items-center">
-                                            <div class="skeleton skeleton-title mb-2" style="width:90%"></div>
-                                            <div class="skeleton skeleton-subtitle mb-2" style="width:50%"></div>
+                            <div class="row">
+                                @for (var i = 0; i <= 11; i++)
+                                {
+                                    <div class="col-lg-3 col-md-4 col-6 col-xl-3 pt-2 pb-2">
+                                        <div class="card p-3 border-0" style="border-radius:0px;" aria-busy="true">
+                                            <div class="skeleton skeleton-rect mb-3"></div>
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <div style="flex:1" class="d-flex flex-column align-items-center">
+                                                    <div class="skeleton skeleton-title mb-2" style="width:90%"></div>
+                                                    <div class="skeleton skeleton-subtitle mb-2" style="width:50%"></div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
+                                }
+                            </div>
+                        }
+
+                    
+                        <div class="d-flex d-md-none row">
+                        
+                            @if(ShowOneLine)
+                            {
+                                @foreach (var dataProduk in dataSourch?.SearchList.SearchProduk)
+                                {
+                                    <div class="col-12 pt-2 pb-2">
+                                        <!-- Start Single Product -->
+                                        <PacificWeb.Components.Sections.ProductDisplay DataProduk="dataProduk" selectProduk="@selectProduk" />
+                                        <!-- End Single Product -->
+                                    </div>
+                                }
+                            } 
+                        
+                            else
+                            {
+                                @foreach (var dataProduk in dataSourch?.SearchList.SearchProduk)
+                                {
+                                    <div class="col-6 pt-2 pb-2">
+                                        <!-- Start Single Product -->
+                                        <PacificWeb.Components.Sections.ProductDisplay DataProduk="dataProduk" selectProduk="@selectProduk" />
+                                        <!-- End Single Product -->
+                                    </div>
+                                }
+                            }
+
+                    
+                        </div>
+
+                        <div class="row d-none d-md-flex">
+                        
+                            @foreach (var dataProduk in dataSourch?.SearchList.SearchProduk)
+                            {
+                                <div class="col-lg-3 col-md-4 col-6 col-xxl-3 pt-2 pb-2 product">
+                                    <!-- Start Single Product -->
+                                    <PacificWeb.Components.Sections.ProductDisplay DataProduk="dataProduk" selectProduk="@selectProduk" />
+                                    <!-- End Single Product -->
+                                </div>
+
+
+                            }
+
+                    
+                        </div>
+                    
+                    
+                        @if (dataSourch.SearchList.hasMore)
+                        {
+                            <div class="row">
+                                <div class="col-12 w-100 d-flex align-items-center justify-content-center mt-4">
+                                    <button @onclick="@(x => showMore())" class="btn-slide px-5" style="width:fit-content;z-index:0;">
+                                        @if (loadProses)
+                                        {
+                                            <div class="spinner-border spinner-border-sm position-relative" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <span class="position-relative">
+                                                Lebih Banyak
+                                            </span>
+                                        }
+                                    </button>
                                 </div>
                             </div>
                         }
-                    }
-
-                    
-                    
-                    @foreach (var dataProduk in dataSourch?.SearchList.SearchProduk)
-                    {
-                        <div class="col-lg-3 col-md-4 col-6 col-xxl-2 pt-2 pb-2 product">
-                            <!-- Start Single Product -->
-                            <div class="single-product">
-                                <div class="product-image">
-                                    @if (dataProduk.MediaUrls.Count() >= 2)
-                                    {
-                                        <img src="@dataProduk.MediaUrls[0]?.Id_Media" alt="@dataProduk.Nama_Display">
-                                        <img class="img2" src="@dataProduk.MediaUrls[1]?.Id_Media" alt="@dataProduk.Nama_Display">
-                                    }
-                                    else if (dataProduk.MediaUrls.Count() == 1)
-                                    {
-                                        <img src="@dataProduk.MediaUrls[0]?.Id_Media" alt="@dataProduk.Nama_Display">
-                                    }
-                                    else
-                                    {
-                                        <img src="/images/products/placeholder.jpg" alt="@dataProduk.Nama_Display">
-                                    }
-
-                                    <span class="sale-tag d-flex flex-row gap-1 bg-transparent">
-                                        @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
-                                        {
-                                            <span class="bg-danger px-2 py-1">-@dataProduk.Diskon1.ToString()%</span>
-                                        }
-
-                                        @if (dataProduk.Tgl_Created != null && (DateTime.Now - dataProduk.Tgl_Created).TotalDays <= 3)
-                                        {
-                                            <span class="px-2 py-1 bg-primary">New</span>
-                                        }
-                                    </span>
-
-
-                                    <div class="button">
-                                        <button @onclick="@(e => selectProduk(dataProduk.No_Id))" data-bs-toggle="offcanvas" data-bs-target="#offdetailprod" aria-controls="offdetailprod" class="btn d-none d-lg-flex">Tambahkan <i class="lni lni-cart-1 ms-3"></i></button>
+                        
+                        
+                        @if (dataSourch.SearchList.TotalCount <= 0)
+                        {
+                            <div class="row">
+                                <div class="col-12 w-100 d-flex align-items-center justify-content-center mt-4">
+                                    <div class="d-flex flex-column align-items-center mt-4" style="color:#6b7280">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="5rem" viewBox="0 -960 960 960" width="5rem" class="mb-3" fill="currentColor">
+                                            <path d="m634-440-81-80h69l110-200H353l-80-80h525q23 0 35.5 19.5t.5 42.5L692-482q-11 20-28 31t-30 11ZM280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm540 52L566-280H304q-44 0-67-37.5t-3-78.5l42-86-72-162L28-820l56-56L876-84l-56 56ZM486-360l-80-80h-62l-40 80h182Zm136-160h-69 69Zm58 440q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80Z" />
+                                        </svg>
+                                        <h5 style="color:#6b7280">Product Not Found</h5>
                                     </div>
 
-                                    <div class="button-search-produk">
-                                        <button @onclick="@(e => selectProduk(dataProduk.No_Id))" data-bs-toggle="offcanvas" data-bs-target="#offdetailprod" aria-controls="offdetailprod" class="btn">
-                                            <i class="lni lni-search-1 d-none d-lg-flex"></i>
-                                            <i class="lni lni-cart-1 d-flex d-lg-none"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="product-info">
-                                    <h4 class="title">
-                                        <NavLink style="cursor:pointer;" @onclick="@(e => NavigateToDetailProduk(dataProduk.No_Id))">
-                                            <p class="line-clamp-2 underline-anim">
-                                                @dataProduk.Nama_Display
-                                            </p>
-                                        </NavLink>
-                                    </h4>
-                                    @* <ul class="review">
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star-filled"></i></li>
-                                            <li><i class="lni lni-star"></i></li>
-                                            <li><span>4.0 Review(s)</span></li>
-                                        </ul> *@
-                                    <div class="price">
-                                        <span>
-                                            @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
-                                            {
-                                                @string.Format("Rp. {0:N0}", (dataProduk.Harga - ((dataProduk.Diskon1 / 100) * dataProduk.Harga)))
-                                            }
-                                            else
-                                            {
-                                                @string.Format("Rp. {0:N0}", dataProduk.Harga)
-                                            }
-                                        </span>
-                                        @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
-                                        {
-                                            <span class="discount-price">@string.Format("Rp. {0:N0}", dataProduk.Harga)</span>
-                                        }
-                                    </div>
                                 </div>
                             </div>
-                            <!-- End Single Product -->
-                        </div>
-
-
-                    }
-
-                    
-                    
-                    @if (dataSourch.SearchList.hasMore)
-                    {
-                        <div class="col-12 w-100 d-flex align-items-center justify-content-center mt-4">
-                            <button @onclick="@(x => showMore())" class="btn-slide px-5" style="width:fit-content;z-index:0;">
-                                @if (loadProses)
-                                {
-                                    <div class="spinner-border spinner-border-sm position-relative" role="status">
-                                        <span class="visually-hidden">Loading...</span>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <span class="position-relative">
-                                        Lebih Banyak
-                                    </span>
-                                }
-                            </button>
-                        </div> 
-                    }
+                        }
                 
-                
-                
+                    </div>
                 </div>
             </div>
         </div>
@@ -365,10 +359,58 @@ using Microsoft.AspNetCore.Components.Authorization
         <div class="row">
             <div class="col-12">
                 <div class="filters" style="">
-                    <div class="filter-accordion">
+                    <div class="py-3 w-100" style="border-bottom: 1px solid darkgray;">
+                        <div class="btn-group w-100 pb-2" style="display: flex;justify-content: center;">
+                            <button class="dropdown-toggle btn-slide py-3 px-5 justify-content-between w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="z-index:0;">
+                                <span style="position:relative; z-index:1; position: relative;z-index: 1;max-width: 150px;overflow: hidden;text-overflow: ellipsis;">
+                                    Short by : @ShortActive
+                                </span>
+                                <i class="lni lni-chevron-up ms-2" style="transform: rotateZ(180deg);font-size: 18px;font-weight: 500;"></i>
+                            </button>
+                            <ul class="dropdown-menu w-100">
+                                <li class="style-drop">
+                                    <button type="button"
+                                            class="dropdown-item @(ShortActive == "Name, A - Z" ? "active" : "")"
+                                            @onclick="@(() => OnShortChanged("Name, A - Z", true))">
+                                        <span>
+                                            Name, A - Z
+                                        </span>
+                                    </button>
+                                </li>
+                                <li class="style-drop">
+                                    <button type="button"
+                                            class="dropdown-item @(ShortActive == "Name, Z - A" ? "active" : "")"
+                                            @onclick="@(() => OnShortChanged("Name, Z - A", false))">
+                                        <span>
+                                            Name, Z - A
+                                        </span>
+                                    </button>
+                                </li>
+                                <li class="style-drop">
+                                    <button type="button"
+                                            class="dropdown-item @(ShortActive == "Price, Low - High" ? "active" : "")"
+                                            @onclick="@(() => OnShortChanged("Price, Low - High", true))">
+                                        <span>
+                                            Price, Low - High
+                                        </span>
+                                    </button>
+                                </li>
+                                <li class="style-drop">
+                                    <button type="button"
+                                            class="dropdown-item @(ShortActive == "Price, High - Low" ? "active" : "")"
+                                            @onclick="@(() => OnShortChanged("Price, High - Low", false))">
+                                        <span>
+                                            Price, High - Low
+                                        </span>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="filter-accordion" style="border-bottom: 1px solid darkgray;">
                         <input type="checkbox" id="filter-genre1" class="filter-toggle">
                         <label for="filter-genre1" style="font-size: 23px;letter-spacing: -1.7px;" class="filter-label search-fil py-4 px-0">Gender</label>
-                        <div class="filter-content px-0" style="border-bottom: 1px solid darkgray;">
+                        <div class="filter-content px-0" >
                             @foreach (var dataKategori in dataSourch?.ListDataKategori)
                             {
                                 if (dataKategori.Nama_Kategori == "Men's" || dataKategori.Nama_Kategori == "Women's" || dataKategori.Nama_Kategori == "Kid's")
@@ -381,7 +423,7 @@ using Microsoft.AspNetCore.Components.Authorization
                             }
                         </div>
                     </div>
-                    <div class="filter-accordion">
+                    <div class="filter-accordion" style="border-bottom: 1px solid darkgray;">
                         <input type="checkbox" id="filter-brand1" class="filter-toggle">
                         <label for="filter-brand1" style="font-size: 23px;letter-spacing: -1.7px;" class="filter-label search-fil py-4 px-0">Brand</label>
                         <div class="filter-content px-0" style="border-bottom: 1px solid darkgray;">
@@ -391,7 +433,7 @@ using Microsoft.AspNetCore.Components.Authorization
                             }
                         </div>
                     </div>
-                    <div class="filter-accordion">
+                    <div class="filter-accordion" style="border-bottom: 1px solid darkgray;">
                         <input type="checkbox" id="filter-category1" class="filter-toggle">
                         <label for="filter-category1" style="font-size: 23px;letter-spacing: -1.7px;" class="filter-label search-fil py-4 px-0">Kategori</label>
                         <div class="filter-content px-0" style="border-bottom: 1px solid darkgray;">
@@ -407,7 +449,7 @@ using Microsoft.AspNetCore.Components.Authorization
                             }
                         </div>
                     </div>
-                    <div class="filter-accordion">
+                    <div class="filter-accordion" style="border-bottom: 1px solid darkgray;">
                         <input type="checkbox" id="filter-price1" class="filter-toggle">
                         <label for="filter-price1" style="font-size: 23px;letter-spacing: -1.7px;" class="filter-label search-fil py-4 px-0">Harga</label>
                         <div class="filter-content px-0" style="border-bottom: 1px solid darkgray;">

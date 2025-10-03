@@ -9,8 +9,8 @@
 @inject LoginService AuthService
 @inject pdjService pdjService
 @inject IJSRuntime jsRuntime
-@page "/auth-user/{email}/{proses}/{pw}/{info}"
-@page "/auth-user/{proses}/{info}"
+@page "/auth-user/{proses}/{email}/{pw}/{info}"
+@page "/auth-user-logout/{proses}"
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
 
@@ -39,14 +39,23 @@
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         var user = authState.User;
 
+        var decoded_proses = new List<string>();
+
         if (user.Identity?.IsAuthenticated ?? false)
         {
-            navigationManager.NavigateTo("/", forceLoad: true);
-            return;
+            if (proses.ToLower() != "logout")
+            {
+                navigationManager.NavigateTo("/", forceLoad: true);
+                return;
+            }
         }
 
+        if (proses.ToLower() != "logout")
+        {
+           decoded_proses = await pdjService.DecodeEncode(false, new List<string> { email, pw, info });
+            
+        }
 
-        var decoded_proses = await pdjService.DecodeEncode(false, new List<string> { email, pw, info });
 
         if (proses.ToLower() == "login")
         {
@@ -64,23 +73,33 @@
 
             if (loginStatus.Item2)
             {
+                await pdjService.writeLog($"User berhasil login {Model.Email} {DateTime.Now}");
                 navigationManager.NavigateTo("/", forceLoad: true);
-                pdjService.writeLog($"User berhasil login {Model.Email} {DateTime.Now}");
             }
             else
             {
                 Console.WriteLine("gagal login");
-                pdjService.writeLog($"User gagal login {Model.Email} {DateTime.Now}");
+                await pdjService.writeLog($"User gagal login {Model.Email} {DateTime.Now}");
                 navigationManager.NavigateTo("/login", forceLoad: true);
             }
 
         } 
-        
+
         else if (proses.ToLower() == "logout")
         {
-            await AuthService.LogoutAsync();
-            pdjService.writeLog($"User logout {Model.Email} {DateTime.Now}");
-            navigationManager.NavigateTo("/", forceLoad: true);
+
+            var loginStatus = await pdjService.LogoutUserApi();
+
+            if (loginStatus)
+            {
+                await pdjService.writeLog($"User logout {Model.Email} {DateTime.Now}");
+                navigationManager.NavigateTo("/", true);
+            }
+            else
+            {
+                await pdjService.writeLog($"User gagal logout {Model.Email} {DateTime.Now}");
+                return;
+            }
         } 
         
         else if (proses.ToLower() == "register")
@@ -105,11 +124,11 @@
     {
 
         var param = new ParameterApi
-            {
-                routeApi = "customer",
-                prosesApi = "getAll",
-                ParamUrl = new ParameterApi.ParameterUrl { email = Model.Email }
-            };
+        {
+            routeApi = "customer",
+            prosesApi = "getAll",
+            ParamUrl = new ParameterApi.ParameterUrl { email = Model.Email }
+        };
 
         var loginStatus = await pdjService.LoginUserApi(param, Model);
 

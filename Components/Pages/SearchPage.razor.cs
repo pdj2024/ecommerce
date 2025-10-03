@@ -63,6 +63,7 @@ namespace PacificWeb.Components.Pages
             public string Keyword { get; set; }
             public string Kategori { get; set; }
             public string Produk { get; set; }
+            public string Brand { get; set; }
         }
 
         public List<FilterItem> ListFilter { get; set; } = new List<FilterItem>();
@@ -82,6 +83,7 @@ namespace PacificWeb.Components.Pages
         public int searchCount { get; set; } = 0;
         public bool loadProses { get; set; } = false;
         public bool loadContent { get; set; } = true;
+        public bool ShowOneLine { get; set; } = false;
 
         MyHeader header_page;
         MyFooter footer_page;
@@ -120,6 +122,11 @@ namespace PacificWeb.Components.Pages
                 if (queryParams.TryGetValue("kategori", out var dataKategori))
                 {
                     SearchQuery.Kategori = Encoding.UTF8.GetString(Convert.FromBase64String(dataKategori));
+                }
+
+                if (queryParams.TryGetValue("brand", out var dataBrand))
+                {
+                    SearchQuery.Brand = Encoding.UTF8.GetString(Convert.FromBase64String(dataBrand));
                 }
 
                 SearchText = SearchQuery.Keyword;
@@ -173,10 +180,11 @@ namespace PacificWeb.Components.Pages
                     ParamUrl = new ParameterApi.ParameterUrl
                     {
                         keyword = SearchQuery.Keyword,
-                        id_kategori = SearchQuery.Kategori,
+                        kategoriid_list = SearchQuery.Kategori,
+                        brandid_list = SearchQuery.Brand,
                         noid_list = SearchQuery.Produk,
                         strict_kategori = true,
-                        pagesize = 4,
+                        pagesize = 12,
                         show_variant = true,
                         show_media = "true",
                         cursor_id = "",
@@ -239,6 +247,20 @@ namespace PacificWeb.Components.Pages
                     }
                 }
 
+                if (!string.IsNullOrWhiteSpace(SearchQuery.Brand))
+                {
+                    foreach (var idBrand in SearchQuery.Brand.Split(","))
+                    {
+                        var kate = dataSourch.ListDataBrand.FirstOrDefault(x => x.No_Id == idBrand);
+
+                        if (kate != null)
+                        {
+                            ListFilter.Add(new FilterItem { No_Id = kate.No_Id, Nama_Display = kate.Nama_Brand, Checked = true });
+                            kate.Checked_Filter = true;
+                        }
+                    }
+                }
+
                 dataSourch.Finised = true;
                 StateHasChanged();
 
@@ -295,6 +317,13 @@ namespace PacificWeb.Components.Pages
             searchCount = 0;
 
             await SearchDataAsync(SearchText);
+            StateHasChanged();
+        }
+
+
+        private async void OnChangeViewSm(bool value)
+        {
+            ShowOneLine = value;
             StateHasChanged();
         }
 
@@ -497,9 +526,10 @@ namespace PacificWeb.Components.Pages
                 ParamUrl = new ParameterApi.ParameterUrl
                 {
                     keyword = query,
-                    id_kategori = string.Join(",", dataSourch.ListDataKategori.Select(x => x.Checked_Filter == true ? x.No_Id : "")),
+                    kategoriid_list = string.Join(",", dataSourch.ListDataKategori.Where(x => x.Checked_Filter == true).Select(x => x.No_Id)),
+                    brandid_list = string.Join(",", dataSourch.ListDataBrand.Where(x => x.Checked_Filter == true).Select( x => x.No_Id) ),
                     strict_kategori = true,
-                    pagesize = 4,
+                    pagesize = 12,
                     show_variant = true,
                     show_media = "true",
                     cursor_id = "",
@@ -528,9 +558,10 @@ namespace PacificWeb.Components.Pages
                 ParamUrl = new ParameterApi.ParameterUrl
                 {
                     keyword = SearchText,
-                    id_kategori = string.Join(",", dataSourch.ListDataKategori.Select(x => x.Checked_Filter == true ? x.No_Id : "")),
+                    kategoriid_list = string.Join(",", dataSourch.ListDataKategori.Where(x => x.Checked_Filter == true).Select(x => x.No_Id)),
+                    brandid_list = string.Join(",", dataSourch.ListDataBrand.Where(x => x.Checked_Filter == true).Select(x => x.No_Id)),
                     strict_kategori = true,
-                    pagesize = 4,
+                    pagesize = 12,
                     show_variant = true,
                     show_media = "true",
                     cursor_id = dataSourch.SearchList.SearchProduk.LastOrDefault()?.No_Id ?? "",

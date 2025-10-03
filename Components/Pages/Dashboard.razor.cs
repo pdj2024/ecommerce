@@ -180,6 +180,8 @@ namespace PacificWeb.Components.Pages
                 //await JSRuntime.InvokeVoidAsync("scrollToTop");
                 loadContent = false;
                 StateHasChanged();
+
+                await header_page.SelectItemCart(null);
             }
         }
 

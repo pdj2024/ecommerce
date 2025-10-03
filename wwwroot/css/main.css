@@ -233,7 +233,7 @@ a {
 .mega-menu.open {
     border-top: 1px solid lightgray;
     max-height: 30rem;
-    padding: 2rem 3rem;
+    padding: 2rem 4rem;
     transition: max-height 0.8s ease, padding 0.4s ease, border-top 0.4s ease;
 }
 
@@ -1227,29 +1227,15 @@ body {
 }
 
 
-button.item-submenu-nav {
-    font-size: large;
-    background-color: transparent;
-    border: unset;
-}
 
 .submenu-col {
     border-left: 1px solid lightgray;
     padding-left: 15px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 3px;
 }
 
-button.item-submenu-nav {
-    font-size: large;
-    background-color: transparent;
-    border: unset;
-}
-
-button.item-submenu-nav:hover {
-    color: #1500b2;
-}
 
 .submenu-nav {
     opacity: 0;
@@ -1736,6 +1722,14 @@ h4.title a p {
 }
 
 
+
+.head-submenu-nav
+{
+    font-size:20px;
+    font-weight:500;
+    letter-spacing:-1px;
+    margin-bottom:0.8rem;
+}
 
 
 
@@ -5364,7 +5358,7 @@ top: 2px;
 .single-product:hover .product-image .button-search-produk {
     opacity: 1;
     visibility: visible;
-    left: 80%;
+    left: 82%;
 }
 
 .single-product .product-image .button .btn i {

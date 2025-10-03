@@ -8,6 +8,7 @@ namespace Models
  
     public partial class Brand
     {
+        public string Id { get; set; } = "";
         public string No_Id { get; set; } = "";
         public string Nama_Brand { get; set; } = "";
         public string Nama_Banner { get; set; } = "";

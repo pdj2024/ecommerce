@@ -137,6 +137,13 @@
                                                             *Maximal order @DataProduk.Variants.FirstOrDefault(x => x.Option_Id == DataProduk.Id_Option_Default && x.Size_Id == DataProduk.Id_Size_Default).Stock item
                                                         </span>
                                                     }
+
+                                                    @if (DataProduk.Show_Add_Product)
+                                                    {
+                                                        <span class="ms-3 text-danger" style="font-size: 13px; font-weight: 700;">
+                                                            *produk gagal ditambahkan stock item
+                                                        </span>
+                                                    }
                                                 </p>
                                             </div>
                                         </div>
@@ -233,7 +240,7 @@
                             <div class="row align-items-end mt-3 row-style">
                                 <div class="col-12 rowbox-style">
                                     <div class="button cart-button" >
-                                        <button class="btn" @onclick="@(e => NavigateToHome("payment-page"))" style="width: 100%;display: flex; border-radius:0px; z-index:0;">Beli Sekarang</button>
+                                        <button class="btn" @onclick="@(e => NavigateToPayment(DataProduk))" style="width: 100%;display: flex; border-radius:0px; z-index:0;">Beli Sekarang</button>
                                     </div>
                                 </div>
                             </div>

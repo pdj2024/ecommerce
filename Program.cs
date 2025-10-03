@@ -42,13 +42,15 @@ builder.Services.AddAuthorization(config =>
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-
-        options.Cookie.Name = "auth_token";
-        options.LoginPath = "/login";
-        options.Cookie.MaxAge = TimeSpan.FromMinutes(30);
-        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
         options.AccessDeniedPath = "/access-denied";
-        options.Cookie.SameSite = SameSiteMode.Lax;
+        options.LoginPath = "/login";
+        options.Cookie.Name = "auth_token";
+        options.Cookie.MaxAge = TimeSpan.FromDays(30);
+        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+        options.Cookie.SameSite = SameSiteMode.None;
+        options.Cookie.HttpOnly = true;
+        options.Cookie.Path = "/";
+        options.SlidingExpiration = true;
     });
 
 builder.Services.AddCascadingAuthenticationState();

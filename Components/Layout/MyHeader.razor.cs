@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.JSInterop;
 using Models;
+using Newtonsoft.Json.Linq;
 using Radzen;
 using Services;
 using System.Data;
@@ -58,6 +59,7 @@ namespace PacificWeb.Components.Layout
         public bool loadProsesNetto { get; set; } = false;
         public decimal nettoKeranjang { get; set; } = 0;
         public int searchCount { get; set; } = 0;
+        public int dataQty { get; set; } = 0;
 
 
 
@@ -73,8 +75,7 @@ namespace PacificWeb.Components.Layout
 
         private async Task Logout()
         {
-            var dataDecode = await pdjService.DecodeEncode(true, new List<string> { "kosong" });
-            NavigationManager.NavigateTo($"/auth-user/logout/{dataDecode}", forceLoad: true);
+            NavigationManager.NavigateTo($"/auth-user-logout/logout", forceLoad: true);
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -189,7 +190,7 @@ namespace PacificWeb.Components.Layout
             StateHasChanged();
         }
 
-        public async Task RefreshCart()
+        public async Task RefreshCart(string data_id = null)
         {
             ParameterApi paramApi = new ParameterApi
             {
@@ -198,12 +199,25 @@ namespace PacificWeb.Components.Layout
                 ParamUrl = new ParameterApi.ParameterUrl
                 {
                     id_customer = dataSourch?.DataUser.No_Id ,
-                    show_media = "true"
+                    show_media = "true",
+                    orderBy = "Updated_At",
+                    orderDir = "desc"
                 }
             };
             ListDataCartCheck.Clear();
             ListDataCartCheck.AddRange(dataSourch?.ListDataCart?.FindAll(x => x.SelectCart == true));
-            dataSourch.ListDataCart = await pdjService.GetCartApi(paramApi);
+            var DataCartList = await pdjService.GetCartApi(paramApi);
+
+            if(data_id == null)
+            {
+                dataSourch.ListDataCart = DataCartList;
+            } 
+            else
+            {
+                var DataShow = dataSourch.ListDataCart.FirstOrDefault(x => x.Id_Cart == data_id);
+                DataShow.Qty = DataCartList.FirstOrDefault(x => x.Id_Cart == data_id).Qty;
+            }
+
             if (ListDataCartCheck.Count() >= 1)
             {
                 foreach (var item in dataSourch?.ListDataCart)
@@ -222,15 +236,29 @@ namespace PacificWeb.Components.Layout
         {
             loadProsesNetto = true;
             StateHasChanged();
-            var data = dataSourch?.ListDataCart.FirstOrDefault(x => x.Id_Cart == cart.Id_Cart);
-            data.SelectCart = !data.SelectCart;
 
-            nettoKeranjang = 0;
-            foreach (var dataCart in dataSourch?.ListDataCart)
+            if (cart != null)
             {
-                if (!dataCart.SelectCart) continue;
-                nettoKeranjang += dataCart.Qty * dataCart.Harga;
+                var data = dataSourch?.ListDataCart.FirstOrDefault(x => x.Id_Cart == cart.Id_Cart);
+                data.SelectCart = !data.SelectCart;
+
+                nettoKeranjang = 0;
+                foreach (var dataCart in dataSourch?.ListDataCart)
+                {
+                    if (!dataCart.SelectCart) continue;
+                    nettoKeranjang += dataCart.Qty * dataCart.Harga;
+                }
             }
+            else
+            {
+                nettoKeranjang = 0;
+                foreach (var dataCart in dataSourch?.ListDataCart)
+                {
+                    if (!dataCart.SelectCart) continue;
+                    nettoKeranjang += dataCart.Qty * dataCart.Harga;
+                }
+            }
+
 
             loadProsesNetto = false;
             StateHasChanged();
@@ -262,34 +290,73 @@ namespace PacificWeb.Components.Layout
 
         private async Task Increase(string id_cart)
         {
+            var data = dataSourch?.ListDataCart.FirstOrDefault(x => x.Id_Cart == id_cart);
+            
+            if (data.Qty >= data.Stock)
+            {
+                data.Show_Min_Order = false;
+                data.Show_Max_Order = true;
+                return;
+            }
+
+            data.Show_Min_Order = false;
+            data.Show_Max_Order = false;
+
             ParameterApi paramApi = new ParameterApi
             {
                 routeApi = "cart",
                 prosesApi = "create",
                 ParamUrl = new ParameterApi.ParameterUrl()
             };
-            var data = dataSourch?.ListDataCart.FirstOrDefault(x => x.Id_Cart == id_cart);
+
             if (data.SelectCart)
             {
-                loadProsesNetto = true;
+                loadProsesNetto =
+                    true;
                 StateHasChanged();
             }
+
+
+            dataQty++;
             data.Qty++;
-            Cart itemcart = new Cart { Id_Variant = data.Id_Variant, Qty = 1, Id_Customer = dataSourch?.DataUser.No_Id  };
-            (string statusMessage, bool statusRespon, int statusCode, string proses) = await pdjService.CudCartApi("TAMBAH", itemcart, paramApi);
+            
+            _debounceTimer?.Stop();
+            _debounceTimer?.Dispose();
 
-            if (statusRespon && statusCode == 200)
+            _debounceTimer = new System.Timers.Timer(500); // 500ms delay
+            _debounceTimer.Elapsed += async (s, e) =>
             {
-                await RefreshCart();
-            }
+                _debounceTimer?.Stop();
+                _debounceTimer?.Dispose();
+
+                await InvokeAsync(async () =>
+                {
+
+                    await SearchDataAsync(SearchText);
+                    Cart itemcart = new Cart { Id_Variant = data.Id_Variant, Qty = dataQty, Id_Customer = dataSourch?.DataUser.No_Id };
+                    (string statusMessage, bool statusRespon, int statusCode, string proses) = await pdjService.CudCartApi("TAMBAH", itemcart, paramApi);
 
 
-            nettoKeranjang = 0;
-            foreach (var dataCart in dataSourch?.ListDataCart)
-            {
-                if (!dataCart.SelectCart) continue;
-                nettoKeranjang += dataCart.Qty * dataCart.Harga;
-            }
+                    if (statusRespon && statusCode == 200)
+                    {
+                        await RefreshCart(id_cart);
+                    }
+
+
+                    nettoKeranjang = 0;
+                    foreach (var dataCart in dataSourch?.ListDataCart)
+                    {
+                        if (!dataCart.SelectCart) continue;
+                        nettoKeranjang += dataCart.Qty * dataCart.Harga;
+                    }
+
+                    dataQty = 0;
+                });
+            };
+
+            _debounceTimer.AutoReset = false;
+            _debounceTimer.Start();
+
 
             loadProsesNetto = false;
             StateHasChanged();
@@ -297,6 +364,19 @@ namespace PacificWeb.Components.Layout
 
         private async Task Decrease(string id_cart)
         {
+
+            var data = dataSourch?.ListDataCart.FirstOrDefault(x => x.Id_Cart == id_cart);
+
+            if (data.Qty <= data.Min_Order)
+            {
+                data.Show_Min_Order = true;
+                data.Show_Max_Order = false;
+                return;
+            }
+
+            data.Show_Min_Order = false;
+            data.Show_Max_Order = false;
+
             ParameterApi paramApi = new ParameterApi
             {
                 routeApi = "cart",
@@ -304,31 +384,56 @@ namespace PacificWeb.Components.Layout
                 ParamUrl = new ParameterApi.ParameterUrl()
             };
 
-            var data = dataSourch?.ListDataCart.FirstOrDefault(x => x.Id_Cart == id_cart);
             if (data.SelectCart)
             {
                 loadProsesNetto = true;
                 StateHasChanged();
             }
+
             if (data.Qty > 1)
             {
+                dataQty--;
                 data.Qty--;
-                Cart itemcart = new Cart { Id_Variant = data.Id_Variant, Qty = -1, Id_Customer = dataSourch?.DataUser.No_Id  };
-                (string statusMessage, bool statusRespon, int statusCode, string proses) = await pdjService.CudCartApi("TAMBAH", itemcart, paramApi);
-                
-                if (statusRespon && statusCode == 200)
-                {
-                    await RefreshCart();
-                }
 
-                nettoKeranjang = 0;
-                foreach (var dataCart in dataSourch?.ListDataCart)
-                {
-                    if (!dataCart.SelectCart) continue;
-                    nettoKeranjang += dataCart.Qty * dataCart.Harga;
-                }
 
+                _debounceTimer?.Stop();
+                _debounceTimer?.Dispose();
+
+                _debounceTimer = new System.Timers.Timer(500); // 500ms delay
+                _debounceTimer.Elapsed += async (s, e) =>
+                {
+                    _debounceTimer?.Stop();
+                    _debounceTimer?.Dispose();
+
+                    await InvokeAsync(async () =>
+                    {
+
+                        await SearchDataAsync(SearchText);
+                        Cart itemcart = new Cart { Id_Variant = data.Id_Variant, Qty = dataQty, Id_Customer = dataSourch?.DataUser.No_Id  };
+                        (string statusMessage, bool statusRespon, int statusCode, string proses) = await pdjService.CudCartApi("TAMBAH", itemcart, paramApi);
+
+
+                        if (statusRespon && statusCode == 200)
+                        {
+                            await RefreshCart(id_cart);
+                        }
+
+
+                        nettoKeranjang = 0;
+                        foreach (var dataCart in dataSourch?.ListDataCart)
+                        {
+                            if (!dataCart.SelectCart) continue;
+                            nettoKeranjang += dataCart.Qty * dataCart.Harga;
+                        }
+
+                        dataQty = 0;
+                    });
+                };
+
+                _debounceTimer.AutoReset = false;
+                _debounceTimer.Start();
             }
+
             loadProsesNetto = false;
             StateHasChanged();
         }
@@ -354,6 +459,12 @@ namespace PacificWeb.Components.Layout
                 var keywordText = Convert.ToBase64String(Encoding.UTF8.GetBytes(SearchText));
                 NavigationManager.NavigateTo($"/search-page?keyword={Uri.EscapeDataString(keywordText)}", true);
             }
+        }
+
+        private void seeResult()
+        {
+            var keywordText = Convert.ToBase64String(Encoding.UTF8.GetBytes(SearchText));
+            NavigationManager.NavigateTo($"/search-page?keyword={Uri.EscapeDataString(keywordText)}", true);
         }
 
         private void searchContent(Navbar Navbar)
@@ -385,9 +496,55 @@ namespace PacificWeb.Components.Layout
         private async Task LoginStart()
         {
             var dataDecode = await pdjService.DecodeEncode(true, new List<string> { Model.Email, Model.Password, "kosong"});
-            NavigationManager.NavigateTo($"/auth-user/{dataDecode[0]}/login/{dataDecode[1]}/{dataDecode[2]}", forceLoad: true);
+            NavigationManager.NavigateTo($"/auth-user/login/{dataDecode[0]}/{dataDecode[1]}/{dataDecode[2]}", forceLoad: true);
         }
 
+        public async void NavigateToDetailProduk(string id)
+        {
+            List<string> stringData = await pdjService.DecodeEncode(true, new List<string> { id });
+            NavigationManager.NavigateTo($"/detail-produk/{stringData.FirstOrDefault()}", forceLoad: true);
+        }
+
+        public void searchCombo(Navbar Navbar = null, Brand brand = null, Kategori kategori = null)
+        {
+            var bra = "";
+
+            var kate = "";
+
+            if (Navbar == null)
+            {
+                if (brand != null)
+                {
+                    bra = Convert.ToBase64String(Encoding.UTF8.GetBytes((brand.No_Id == null || brand.No_Id == "" ? brand.Id : brand.No_Id)));
+                    NavigationManager.NavigateTo($"/search-page?keyword=&produk=&kategori={Uri.EscapeDataString(kate)}&brand={Uri.EscapeDataString(bra)}", true);
+                    return;
+                }
+                else if (kategori != null)
+                {
+                    kate = Convert.ToBase64String(Encoding.UTF8.GetBytes((kategori.No_Id == null || kategori.No_Id == "" ? kategori.Id : kategori.No_Id)));
+                    NavigationManager.NavigateTo($"/search-page?keyword=&produk=&kategori={Uri.EscapeDataString(kate)}&brand=", true);
+                    return;
+                }
+            }
+
+            kate = string.Join(",", Navbar.Filter.Select(x => x));
+
+
+            if (brand != null)
+            {
+
+                bra = Convert.ToBase64String(Encoding.UTF8.GetBytes((brand.No_Id == null || brand.No_Id == "" ? brand.Id : brand.No_Id)));
+
+            }
+            else if (kategori != null)
+            {
+                kate = kate + $",{(kategori.No_Id == null || kategori.No_Id == "" ? kategori.Id : kategori.No_Id)}";
+            }
+            
+            kate = Convert.ToBase64String(Encoding.UTF8.GetBytes(kate));
+
+            NavigationManager.NavigateTo($"/search-page?keyword=&produk=&kategori={Uri.EscapeDataString(kate)}&brand={Uri.EscapeDataString(bra)}", true);
+        }
 
     }
 }

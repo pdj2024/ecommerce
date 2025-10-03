@@ -22,6 +22,7 @@ else
         <!-- Start Header Bottom -->
         <div class="container-fluid px-md-5 px-2" style="height:100%">
             <div class="row align-items-center vw-100" style="height:100%; width:100%; margin:0px">
+
                 <div class="col-xxl-2 col-lg-2 col-md-2 col-12 d-lg-flex d-none">
                     <!-- Start Header Logo -->
                     <NavLink class="navbar-brand" style="cursor:pointer;" @onclick="@(e => NavigateToHome(""))">
@@ -77,92 +78,97 @@ else
                     <!-- End Header Logo -->
                 </div>
 
-                <div class="col-xxl-2 col-lg-2 col-md-4 col-4 p-0">
+                <div class="col-xxl-2 col-lg-2 col-md-4 col-4 p-0" >
                     <div class="navbar-cart">
                         <div class="wishlist" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                            
                             <a href="javascript:void(0)" class="menu-logo">
-                                <i class="lni lni-search-1"></i>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="" width="22" height="22" viewBox="0 0 24 24" fill="none">
+                                    <path d="M10.875 18.75C15.2242 18.75 18.75 15.2242 18.75 10.875C18.75 6.52576 15.2242 3 10.875 3C6.52576 3 3 6.52576 3 10.875C3 15.2242 6.52576 18.75 10.875 18.75Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M16.4434 16.4453L20.9997 21.0016" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
                             </a>
-
                         </div>
 
-                        <div class="dropdown text-end wishlist-2">
-                            <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle item-head menu-logo" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="lni lni-user-4"></i>
-                                <span class="total-items">
-                                    @dataSourch?.DataPesanan.Header.Count(x => new[] { "belum bayar", "dikirim", "dikemas" }.Any(s => x.Status_Order_1.ToLower().Contains(s)))
-                                </span>
-                            </a>
+                        <AuthorizeView>
 
-                            <ul class="dropdown-menu text-small" style="">
-                                <li style="cursor:pointer;" class="">
-                                    <button class="dropdown-item dropdown-item-custom" @onclick="@(e => NavigateToHome("cart-page/keranjang"))">
-                                        <div class="d-flex flex-row justify-content-end gap-3">
-                                            <i style="font-size:26px;" class="lni lni-cart-1"></i>
-                                            <span>Keranjang</span>
-                                        </div>
-                                        <span class="qty-info">@dataSourch?.ListDataCart.Count()</span>
-                                    </button>
-                                </li>
-                                <li style="cursor:pointer;" class="">
-                                    <button class="dropdown-item dropdown-item-custom" @onclick="@(e => NavigateToHome("cart-page/belum-bayar"))">
-                                        <div class="d-flex flex-row justify-content-end gap-3">
-                                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M200-200v-560 560Zm0 80q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v100h-80v-100H200v560h560v-100h80v100q0 33-23.5 56.5T760-120H200Zm320-160q-33 0-56.5-23.5T440-360v-240q0-33 23.5-56.5T520-680h280q33 0 56.5 23.5T880-600v240q0 33-23.5 56.5T800-280H520Zm280-80v-240H520v240h280Zm-160-60q25 0 42.5-17.5T700-480q0-25-17.5-42.5T640-540q-25 0-42.5 17.5T580-480q0 25 17.5 42.5T640-420Z" /></svg>
-                                            <span>Belum Bayar</span>
-                                        </div>
-                                        <span class="qty-info">@dataSourch?.DataPesanan.Header.Count(x => x.Status_Order_1.ToLower() == "belum bayar")</span>
-                                    </button>
-                                </li>
-                                <li style="cursor:pointer;" class="">
-                                    <button class="dropdown-item dropdown-item-custom" @onclick="@(e => NavigateToHome("cart-page/dikemas"))">
-                                        <div class="d-flex flex-row justify-content-end gap-3">
-                                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M200-640v440h560v-440H640v320l-160-80-160 80v-320H200Zm0 520q-33 0-56.5-23.5T120-200v-499q0-14 4.5-27t13.5-24l50-61q11-14 27.5-21.5T250-840h460q18 0 34.5 7.5T772-811l50 61q9 11 13.5 24t4.5 27v499q0 33-23.5 56.5T760-120H200Zm16-600h528l-34-40H250l-34 40Zm184 80v190l80-40 80 40v-190H400Zm-200 0h560-560Z" /></svg>
-                                            <span>Dikemas</span>
-                                        </div>
-                                        <span class="qty-info">@dataSourch?.DataPesanan.Header.Count(x => x.Status_Order_1.ToLower() == "dikemas")</span>
-                                    </button>
-                                </li>
-                                <li style="cursor:pointer;" class="">
-                                    <button class="dropdown-item dropdown-item-custom" @onclick="@(e => NavigateToHome("cart-page/dikirim"))">
-                                        <div class="d-flex flex-row justify-content-end gap-3">
-                                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M280-160q-50 0-85-35t-35-85H60l18-80h113q17-19 40-29.5t49-10.5q26 0 49 10.5t40 29.5h167l84-360H182l4-17q6-28 27.5-45.5T264-800h456l-37 160h117l120 160-40 200h-80q0 50-35 85t-85 35q-50 0-85-35t-35-85H400q0 50-35 85t-85 35Zm357-280h193l4-21-74-99h-95l-28 120Zm-19-273 2-7-84 360 2-7 34-146 46-200ZM20-427l20-80h220l-20 80H20Zm80-146 20-80h260l-20 80H100Zm180 333q17 0 28.5-11.5T320-280q0-17-11.5-28.5T280-320q-17 0-28.5 11.5T240-280q0 17 11.5 28.5T280-240Zm400 0q17 0 28.5-11.5T720-280q0-17-11.5-28.5T680-320q-17 0-28.5 11.5T640-280q0 17 11.5 28.5T680-240Z" /></svg>
-                                            <span>Dikirim</span>
-                                        </div>
-                                        <span class="qty-info">@dataSourch?.DataPesanan.Header.Count(x => x.Status_Order_1.ToLower() == "dikirim")</span>
-                                    </button>
-                                </li>
-                                <li style="cursor:pointer;" class="">
-                                    <button class="dropdown-item dropdown-item-custom" @onclick="@(e => NavigateToHome("cart-page/histori"))">
-                                        <div class="d-flex flex-row justify-content-end gap-3">
-                                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="m787-145 28-28-75-75v-112h-40v128l87 87Zm-587 25q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v268q-19-9-39-15.5t-41-9.5v-243H200v560h242q3 22 9.5 42t15.5 38H200Zm0-120v40-560 243-3 280Zm80-40h163q3-21 9.5-41t14.5-39H280v80Zm0-160h244q32-30 71.5-50t84.5-27v-3H280v80Zm0-160h400v-80H280v80ZM720-40q-83 0-141.5-58.5T520-240q0-83 58.5-141.5T720-440q83 0 141.5 58.5T920-240q0 83-58.5 141.5T720-40Z" /></svg>
-                                            <span>Histori Pembelian</span>
-                                        </div>
-                                    </button>
-                                </li>
-                                <li style="cursor:pointer;">
-                                    <button class="dropdown-item dropdown-item-custom">
-                                        <div class="d-flex flex-row justify-content-end gap-3">
-                                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
-                                                <path d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm70-80h79l14-106q31-8 57.5-23.5T639-327l99 41 39-68-86-65q5-14 7-29.5t2-31.5q0-16-2-31.5t-7-29.5l86-65-39-68-99 42q-22-23-48.5-38.5T533-694l-13-106h-79l-14 106q-31 8-57.5 23.5T321-633l-99-41-39 68 86 64q-5 15-7 30t-2 32q0 16 2 31t7 30l-86 65 39 68 99-42q22 23 48.5 38.5T427-266l13 106Zm42-180q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Zm-2-140Z" />
-                                            </svg>
-                                            <span>Pengaturan</span>
-                                        </div>
-                                    </button>
-                                </li>
-                                <li style="cursor:pointer;">
-                                    <button class="dropdown-item dropdown-item-custom" @onclick=@(() => Logout())>
-                                        <div class="d-flex flex-row justify-content-end gap-3">
-                                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
-                                                <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z" />
-                                            </svg>
-                                            <span>Keluar</span>
-                                        </div>
-                                    </button>
-                                </li>
-                            </ul>
-                        
-                        </div>
+                            <Authorized>
+
+                                <div class="dropdown text-end wishlist-2"> 
+                                    <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle item-head menu-logo" data-bs-toggle="dropdown" aria-expanded="false"> 
+                                        <i class="lni lni-user-4" style="font-size:20px"></i>
+                                        <span class="total-items">
+                                            @dataSourch?.DataPesanan.Header.Count(x => new[] { "belum bayar", "dikirim", "dikemas" }.Any(s => x.Status_Order_1.ToLower().Contains(s)))
+                                        </span> 
+                                    </a> 
+                                    <ul class="dropdown-menu text-small" style=""> 
+                                        <li style="cursor:pointer;" class="d-md-flex d-lg-none">
+                                            <button class="dropdown-item dropdown-item-custom" @onclick="@(e => NavigateToHome("cart-page/keranjang"))">
+                                                <div class="d-flex flex-row justify-content-end gap-3">
+                                                    <i style="font-size:26px;" class="lni lni-cart-1"></i>
+                                                    <span>Keranjang</span>
+                                                </div>
+                                                <span class="qty-info">@dataSourch?.ListDataCart.Count()</span>
+                                            </button>
+                                        </li> 
+                                        <li style="cursor:pointer;">
+                                            <button class="dropdown-item dropdown-item-custom" @onclick="@(e => NavigateToHome("cart-page/belum-bayar"))">
+                                                <div class="d-flex flex-row justify-content-end gap-3">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M200-200v-560 560Zm0 80q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v100h-80v-100H200v560h560v-100h80v100q0 33-23.5 56.5T760-120H200Zm320-160q-33 0-56.5-23.5T440-360v-240q0-33 23.5-56.5T520-680h280q33 0 56.5 23.5T880-600v240q0 33-23.5 56.5T800-280H520Zm280-80v-240H520v240h280Zm-160-60q25 0 42.5-17.5T700-480q0-25-17.5-42.5T640-540q-25 0-42.5 17.5T580-480q0 25 17.5 42.5T640-420Z"/></svg>
+                                                    <span>Belum Bayar</span>
+                                                </div>
+                                                <span class="qty-info">@dataSourch?.DataPesanan.Header.Count(x => x.Status_Order_1.ToLower() == "belum bayar")</span>
+                                            </button>
+                                        </li> 
+                                        <li style="cursor:pointer;">
+                                            <button class="dropdown-item dropdown-item-custom" @onclick="@(e => NavigateToHome("cart-page/dikemas"))">
+                                                <div class="d-flex flex-row justify-content-end gap-3">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M200-640v440h560v-440H640v320l-160-80-160 80v-320H200Zm0 520q-33 0-56.5-23.5T120-200v-499q0-14 4.5-27t13.5-24l50-61q11-14 27.5-21.5T250-840h460q18 0 34.5 7.5T772-811l50 61q9 11 13.5 24t4.5 27v499q0 33-23.5 56.5T760-120H200Zm16-600h528l-34-40H250l-34 40Zm184 80v190l80-40 80 40v-190H400Zm-200 0h560-560Z"/></svg>
+                                                    <span>Dikemas</span>
+                                                </div>
+                                                <span class="qty-info">@dataSourch?.DataPesanan.Header.Count(x => x.Status_Order_1.ToLower() == "dikemas")</span>
+                                            </button>
+                                        </li> 
+                                        <li style="cursor:pointer;">
+                                            <button class="dropdown-item dropdown-item-custom" @onclick="@(e => NavigateToHome("cart-page/dikirim"))">
+                                                <div class="d-flex flex-row justify-content-end gap-3">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M280-160q-50 0-85-35t-35-85H60l18-80h113q17-19 40-29.5t49-10.5q26 0 49 10.5t40 29.5h167l84-360H182l4-17q6-28 27.5-45.5T264-800h456l-37 160h117l120 160-40 200h-80q0 50-35 85t-85 35q-50 0-85-35t-35-85H400q0 50-35 85t-85 35Zm357-280h193l4-21-74-99h-95l-28 120Zm-19-273 2-7-84 360 2-7 34-146 46-200ZM20-427l20-80h220l-20 80H20Zm80-146 20-80h260l-20 80H100Zm180 333q17 0 28.5-11.5T320-280q0-17-11.5-28.5T280-320q-17 0-28.5 11.5T240-280q0 17 11.5 28.5T280-240Zm400 0q17 0 28.5-11.5T720-280q0-17-11.5-28.5T680-320q-17 0-28.5 11.5T640-280q0 17 11.5 28.5T680-240Z"/></svg>
+                                                    <span>Dikirim</span>
+                                                </div>
+                                                <span class="qty-info">@dataSourch?.DataPesanan.Header.Count(x => x.Status_Order_1.ToLower() == "dikirim")</span>
+                                            </button>
+                                        </li> 
+                                        <li style="cursor:pointer;">
+                                            <button class="dropdown-item dropdown-item-custom" @onclick="@(e => NavigateToHome("cart-page/histori"))">
+                                                <div class="d-flex flex-row justify-content-end gap-3">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="m787-145 28-28-75-75v-112h-40v128l87 87Zm-587 25q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v268q-19-9-39-15.5t-41-9.5v-243H200v560h242q3 22 9.5 42t15.5 38H200Zm0-120v40-560 243-3 280Zm80-40h163q3-21 9.5-41t14.5-39H280v80Zm0-160h244q32-30 71.5-50t84.5-27v-3H280v80Zm0-160h400v-80H280v80ZM720-40q-83 0-141.5-58.5T520-240q0-83 58.5-141.5T720-440q83 0 141.5 58.5T920-240q0 83-58.5 141.5T720-40Z"/></svg>
+                                                    <span>Histori Pembelian</span>
+                                                </div>
+                                            </button>
+                                        </li> 
+                                        <li style="cursor:pointer;">
+                                            <button class="dropdown-item dropdown-item-custom">
+                                                <div class="d-flex flex-row justify-content-end gap-3">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm70-80h79l14-106q31-8 57.5-23.5T639-327l99 41 39-68-86-65q5-14 7-29.5t2-31.5q0-16-2-31.5t-7-29.5l86-65-39-68-99 42q-22-23-48.5-38.5T533-694l-13-106h-79l-14 106q-31 8-57.5 23.5T321-633l-99-41-39 68 86 64q-5 15-7 30t-2 32q0 16 2 31t7 30l-86 65 39 68 99-42q22 23 48.5 38.5T427-266l13 106Zm42-180q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Zm-2-140Z"/>
+                                                    </svg>
+                                                    <span>Pengaturan</span>
+                                                </div>
+                                            </button>
+                                        </li> 
+                                        <li style="cursor:pointer;">
+                                            <button class="dropdown-item dropdown-item-custom" type="button" data-bs-toggle="modal" id="" data-bs-target="#exampleModalLogout" >
+                                                <div class="d-flex flex-row justify-content-end gap-3">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/>
+                                                    </svg>
+                                                    <span>Keluar</span>
+                                                </div>
+                                            </button>
+                                        </li> 
+                                    </ul> 
+                                </div>
+
+                            </Authorized>
+
+                        </AuthorizeView>
                     </div>
                 </div>
 
@@ -179,48 +185,50 @@ else
                                 <div class="input-group mb-3 style-grup">
                                     <span class="input-group-text" id="basic-addon1" style="padding: 0px;"><i class="lni lni-search-1" style="font:normal normal normal 22px/1 'Lineicons';"></i></span>
                                     <InputText autocomplete="off" @onkeydown="HandleKeyDown" @bind-Value=@SearchText @oninput="@(e => OnSearchInput(e.Value?.ToString()))" type="text" class="form-control search-form" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1" />
-                                    <button class="clear-search" @onclick="@(e => OnClearInput())">
-                                        @if (loadProses)
-                                        {
-                                            <div class="spinner-border spinner-border-sm" role="status">
-                                                <span class="visually-hidden">Loading...</span>
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            <span>Clear</span>
-                                        }
+                                    <button class="clear-search" @onclick="@(e => OnClearInput())" >
+                                        @if(loadProses)
+                                            {
+                                                <div class="spinner-border spinner-border-sm" role="status">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                </div>
+                                            } else
+                                            {
+                                                <span>Clear</span>
+                                            }
                                     </button>
                                 </div>
                             </div>
 
-                            @if (searchCount > 0)
-                            {
+                            @if (searchCount > 0) {
 
-                                <div class="col-12 pt-3" style="">
-                                    <h5 id="offcanvasRightLabel" style="font-size: 1rem;font-weight: 600;">
-                                        Brand
-                                    </h5>
-                                </div>
+                                if (SearchList.SearchBrand.Count() >= 1) {
 
-                                <div class="col-12 py-3" style="border-bottom:1px solid lightgray;">
-                                    @foreach (var brand in SearchList.SearchBrand)
-                                    {
-                                        <button type="button" class="badge-search">@brand.Nama_Brand</button>
-                                    }
-                                </div>
+                                    <div class="col-12 pt-3" style="">
+                                        <h5 id="offcanvasRightLabel" style="font-size: 1rem;font-weight: 600;">
+                                            Brand
+                                        </h5>
+                                    </div>
+
+                                    <div class="col-12 py-3" style="border-bottom:1px solid lightgray;">
+                                        @foreach(var brand in SearchList.SearchBrand) {
+                                            <button type="button" @onclick=@( x => searchCombo(null, brand, null) ) class="badge-search">@brand.Nama_Brand</button>
+                                        }
+                                    </div>
+
+                                }
+
 
                                 <div class="col-12 pt-4">
                                     <h5 id="offcanvasRightLabel" style="font-size: 1rem;font-weight: 600;">
                                         Produk
                                     </h5>
                                 </div>
-
+                        
                                 <div class="col-12 py-3" style="border-bottom:1px solid lightgray;">
                                     <div class="row">
-                                        @foreach (var dataProduk in SearchList.SearchProduk)
-                                        {
+                                        @foreach(var dataProduk in SearchList.SearchProduk) {
                                             <div class="col-6 py-2">
+
                                                 <!-- Start Single Product -->
                                                 <div class="single-product">
                                                     <div class="product-image">
@@ -240,7 +248,7 @@ else
                                                     </div>
                                                     <div class="product-info">
                                                         <h4 class="title">
-                                                            <NavLink style="cursor:pointer;" @onclick="@(() => NavigationManager.NavigateTo($"/detail-produk/{dataProduk.No_Id}", forceLoad: true))">
+                                                            <NavLink style="cursor:pointer;"  @onclick=@(() => NavigateToDetailProduk(dataProduk.No_Id))>
                                                                 <p class="line-clamp-2 underline-anim">
                                                                     @dataProduk.Nama_Display
                                                                 </p>
@@ -249,42 +257,42 @@ else
                                                     </div>
                                                 </div>
                                                 <!-- End Single Product -->
+
                                             </div>
                                         }
-
+                        
                                     </div>
                                 </div>
-
+                            
                                 <div class="col-12 mt-3">
                                     <div class="btn-group w-100">
-                                        <button class="btn-slide justify-content-start border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <button class="btn-slide justify-content-start border-0" type="button" @onclick="@(x => seeResult())" aria-expanded="false">
                                             See all results for “@SearchText”
                                         </button>
                                     </div>
                                 </div>
-
-                            }
+                        
+                            } 
                             else if (searchCount == 0)
                             {
 
-                            }
-                            else
+                            } else
                             {
-                                <div class="d-flex flex-column align-items-center mt-4" style="color:black">
+                                <div class="d-flex flex-column align-items-center mt-4" style="color:#6b7280">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="5rem" viewBox="0 -960 960 960" width="5rem" class="mb-3" fill="currentColor">
-                                        <path d="m634-440-81-80h69l110-200H353l-80-80h525q23 0 35.5 19.5t.5 42.5L692-482q-11 20-28 31t-30 11ZM280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm540 52L566-280H304q-44 0-67-37.5t-3-78.5l42-86-72-162L28-820l56-56L876-84l-56 56ZM486-360l-80-80h-62l-40 80h182Zm136-160h-69 69Zm58 440q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80Z" />
+                                        <path d="m634-440-81-80h69l110-200H353l-80-80h525q23 0 35.5 19.5t.5 42.5L692-482q-11 20-28 31t-30 11ZM280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm540 52L566-280H304q-44 0-67-37.5t-3-78.5l42-86-72-162L28-820l56-56L876-84l-56 56ZM486-360l-80-80h-62l-40 80h182Zm136-160h-69 69Zm58 440q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80Z"/>
                                     </svg>
-                                    <h5 style="color:black">Not Result Found "@SearchText"</h5>
-                                    <p>Check the spelling or use a different word or phrase.</p>
+                                    <h5 style="color:#6b7280">Not Result Found "@SearchText"</h5>
+                                    <p style="color:#6b7280">Check the spelling or use a different word or phrase.</p>
                                 </div>
                             }
 
-
+                    
 
                         </div>
                     </div>
                 </div>
-
+            
                 <div class="offcanvas offcanvas-start" style="width: 500px;" tabindex="-1" id="offcanvasLeft" aria-labelledby="offcanvasLeftLabel">
                     <div class="offcanvas-header">
                         <h5 id="offcanvasLeftLabel" style="font-size: 1.5rem;font-weight: 800;">
@@ -295,11 +303,12 @@ else
                     <div class="offcanvas-body">
                         <div class="row">
                             <div class="col-12">
+                            
                             </div>
                         </div>
                     </div>
                 </div>
-
+           
                 <div class="offcanvas offcanvas-end" style="width: 500px;" tabindex="-1" id="offcanvascart" aria-labelledby="offcanvascartLabel">
                     <div class="offcanvas-header">
                         <h5 id="offcanvascartLabel" style="font-size: 1.5rem;font-weight: 800; position:relative">
@@ -311,22 +320,22 @@ else
                     <div class="offcanvas-body">
                         <div class="row" style="height:100%;">
                             <div class="col-12 col-data" style="display: flex;flex-direction: column;justify-content: space-between;">
+                            
                                 <ul class="shopping-list">
-                                    @foreach (var cart in dataSourch?.ListDataCart)
+                                    @foreach(var cart in dataSourch?.ListDataCart)
                                     {
-                                        <li>
-                                            <div class="cart-img-head">
-                                                @if (cart.Id_Media != null && cart.Id_Media != "")
+                                        <li class="flex-wrap pb-0">
+                                            <div class="cart-img-head d-flex flex-row gap-3" >
+                                                @if(cart.Id_Media != null && cart.Id_Media != "")
                                                 {
-                                                    <img class="cart-img" src="@cart.Id_Media" alt="#">
-                                                }
-                                                else
+                                                    <img class="cart-img" src="@cart.Id_Media" style="width:33%; margin-right:0px;" alt="#">
+                                                } else
                                                 {
-                                                    <div style="display:flex; align-items:center;justify-content:center; width:80px; height: 80px; border-radius:5px; background-color:lightgray; color:dimgrey">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M73-889 889-73l-57 57-104-104H200q-33 0-56.5-23.5T120-200v-528L16-832l57-57Zm287 447L200-282v82h448L544-304l-22 24-162-162ZM200-648v252l126-126-126-126Zm36-192h524q33 0 56.5 23.5T840-760v524l-80-80v-234L650-426l-57-57 167-187v-90H316l-80-80Zm357 357Zm-158 70ZM326-522Zm34 80Zm176-98Z" /></svg>
+                                                    <div style="display:flex; align-items:center;justify-content:center; width:33%; height: 80px; border-radius:5px; background-color:lightgray; color:dimgrey">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M73-889 889-73l-57 57-104-104H200q-33 0-56.5-23.5T120-200v-528L16-832l57-57Zm287 447L200-282v82h448L544-304l-22 24-162-162ZM200-648v252l126-126-126-126Zm36-192h524q33 0 56.5 23.5T840-760v524l-80-80v-234L650-426l-57-57 167-187v-90H316l-80-80Zm357 357Zm-158 70ZM326-522Zm34 80Zm176-98Z"/></svg>
                                                     </div>
                                                 }
-                                                <div class="d-flex flex-column justify-content-center h-100" style="gap:5px;">
+                                                <div class="d-flex flex-column justify-content-center h-100" style="gap:5px; width:90%">
                                                     <h4>
                                                         <a href="javascript:void(0)" class="line-clamp-1" style="font-size:15px">
                                                             @(cart.Nama_Display)
@@ -344,13 +353,12 @@ else
                                             <div class="content content-qty">
                                                 <div style="display: flex;justify-content:space-between;flex-direction: row-reverse;width:80%;">
                                                     <a @onclick=@(() => deleteItemCart(cart)) class="hapus-card-item" style="cursor:pointer;" title="Remove this item">
-                                                        @if (loadProses)
+                                                        @if(loadProses)
                                                         {
                                                             <div class="spinner-border spinner-border-sm" role="status">
                                                                 <span class="visually-hidden">Loading...</span>
                                                             </div>
-                                                        }
-                                                        else
+                                                        } else
                                                         {
                                                             <span>
                                                                 <svg xmlns="http://www.w3.org/2000/svg" height="25px" viewBox="0 -960 960 960" width="25px" fill="currentColor">
@@ -370,20 +378,55 @@ else
                                                     <button style="font-size: 20px;" @onclick="() => Increase(cart.Id_Cart)">+</button>
                                                 </div>
                                             </div>
+
+                                            <div class="w-100 pt-2 pb-2">
+                                                @if (cart.Show_Min_Order)
+                                                {
+                                                    <span class="text-danger" style="font-size: 13px; font-weight: 700;">
+                                                        *Minimal order @cart?.Min_Order item
+                                                    </span>
+                                                }
+
+                                                @if (cart.Show_Max_Order)
+                                                {
+                                                    <span class="text-danger" style="font-size: 13px; font-weight: 700;">
+                                                        *Maximal order @cart?.Stock item
+                                                    </span>
+                                                }
+
+                                                @if (cart.Show_Add_Product)
+                                                {
+                                                    <span class="text-danger" style="font-size: 13px; font-weight: 700;">
+                                                        *Produk gagal ditambahkan
+                                                    </span>
+                                                }
+                                            </div>
                                         </li>
                                     }
-                                </ul>
+                            
+                                    @if(dataSourch?.ListDataCart.Count() <= 0)
+                                    {
+                                        <div class="d-flex flex-column align-items-center mt-4 py-5" style="color:#6b7280">
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="2rem" viewBox="0 -960 960 960" width="2rem" class="mb-3" fill="currentColor">
+                                                <path d="m634-440-81-80h69l110-200H353l-80-80h525q23 0 35.5 19.5t.5 42.5L692-482q-11 20-28 31t-30 11ZM280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm540 52L566-280H304q-44 0-67-37.5t-3-78.5l42-86-72-162L28-820l56-56L876-84l-56 56ZM486-360l-80-80h-62l-40 80h182Zm136-160h-69 69Zm58 440q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80Z"/>
+                                            </svg>
+                                            <h5 style="color:#6b7280">Your cart is currently empty.</h5>
+                                        </div>
+                                    }
 
-                                <div class="bottom" style="border-top:1px solid #e6e6e6;padding-top: 10px;">
-                                    <div class="total">
+                                </ul>
+                            
+                                @if(dataSourch?.ListDataCart.Count() >= 1)
+                                {
+                                    <div class="bottom" style="border-top:1px solid #e6e6e6;padding-top: 10px;">
+                                    <div class="total" >
                                         <span>Total</span>
-                                        @if (loadProsesNetto)
+                                        @if(loadProsesNetto)
                                         {
                                             <div class="spinner-border" style="width: 0.8rem;height: 0.8rem; border: .15em solid currentColor;" role="status">
                                                 <span class="visually-hidden">Loading...</span>
                                             </div>
-                                        }
-                                        else
+                                        } else
                                         {
                                             <span class="total-amount">
                                                 @string.Format("Rp. {0:N0}", nettoKeranjang)
@@ -402,14 +445,7 @@ else
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="col-12 col-load" style="">
-                                <div class="d-flex justify-content-center h-100 w-100 align-items-center">
-                                    <div class="spinner-border" role="status">
-                                        <span class="visually-hidden">Loading...</span>
-                                    </div>
-                                </div>
+                                }
                             </div>
                         </div>
                     </div>
@@ -420,6 +456,35 @@ else
     </header>
 }
 <!-- Start Header Area -->
+
+
+<div class="modal fade review-modal" id="exampleModalLogout" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered px" style="max-width:480px;">
+        <div class="modal-content" style="border-radius: 0px;">
+            <div class="modal-header justify-content-end d-flex border-bottom-0 pb-0 pt-3">
+                <button type="button" class="btn-close m-0" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body pt-0 px-3">
+                <div class="row px-3">
+                    <div class="col-12">
+                        <p style="font-size:18px; font-weight:400; letter-spacing:-1px; margin-top: -15px; width:fit-content" class="mb-3">
+                            Yakin berhenti belanja dan keluar?
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-center button border-top-0 pt-2 px-5">
+                <button type="button" @onclick=@(() => Logout()) class="btn-slide" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;">
+                    <span class="position-relative">Keluar</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 
 @code {
 

@@ -17,15 +17,20 @@ namespace Models
         public string Id_Produk { get; set; } = "";
         public string Nama_Display { get; set; } = "";
         public int Qty { get; set; } = 0;
+        public int add_qty { get; set; } = 0;
         public string Created_At { get; set; } = "";
         public string Size { get; set; } = "";
         public string Sku { get; set; } = "";
         public string Option { get; set; } = "";
         public string Jenis_Item { get; set; } = "";
+        public bool Show_Min_Order { get; set; } = false;
+        public bool Show_Max_Order { get; set; } = false;
+        public bool Show_Add_Product { get; set; } = false;
         public decimal Harga { get; set; } = 0;
         public decimal Harga_Satuan { get; set; } = 0;
         public int Stock { get; set; } = 0;
-        public bool SelectCart { get; set; } = false;
+        public int Min_Order { get; set; } = 0;
+        public bool SelectCart { get; set; } = true;
 
     }
 }

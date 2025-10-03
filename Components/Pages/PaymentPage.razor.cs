@@ -81,7 +81,7 @@ namespace PacificWeb.Components.Pages
         public bool alertProfile { get; set; } = false;
         public bool alertCreate { get; set; } = false;
         public bool loadProses { get; set; } = false;
-        public bool loadContent { get; set; } = false;
+        public bool loadContent { get; set; } = true;
         public bool loadRefresh { get; set; } = true;
         protected override async Task OnInitializedAsync()
         {
@@ -167,7 +167,17 @@ namespace PacificWeb.Components.Pages
                         }
                     });
 
-                    dataSourch.ListDataCart.AddRange(dataCard);
+                    if (dataCard.Count() >= 1)
+                    {
+                        dataSourch.ListDataCart.AddRange(dataCard);
+                        
+                    } else
+                    {
+                        await pdjService.ButtonCLick("modalPaymentStatus4");
+                        await Task.Delay(5000);
+                        await pdjService.GoBack();
+                    }
+
                 }
                 else
                 {
@@ -178,29 +188,47 @@ namespace PacificWeb.Components.Pages
                         ParamUrl = new ParameterApi.ParameterUrl
                         {
                             no_id = listDirectItem[0],
-                            show_media = "true"
+                            show_media = "true",
+                            show_variant = true
                         }
                     });
 
                     var itemDirect = dataDirect.FirstOrDefault(x => x.No_Id == listDirectItem[0])?.Variants.FirstOrDefault(x => x.No_Id == listDirectItem[1]);
+                    var itemProduct = dataDirect.FirstOrDefault(x => x.No_Id == listDirectItem[0]);
 
-                    if (itemDirect != null && itemDirect.Stock >= int.Parse(listDirectItem[3]))
+                    if (itemDirect != null && itemDirect.Stock >= int.Parse(listDirectItem[2]))
                     {
-                        dataSourch.ListDataCart.Add(new Cart { Id_Variant = itemDirect.No_Id, Qty = int.Parse(listDirectItem[3]), Harga = itemDirect.Harga});
+                        dataSourch.ListDataCart.Add(new Cart 
+                        { 
+                            Id_Variant = itemDirect.No_Id, 
+                            Qty = int.Parse(listDirectItem[2]), 
+                            Harga = itemDirect.Harga,
+                            Size = itemDirect?.Size_Id,
+                            Option = itemDirect?.Option_Id,
+                            Nama_Display = itemProduct?.Nama_Display,
+                            Stock = itemDirect.Stock,
+                            Id_Media = dataDirect.FirstOrDefault(x => x.No_Id == listDirectItem[0])?.Options.FirstOrDefault(x => x.Option_Id == itemDirect.Option_Id)?.MediaUrl.Id_Media}
+                        );
+                        Console.WriteLine("add cart");
                     }
-                    else if (itemDirect != null && itemDirect.Stock < int.Parse(listDirectItem[3]))
+                    else if (itemDirect != null && itemDirect.Stock < int.Parse(listDirectItem[2]))
                     {
-                        pdjService.ButtonCLick("modalPaymentStatus3");
-                        Task.Delay(3000);
-                        pdjService.GoBack();
+                        await pdjService.ButtonCLick("modalPaymentStatus3");
+                        Console.WriteLine("stock tidak cukup");
+                        //await Task.Delay(3000);
+                        //await pdjService.GoBack();
+                    } else
+                    {
+                        await pdjService.ButtonCLick("modalPaymentStatus4");
+                        Console.WriteLine("rusak");
                     }
 
 
                 }
 
 
-                    // Tunggu semua task selesai
-                    await Task.WhenAll(companyTask, metodeBayarTask, metodeKirimTask);
+                // Tunggu semua task selesai
+                await Task.WhenAll(companyTask, metodeBayarTask, metodeKirimTask);
 
                 // Assign semua data sekaligus
                 dataSourch.ListDataCompany = companyTask.Result;
@@ -210,6 +238,7 @@ namespace PacificWeb.Components.Pages
 
 
                 nettoKeranjang = dataSourch.ListDataCart.Sum(x => x.Harga * x.Qty);
+                loadContent = false;
                 StateHasChanged();
 
             }
@@ -303,7 +332,7 @@ namespace PacificWeb.Components.Pages
 
         public async Task clickCopy(Pesanan.Headers item, string init = "")
         {
-            await JSRuntime.InvokeVoidAsync("copyVa", item.No_Bukti + init);
+            await JSRuntime.InvokeVoidAsync("copyVa", init);
         }
 
 
@@ -472,7 +501,7 @@ namespace PacificWeb.Components.Pages
 
             var dataOrderCart = new
             {
-                Id_Customer = dataSourch?.DataUser.No_Id ,
+                Id_Customer = dataSourch?.DataUser.No_Id,
                 Status_Bayar = "",
                 Id_Payment_Gateway = "",
                 Payment_Type = dataLayanan.Cara_Bayar,
@@ -481,7 +510,8 @@ namespace PacificWeb.Components.Pages
                 Alamat_Kirim = Pesanan_Info.Header[0].Alamat_Kirim,
                 Id_Shipping_Option = dataKirim.No_Id,
                 Items = ListDataItem,
-                Biaya = Layanan
+                Biaya = Layanan,
+                ambil_dari_cart = CartList == "cart" ? true : false
             };
 
 

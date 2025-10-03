@@ -52,13 +52,21 @@ else
                                     @foreach(var Navbar in dataSourch?.ListDataNavbar) {
                                         @if (Navbar?.Nav_Type.Split("_")[0] == "special") {
                                             <li class="nav-item">
-                                                <a @onclick="@( x => searchContent(Navbar) )" class="a-menu" aria-label="Toggle navigation"><span class="add-after"  >@Navbar?.Display_Text</span></a>
+                                                <a @onclick="@( x => searchContent(Navbar) )" class="a-menu" aria-label="Toggle navigation">
+                                                    <label style="display:inline-block">
+                                                        <span class="underline-anim">@Navbar?.Display_Text</span>
+                                                    </label>
+                                                </a>
                                             </li>
                                         } else {
                                             <li class="nav-item mega-parent">
                                             <a class="dd-menu a-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
                                                 data-bs-target="@($"#submenu-{Navbar.Priority}")" aria-controls="navbarSupportedContent"
-                                                aria-expanded="false" aria-label="Toggle navigation"><span class="add-after">@Navbar?.Display_Text</span></a>
+                                                aria-expanded="false" aria-label="Toggle navigation">
+                                                <label style="display:inline-block">
+                                                    <span class="underline-anim">@Navbar?.Display_Text</span>
+                                                </label>
+                                            </a>
                                             <div class="mega-menu">
 
                                                 <div class="mega-col w-50 h-100">
@@ -66,32 +74,32 @@ else
                                                     <div class="col-4 submenu-nav">
                                                         <div class="submenu-col">
                                                             <div class="nav-sub">
-                                                                <h5 class="head-submenu-nav" href="about-us.html">
+                                                                <h5 class="head-submenu-nav">
                                                                     Brand
                                                                 </h5>
                                                             </div>
                                                             @foreach (var brand in Navbar?.Brand)
-                                                                {
-                                                                    <div class="nav-sub">
-                                                                        <button class="item-submenu-nav" href="about-us.html">
-                                                                            @brand.Nama_Brand
-                                                                        </button>
-                                                                    </div>
-                                                                }
+                                                            {
+                                                                <div class="nav-sub">
+                                                                    <button @onclick=@( x => searchCombo(Navbar, brand, null) ) class="item-submenu-nav underline-anim border-0 bg-transparent">
+                                                                        @brand.Nama_Brand
+                                                                    </button>
+                                                                </div>
+                                                            }
                                                         </div>
                                                     </div>
 
                                                     <div class="col-4 submenu-nav">
                                                         <div class="submenu-col">
                                                             <div class="nav-sub">
-                                                                <h5 class="head-submenu-nav" href="about-us.html">
+                                                                <h5 class="head-submenu-nav">
                                                                     Kategori
                                                                 </h5>
                                                             </div>
                                                                 @foreach (var kategori in Navbar?.Kategori)
                                                                 {
                                                                     <div class="nav-sub">
-                                                                        <button class="item-submenu-nav" href="about-us.html">
+                                                                        <button @onclick=@( x => searchCombo(Navbar, null, kategori) ) class="item-submenu-nav underline-anim border-0 bg-transparent" >
                                                                             @kategori.Nama_Kategori
                                                                         </button>
                                                                     </div>
@@ -134,7 +142,7 @@ else
                                                                 </div>
                                                                 <div class="product-info">
                                                                     <h4 class="title">
-                                                                        <NavLink style="cursor:pointer; display:inline-block;max-height: 90px;overflow: hidden;text-overflow: ellipsis;" @onclick="@(() => NavigationManager.NavigateTo($"/detail-produk/{dataProduk.No_Id}", forceLoad: true))">
+                                                                        <NavLink style="cursor:pointer; display:inline-block;max-height: 90px;overflow: hidden;text-overflow: ellipsis;" @onclick=@(() => NavigateToDetailProduk(dataProduk.No_Id))>
                                                                             <p class="line-clamp-2 underline-anim">
                                                                                 @dataProduk.Nama_Display
                                                                             </p>
@@ -197,7 +205,10 @@ else
                 <div class="navbar-cart">
                     <div class="wishlist" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
                         <a href="javascript:void(0)" class="menu-logo">
-                            <i class="lni lni-search-1"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="" width="22" height="22" viewBox="0 0 24 24" fill="none">
+                                <path d="M10.875 18.75C15.2242 18.75 18.75 15.2242 18.75 10.875C18.75 6.52576 15.2242 3 10.875 3C6.52576 3 3 6.52576 3 10.875C3 15.2242 6.52576 18.75 10.875 18.75Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M16.4434 16.4453L20.9997 21.0016" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
                         </a>
                     </div>
 
@@ -206,14 +217,14 @@ else
                         <Authorized>
                             <div id="openCartProd" class="wishlist d-none d-md-none d-lg-flex" data-bs-toggle="offcanvas" data-bs-target="#offcanvascart" aria-controls="offcanvascart">
                                 <a href="javascript:void(0)" class="menu-logo">
-                                    <i class="lni lni-cart-1"></i>
+                                    <i class="lni lni-cart-1" style="font-size:20px"></i>
                                     <span class="total-items">@dataSourch?.ListDataCart.Count()</span>
                                 </a>
                             </div>
 
                             <div class="dropdown text-end wishlist-2"> 
                                 <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle item-head menu-logo" data-bs-toggle="dropdown" aria-expanded="false"> 
-                                    <i class="lni lni-user-4"></i>
+                                    <i class="lni lni-user-4" style="font-size:20px"></i>
                                     <span class="total-items">
                                         @dataSourch?.DataPesanan.Header.Count(x => new[] { "belum bayar", "dikirim", "dikemas" }.Any(s => x.Status_Order_1.ToLower().Contains(s)))
                                     </span> 
@@ -273,7 +284,7 @@ else
                                         </button>
                                     </li> 
                                     <li style="cursor:pointer;">
-                                        <button class="dropdown-item dropdown-item-custom" @onclick=@(() => Logout())>
+                                        <button class="dropdown-item dropdown-item-custom" type="button" data-bs-toggle="modal" id="" data-bs-target="#exampleModalLogout" >
                                             <div class="d-flex flex-row justify-content-end gap-3">
                                                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/>
                                                 </svg>
@@ -288,12 +299,18 @@ else
 
                         <NotAuthorized>
 
-                            <button class="py-0 px-2 border-0 bg-transparent me-3 d-none d-xl-block" @onclick="@(x => changeLogin("sign-up", true))" type="button" data-bs-toggle="modal" id="buttonSignUp" data-bs-target="#exampleModal" style="width:fit-content">
+                            <div class="wishlist d-flex d-md-flex d-lg-flex d-xl-none" data-bs-toggle="modal" @onclick="@(x => changeLogin("log-in", true))" data-bs-target="#exampleModalLogin">
+                                <a href="javascript:void(0)" class="menu-logo">
+                                    <i class="lni lni-user-4" style="font-size:20px"></i>
+                                </a>
+                            </div>
+
+                            <button class="py-0 px-2 border-0 bg-transparent me-3 d-none d-xl-block" @onclick="@(x => changeLogin("sign-up", true))" type="button" data-bs-toggle="modal" id="buttonSignUp" data-bs-target="#exampleModalLogin" style="width:fit-content">
                                 <span class="position-relative underline-anim" style="font-size:12px" >SIGN UP</span>
                             </button>
 
-                            <button class="btn-slide py-0 px-3 d-none d-xl-flex" data-bs-toggle="modal" id="buttonLogIn" data-bs-target="#exampleModal" style="width:fit-content" type="button">
-                                <span class="position-relative" style="font-weight:400; font-size:12px" @onclick="@(x => changeLogin("log-in", true))" >LOG IN</span>
+                            <button class="btn-slide py-0 px-3 d-none d-xl-flex" data-bs-toggle="modal" @onclick="@(x => changeLogin("log-in", true))" id="buttonLogIn" data-bs-target="#exampleModalLogin" style="width:fit-content" type="button">
+                                <span class="position-relative" style="font-weight:400; font-size:12px">LOG IN</span>
                             </button>
 
                         </NotAuthorized>
@@ -331,17 +348,23 @@ else
 
                         @if (searchCount > 0) {
 
-                            <div class="col-12 pt-3" style="">
-                                <h5 id="offcanvasRightLabel" style="font-size: 1rem;font-weight: 600;">
-                                    Brand
-                                </h5>
-                            </div>
+                            if (SearchList.SearchBrand.Count() >= 1) {
 
-                            <div class="col-12 py-3" style="border-bottom:1px solid lightgray;">
-                                @foreach(var brand in SearchList.SearchBrand) {
-                                    <button type="button" class="badge-search">@brand.Nama_Brand</button>
-                                }
-                            </div>
+                                <div class="col-12 pt-3" style="">
+                                    <h5 id="offcanvasRightLabel" style="font-size: 1rem;font-weight: 600;">
+                                        Brand
+                                    </h5>
+                                </div>
+
+                                <div class="col-12 py-3" style="border-bottom:1px solid lightgray;">
+                                    @foreach(var brand in SearchList.SearchBrand) {
+                                        <button type="button" @onclick=@( x => searchCombo(null, brand, null) )  class="badge-search">@brand.Nama_Brand</button>
+                                    }
+
+                                </div>
+
+                            }
+
 
                             <div class="col-12 pt-4">
                                 <h5 id="offcanvasRightLabel" style="font-size: 1rem;font-weight: 600;">
@@ -353,6 +376,7 @@ else
                                 <div class="row">
                                     @foreach(var dataProduk in SearchList.SearchProduk) {
                                         <div class="col-6 py-2">
+
                                             <!-- Start Single Product -->
                                             <div class="single-product">
                                                 <div class="product-image">
@@ -372,7 +396,7 @@ else
                                                 </div>
                                                 <div class="product-info">
                                                     <h4 class="title">
-                                                        <NavLink style="cursor:pointer;" @onclick="@(() => NavigationManager.NavigateTo($"/detail-produk/{dataProduk.No_Id}", forceLoad: true))">
+                                                        <NavLink style="cursor:pointer;"  @onclick=@(() => NavigateToDetailProduk(dataProduk.No_Id))>
                                                             <p class="line-clamp-2 underline-anim">
                                                                 @dataProduk.Nama_Display
                                                             </p>
@@ -381,6 +405,7 @@ else
                                                 </div>
                                             </div>
                                             <!-- End Single Product -->
+
                                         </div>
                                     }
                         
@@ -389,7 +414,7 @@ else
                             
                             <div class="col-12 mt-3">
                                 <div class="btn-group w-100">
-                                    <button class="btn-slide justify-content-start border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <button class="btn-slide justify-content-start border-0" type="button" @onclick="@(x => seeResult())" aria-expanded="false">
                                         See all results for “@SearchText”
                                     </button>
                                 </div>
@@ -447,7 +472,7 @@ else
                             <ul class="shopping-list">
                                 @foreach(var cart in dataSourch?.ListDataCart)
                                 {
-                                    <li>
+                                    <li class="flex-wrap pb-0">
                                         <div class="cart-img-head d-flex flex-row gap-3" >
                                             @if(cart.Id_Media != null && cart.Id_Media != "")
                                             {
@@ -458,7 +483,7 @@ else
                                                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M73-889 889-73l-57 57-104-104H200q-33 0-56.5-23.5T120-200v-528L16-832l57-57Zm287 447L200-282v82h448L544-304l-22 24-162-162ZM200-648v252l126-126-126-126Zm36-192h524q33 0 56.5 23.5T840-760v524l-80-80v-234L650-426l-57-57 167-187v-90H316l-80-80Zm357 357Zm-158 70ZM326-522Zm34 80Zm176-98Z"/></svg>
                                                 </div>
                                             }
-                                            <div class="d-flex flex-column justify-content-center h-100" style="gap:5px;">
+                                            <div class="d-flex flex-column justify-content-center h-100" style="gap:5px; width:90%">
                                                 <h4>
                                                     <a href="javascript:void(0)" class="line-clamp-1" style="font-size:15px">
                                                         @(cart.Nama_Display)
@@ -500,6 +525,29 @@ else
                                                 <span style="font-size: 15px;height: 100%;display: flex;align-items: center;">@cart.Qty</span>
                                                 <button style="font-size: 20px;" @onclick="() => Increase(cart.Id_Cart)">+</button>
                                             </div>
+                                        </div>
+
+                                        <div class="w-100 pt-2 pb-2">
+                                            @if (cart.Show_Min_Order)
+                                            {
+                                                <span class="text-danger" style="font-size: 13px; font-weight: 700;">
+                                                    *Minimal order @cart?.Min_Order item
+                                                </span>
+                                            }
+
+                                            @if (cart.Show_Max_Order)
+                                            {
+                                                <span class="text-danger" style="font-size: 13px; font-weight: 700;">
+                                                    *Maximal order @cart?.Stock item
+                                                </span>
+                                            }
+
+                                            @if (cart.Show_Add_Product)
+                                            {
+                                                <span class="text-danger" style="font-size: 13px; font-weight: 700;">
+                                                    *Produk gagal ditambahkan
+                                                </span>
+                                            }
                                         </div>
                                     </li>
                                 }
@@ -557,7 +605,7 @@ else
 }
 <!-- Start Header Area -->
 
-<div class="modal fade review-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+<div class="modal fade review-modal" id="exampleModalLogin" tabindex="-1" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" style="max-width:480px;height: 33rem;">
         <div class="modal-content" style="border-radius: 0px; border-radius: 0px; height: fit-content; overflow: hidden;" >
@@ -604,7 +652,7 @@ else
 
                 </div>
                 
-                <div class="login-page" style="">
+                <div class="login-page active" style="">
                     <div class="modal-header justify-content-center d-flex flex-column border-bottom-0 pb-0">
                         <h5 class="modal-title w-100 text-xl-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">Log In Here</h5>
                         <p style="font-size:13px; font-weight:300 " class="text-xl-center w-100">
@@ -663,6 +711,33 @@ else
         </div>
     </div>
 </div>
+
+
+<div class="modal fade review-modal" id="exampleModalLogout" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered px" style="max-width:480px;">
+        <div class="modal-content" style="border-radius: 0px;" >
+            <div class="modal-header justify-content-end d-flex border-bottom-0 pb-0 pt-3">
+                <button type="button" class="btn-close m-0" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body pt-0 px-3">
+                <div class="row px-3">
+                    <div class="col-12">
+                        <p style="font-size:18px; font-weight:400; letter-spacing:-1px; margin-top: -15px; width:fit-content" class="mb-3">
+                            Yakin berhenti belanja dan keluar?
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-center button border-top-0 pt-2 px-5">
+                <button type="button" @onclick=@(() => Logout()) class="btn-slide" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;">
+                    <span class="position-relative">Keluar</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @code {
 

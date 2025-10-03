@@ -52,8 +52,7 @@ namespace PacificWeb.Components.Layout
 
         private async Task Logout()
         {
-            var dataDecode = await pdjService.DecodeEncode(true, new List<string> { "kosong" });
-            NavigationManager.NavigateTo($"/auth-user/logout/{dataDecode[0]}", forceLoad: true);
+            NavigationManager.NavigateTo($"/auth-user-logout/logout", forceLoad: true);
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -198,15 +197,29 @@ namespace PacificWeb.Components.Layout
         {
             loadProsesNetto = true;
             StateHasChanged();
-            var data = dataSourch?.ListDataCart.FirstOrDefault(x => x.Id_Cart == cart.Id_Cart);
-            data.SelectCart = !data.SelectCart;
 
-            nettoKeranjang = 0;
-            foreach (var dataCart in dataSourch?.ListDataCart)
+            if (cart != null)
             {
-                if (!dataCart.SelectCart) continue;
-                nettoKeranjang += dataCart.Qty * dataCart.Harga;
+                var data = dataSourch?.ListDataCart.FirstOrDefault(x => x.Id_Cart == cart.Id_Cart);
+                data.SelectCart = !data.SelectCart;
+
+                nettoKeranjang = 0;
+                foreach (var dataCart in dataSourch?.ListDataCart)
+                {
+                    if (!dataCart.SelectCart) continue;
+                    nettoKeranjang += dataCart.Qty * dataCart.Harga;
+                }
+            } 
+            else
+            {
+                nettoKeranjang = 0;
+                foreach (var dataCart in dataSourch?.ListDataCart)
+                {
+                    if (!dataCart.SelectCart) continue;
+                    nettoKeranjang += dataCart.Qty * dataCart.Harga;
+                }
             }
+
 
             loadProsesNetto = false;
             StateHasChanged();
@@ -307,6 +320,12 @@ namespace PacificWeb.Components.Layout
             StateHasChanged();
         }
 
+        public async void NavigateToDetailProduk(string id)
+        {
+            List<string> stringData = await pdjService.DecodeEncode(true, new List<string> { id });
+            NavigationManager.NavigateTo($"/detail-produk/{stringData.FirstOrDefault()}", forceLoad: true);
+        }
+
         public async Task CheckoutCart()
         {
 
@@ -321,6 +340,43 @@ namespace PacificWeb.Components.Layout
 
         }
 
+        private void seeResult()
+        {
+            var keywordText = Convert.ToBase64String(Encoding.UTF8.GetBytes(SearchText));
+            NavigationManager.NavigateTo($"/search-page?keyword={Uri.EscapeDataString(keywordText)}", true);
+        }
+
+        private void searchCombo(Navbar Navbar = null, Brand brand = null, Kategori kategori = null)
+        {
+            var bra = "";
+
+            var kate = "";
+
+            if (Navbar == null)
+            {
+                bra = Convert.ToBase64String(Encoding.UTF8.GetBytes((brand.No_Id == null || brand.No_Id == "" ? brand.Id : brand.No_Id)));
+                NavigationManager.NavigateTo($"/search-page?keyword=&produk=&kategori={Uri.EscapeDataString(kate)}&brand={Uri.EscapeDataString(bra)}", true);
+                return;
+            }
+
+            kate = string.Join(",", Navbar.Filter.Select(x => x));
+
+
+            if (brand != null)
+            {
+
+                bra = Convert.ToBase64String(Encoding.UTF8.GetBytes((brand.No_Id == null || brand.No_Id == "" ? brand.Id : brand.No_Id)));
+
+            }
+            else if (kategori != null)
+            {
+                kate = kate + $",{(kategori.No_Id == null || kategori.No_Id == "" ? kategori.Id : kategori.No_Id)}";
+            }
+
+            kate = Convert.ToBase64String(Encoding.UTF8.GetBytes(kate));
+
+            NavigationManager.NavigateTo($"/search-page?keyword=&produk=&kategori={Uri.EscapeDataString(kate)}&brand={Uri.EscapeDataString(bra)}", true);
+        }
 
         private void HandleKeyDown(KeyboardEventArgs e)
         {

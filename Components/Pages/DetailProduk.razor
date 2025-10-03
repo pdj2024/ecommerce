@@ -1,6 +1,9 @@
 ﻿@rendermode InteractiveServer
 @page "/detail-produk/{id}"
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
+
+<PageTitle>Detail - @dataSourch?.DataProduk?.Nama_Display</PageTitle>
 
 <MyHeader dataSourch=@dataSourch @ref="header_page" />
 
@@ -126,8 +129,8 @@
                                         <div class="row align-items-center">
                                             <div class="col-12 px-0 pb-2">
                                                 <ul class="breadcrumb-nav">
-                                                    <li><a href="index.html">Home</a></li>
-                                                    <li><a href="index.html">@dataSourch?.DataProduk?.Nama_Display</a></li>
+                                                    <li><a>Home</a></li>
+                                                    <li><a>@dataSourch?.DataProduk?.Nama_Display</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -370,7 +373,7 @@
 
                                             <div class="col-12 rowbox-style">
                                                 <div class="button cart-button" >
-                                                    <NavLink class="btn" href="@($"/payment-page")" style="width: 100%;display: flex; border-radius:0px;">Beli Sekarang</NavLink>
+                                                    <NavLink class="btn btn-primary" @onclick=@(() => NavigateToPayment(dataSourch?.DataProduk))  style="width: 100%;display: flex; border-radius:0px;">Beli Sekarang</NavLink>
                                                 </div>
                                             </div>
 
@@ -527,73 +530,7 @@
             {
                 <div class="col-lg-3 col-md-4 col-6 col-xxl-2 pt-2 pb-2 product">
                     <!-- Start Single Product -->
-                    <div class="single-product">
-                        <div class="product-image">
-                            @if (dataProduk.MediaUrls.Count() >= 2)
-                            {
-                                <img src="@dataProduk.MediaUrls[0]?.Id_Media" alt="@dataProduk.Nama_Display">
-                                <img class="img2" src="@dataProduk.MediaUrls[1]?.Id_Media" alt="@dataProduk.Nama_Display">
-                            } else if (dataProduk.MediaUrls.Count() == 1)
-                            {
-                                <img src="@dataProduk.MediaUrls[0]?.Id_Media" alt="@dataProduk.Nama_Display">
-                            } else
-                            {
-                                <img src="images/products/placeholder.jpg" alt="@dataProduk.Nama_Display">
-                            }
-
-                            @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
-                            {
-                                <span class="sale-tag">-@dataProduk.Diskon1.ToString()%</span>
-                            }
-                            @if (dataProduk.Tgl_Created != null && (DateTime.Now - dataProduk.Tgl_Created).TotalDays <= 3)
-                            {
-                                <span class="new-tag">New</span>
-                            }
-
-                            <div class="button">
-                                <button @onclick="@(e => selectProduk(dataProduk.No_Id))" data-bs-toggle="offcanvas" data-bs-target="#offdetailprod" aria-controls="offdetailprod" class="btn d-none d-lg-flex">Tambahkan <i class="lni lni-cart-1 ms-3"></i></button>
-                            </div>
-
-                            <div class="button-search-produk">
-                                <button @onclick="@(e => selectProduk(dataProduk.No_Id))" data-bs-toggle="offcanvas" data-bs-target="#offdetailprod" aria-controls="offdetailprod" class="btn">
-                                    <i class="lni lni-search-1 d-none d-lg-flex"></i>
-                                    <i class="lni lni-cart-1 d-flex d-lg-none"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <h4 class="title">
-                                <NavLink style="cursor:pointer;" @onclick="@(e => NavigateToDetailProduk(dataProduk.No_Id))">
-                                    <p class="line-clamp-2 underline-anim">
-                                        @dataProduk.Nama_Display
-                                    </p>
-                                </NavLink>
-                            </h4>
-                            @* <ul class="review">
-                            <li><i class="lni lni-star-filled"></i></li>
-                            <li><i class="lni lni-star-filled"></i></li>
-                            <li><i class="lni lni-star-filled"></i></li>
-                            <li><i class="lni lni-star-filled"></i></li>
-                            <li><i class="lni lni-star"></i></li>
-                            <li><span>4.0 Review(s)</span></li>
-                        </ul> *@
-                            <div class="price">
-                                <span>
-                                    @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
-                                    {
-                                        @string.Format("Rp. {0:N0}", (dataProduk.Harga - ((dataProduk.Diskon1 / 100) * dataProduk.Harga)))
-                                    } else
-                                    {
-                                        @string.Format("Rp. {0:N0}", dataProduk.Harga)
-                                    }
-                                </span>
-                                @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
-                                {
-                                    <span class="discount-price">@string.Format("Rp. {0:N0}", dataProduk.Harga)</span>
-                                }
-                            </div>
-                        </div>
-                    </div>
+                    <PacificWeb.Components.Sections.ProductDisplay DataProduk="dataProduk" selectProduk="@selectProduk" />
                     <!-- End Single Product -->
                 </div>
             }    
@@ -609,8 +546,8 @@
 @if (dataSourch?.DataProduk != null && dataSourch?.DataProduk?.No_Id != "")
 {
     <div id="flayer" class="d-flex flex-row px-2 py-1 px-xl-5">
-        <div class="col-12 col-md-5 d-none d-md-flex">
-            <Image Src="@dataSourch?.DataProduk?.MediaUrls.FirstOrDefault()?.Id_Media" Class="h-100 w-auto" />
+        <div class="col-12 col-md-5 d-none d-md-flex gap-3">
+            <Image Src="@dataSourch?.DataProduk?.MediaUrls.FirstOrDefault()?.Id_Media" Class="h-100 w-auto p-1" />
 
             <div class="d-flex flex-column justify-content-center gap-1">
 

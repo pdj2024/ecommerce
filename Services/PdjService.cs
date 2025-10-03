@@ -232,7 +232,7 @@ namespace Services
             return ((int)response.StatusCode, response.IsSuccessStatusCode, MassageInfo + "%section%" + result.NewId);
         }
 
-        public void writeLog(string content)
+        public async Task writeLog(string content)
         {
             var log = $@"
                         [{DateTime.Now:yyyy-MM-dd HH:mm:ss}] - Error API Connection
@@ -248,7 +248,7 @@ namespace Services
             using (var stream = new FileStream(logPath, FileMode.Append, FileAccess.Write, FileShare.ReadWrite))
             using (var writer = new StreamWriter(stream))
             {
-                writer.WriteLineAsync(log);
+                await writer.WriteLineAsync(log);
             }
         }
 
@@ -1059,7 +1059,20 @@ namespace Services
             return (null, false);
         }
 
+        public async Task<bool> LogoutUserApi()
+        {
+            try
+            {
+                    await HttpContext?.SignOutAsync();
+                    return true;
+            }
+            catch (Exception ex)
+            {
+                writeLog($"Logout error: {ex.Message}");
+            }
 
+            return false;
+        }
 
 
 

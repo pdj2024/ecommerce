@@ -60,6 +60,7 @@ namespace PacificWeb.Components.Pages
         public bool loadProsesNetto { get; set; } = false;
 
         public bool loadProses { get; set; } = false;
+        public bool loadRefresh { get; set; } = false;
         public bool loadContent { get; set; } = true;
         public Pesanan Pesanan_Create { get; set; } = new Pesanan();
 
@@ -161,6 +162,7 @@ namespace PacificWeb.Components.Pages
                 StateHasChanged();
 
                 loadContent = false;
+                await SelectItemCart(null);
                 StateHasChanged();
             }
 
@@ -177,6 +179,7 @@ namespace PacificWeb.Components.Pages
         public async Task refreshStatus(Pesanan.Headers item)
         {
             loadProses = true;
+            loadRefresh = true;
             StateHasChanged();
             dataSourch.DataPesanan = await pdjService.GetPesananApi(new ParameterApi
             {
@@ -212,7 +215,8 @@ namespace PacificWeb.Components.Pages
                 await JSRuntime.InvokeVoidAsync("buttonClick", $"#pills-{produk?.Status_Order_1}-tab");
             }
 
-                loadProses = false;
+            loadProses = false;
+            loadRefresh = false;
             StateHasChanged();
         }
 
@@ -283,7 +287,8 @@ namespace PacificWeb.Components.Pages
 
         public async Task openPayment(Pesanan.Headers produk)
         {
-            Pesanan_Create.Header.Clear(); 
+            Pesanan_Create.Header.Clear();
+            loadRefresh = true;
             StateHasChanged();
 
             if (produk.Metode_Bayar == "QRIS" && produk.Status_Order_1 == "belum bayar")
@@ -293,6 +298,7 @@ namespace PacificWeb.Components.Pages
             }
 
             Pesanan_Create.Header.Add(produk);
+            loadRefresh = false;
             StateHasChanged();
         }
 
@@ -406,15 +412,29 @@ namespace PacificWeb.Components.Pages
         {
             loadProsesNetto = true;
             StateHasChanged();
-            var data = dataSourch?.ListDataCart.FirstOrDefault(x => x.Id_Cart == cart.Id_Cart);
-            data.SelectCart = !data.SelectCart;
 
-            nettoKeranjang = 0;
-            foreach (var dataCart in dataSourch?.ListDataCart)
+            if (cart != null)
             {
-                if (!dataCart.SelectCart) continue;
-                nettoKeranjang += dataCart.Qty * dataCart.Harga;
+                var data = dataSourch?.ListDataCart.FirstOrDefault(x => x.Id_Cart == cart.Id_Cart);
+                data.SelectCart = !data.SelectCart;
+
+                nettoKeranjang = 0;
+                foreach (var dataCart in dataSourch?.ListDataCart)
+                {
+                    if (!dataCart.SelectCart) continue;
+                    nettoKeranjang += dataCart.Qty * dataCart.Harga;
+                }
             }
+            else
+            {
+                nettoKeranjang = 0;
+                foreach (var dataCart in dataSourch?.ListDataCart)
+                {
+                    if (!dataCart.SelectCart) continue;
+                    nettoKeranjang += dataCart.Qty * dataCart.Harga;
+                }
+            }
+
 
             loadProsesNetto = false;
             StateHasChanged();
@@ -429,7 +449,9 @@ namespace PacificWeb.Components.Pages
                 ParamUrl = new ParameterApi.ParameterUrl
                 {
                     id_customer = dataSourch.DataUser.No_Id,
-                    show_media = "true"
+                    show_media = "true",
+                    orderBy = "Updated_At",
+                    orderDir = "desc"
                 }
             };
             ListDataCartCheck.Clear();
@@ -446,6 +468,7 @@ namespace PacificWeb.Components.Pages
                 }
             }
 
+            await SelectItemCart(null);
             StateHasChanged();
         }
 
@@ -459,8 +482,7 @@ namespace PacificWeb.Components.Pages
             }
             string encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(text));
 
-            NavigationManager.NavigateTo($"/payment-page/{encoded}", forceLoad: true);
-
+            NavigationManager.NavigateTo($"/payment-page/cart/{encoded}", forceLoad: true);
         }
     }
 }

@@ -28,6 +28,9 @@ namespace Models
             public string orderBy { get; set; }
             public string orderDir { get; set; }
             public string id_kategori { get; set; }
+            public string kategoriid_list { get; set; }
+            public string id_brand { get; set; }
+            public string brandid_list { get; set; }
             public string noid_list { get; set; }
             public bool strict_kategori { get; set; } = true;
             public string slug { get; set; }

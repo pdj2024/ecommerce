@@ -10,6 +10,7 @@ using Services;
 using System.Configuration;
 using System.Drawing;
 using System.Reflection;
+using System.Text;
 using static Services.pdjService;
 
 
@@ -194,15 +195,56 @@ namespace PacificWeb.Components.Sections
             {
                 loadProses = false;
                 await header_page.RefreshCart();
+                await header_page.SelectItemCart(null);
                 StateHasChanged();
                 await JSRuntime.InvokeVoidAsync("buttonClick", "#closeDetailProd");
                 await Task.Delay(200);
                 await JSRuntime.InvokeVoidAsync("buttonClick", "#openCartProd");
+
             } else
             {
                 loadProses = false;
                 StateHasChanged();
             }
+        }
+
+        public async Task NavigateToPayment(Produk item)
+        {
+            if (!auth)
+            {
+                await JSRuntime.InvokeVoidAsync("buttonClick", "#closeDetailProd");
+
+                await Task.Delay(200);
+
+                await JSRuntime.InvokeVoidAsync("buttonClick", "#buttonLogIn");
+                header_page.changeLogin("log-in", true);
+                return;
+            }
+
+            loadProses = true;
+            StateHasChanged();
+
+            item.Id_Variant = item.Variants.FirstOrDefault(x => x.Option_Id == item.Id_Option_Default && x.Size_Id == item.Id_Size_Default)?.No_Id ?? "";
+            Cart itemCart = new Cart { Id_Variant = item.Id_Variant, Qty = Quantity, Id_Customer = dataSourch?.DataUser.No_Id };
+
+            string text = $"{item.No_Id}%section%{item.Id_Variant}%section%{Quantity}";
+            string encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(text));
+
+            NavigationManager.NavigateTo($"/payment-page/direct/{encoded}", forceLoad: true);
+        }
+
+        public async Task CheckoutCart()
+        {
+
+            string text = "";
+            foreach (var item in dataSourch?.ListDataCart)
+            {
+                if (item.SelectCart) text += $"{item.Id_Cart}%section%";
+            }
+            string encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(text));
+
+            NavigationManager.NavigateTo($"/payment-page/cart/{encoded}", forceLoad: true);
+
         }
     }
 }

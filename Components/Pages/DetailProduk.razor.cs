@@ -11,6 +11,8 @@ using System.Configuration;
 
 using System.Drawing;
 using PacificWeb.Components.Layout;
+using System.Security.Claims;
+using System.Text;
 
 
 
@@ -53,7 +55,7 @@ namespace PacificWeb.Components.Pages
         MyHeader header_page;
         MyFooter footer_page;
 
-        public string ProductId => id;
+        public string ProductId = "";
 
         public SourchData dataSourch { get; set; } = new();
 
@@ -61,6 +63,19 @@ namespace PacificWeb.Components.Pages
 
         protected override async Task OnInitializedAsync()
         {
+            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            var user = authState.User;
+
+            if (user.Identity?.IsAuthenticated ?? false)
+            {
+                dataSourch.DataUser.Email = user.FindFirst(c => c.Type == ClaimTypes.Email)?.Value;
+                dataSourch.DataUser.No_Id = user.FindFirst(c => c.Type == ClaimTypes.Name)?.Value;
+            }
+
+            if (id != null && id != "")
+            {
+                ProductId = (await pdjService.DecodeEncode(false, new List<string> { id })).FirstOrDefault();
+            } 
 
         }
 
@@ -179,8 +194,10 @@ namespace PacificWeb.Components.Pages
 
                 await JSRuntime.InvokeVoidAsync("initslideProduct");
                 await JSRuntime.InvokeVoidAsync("initBigDetailProdInfo");
-                
+
                 StateHasChanged();
+                
+                await header_page.SelectItemCart(null);
             }
 
 
@@ -378,5 +395,30 @@ namespace PacificWeb.Components.Pages
             }
         }
 
+
+        public async Task NavigateToPayment(Produk item)
+        {
+            if (dataSourch.DataUser.No_Id == null || dataSourch.DataUser.No_Id == "")
+            {
+                await JSRuntime.InvokeVoidAsync("buttonClick", "#closeDetailProd");
+
+                await Task.Delay(200);
+
+                await JSRuntime.InvokeVoidAsync("buttonClick", "#buttonLogIn");
+                header_page.changeLogin("log-in", true);
+                return;
+            }
+
+            loadProses = true;
+            StateHasChanged();
+
+            item.Id_Variant = item.Variants.FirstOrDefault(x => x.Option_Id == item.Id_Option_Default && x.Size_Id == item.Id_Size_Default)?.No_Id ?? "";
+            Cart itemCart = new Cart { Id_Variant = item.Id_Variant, Qty = Quantity, Id_Customer = dataSourch?.DataUser.No_Id };
+
+            string text = $"{item.No_Id}%section%{item.Id_Variant}%section%{Quantity}";
+            string encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(text));
+
+            NavigationManager.NavigateTo($"/payment-page/direct/{encoded}", forceLoad: true);
+        }
     }
 }
