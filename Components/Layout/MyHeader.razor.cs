@@ -14,6 +14,7 @@ using System.Data;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using static Models.Pesanan;
 using static System.Net.WebRequestMethods;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -57,7 +58,7 @@ namespace PacificWeb.Components.Layout
         public bool loadProses { get; set; } = false;
         public bool loadContent { get; set; } = true;
         public bool loadProsesNetto { get; set; } = false;
-        public decimal nettoKeranjang { get; set; } = 0;
+        public decimal? nettoKeranjang { get; set; } = 0;
         public int searchCount { get; set; } = 0;
         public int dataQty { get; set; } = 0;
 
@@ -229,6 +230,7 @@ namespace PacificWeb.Components.Layout
                 }
             }
 
+            await SelectItemCart(null);
             StateHasChanged();
         }
 
@@ -246,7 +248,7 @@ namespace PacificWeb.Components.Layout
                 foreach (var dataCart in dataSourch?.ListDataCart)
                 {
                     if (!dataCart.SelectCart) continue;
-                    nettoKeranjang += dataCart.Qty * dataCart.Harga;
+                    nettoKeranjang += (decimal)dataCart.Qty * ((decimal)dataCart?.Harga - ((decimal)dataCart?.Harga * ((decimal)dataCart?.Diskon1 / 100)));
                 }
             }
             else
@@ -255,7 +257,7 @@ namespace PacificWeb.Components.Layout
                 foreach (var dataCart in dataSourch?.ListDataCart)
                 {
                     if (!dataCart.SelectCart) continue;
-                    nettoKeranjang += dataCart.Qty * dataCart.Harga;
+                    nettoKeranjang += (decimal)dataCart.Qty * ((decimal)dataCart?.Harga - ((decimal)dataCart?.Harga * ((decimal)dataCart?.Diskon1 / 100)));
                 }
             }
 
@@ -298,6 +300,12 @@ namespace PacificWeb.Components.Layout
                 data.Show_Max_Order = true;
                 return;
             }
+            
+            if (data.SelectCart)
+            {
+                loadProsesNetto = true;
+                StateHasChanged();
+            }
 
             data.Show_Min_Order = false;
             data.Show_Max_Order = false;
@@ -308,14 +316,6 @@ namespace PacificWeb.Components.Layout
                 prosesApi = "create",
                 ParamUrl = new ParameterApi.ParameterUrl()
             };
-
-            if (data.SelectCart)
-            {
-                loadProsesNetto =
-                    true;
-                StateHasChanged();
-            }
-
 
             dataQty++;
             data.Qty++;
@@ -332,7 +332,6 @@ namespace PacificWeb.Components.Layout
                 await InvokeAsync(async () =>
                 {
 
-                    await SearchDataAsync(SearchText);
                     Cart itemcart = new Cart { Id_Variant = data.Id_Variant, Qty = dataQty, Id_Customer = dataSourch?.DataUser.No_Id };
                     (string statusMessage, bool statusRespon, int statusCode, string proses) = await pdjService.CudCartApi("TAMBAH", itemcart, paramApi);
 
@@ -347,7 +346,7 @@ namespace PacificWeb.Components.Layout
                     foreach (var dataCart in dataSourch?.ListDataCart)
                     {
                         if (!dataCart.SelectCart) continue;
-                        nettoKeranjang += dataCart.Qty * dataCart.Harga;
+                        nettoKeranjang += (decimal)dataCart.Qty * ((decimal)dataCart?.Harga - ((decimal)dataCart?.Harga * ((decimal)dataCart?.Diskon1 / 100)));
                     }
 
                     dataQty = 0;
@@ -373,6 +372,12 @@ namespace PacificWeb.Components.Layout
                 data.Show_Max_Order = false;
                 return;
             }
+            
+            if (data.SelectCart)
+            {
+                loadProsesNetto = true;
+                StateHasChanged();
+            }
 
             data.Show_Min_Order = false;
             data.Show_Max_Order = false;
@@ -384,11 +389,6 @@ namespace PacificWeb.Components.Layout
                 ParamUrl = new ParameterApi.ParameterUrl()
             };
 
-            if (data.SelectCart)
-            {
-                loadProsesNetto = true;
-                StateHasChanged();
-            }
 
             if (data.Qty > 1)
             {
@@ -408,7 +408,6 @@ namespace PacificWeb.Components.Layout
                     await InvokeAsync(async () =>
                     {
 
-                        await SearchDataAsync(SearchText);
                         Cart itemcart = new Cart { Id_Variant = data.Id_Variant, Qty = dataQty, Id_Customer = dataSourch?.DataUser.No_Id  };
                         (string statusMessage, bool statusRespon, int statusCode, string proses) = await pdjService.CudCartApi("TAMBAH", itemcart, paramApi);
 
@@ -423,7 +422,7 @@ namespace PacificWeb.Components.Layout
                         foreach (var dataCart in dataSourch?.ListDataCart)
                         {
                             if (!dataCart.SelectCart) continue;
-                            nettoKeranjang += dataCart.Qty * dataCart.Harga;
+                            nettoKeranjang += (decimal)dataCart.Qty * ((decimal)dataCart?.Harga - ((decimal)dataCart?.Harga * ((decimal)dataCart?.Diskon1 / 100)));
                         }
 
                         dataQty = 0;
@@ -544,6 +543,11 @@ namespace PacificWeb.Components.Layout
             kate = Convert.ToBase64String(Encoding.UTF8.GetBytes(kate));
 
             NavigationManager.NavigateTo($"/search-page?keyword=&produk=&kategori={Uri.EscapeDataString(kate)}&brand={Uri.EscapeDataString(bra)}", true);
+        }
+
+        private async Task ShowNavbar(string classItem, bool status)
+        {
+            await JSRuntime.InvokeVoidAsync("showNavbar", classItem, status);
         }
 
     }

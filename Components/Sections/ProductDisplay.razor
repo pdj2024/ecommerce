@@ -4,29 +4,29 @@
     <div class="product-image">
         @if (DataProduk.MediaUrls.Count() >= 2)
         {
-            <img class="d-none d-md-flex" src="@DataProduk.MediaUrls[0]?.Id_Media" alt="@DataProduk.Nama_Display">
-            <img class="img2 d-none d-md-flex" src="@DataProduk.MediaUrls[1]?.Id_Media" alt="@DataProduk.Nama_Display">
+            <img class="d-none d-md-flex" src="@(DataProduk.MediaUrls[0]?.Id_Media == null || DataProduk.MediaUrls[0]?.Id_Media == "" ? "/images/products/placeholder1.png" : DataProduk.MediaUrls[0]?.Id_Media)" alt="@DataProduk.Nama_Display">
+            <img class="img2 d-none d-md-flex" src="@(DataProduk.MediaUrls[1]?.Id_Media == null || DataProduk.MediaUrls[1]?.Id_Media == "" ? "/images/products/placeholder1.png" : DataProduk.MediaUrls[1]?.Id_Media)" alt="@DataProduk.Nama_Display">
         }
         else if (DataProduk.MediaUrls.Count() == 1)
         {
-            <img class="d-none d-md-flex" src="@DataProduk.MediaUrls[0]?.Id_Media" alt="@DataProduk.Nama_Display">
+            <img class="d-none d-md-flex" src="@(DataProduk.MediaUrls[0]?.Id_Media == null || DataProduk.MediaUrls[0]?.Id_Media == "" ? "/images/products/placeholder1.png" : DataProduk.MediaUrls[0]?.Id_Media)" alt="@DataProduk.Nama_Display">
         }
         else
         {
-            <img class="d-none d-md-flex" src="/images/products/placeholder.jpg" alt="@DataProduk.Nama_Display">
+            <img class="d-none d-md-flex" src="/images/products/placeholder1.png" alt="@DataProduk.Nama_Display">
         }
 
         @if (DataProduk.MediaUrls.Count() >= 2)
         {
-            <img class="d-flex d-md-none" src="@DataProduk.MediaUrls[1]?.Id_Media" alt="@DataProduk.Nama_Display">
+            <img class="d-flex d-md-none" src="@(DataProduk.MediaUrls[0]?.Id_Media == null || DataProduk.MediaUrls[0]?.Id_Media == "" ? "/images/products/placeholder1.png" : DataProduk.MediaUrls[0]?.Id_Media)" alt="@DataProduk.Nama_Display">
         }
         else if (DataProduk.MediaUrls.Count() == 1)
         {
-            <img class="d-flex d-md-none"  src="@DataProduk.MediaUrls[0]?.Id_Media" alt="@DataProduk.Nama_Display">
+            <img class="d-flex d-md-none"  src="@(DataProduk.MediaUrls[0]?.Id_Media == null || DataProduk.MediaUrls[0]?.Id_Media == "" ? "/images/products/placeholder1.png" : DataProduk.MediaUrls[0]?.Id_Media)" alt="@DataProduk.Nama_Display">
         }
         else
         {
-            <img class="d-flex d-md-none" src="/images/products/placeholder.jpg" alt="@DataProduk.Nama_Display">
+            <img class="d-flex d-md-none" src="/images/products/placeholder1.png" alt="@DataProduk.Nama_Display">
         }
 
         <span class="sale-tag d-flex flex-row gap-1 bg-transparent">
@@ -45,7 +45,7 @@
 
 
         <div class="button">
-            <button @onclick="@(e => selectProduk.InvokeAsync(DataProduk.No_Id))" data-bs-toggle="offcanvas" data-bs-target="#offdetailprod" aria-controls="offdetailprod" class="btn d-none d-lg-flex">Tambahkan <i class="lni lni-cart-1 ms-3"></i></button>
+            <button @onclick="@(e => selectProduk.InvokeAsync(DataProduk.No_Id))" data-bs-toggle="offcanvas" data-bs-target="#offdetailprod" aria-controls="offdetailprod" class="btn d-none d-md-flex">Tambahkan <i class="lni lni-cart-1 ms-3"></i></button>
         </div>
 
         <div class="button-search-produk d-none d-md-flex">

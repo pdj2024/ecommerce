@@ -509,6 +509,23 @@
             });
         };
 
+        function showNavbar(valueClass, valueOn) {
+            let navbarToggler = document.querySelector("." + valueClass);
+            
+            if(navbarToggler == null) return;
+
+            if(valueOn) 
+            {
+                navbarToggler.classList.add('active');
+            } 
+            else 
+            {
+                navbarToggler.classList.remove('active');
+            }
+
+            
+        };
+
         let swiperInstance = null;
 
         function initSearchButton() {

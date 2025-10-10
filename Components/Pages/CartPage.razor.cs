@@ -53,22 +53,33 @@ namespace PacificWeb.Components.Pages
 
 
         [Parameter] public int Quantity { get; set; } = 1;
-        public decimal nettoKeranjang { get; set; } = 0;
+        public decimal? nettoKeranjang { get; set; } = 0;
+        public decimal? nettoKeranjangChange { get; set; } = 0;
+        public decimal? totalDpp { get; set; } = 0;
+        public decimal? shipingMethodFee { get; set; } = 0;
+        public decimal? paymentMethodFee { get; set; } = 0;
+        public decimal? ppnValue { get; set; } = 0;
+        public decimal? subTotal { get; set; } = 0;
         [Parameter] public string pageTabs { get; set; } = "";
         [Parameter] public EventCallback<int> QuantityChanged { get; set; }
 
         public bool loadProsesNetto { get; set; } = false;
 
+        private System.Timers.Timer? _debounceTimer;
+
         public bool loadProses { get; set; } = false;
+        public bool? infoPembatalan { get; set; } = null;
         public bool loadRefresh { get; set; } = false;
         public bool loadContent { get; set; } = true;
         public Pesanan Pesanan_Create { get; set; } = new Pesanan();
+        public Pesanan.Headers Pesanan_Change { get; set; } = new();
 
         MyHeadProfile header_page;
         MyFooter footer_page;
 
         public SourchData dataSourch { get; set; } = new();
 
+        public int dataQty { get; set; } = 0;
 
         protected override async Task OnInitializedAsync()
         {
@@ -102,7 +113,20 @@ namespace PacificWeb.Components.Pages
                     ParamUrl = new ParameterApi.ParameterUrl { no_id = "comp_1" }
                 });
 
-                var CartTask = pdjService.GetCartApi(new ParameterApi
+
+                var metodeBayarTask = pdjService.GetMetodeBayarApi(new ParameterApi
+                {
+                    routeApi = "payment",
+                    prosesApi = "option",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        status = "aktif",
+                        orderBy = "fee",
+                        orderDir = "asc",
+                    }
+                });
+
+                var cartTask = pdjService.GetCartApi(new ParameterApi
                 {
                     routeApi = "cart",
                     prosesApi = "getAll",
@@ -111,11 +135,14 @@ namespace PacificWeb.Components.Pages
                         id_customer = dataSourch.DataUser.No_Id,
                         show_media = "true",
                         orderBy = "Updated_At",
-                        orderDir = "desc"
+                        orderDir = "desc",
+                        status = "aktif",
                     }
                 });
-
-                var PesananTask = pdjService.GetPesananApi(new ParameterApi
+                
+                if (pageTabs == "belum-bayar") 
+                {
+                    dataSourch.DataPesanan = await pdjService.GetPesananApi(new ParameterApi
                 {
                     routeApi = "order",
                     prosesApi = "getAll",
@@ -125,8 +152,71 @@ namespace PacificWeb.Components.Pages
                         show_media = "true",
                         orderBy = "Updated_At",
                         orderDir = "desc",
+                        status_order_1 = "belum bayar",
+                        status = "aktif",
                     }
                 });
+                } 
+                
+                else if (pageTabs == "dikemas") 
+                {
+                    dataSourch.DataPesanan = await pdjService.GetPesananApi(new ParameterApi
+                {
+                    routeApi = "order",
+                    prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        id_customer = dataSourch.DataUser.No_Id,
+                        show_media = "true",
+                        orderBy = "Updated_At",
+                        orderDir = "desc",
+                        status_order_1 = "dikemas",
+                        status = "aktif",
+                    }
+                });
+                } 
+                
+                else if (pageTabs == "dikirim") 
+                {
+                    dataSourch.DataPesanan = await pdjService.GetPesananApi(new ParameterApi
+                {
+                    routeApi = "order",
+                    prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        id_customer = dataSourch.DataUser.No_Id,
+                        show_media = "true",
+                        orderBy = "Updated_At",
+                        orderDir = "desc",
+                        status_order_1 = "dikirim",
+                        status = "aktif",
+                    }
+                });
+                } 
+                
+                else if (pageTabs == "histori") 
+                {
+                    dataSourch.DataPesanan = await pdjService.GetPesananApi(new ParameterApi
+                    {
+                        routeApi = "order",
+                        prosesApi = "getAll",
+                        ParamUrl = new ParameterApi.ParameterUrl
+                        {
+                            id_customer = dataSourch.DataUser.No_Id,
+                            show_media = "true",
+                            orderBy = "Updated_At",
+                            orderDir = "desc",
+                            status_order_1 = "histori",
+                            status = "aktif",
+                        }
+                    });
+                } 
+                
+                else
+                {
+                    NavigationManager.NavigateTo("/", true);
+                }
+
 
                 var NavbarTask = pdjService.GetNavbarApi(new ParameterApi
                 {
@@ -148,15 +238,38 @@ namespace PacificWeb.Components.Pages
                     }
                 });
 
+                var SosmedTask = pdjService.GetSosmedApi(new ParameterApi
+                {
+                    routeApi = "company",
+                    prosesApi = "get-social",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        no_id = "comp_1",
+                        status = "aktif"
+                    }
+                });
+
+                var SummaryPesananTask = pdjService.GetSummaryPesananApi(new ParameterApi
+                {
+                    routeApi = "order",
+                    prosesApi = "getSummary",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        id_customer = dataSourch.DataUser.No_Id,
+                    }
+                });
+
 
                 // Tunggu semua task selesai
-                await Task.WhenAll(companyTask, PesananTask, NavbarTask, CartTask);
+                await Task.WhenAll(companyTask, NavbarTask, SosmedTask, SummaryPesananTask, metodeBayarTask, cartTask);
 
                 // Assign semua data sekaligus
                 dataSourch.ListDataCompany = companyTask.Result;
-                dataSourch.DataPesanan = PesananTask.Result;
+                dataSourch.ListDataCart = cartTask.Result;
                 dataSourch.ListDataNavbar = NavbarTask.Result;
-                dataSourch.ListDataCart = CartTask.Result;
+                dataSourch.ListDataPembayaran = metodeBayarTask.Result;
+                dataSourch.ListDataCompanySocial = SosmedTask.Result;
+                dataSourch.ListDataSummaryPesanan = SummaryPesananTask.Result;
 
                 dataSourch.Finised = true;
                 StateHasChanged();
@@ -210,8 +323,6 @@ namespace PacificWeb.Components.Pages
 
             if(produk?.Status_Order_1 != "belum bayar") 
             {
-
-                await JSRuntime.InvokeVoidAsync("scrollToTop");
                 await JSRuntime.InvokeVoidAsync("buttonClick", $"#pills-{produk?.Status_Order_1}-tab");
             }
 
@@ -275,6 +386,82 @@ namespace PacificWeb.Components.Pages
             }
         }
 
+        private async Task GantiMethod(Pesanan.Headers headItem)
+        {
+            Pesanan_Change = headItem;
+            await JSRuntime.InvokeVoidAsync("buttonClick", $"#closeModal");
+            StateHasChanged();
+
+            var data = dataSourch.ListDataPembayaran.FirstOrDefault(x => x.Cara_Bayar == headItem.Metode_Bayar);
+            if(data != null)
+            {
+                data.selectPayment = true;
+            }
+
+            totalDpp  = dataSourch?.DataPesanan?.Items.Where(x => x.No_Bukti == headItem.No_Bukti).Sum(x => x.Harga_Satuan * x.Qty);
+            shipingMethodFee  = dataSourch?.DataPesanan?.Biaya.FirstOrDefault(x => x.No_Bukti == headItem.No_Bukti && x.Jenis_Item.ToLower() == "layanan")?.Harga_Satuan;
+            paymentMethodFee  = dataSourch?.DataPesanan?.Biaya.FirstOrDefault(x => x.No_Bukti == headItem.No_Bukti && x.Jenis_Item.ToLower() == "ongkir")?.Harga_Satuan;
+
+            hitungTotal();
+            await JSRuntime.InvokeVoidAsync("buttonClick", $"#buttonChangeMethod");
+            StateHasChanged();
+            
+        }
+
+        private async Task BatalkanPesanan (Pesanan.Headers headItem, bool direct = false)
+        {
+            infoPembatalan = null;
+            StateHasChanged();
+
+            if (direct)
+            {
+                loadProses = true;
+                var PembatalanStatus = await pdjService.CudPesananApi("TAMBAH", null , new ParameterApi
+                {
+                    routeApi = "order",
+                    prosesApi = $"batal/{Pesanan_Change.No_Bukti}",
+                    ParamUrl = new ParameterApi.ParameterUrl()
+                });
+
+                if (PembatalanStatus.statusResponse)
+                {
+                    infoPembatalan = true;
+
+                } else
+                {
+                    infoPembatalan = false;
+                }
+
+                loadProses = false;
+                return;
+            }
+
+
+            Pesanan_Change = headItem;
+            await JSRuntime.InvokeVoidAsync("buttonClick", $"#closeModal");
+            StateHasChanged();
+
+            
+            await JSRuntime.InvokeVoidAsync("buttonClick", $"#buttonBatalMethod");
+            StateHasChanged();
+            
+        }
+
+        public void hitungTotal()
+        {
+            subTotal = totalDpp + paymentMethodFee + shipingMethodFee;
+            if (Pesanan_Change.Incl_PPN)
+            {
+                ppnValue = ((decimal)Pesanan_Change.PPN / ((decimal)100 + (decimal)Pesanan_Change.PPN)) * (decimal)subTotal;
+                nettoKeranjangChange = (subTotal / ((decimal)1 + (decimal)((decimal)Pesanan_Change.PPN / (decimal)100))) + ppnValue;
+            }
+            else
+            {
+                ppnValue = ((decimal)Pesanan_Change.PPN / (decimal)100) * (decimal)subTotal;
+                nettoKeranjangChange = subTotal + ppnValue;
+            }
+        }
+
         public async Task clickCopy(Pesanan.Headers item, string init = "")
         {
             await JSRuntime.InvokeVoidAsync("copyVa", init);
@@ -299,6 +486,27 @@ namespace PacificWeb.Components.Pages
 
             Pesanan_Create.Header.Add(produk);
             loadRefresh = false;
+            StateHasChanged();
+        }
+
+        public async Task SelectPaymentMethod(Pembayaran payment)
+        {
+            var active = dataSourch?.ListDataPembayaran.FirstOrDefault(x => x.selectPayment == true);
+            var method = dataSourch?.ListDataPembayaran.FirstOrDefault(x => x.Cara_Bayar == payment.Cara_Bayar);
+
+            if (active == null)
+            {
+                method.selectPayment = true;
+            }
+            else
+            {
+                active.selectPayment = false;
+                method.selectPayment = true;
+            }
+
+
+            shipingMethodFee = method.Fee;
+            hitungTotal();
             StateHasChanged();
         }
 
@@ -336,42 +544,99 @@ namespace PacificWeb.Components.Pages
             loadProses = false;
             StateHasChanged();
         }
+
         private async Task Increase(string id_cart)
         {
+            var data = dataSourch?.ListDataCart.FirstOrDefault(x => x.Id_Cart == id_cart);
+
+            if (data.Qty >= data.Stock)
+            {
+                data.Show_Min_Order = false;
+                data.Show_Max_Order = true;
+                return;
+            }
+
+            if (data.SelectCart)
+            {
+                loadProsesNetto = true;
+                StateHasChanged();
+            }
+
+            data.Show_Min_Order = false;
+            data.Show_Max_Order = false;
+
             ParameterApi paramApi = new ParameterApi
             {
                 routeApi = "cart",
                 prosesApi = "create",
                 ParamUrl = new ParameterApi.ParameterUrl()
             };
-            var data = dataSourch?.ListDataCart.FirstOrDefault(x => x.Id_Cart == id_cart);
-            if (data.SelectCart)
-            {
-                loadProsesNetto = true;
-                StateHasChanged();
-            }
+
+            dataQty++;
             data.Qty++;
-            Cart itemcart = new Cart { Id_Variant = data.Id_Variant, Qty = 1, Id_Customer = dataSourch?.DataUser.No_Id  };
-            (string statusMessage, bool statusRespon, int statusCode, string proses) = await pdjService.CudCartApi("TAMBAH", itemcart, paramApi);
 
-            if (statusRespon && statusCode == 200)
+            _debounceTimer?.Stop();
+            _debounceTimer?.Dispose();
+
+            _debounceTimer = new System.Timers.Timer(500); // 500ms delay
+            _debounceTimer.Elapsed += async (s, e) =>
             {
-                await RefreshCart();
-            }
+                _debounceTimer?.Stop();
+                _debounceTimer?.Dispose();
+
+                await InvokeAsync(async () =>
+                {
+
+                    Cart itemcart = new Cart { Id_Variant = data.Id_Variant, Qty = dataQty, Id_Customer = dataSourch?.DataUser.No_Id };
+                    (string statusMessage, bool statusRespon, int statusCode, string proses) = await pdjService.CudCartApi("TAMBAH", itemcart, paramApi);
 
 
-            nettoKeranjang = 0;
-            foreach (var dataCart in dataSourch?.ListDataCart)
-            {
-                if (!dataCart.SelectCart) continue;
-                nettoKeranjang += dataCart.Qty * dataCart.Harga;
-            }
+                    if (statusRespon && statusCode == 200)
+                    {
+                        await RefreshCart(id_cart);
+                    }
+
+
+                    nettoKeranjang = 0;
+                    foreach (var dataCart in dataSourch?.ListDataCart)
+                    {
+                        if (!dataCart.SelectCart) continue;
+                        nettoKeranjang += (decimal)dataCart.Qty * ((decimal)dataCart?.Harga - ((decimal)dataCart?.Harga * ((decimal)dataCart?.Diskon1 / 100)));
+                    }
+
+                    dataQty = 0;
+                });
+            };
+
+            _debounceTimer.AutoReset = false;
+            _debounceTimer.Start();
+
 
             loadProsesNetto = false;
             StateHasChanged();
         }
+
         private async Task Decrease(string id_cart)
         {
+
+            var data = dataSourch?.ListDataCart.FirstOrDefault(x => x.Id_Cart == id_cart);
+
+            if (data.Qty <= data.Min_Order)
+            {
+                data.Show_Min_Order = true;
+                data.Show_Max_Order = false;
+                return;
+            }
+
+            if (data.SelectCart)
+            {
+                loadProsesNetto = true;
+                StateHasChanged();
+            }
+
+            data.Show_Min_Order = false;
+            data.Show_Max_Order = false;
+
             ParameterApi paramApi = new ParameterApi
             {
                 routeApi = "cart",
@@ -379,31 +644,50 @@ namespace PacificWeb.Components.Pages
                 ParamUrl = new ParameterApi.ParameterUrl()
             };
 
-            var data = dataSourch?.ListDataCart.FirstOrDefault(x => x.Id_Cart == id_cart);
-            if (data.SelectCart)
-            {
-                loadProsesNetto = true;
-                StateHasChanged();
-            }
+
             if (data.Qty > 1)
             {
+                dataQty--;
                 data.Qty--;
-                Cart itemcart = new Cart { Id_Variant = data.Id_Variant, Qty = -1, Id_Customer = dataSourch.DataUser.No_Id };
-                (string statusMessage, bool statusRespon, int statusCode, string proses) = await pdjService.CudCartApi("TAMBAH", itemcart, paramApi);
 
-                if (statusRespon && statusCode == 200)
+
+                _debounceTimer?.Stop();
+                _debounceTimer?.Dispose();
+
+                _debounceTimer = new System.Timers.Timer(500); // 500ms delay
+                _debounceTimer.Elapsed += async (s, e) =>
                 {
-                    await RefreshCart();
-                }
+                    _debounceTimer?.Stop();
+                    _debounceTimer?.Dispose();
 
-                nettoKeranjang = 0;
-                foreach (var dataCart in dataSourch?.ListDataCart)
-                {
-                    if (!dataCart.SelectCart) continue;
-                    nettoKeranjang += dataCart.Qty * dataCart.Harga;
-                }
+                    await InvokeAsync(async () =>
+                    {
 
+                        Cart itemcart = new Cart { Id_Variant = data.Id_Variant, Qty = dataQty, Id_Customer = dataSourch?.DataUser.No_Id };
+                        (string statusMessage, bool statusRespon, int statusCode, string proses) = await pdjService.CudCartApi("TAMBAH", itemcart, paramApi);
+
+
+                        if (statusRespon && statusCode == 200)
+                        {
+                            await RefreshCart(id_cart);
+                        }
+
+
+                        nettoKeranjang = 0;
+                        foreach (var dataCart in dataSourch?.ListDataCart)
+                        {
+                            if (!dataCart.SelectCart) continue;
+                            nettoKeranjang += (decimal)dataCart.Qty * ((decimal)dataCart?.Harga - ((decimal)dataCart?.Harga * ((decimal)dataCart?.Diskon1 / 100)));
+                        }
+
+                        dataQty = 0;
+                    });
+                };
+
+                _debounceTimer.AutoReset = false;
+                _debounceTimer.Start();
             }
+
             loadProsesNetto = false;
             StateHasChanged();
         }
@@ -422,7 +706,7 @@ namespace PacificWeb.Components.Pages
                 foreach (var dataCart in dataSourch?.ListDataCart)
                 {
                     if (!dataCart.SelectCart) continue;
-                    nettoKeranjang += dataCart.Qty * dataCart.Harga;
+                    nettoKeranjang += dataCart.Qty * (dataCart.Harga - (dataCart.Harga * (dataCart.Diskon1 / 100)));
                 }
             }
             else
@@ -431,7 +715,7 @@ namespace PacificWeb.Components.Pages
                 foreach (var dataCart in dataSourch?.ListDataCart)
                 {
                     if (!dataCart.SelectCart) continue;
-                    nettoKeranjang += dataCart.Qty * dataCart.Harga;
+                    nettoKeranjang += dataCart.Qty * (dataCart.Harga - (dataCart.Harga * (dataCart.Diskon1 / 100)));
                 }
             }
 
@@ -440,7 +724,7 @@ namespace PacificWeb.Components.Pages
             StateHasChanged();
         }
 
-        public async Task RefreshCart()
+        public async Task RefreshCart(string data_id = null)
         {
             ParameterApi paramApi = new ParameterApi
             {
@@ -448,7 +732,7 @@ namespace PacificWeb.Components.Pages
                 prosesApi = "getAll",
                 ParamUrl = new ParameterApi.ParameterUrl
                 {
-                    id_customer = dataSourch.DataUser.No_Id,
+                    id_customer = dataSourch?.DataUser.No_Id,
                     show_media = "true",
                     orderBy = "Updated_At",
                     orderDir = "desc"
@@ -456,7 +740,18 @@ namespace PacificWeb.Components.Pages
             };
             ListDataCartCheck.Clear();
             ListDataCartCheck.AddRange(dataSourch?.ListDataCart?.FindAll(x => x.SelectCart == true));
-            dataSourch.ListDataCart = await pdjService.GetCartApi(paramApi);
+            var DataCartList = await pdjService.GetCartApi(paramApi);
+
+            if (data_id == null)
+            {
+                dataSourch.ListDataCart = DataCartList;
+            }
+            else
+            {
+                var DataShow = dataSourch.ListDataCart.FirstOrDefault(x => x.Id_Cart == data_id);
+                DataShow.Qty = DataCartList.FirstOrDefault(x => x.Id_Cart == data_id).Qty;
+            }
+
             if (ListDataCartCheck.Count() >= 1)
             {
                 foreach (var item in dataSourch?.ListDataCart)
@@ -469,6 +764,11 @@ namespace PacificWeb.Components.Pages
             }
 
             await SelectItemCart(null);
+            StateHasChanged();
+        }
+
+        public void RefreshLoad() 
+        {
             StateHasChanged();
         }
 

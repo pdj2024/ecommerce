@@ -25,6 +25,10 @@ Author: GrayGrids
 
         // show or hide the back-top-top button
         var backToTo = document.querySelector(".scroll-top");
+
+        if (backToTo == null) return;
+        if (header_navbar == null) return;
+
         if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
             backToTo.style.display = "flex";
             header_navbar.style.boxShadow = "#23232324 5px 10px 20px -8px";

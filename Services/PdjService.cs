@@ -117,7 +117,6 @@ namespace Services
 
         }
 
-
         public async Task GoBack()
         {
             await _jsRuntime.InvokeVoidAsync("history.back");
@@ -134,13 +133,20 @@ namespace Services
 
             foreach (var Stringitem in dataString)
             {
-                if (proses)
+                try
                 {
-                    list.Add(Convert.ToBase64String(Encoding.UTF8.GetBytes(Stringitem)));
+                    if (proses)
+                    {
+                        list.Add(Convert.ToBase64String(Encoding.UTF8.GetBytes(Stringitem)));
+                    }
+                    else
+                    {
+                        list.Add(Encoding.UTF8.GetString(Convert.FromBase64String(Stringitem)));
+                    }
                 }
-                else
+                catch
                 {
-                    list.Add(Encoding.UTF8.GetString(Convert.FromBase64String(Stringitem)));
+                    list.Add("kosong");
                 }
             }
 
@@ -552,13 +558,15 @@ namespace Services
             return ("Terjadi Kesalahan: Gagal memproses data", false, 500, proses);
         }
 
-        public async Task<(string messageResponse, bool statusResponse, int codeNumber, string proses)> CudPesananApi(string proses, object order = null , ParameterApi urlParam = null )
+        public async Task<(string messageResponse, bool statusResponse, int codeNumber, string proses, Pesanan.PaymentResponse dataRespons)> CudPesananApi(string proses, object order = null , ParameterApi urlParam = null )
         {
             var config = initConfigApi(urlParam);
             var result = (statusCode: 0, statusResponse: false, MessageInfo: "");
             object requestBody = null;
             string jsonContent = "";
             HttpResponseMessage response;
+
+            var dataResponses = new Pesanan.PaymentResponse();
 
             var jsonSettings = new JsonSerializerSettings
             {
@@ -592,7 +600,17 @@ namespace Services
 
                 result = await CheckAPI(response, config.UrlApi, proses);
 
-                return (result.MessageInfo, result.statusResponse, result.statusCode, proses);
+                if (result.statusResponse)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    using var jsonDoc = JsonDocument.Parse(json);
+                    var root = jsonDoc.RootElement;
+
+                    dataResponses = JsonConvert.DeserializeObject<Pesanan.PaymentResponse>(root.GetRawText());
+                }
+
+
+                return (result.MessageInfo, response.IsSuccessStatusCode, result.statusCode, proses, dataResponses);
             }
             catch (Exception ex)
             {
@@ -610,7 +628,7 @@ namespace Services
                 }
             }
 
-            return ("Terjadi Kesalahan: Gagal memproses data", false, 500, proses);
+            return ("Terjadi Kesalahan: Gagal memproses data", false, 500, proses, dataResponses);
         }
 
         public async Task<List<Pengiriman>> GetMetodeKirimApi(ParameterApi urlParam)
@@ -850,6 +868,55 @@ namespace Services
 
         }
 
+        public async Task<List<Pesanan.SummaryResponse>> GetSummaryPesananApi(ParameterApi urlParam)
+        {
+            var config = initConfigApi(urlParam);
+            var tbListProduk = new List<Pesanan.SummaryResponse>();
+
+            try
+            {
+                var response = await config.httpReq.GetAsync(config.UrlApi, config.cancelTimer.Token);
+
+                var checking = await CheckAPI(response, config.UrlApi, "BACA");
+
+                if (checking.statusResponse)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    using var jsonDoc = JsonDocument.Parse(json);
+                    var root = jsonDoc.RootElement;
+
+                    if (root.TryGetProperty("Data", out var dataFromDb))
+                    {
+                        tbListProduk = JsonConvert.DeserializeObject<List<Pesanan.SummaryResponse>>(dataFromDb.GetRawText());
+                    }
+                    else
+                    {
+                        writeLog($"Data Kosong");
+                    }
+                }
+
+                return tbListProduk;
+            }
+            catch (Exception ex)
+            {
+                if (ex is OperationCanceledException)
+                {
+                    writeLog("Gagal Baca Data : Request ke API terlalu lama (timeout).");
+                }
+                else if (ex is HttpRequestException)
+                {
+                    writeLog($"Gagal Baca Data : Terjadi kesalahan jaringan atau server. {ex.Message}");
+                }
+                else
+                {
+                    writeLog($"Gagal Baca Data : Terjadi error: {ex.Message}");
+                }
+            }
+
+            return tbListProduk;
+
+        }
+
         public async Task<(List<Brand> SearchBrand, List<Produk> SearchProduk, int TotalCount, bool hasMore)> GetSearchApi(ParameterApi urlParam)
         {
             var config = initConfigApi(urlParam);
@@ -933,6 +1000,105 @@ namespace Services
                     if (root.TryGetProperty("Data", out var dataFromDb))
                     {
                         tbListProduk = JsonConvert.DeserializeObject<List<Navbar>>(dataFromDb.GetRawText());
+                    }
+                    else
+                    {
+                        writeLog($"Data Kosong");
+                    }
+                }
+
+                return tbListProduk;
+            }
+            catch (Exception ex)
+            {
+                if (ex is OperationCanceledException)
+                {
+                    writeLog("Gagal Baca Data : Request ke API terlalu lama (timeout).");
+                }
+                else if (ex is HttpRequestException)
+                {
+                    writeLog($"Gagal Baca Data : Terjadi kesalahan jaringan atau server. {ex.Message}");
+                }
+                else
+                {
+                    writeLog($"Gagal Baca Data : Terjadi error: {ex.Message}");
+                }
+            }
+
+            return tbListProduk;
+
+        }
+        
+        public async Task<List<NilaiDefault>> GetNilaiDefaultApi(ParameterApi urlParam)
+
+        {
+            var config = initConfigApi(urlParam);
+            var tbListProduk = new List<NilaiDefault>();
+
+            try
+            {
+                var response = await config.httpReq.GetAsync(config.UrlApi, config.cancelTimer.Token);
+
+                var checking = await CheckAPI(response, config.UrlApi, "BACA");
+
+                if (checking.statusResponse)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    using var jsonDoc = JsonDocument.Parse(json);
+                    var root = jsonDoc.RootElement;
+
+                    if (root.TryGetProperty("Data", out var dataFromDb))
+                    {
+                        tbListProduk = JsonConvert.DeserializeObject<List<NilaiDefault>>(dataFromDb.GetRawText());
+                    }
+                    else
+                    {
+                        writeLog($"Data Kosong");
+                    }
+                }
+
+                return tbListProduk;
+            }
+            catch (Exception ex)
+            {
+                if (ex is OperationCanceledException)
+                {
+                    writeLog("Gagal Baca Data : Request ke API terlalu lama (timeout).");
+                }
+                else if (ex is HttpRequestException)
+                {
+                    writeLog($"Gagal Baca Data : Terjadi kesalahan jaringan atau server. {ex.Message}");
+                }
+                else
+                {
+                    writeLog($"Gagal Baca Data : Terjadi error: {ex.Message}");
+                }
+            }
+
+            return tbListProduk;
+        }
+
+        public async Task<List<CompanySosial>> GetSosmedApi(ParameterApi urlParam)
+
+        {
+            var config = initConfigApi(urlParam);
+            var tbListProduk = new List<CompanySosial>();
+
+            try
+            {
+                var response = await config.httpReq.GetAsync(config.UrlApi, config.cancelTimer.Token);
+
+                var checking = await CheckAPI(response, config.UrlApi, "BACA");
+
+                if (checking.statusResponse)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    using var jsonDoc = JsonDocument.Parse(json);
+                    var root = jsonDoc.RootElement;
+
+                    if (root.TryGetProperty("Data", out var dataFromDb))
+                    {
+                        tbListProduk = JsonConvert.DeserializeObject<List<CompanySosial>>(dataFromDb.GetRawText());
                     }
                     else
                     {

@@ -7,6 +7,7 @@ using Models;
 using Radzen;
 using Services;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
 
 namespace PacificWeb.Components.Layout
@@ -35,10 +36,12 @@ namespace PacificWeb.Components.Layout
         public List<Cart> ListDataCartCheck { get; set; } = new List<Cart>();
         public bool loadProses { get; set; } = false;
         public bool loadContent { get; set; } = true;
+        public bool[] PesananLoad { get; set; } = [false, false, false, false];
         public bool loadProsesNetto { get; set; } = false;
         public decimal nettoKeranjang { get; set; } = 0;
         public int searchCount { get; set; } = 0;
 
+        [Parameter] public Action refreshLoad { get; set; }
 
         public void NavigateToHome(string route)
         {
@@ -47,7 +50,22 @@ namespace PacificWeb.Components.Layout
 
         protected override async Task OnInitializedAsync()
         {
-
+            if (pageRoute == "belum-bayar")
+            {
+                PesananLoad[0] = true;
+            }
+            else if (pageRoute == "dikemas")
+            {
+                PesananLoad[1] = true;
+            }
+            else if (pageRoute == "dikirim")
+            {
+                PesananLoad[2] = true;
+            }
+            else if (pageRoute == "selesai")
+            {
+                PesananLoad[3] = true;
+            }
         }
 
         private async Task Logout()
@@ -326,6 +344,102 @@ namespace PacificWeb.Components.Layout
             NavigationManager.NavigateTo($"/detail-produk/{stringData.FirstOrDefault()}", forceLoad: true);
         }
 
+        public async Task moveTabs (string tab)
+        {
+            var data = new Pesanan();
+
+            if (tab == "belum-bayar" && PesananLoad[0] == false)
+            {
+
+                PesananLoad[0] = true;
+
+                data = await pdjService.GetPesananApi(new ParameterApi
+                {
+                    routeApi = "order",
+                    prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        id_customer = dataSourch.DataUser.No_Id,
+                        show_media = "true",
+                        orderBy = "Updated_At",
+                        orderDir = "desc",
+                        status_order_1 = "belum bayar",
+                        status = "aktif",
+                    }
+                });
+            
+            } 
+            else if (tab == "dikemas" && PesananLoad[1] == false) 
+            {
+
+                PesananLoad[1] = true;
+
+                data = await pdjService.GetPesananApi(new ParameterApi
+                {
+                    routeApi = "order",
+                    prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        id_customer = dataSourch.DataUser.No_Id,
+                        show_media = "true",
+                        orderBy = "Updated_At",
+                        orderDir = "desc",
+                        status_order_1 = "dikemas",
+                        status = "aktif",
+                    }
+                });
+
+            }
+            else if (tab == "dikirim" && PesananLoad[2] == false) 
+            {
+                
+                PesananLoad[2] = true;
+
+                data = await pdjService.GetPesananApi(new ParameterApi
+                {
+                    routeApi = "order",
+                    prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        id_customer = dataSourch.DataUser.No_Id,
+                        show_media = "true",
+                        orderBy = "Updated_At",
+                        orderDir = "desc",
+                        status_order_1 = "dikirim",
+                        status = "aktif",
+                    }
+                });
+            
+            } 
+            else if (tab == "selesai" && PesananLoad[3] == false) 
+            {
+
+                PesananLoad[3] = true;
+
+                data = await pdjService.GetPesananApi(new ParameterApi
+                {
+                    routeApi = "order",
+                    prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        id_customer = dataSourch.DataUser.No_Id,
+                        show_media = "true",
+                        orderBy = "Updated_At",
+                        orderDir = "desc",
+                        status_order_1 = "histori",
+                        status = "aktif",
+                    }
+                });
+            
+            }
+
+            dataSourch.DataPesanan.Header.AddRange(data.Header);
+            dataSourch.DataPesanan.Items.AddRange(data.Items);
+            dataSourch.DataPesanan.Biaya.AddRange(data.Biaya);
+
+            refreshLoad?.Invoke();
+
+        }
         public async Task CheckoutCart()
         {
 

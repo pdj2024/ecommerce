@@ -3,7 +3,7 @@
 @using Microsoft.AspNetCore.Components.Authorization
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
-<PageTitle>Welcome - @dataSourch?.ListDataCompany?.FirstOrDefault()?.Nama_Toko</PageTitle>
+<PageTitle>@dataSourch?.ListDataCompany?.FirstOrDefault()?.Nama_Toko</PageTitle>
 
 
 <MyHeader dataSourch=@dataSourch @ref="header_page" />
@@ -24,6 +24,7 @@
     </section>
 }
 
+
 <section class="hero-area" style="margin-top: 85px;">
     <div class="container p-0 pe-lg-3" style="width:100%; max-width:100%;">
         <div class="row">
@@ -36,8 +37,16 @@
                         @foreach (var banner in dataSourch?.ListDataBanner)
                         {
                             <div class="single-slider">
-                                <Image Src="@banner.Media_Desktop.Id_Media" Class="img-cover" Style="max-height:54rem"></Image>
+                                @if (@banner.Media_Desktop.Id_Media != null || @banner.Media_Desktop.Id_Media != "")
+                                {
+                                    <Image Src="@banner.Media_Desktop.Id_Media" Class="img-cover" Style="max-height:54rem"></Image>
+                                } else
+                                {
+                                    <Image Src="/images/products/placeholder1.png" Class="img-cover" Style="max-height:54rem"></Image>
+                                }
                             </div>
+
+
                         }
                         <!-- End Single Slider -->
                     </div>
@@ -55,7 +64,14 @@
                         @foreach (var banner in dataSourch?.ListDataBanner)
                         {
                             <div class="single-slider">
-                                <Image Src="@banner.Media_Desktop.Id_Media" Class="img-cover" Style="max-height:32rem"></Image>
+                                @if (@banner.Media_Desktop.Id_Media != null || @banner.Media_Desktop.Id_Media != "")
+                                {
+                                    <Image Src="@banner.Media_Desktop.Id_Media" Class="img-cover" Style="max-height:54rem"></Image>
+                                }
+                                else
+                                {
+                                    <Image Src="/images/products/placeholder1.png" Class="img-cover" Style="max-height:54rem"></Image>
+                                }
                             </div>
                         }
                         <!-- End Single Slider -->
@@ -74,7 +90,14 @@
                         @foreach (var banner in dataSourch?.ListDataBanner)
                         {
                             <div class="single-slider">
-                                <Image Src="@banner.Media_Tablet.Id_Media" Class="img-cover" Style="max-height:31rem"></Image>
+                                @if (@banner.Media_Tablet.Id_Media != null || @banner.Media_Tablet.Id_Media != "")
+                                {
+                                    <Image Src="@banner.Media_Tablet.Id_Media" Class="img-cover" Style="max-height:54rem"></Image>
+                                }
+                                else
+                                {
+                                    <Image Src="/images/products/placeholder1.png" Class="img-cover" Style="max-height:54rem"></Image>
+                                }
                             </div>
                         }
                         <!-- End Single Slider -->
@@ -93,7 +116,14 @@
                         @foreach (var banner in dataSourch?.ListDataBanner)
                         {
                             <div class="single-slider">
-                                <Image Src="@banner.Media_Phone.Id_Media" Class="img-cover" Style="max-height:54rem"></Image>
+                                @if (@banner.Media_Phone.Id_Media != null || @banner.Media_Phone.Id_Media != "")
+                                {
+                                    <Image Src="@banner.Media_Phone.Id_Media" Class="img-cover" Style="max-height:54rem"></Image>
+                                }
+                                else
+                                {
+                                    <Image Src="/images/products/placeholder1.png" Class="img-cover" Style="max-height:54rem"></Image>
+                                }
                             </div>
                         }
                         <!-- End Single Slider -->
@@ -126,6 +156,7 @@
             {
                 <a class="slide-brand"><img src="@brand.Id_Media" alt="@brand.No_Id_Media"></a>
             }
+
         </div>
     </div>
 </section>

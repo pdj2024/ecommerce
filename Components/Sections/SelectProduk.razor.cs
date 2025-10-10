@@ -78,9 +78,10 @@ namespace PacificWeb.Components.Sections
             
         }
 
-        public void NavigateToDetailProduk(string id)
+        public async void NavigateToDetailProduk(string id)
         {
-            NavigationManager.NavigateTo($"/detail-produk/{id}", forceLoad: true);
+            List<string> stringData = await pdjService.DecodeEncode(true, new List<string> { id });
+            NavigationManager.NavigateTo($"/detail-produk/{stringData.FirstOrDefault()}", forceLoad: true);
         }
 
         public void NavigateToHome(string route)

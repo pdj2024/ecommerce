@@ -30,6 +30,18 @@ namespace Models
         public string No_Id_Media { get; set; } = "";
     }
 
+    public class NilaiDefault
+    {
+        public int Limit_Produk_Home { get; set; } = 12;
+        public int Limit_Produk_Search { get; set; } = 12;
+        public decimal Ppn { get; set; } = 0;
+        public decimal Expiry_In_Day { get; set; } = 0;
+        public decimal Expiry_In_Hour { get; set; } = 0;
+        public decimal Expiry_In_Minute { get; set; } = 0;
+        public bool Incl_Ppn { get; set; } = false;
+        public string Id_Company { get; set; } = "";
+    }
+
     public class SourchData
     {
         public List<Company> ListDataCompany { get; set; } = new List<Company>();
@@ -42,18 +54,30 @@ namespace Models
         public List<DataUser> ListDataUser { get; set; } = new List<DataUser>();
         public List<Pembayaran> ListDataPembayaran { get; set; } = new List<Pembayaran>();
         public List<Pengiriman> ListDataPengiriman { get; set; } = new List<Pengiriman>();
+        public List<NilaiDefault> ListDataNilaiDefault { get; set; } = new List<NilaiDefault>();
+        public List<CompanySosial> ListDataCompanySocial { get; set; } = new List<CompanySosial>();
+        public List<Pesanan.SummaryResponse> ListDataSummaryPesanan { get; set; } = new List<Pesanan.SummaryResponse>();
 
 
+
+
+        public NilaiDefault DataNilaiDefault { get; set; } = new NilaiDefault();
         public Company DataCompany { get; set; } = new Company();
+        public CompanySosial DataCompanySocial { get; set; } = new CompanySosial();
         public Produk DataProduk { get; set; } = new Produk();
         public Cart DataCart { get; set; } = new Cart();
         public Brand DataBanner { get; set; } = new Brand();
         public DataUser DataUser { get; set; } = new DataUser();
         public Brand DataBrand { get; set; } = new Brand();
         public Pesanan DataPesanan { get; set; } = new Pesanan();
+        public Pesanan DataPesananBelum { get; set; } = new Pesanan();
+        public Pesanan DataPesananDikemas { get; set; } = new Pesanan();
+        public Pesanan DataPesananDikirim { get; set; } = new Pesanan();
+        public Pesanan DataPesananHistori { get; set; } = new Pesanan();
         public Navbar DataNavbar { get; set; } = new Navbar();
         public Pembayaran DataPembayaran { get; set; } = new Pembayaran();
         public Pengiriman DataPengiriman { get; set; } = new Pengiriman();
+        public Pesanan.PaymentResponse DataResponsePesanan { get; set; } = new Pesanan.PaymentResponse();
 
 
         public (List<Brand> SearchBrand, List<Produk> SearchProduk, int TotalCount, bool hasMore) SearchList { get; set; } = (new(), new(), 0, false);
@@ -64,7 +88,7 @@ namespace Models
     public partial class Company
     {
         public string No_Id { get; set; } = "";
-        public string Nama_Toko { get; set; } = "";
+        public string Nama_Toko { get; set; } = "Hallow All";
         public string Email { get; set; } = "";
         public string No_Telp { get; set; } = "";
         public string No_Wa_1 { get; set; } = "";

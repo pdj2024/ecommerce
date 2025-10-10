@@ -69,15 +69,83 @@ namespace Models
             public decimal Harga_Total { get; set; } = 0;
         }
 
+
+        public class BuatOrder
+        {
+            public int StatusCode { get; set; } = 0;
+            public string Message { get; set; } = "";
+            public string NewId { get; set; } = "";
+        }
+
+        public class PaymentMidtrans
+        {
+            public int StatusCode { get; set; } = 0;
+            public string Message { get; set; } = "";
+            public MidtransResponses MidtransResponse { get; set; } = new();
+        }
+
+        public class ActionsMidtrans
+        {
+            public int name { get; set; } = 0;
+            public string method { get; set; } = "";
+            public string url { get; set; } = "";
+        }
+
+        public class UpdateOrder
+        {
+            public int StatusCode { get; set; } = 0;
+            public string Message { get; set; } = "";
+        }
+
+        public class SummaryInfo
+        {
+            public int jumlah { get; set; } = 0;
+            public string status_order_1 { get; set; } = "";
+        }
+
+
+        public class PaymentResponse
+        {
+            public BuatOrder BuatPesanan { get; set; } = new();
+            public PaymentMidtrans Payment { get; set; } = new();
+            public UpdateOrder UpdatePesanan { get; set; } = new();
+        }
+
+        public class SummaryResponse
+        {
+            public string id_customer { get; set; } = "";
+            public int total_pesanan { get; set; } = 0;
+            public List<SummaryInfo> summary { get; set; } = new();
+
+        }
+
+        public class MidtransResponses
+        {
+            public string status_code { get; set; } = "";
+            public string status_message { get; set; } = "";
+            public string transaction_id { get; set; } = "";
+            public string order_id { get; set; } = "";
+            public string merchant_id { get; set; } = "";
+            public string gross_amount { get; set; } = "";
+            public string currency { get; set; } = "";
+            public string payment_type { get; set; } = "";
+            public string transaction_time { get; set; } = "";
+            public string transaction_status { get; set; } = "";
+            public string fraud_status { get; set; } = "";
+            public string expiry_time { get; set; } = "";
+            public string qr_string { get; set; } = "";
+            public List<ActionsMidtrans> actions { get; set; } = new();
+
+        }
+
+
+
         public int HeaderRows { get; set; } = 0;
         public int ItemRows { get; set; } = 0;
         public int BiayaRows { get; set; } = 0;
         public List<Headers> Header { get; set; } = new();
         public List<Item> Items { get; set; } = new();
         public List<Biayas> Biaya { get; set; } = new();
-
-
-
 
     }
 

@@ -43,25 +43,25 @@ else
                             </button>
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent" style="height:100%">
                                 <ul class="nav nav-pills" id="pills-tab" role="tablist">
-                                  <li class="nav-item" style="position:relative" role="presentation">
-                                    <button class="nav-link @(pageRoute == "keranjang" ? "active" : "")" id="pills-keranjang-tab" data-bs-toggle="pill" data-bs-target="#pills-keranjang" type="button" role="tab" aria-controls="pills-keranjang" aria-selected="true">Keranjang</button>
+                                    <li class="nav-item" style="position:relative" role="presentation">
+                                        <button class="nav-link @(pageRoute == "keranjang" ? "active" : "")" id="pills-keranjang-tab" data-bs-toggle="pill" data-bs-target="#pills-keranjang" type="button" role="tab" aria-controls="pills-keranjang" aria-selected="true">Keranjang</button>
                                         <span class="total-items-profil">@dataSourch.ListDataCart.Count()</span>
                                     </li>
-                                  <li class="nav-item" style="position:relative" role="presentation">
-                                    <button class="nav-link @(pageRoute == "belum-bayar" ? "active" : "")" id="pills-belum-bayar-tab" data-bs-toggle="pill" data-bs-target="#pills-belum-bayar" type="button" role="tab" aria-controls="pills-belum-bayar" aria-selected="false">Belum Bayar</button>
-                                        <span class="total-items-profil">@dataSourch?.DataPesanan.Header.Count(x => x.Status_Order_1.ToLower() == "belum bayar")</span>
+                                    <li class="nav-item" style="position:relative" role="presentation">
+                                        <button class="nav-link @(pageRoute == "belum-bayar" ? "active" : "")" @onclick=@(x => moveTabs("belum-bayar")) id="pills-belum-bayar-tab" data-bs-toggle="pill" data-bs-target="#pills-belum-bayar" type="button" role="tab" aria-controls="pills-belum-bayar" aria-selected="false">Belum Bayar</button>
+                                        <span class="total-items-profil">@dataSourch?.ListDataSummaryPesanan.FirstOrDefault()?.summary.FirstOrDefault(x => x.status_order_1 == "belum bayar")?.jumlah</span>
                                     </li>
-                                  <li class="nav-item" style="position:relative" role="presentation">
-                                    <button class="nav-link @(pageRoute == "dikemas" ? "active" : "")" id="pills-dikemas-tab" data-bs-toggle="pill" data-bs-target="#pills-dikemas" type="button" role="tab" aria-controls="pills-dikemas" aria-selected="false">Dikemas</button>
-                                        <span class="total-items-profil">@dataSourch?.DataPesanan.Header.Count(x => x.Status_Order_1.ToLower() == "dikemas")</span>
+                                    <li class="nav-item" style="position:relative" role="presentation">
+                                        <button class="nav-link @(pageRoute == "dikemas" ? "active" : "")" @onclick=@(x => moveTabs("dikemas")) id="pills-dikemas-tab" data-bs-toggle="pill" data-bs-target="#pills-dikemas" type="button" role="tab" aria-controls="pills-dikemas" aria-selected="false">Dikemas</button>
+                                        <span class="total-items-profil">@dataSourch?.ListDataSummaryPesanan.FirstOrDefault()?.summary.FirstOrDefault(x => x.status_order_1 == "dikemas")?.jumlah</span>
                                     </li>
-                                  <li class="nav-item" style="position:relative" role="presentation">
-                                    <button class="nav-link @(pageRoute == "dikirim" ? "active" : "")" id="pills-dikirim-tab" data-bs-toggle="pill" data-bs-target="#pills-dikirim" type="button" role="tab" aria-controls="pills-dikirim" aria-selected="false">Dikirim</button>
-                                        <span class="total-items-profil">@dataSourch?.DataPesanan.Header.Count(x => x.Status_Order_1.ToLower() == "dikirim")</span>
+                                    <li class="nav-item" style="position:relative" role="presentation">
+                                        <button class="nav-link @(pageRoute == "dikirim" ? "active" : "")" @onclick=@(x => moveTabs("dikirim")) id="pills-dikirim-tab" data-bs-toggle="pill" data-bs-target="#pills-dikirim" type="button" role="tab" aria-controls="pills-dikirim" aria-selected="false">Dikirim</button>
+                                        <span class="total-items-profil">@dataSourch?.ListDataSummaryPesanan.FirstOrDefault()?.summary.FirstOrDefault(x => x.status_order_1 == "dikirim")?.jumlah</span>
                                     </li>
-                                  <li class="nav-item" style="position:relative" role="presentation">
-                                    <button class="nav-link @(pageRoute == "histori" ? "active" : "")" id="pills-histori-tab" data-bs-toggle="pill" data-bs-target="#pills-histori" type="button" role="tab" aria-controls="pills-histori" aria-selected="false">Histori Beli</button>
-                                  </li>
+                                    <li class="nav-item" style="position:relative" role="presentation">
+                                        <button class="nav-link @(pageRoute == "histori" ? "active" : "")" @onclick=@(x => moveTabs("histori"))  id="pills-histori-tab" data-bs-toggle="pill" data-bs-target="#pills-histori" type="button" role="tab" aria-controls="pills-histori" aria-selected="false">Histori Beli</button>
+                                    </li>
                                 </ul>
                             </div> <!-- navbar collapse -->
                         </nav>
@@ -97,7 +97,7 @@ else
                                     <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle item-head menu-logo" data-bs-toggle="dropdown" aria-expanded="false"> 
                                         <i class="lni lni-user-4" style="font-size:20px"></i>
                                         <span class="total-items">
-                                            @dataSourch?.DataPesanan.Header.Count(x => new[] { "belum bayar", "dikirim", "dikemas" }.Any(s => x.Status_Order_1.ToLower().Contains(s)))
+                                            @dataSourch?.ListDataSummaryPesanan.FirstOrDefault()?.summary.Where(x => x.status_order_1 != "selesai")?.Sum(x => x.jumlah)
                                         </span> 
                                     </a> 
                                     <ul class="dropdown-menu text-small" style=""> 
@@ -116,7 +116,7 @@ else
                                                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M200-200v-560 560Zm0 80q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v100h-80v-100H200v560h560v-100h80v100q0 33-23.5 56.5T760-120H200Zm320-160q-33 0-56.5-23.5T440-360v-240q0-33 23.5-56.5T520-680h280q33 0 56.5 23.5T880-600v240q0 33-23.5 56.5T800-280H520Zm280-80v-240H520v240h280Zm-160-60q25 0 42.5-17.5T700-480q0-25-17.5-42.5T640-540q-25 0-42.5 17.5T580-480q0 25 17.5 42.5T640-420Z"/></svg>
                                                     <span>Belum Bayar</span>
                                                 </div>
-                                                <span class="qty-info">@dataSourch?.DataPesanan.Header.Count(x => x.Status_Order_1.ToLower() == "belum bayar")</span>
+                                                <span class="qty-info">@dataSourch?.ListDataSummaryPesanan.FirstOrDefault()?.summary.FirstOrDefault(x => x.status_order_1 == "belum bayar")?.jumlah</span>
                                             </button>
                                         </li> 
                                         <li style="cursor:pointer;">
@@ -125,7 +125,7 @@ else
                                                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M200-640v440h560v-440H640v320l-160-80-160 80v-320H200Zm0 520q-33 0-56.5-23.5T120-200v-499q0-14 4.5-27t13.5-24l50-61q11-14 27.5-21.5T250-840h460q18 0 34.5 7.5T772-811l50 61q9 11 13.5 24t4.5 27v499q0 33-23.5 56.5T760-120H200Zm16-600h528l-34-40H250l-34 40Zm184 80v190l80-40 80 40v-190H400Zm-200 0h560-560Z"/></svg>
                                                     <span>Dikemas</span>
                                                 </div>
-                                                <span class="qty-info">@dataSourch?.DataPesanan.Header.Count(x => x.Status_Order_1.ToLower() == "dikemas")</span>
+                                                <span class="qty-info">@dataSourch?.ListDataSummaryPesanan.FirstOrDefault()?.summary.FirstOrDefault(x => x.status_order_1 == "dikemas")?.jumlah</span>
                                             </button>
                                         </li> 
                                         <li style="cursor:pointer;">
@@ -134,7 +134,7 @@ else
                                                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M280-160q-50 0-85-35t-35-85H60l18-80h113q17-19 40-29.5t49-10.5q26 0 49 10.5t40 29.5h167l84-360H182l4-17q6-28 27.5-45.5T264-800h456l-37 160h117l120 160-40 200h-80q0 50-35 85t-85 35q-50 0-85-35t-35-85H400q0 50-35 85t-85 35Zm357-280h193l4-21-74-99h-95l-28 120Zm-19-273 2-7-84 360 2-7 34-146 46-200ZM20-427l20-80h220l-20 80H20Zm80-146 20-80h260l-20 80H100Zm180 333q17 0 28.5-11.5T320-280q0-17-11.5-28.5T280-320q-17 0-28.5 11.5T240-280q0 17 11.5 28.5T280-240Zm400 0q17 0 28.5-11.5T720-280q0-17-11.5-28.5T680-320q-17 0-28.5 11.5T640-280q0 17 11.5 28.5T680-240Z"/></svg>
                                                     <span>Dikirim</span>
                                                 </div>
-                                                <span class="qty-info">@dataSourch?.DataPesanan.Header.Count(x => x.Status_Order_1.ToLower() == "dikirim")</span>
+                                                <span class="qty-info">@dataSourch?.ListDataSummaryPesanan.FirstOrDefault()?.summary.FirstOrDefault(x => x.status_order_1 == "dikirim")?.jumlah</span>
                                             </button>
                                         </li> 
                                         <li style="cursor:pointer;">
@@ -234,7 +234,7 @@ else
                                                     <div class="product-image">
                                                         @if (dataProduk.MediaUrls.Count() >= 1)
                                                         {
-                                                            <img src="@dataProduk.MediaUrls[0]?.Id_Media" alt="@dataProduk.Nama_Display">
+                                                            <img src="@(dataProduk.MediaUrls[0]?.Id_Media == null || dataProduk.MediaUrls[0]?.Id_Media == "" ? "/images/products/placeholder1.png" : dataProduk.MediaUrls[0]?.Id_Media)" alt="@dataProduk.Nama_Display">
                                                         }
 
                                                         @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
@@ -342,7 +342,7 @@ else
                                                         </a>
                                                     </h4>
                                                     <p class="variant" style="background-color: #eee;width: fit-content;padding: 1px 5px;border-radius: 0px;">
-                                                        @($"{cart.Option}, {cart.Size}")
+                                                        @($"{cart.Option_Label}, {cart.Size_Label}")
                                                     </p>
                                                     <p class="quantity">
                                                         <span class="amount" style="font-size:16px; font-weight:600;">@string.Format("Rp. {0:N0}", cart.Harga)</span>

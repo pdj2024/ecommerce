@@ -56,10 +56,13 @@ namespace PacificWeb.Components.Pages
         MyFooter footer_page;
 
         public string ProductId = "";
+        public bool auth = false;
 
         public SourchData dataSourch { get; set; } = new();
 
         public Produk DataProdukModal { get; set; } = new Produk();
+
+        public Produk DataProduk { get; set; } = new Produk();
 
         protected override async Task OnInitializedAsync()
         {
@@ -70,7 +73,14 @@ namespace PacificWeb.Components.Pages
             {
                 dataSourch.DataUser.Email = user.FindFirst(c => c.Type == ClaimTypes.Email)?.Value;
                 dataSourch.DataUser.No_Id = user.FindFirst(c => c.Type == ClaimTypes.Name)?.Value;
+                
             }
+
+            if (user != null || user.Identity.IsAuthenticated)
+            {
+                auth = true;
+            }
+
 
             if (id != null && id != "")
             {
@@ -93,7 +103,8 @@ namespace PacificWeb.Components.Pages
                         pagesize = 12,
                         show_variant = true,
                         max_media = 10,
-                        no_id = ProductId
+                        no_id = ProductId,
+                        status = "aktif"
                     }
                 });
 
@@ -105,6 +116,7 @@ namespace PacificWeb.Components.Pages
                     {
                         pagesize = 12,
                         show_variant = true,
+                        status = "aktif"
                     }
                 });
 
@@ -124,7 +136,8 @@ namespace PacificWeb.Components.Pages
                         id_customer = dataSourch?.DataUser.No_Id ,
                         show_media = "true",
                         orderBy = "Updated_At",
-                        orderDir = "desc"
+                        orderDir = "desc",
+                        status = "aktif"
                     }
                 });
 
@@ -146,12 +159,34 @@ namespace PacificWeb.Components.Pages
                     ParamUrl = new ParameterApi.ParameterUrl
                     {
                         no_id = "comp_1",
+                        status = "aktif"
+                    }
+                });
+
+                var SosmedTask = pdjService.GetSosmedApi(new ParameterApi
+                {
+                    routeApi = "company",
+                    prosesApi = "get-social",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        no_id = "comp_1",
+                        status = "aktif"
+                    }
+                });
+
+                var SummaryPesananTask = pdjService.GetSummaryPesananApi(new ParameterApi
+                {
+                    routeApi = "order",
+                    prosesApi = "getSummary",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        id_customer = dataSourch.DataUser.No_Id,
                     }
                 });
 
 
                 // Tunggu semua task selesai
-                await Task.WhenAll(ProdukTask, ListProdukTask, companyTask, PesananTask, NavbarTask, CartTask);
+                await Task.WhenAll(ProdukTask, ListProdukTask, companyTask, PesananTask, NavbarTask, CartTask, SosmedTask, SummaryPesananTask);
 
 
                 // Assign semua data sekaligus
@@ -159,6 +194,8 @@ namespace PacificWeb.Components.Pages
                 dataSourch.DataPesanan = PesananTask.Result;
                 dataSourch.ListDataNavbar = NavbarTask.Result;
                 dataSourch.ListDataCart = CartTask.Result;
+                dataSourch.ListDataCompanySocial = SosmedTask.Result;
+                dataSourch.ListDataSummaryPesanan = SummaryPesananTask.Result;
 
 
                 dataSourch.DataProduk = ProdukTask.Result.FirstOrDefault() ?? null;
@@ -169,7 +206,7 @@ namespace PacificWeb.Components.Pages
 
                 if (dataSourch?.DataProduk != null && dataSourch?.DataProduk?.No_Id != "")
                 {
-                    var dataProd = dataSourch.DataProduk.Variants.FirstOrDefault(x => x.Stock >= dataSourch.DataProduk.Min_Order);
+                    var dataProd = dataSourch.DataProduk.Variants.FirstOrDefault(x => x.Stock >= dataSourch.DataProduk.Min_Order && x.Status.ToLower() == "aktif");
 
                     Quantity = dataSourch.DataProduk.Min_Order;
                     var Opsi = dataSourch?.DataProduk.Options.FirstOrDefault( x => x.Option_Id == dataProd.Option_Id);
@@ -204,12 +241,32 @@ namespace PacificWeb.Components.Pages
 
         }
 
+        public async Task clickCopy(Pesanan.Headers item, string init = "")
+        {
+            await JSRuntime.InvokeVoidAsync("copyVa", init);
+        }
+
         public async Task selectProduk(string id_kode)
         {
+            var produkTask = await pdjService.GetProdukApi(new ParameterApi
+            {
+                routeApi = "produk",
+                prosesApi = "getAll",
+                ParamUrl = new ParameterApi.ParameterUrl { pagesize = 2, show_variant = true, max_media = 10, no_id = id_kode }
+            });
+
+            DataProduk = produkTask.FirstOrDefault(x => x.No_Id == id_kode);
+
+            if (DataProduk == null)
+            {
+                await JSRuntime.InvokeVoidAsync("initSearchButton");
+                StateHasChanged();
+                return;
+            }
 
             DataProdukModal = dataSourch?.ListDataProduk.FirstOrDefault(x => x.No_Id == id_kode);
 
-            var dataProd = DataProdukModal?.Variants.FirstOrDefault(x => x.Stock >= DataProdukModal?.Min_Order);
+            var dataProd = DataProdukModal?.Variants.FirstOrDefault(x => x.Stock >= DataProdukModal?.Min_Order && x.Status.ToLower() == "aktif");
 
             var Opsi = DataProdukModal?.Options.FirstOrDefault(x => x.Option_Id == dataProd.Option_Id);
             DataProdukModal.Id_Option_Default = Opsi?.Option_Id ?? "";
@@ -365,6 +422,17 @@ namespace PacificWeb.Components.Pages
 
         private async Task tambahKeranjang(Produk item, string via)
         {
+            if (!auth)
+            {
+                await JSRuntime.InvokeVoidAsync("buttonClick", "#closeDetailProd");
+
+                await Task.Delay(200);
+
+                await JSRuntime.InvokeVoidAsync("buttonClick", "#buttonLogIn");
+                header_page.changeLogin("log-in", true);
+                return;
+            }
+
             loadProses = true;
             StateHasChanged();
 

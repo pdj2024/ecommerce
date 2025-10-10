@@ -84,21 +84,21 @@ namespace PacificWeb.Components.Pages
                 {
                     routeApi = "produk",
                     prosesApi = "getAll",
-                    ParamUrl = new ParameterApi.ParameterUrl { pagesize = 12, show_variant = true, max_media = 2 }
+                    ParamUrl = new ParameterApi.ParameterUrl { pagesize = 12, show_variant = true, max_media = 2 , status = "aktif" }
                 });
 
                 var bannerTask = pdjService.GetBannerApi(new ParameterApi
                 {
                     routeApi = "banner",
                     prosesApi = "getAll",
-                    ParamUrl = new ParameterApi.ParameterUrl { pagesize = 3, orderBy = "nama_banner", orderDir = "desc" }
+                    ParamUrl = new ParameterApi.ParameterUrl { pagesize = 3, orderBy = "nama_banner", orderDir = "desc", status = "aktif" }
                 });
 
                 var brandTask = pdjService.GetBrandApi(new ParameterApi
                 {
                     routeApi = "brand",
                     prosesApi = "getAll",
-                    ParamUrl = new ParameterApi.ParameterUrl { orderBy = "nama_brand", orderDir = "desc" }
+                    ParamUrl = new ParameterApi.ParameterUrl { orderBy = "nama_brand", orderDir = "desc", status = "aktif" }
                 });
 
                 var kategoriTask = pdjService.GetKategoriApi(new ParameterApi
@@ -124,18 +124,29 @@ namespace PacificWeb.Components.Pages
                         id_customer = dataSourch.DataUser.No_Id,
                         show_media = "true",
                         orderBy = "Updated_At",
-                        orderDir = "desc"
+                        orderDir = "desc",
+                        status = "aktif"
                     }
                 });
 
-                var PesananTask = pdjService.GetPesananApi(new ParameterApi
+                //var PesananTask = pdjService.GetPesananApi(new ParameterApi
+                //{
+                //    routeApi = "order",
+                //    prosesApi = "getAll",
+                //    ParamUrl = new ParameterApi.ParameterUrl
+                //    {
+                //        id_customer = dataSourch.DataUser.No_Id,
+                //        show_media = "true",
+                //    }
+                //});
+
+                var SummaryPesananTask = pdjService.GetSummaryPesananApi(new ParameterApi
                 {
                     routeApi = "order",
-                    prosesApi = "getAll",
+                    prosesApi = "getSummary",
                     ParamUrl = new ParameterApi.ParameterUrl
                     {
                         id_customer = dataSourch.DataUser.No_Id,
-                        show_media = "true",
                     }
                 });
 
@@ -146,18 +157,32 @@ namespace PacificWeb.Components.Pages
                     ParamUrl = new ParameterApi.ParameterUrl
                     {
                         no_id = "comp_1",
+                        status = "aktif"
+                    }
+                });
+
+                var SosmedTask = pdjService.GetSosmedApi(new ParameterApi
+                {
+                    routeApi = "company",
+                    prosesApi = "get-social",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        no_id = "comp_1",
+                        status = "aktif"
                     }
                 });
 
 
                 // Tunggu semua task selesai
-                await Task.WhenAll(produkTask, bannerTask, brandTask, kategoriTask, companyTask, PesananTask, NavbarTask, CartTask);
+                await Task.WhenAll(produkTask, bannerTask, brandTask, kategoriTask, companyTask, NavbarTask, SosmedTask, CartTask, SummaryPesananTask);
 
 
                 // Assign semua data sekaligus
                 dataSourch.ListDataCompany = companyTask.Result;
-                dataSourch.DataPesanan = PesananTask.Result;
+                //dataSourch.DataPesanan = PesananTask.Result;
+                dataSourch.ListDataSummaryPesanan = SummaryPesananTask.Result;
                 dataSourch.ListDataNavbar = NavbarTask.Result;
+                dataSourch.ListDataCompanySocial = SosmedTask.Result;
                 dataSourch.ListDataCart = CartTask.Result;
 
 
@@ -216,7 +241,7 @@ namespace PacificWeb.Components.Pages
                 return;
             }
 
-            var dataProd = DataProduk?.Variants.FirstOrDefault(x => x.Stock >= DataProduk?.Min_Order);
+            var dataProd = DataProduk?.Variants.FirstOrDefault(x => x.Stock >= DataProduk?.Min_Order && x.Status.ToLower() == "aktif");
 
             var Opsi = DataProduk?.Options.FirstOrDefault(x => x.Option_Id == dataProd.Option_Id);
             DataProduk.Id_Option_Default = Opsi?.Option_Id ?? "";
@@ -230,21 +255,6 @@ namespace PacificWeb.Components.Pages
             StateHasChanged();
             await JSRuntime.InvokeVoidAsync("initSearchButton");
 
-        }
-
-        private void OnSizeChanged(string value)
-        {
-            var Size = DataProduk.Sizes.FirstOrDefault(x => x.Size_Id == value);
-            DataProduk.Id_Size_Default = Size?.Size_Id ?? "";
-            DataProduk.Size_Default = Size?.Size_Label ?? "";
-        }
-
-
-        private void OnVariantChanged(string value)
-        {
-            var Opsi = DataProduk.Options.FirstOrDefault(x => x.Option_Id == value);
-            DataProduk.Id_Option_Default = Opsi?.Option_Id ?? "";
-            DataProduk.Option_Default = Opsi?.Option_Label ?? "";
         }
 
         public class SizeOption

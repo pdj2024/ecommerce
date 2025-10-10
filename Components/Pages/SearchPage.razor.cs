@@ -216,15 +216,38 @@ namespace PacificWeb.Components.Pages
                     }
                 });
 
+                var SosmedTask = pdjService.GetSosmedApi(new ParameterApi
+                {
+                    routeApi = "company",
+                    prosesApi = "get-social",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        no_id = "comp_1",
+                        status = "aktif"
+                    }
+                });
+
+                var SummaryPesananTask = pdjService.GetSummaryPesananApi(new ParameterApi
+                {
+                    routeApi = "order",
+                    prosesApi = "getSummary",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        id_customer = dataSourch.DataUser.No_Id,
+                    }
+                });
+
 
                 // Tunggu semua task selesai
-                await Task.WhenAll(searchTask, brandTask, kategoriTask, companyTask, PesananTask, NavbarTask, CartTask);
+                await Task.WhenAll(searchTask, brandTask, kategoriTask, companyTask, PesananTask, NavbarTask, CartTask, SosmedTask, SummaryPesananTask);
 
                 // Assign semua data sekaligus
                 dataSourch.ListDataCompany = companyTask.Result;
                 dataSourch.DataPesanan = PesananTask.Result;
                 dataSourch.ListDataNavbar = NavbarTask.Result;
                 dataSourch.ListDataCart = CartTask.Result;
+                dataSourch.ListDataCompanySocial = SosmedTask.Result;
+                dataSourch.ListDataSummaryPesanan = SummaryPesananTask.Result;
 
 
                 dataSourch.ListDataKategori = kategoriTask.Result;

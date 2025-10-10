@@ -3,7 +3,7 @@
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
 
-<PageTitle>Detail - @dataSourch?.DataProduk?.Nama_Display</PageTitle>
+<PageTitle>Detail - @(dataSourch?.DataProduk?.Nama_Display == "" ? "Not Found" : dataSourch?.DataProduk?.Nama_Display )</PageTitle>
 
 <MyHeader dataSourch=@dataSourch @ref="header_page" />
 
@@ -118,7 +118,7 @@
             {
                 <div class="row w-100">
                     @if(dataSourch?.DataProduk != null ) {
-                        <div class="col-lg-6 col-md-12 col-12 pe-lg-4 pe-0" style="">
+                        <div class="col-lg-6 col-md-12 col-12 px-0 px-lg-4" style="">
                             <div class="position-sticky top-0 ps-0 ps-lg-4">
                         
                                 <div class="col-12 py-xl-2">
@@ -213,7 +213,7 @@
 
                                 <div class="pt-3">
                                     <div class="row" style="margin-bottom:20px;">
-                                        <h5 class="tag-variasi" style="font-weight:400;"><span style="font-weight:800">Opsi:</span> @dataSourch?.DataProduk?.Option_Default</h5>
+                                        <h5 class="tag-variasi" style="font-weight:400;"><span style="font-weight:800">Opsi:</span> @(dataSourch?.DataProduk?.Option_Default == "" ? "Empty" : dataSourch?.DataProduk?.Option_Default) </h5>
                                         <div class="size-options d-flex flex-row flex-wrap" style="gap: 10px;">
                                             @foreach (var Option in dataSourch?.DataProduk?.Options)
                                             {
@@ -223,18 +223,18 @@
                                                         type="radio" 
                                                         name="variant" 
                                                         value="@Option.Option_Id" 
-                                                        disabled="@(dataSourch?.DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == Option.Option_Id && x.Size_Id == dataSourch?.DataProduk?.Id_Size_Default)?.Stock >= dataSourch?.DataProduk?.Min_Order ? false : true)" 
+                                                        disabled="@(dataSourch?.DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == Option.Option_Id && x.Size_Id == dataSourch?.DataProduk?.Id_Size_Default && x.Status == "aktif")?.Stock >= dataSourch?.DataProduk?.Min_Order ? false : true)" 
                                                         checked="@(dataSourch?.DataProduk?.Id_Option_Default == Option.Option_Id)"
                                                         @onchange="() => OnVariantChanged(Option.Option_Id)" 
                                                     />
-                                                    <span style="width: fit-content;overflow: hidden;text-overflow: ellipsis; text-align:center; z-index:1; position:relative;">@Option.Option_Label</span>
+                                                    <span style="width: fit-content;overflow: hidden;text-overflow: ellipsis; text-align:center; z-index:1; position:relative;">@(Option.Option_Label == "" ? "Empty" : Option.Option_Label )</span>
                                                 </label>
                                             }
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <h5 class="tag-variasi" style="font-weight:400;"><span style="font-weight:800">Size:</span> @dataSourch?.DataProduk?.Size_Default</h5>
+                                        <h5 class="tag-variasi" style="font-weight:400;"><span style="font-weight:800">Size:</span> @(dataSourch?.DataProduk?.Size_Default == "" ? "Empty" : dataSourch?.DataProduk?.Size_Default)</h5>
                                         <div class="size-options d-flex flex-row flex-wrap" style="gap: 10px;">
                                             @foreach (var size in dataSourch?.DataProduk?.Sizes)
                                             {
@@ -243,11 +243,11 @@
                                                         type="radio" 
                                                         name="size" 
                                                         value="@size.Size_Id"
-                                                        disabled="@(dataSourch?.DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == dataSourch?.DataProduk?.Id_Option_Default && x.Size_Id == size.Size_Id)?.Stock >= dataSourch?.DataProduk?.Min_Order ? false : true)"
+                                                        disabled="@(dataSourch?.DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == dataSourch?.DataProduk?.Id_Option_Default && x.Size_Id == size.Size_Id && x.Status == "aktif")?.Stock >= dataSourch?.DataProduk?.Min_Order ? false : true)"
                                                         checked="@(dataSourch?.DataProduk?.Id_Size_Default == size.Size_Id)"
                                                         @onchange="() => OnSizeChanged(size.Size_Id)" 
                                                 />
-                                                    <span style="z-index:1; position:relative;">@size.Size_Label</span>
+                                                    <span style="z-index:1; position:relative;">@(size.Size_Label == "" ? "Empty" : size.Size_Label)</span>
                                                 </label>
                                             }
                                         </div>
@@ -477,17 +477,19 @@
                         <p style="font-size:18px; font-weight:400; letter-spacing:-1px; margin-top: -15px; width:fit-content" class="mb-3">
                             Share this product
                         </p>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" value="@NavigationManager.Uri" placeholder="Url Product" aria-label="Recipient's username" aria-describedby="button-addon2" readonly style="border: 1px solid #d7d7d7; border-radius: 0px;background-color: white; overflow: hidden !important; text-overflow: ellipsis; font-size: 14px;">
-                            <button class="btn-slide px-3" type="button" id="button-addon2" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;">
+                        <div class="input-group mb-3 va-box" style="border-radius:0px; border: 1px solid #d7d7d7;" data-va="@NavigationManager.Uri">
+                            <input type="text" class="form-control" value="@NavigationManager.Uri" placeholder="Url Product" aria-label="Recipient's username" aria-describedby="button-addon2" readonly style="border: none; border-radius: 0px;background-color: white; overflow: hidden !important; text-overflow: ellipsis; font-size: 14px;">
+                            <button label="Copy VA" class="btn-slide px-3 copy-btn copy-btn-1-code" @onclick=@( x => clickCopy(null, $"{1}-code")) type="button" id="button-addon2" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content; border-left: 1px solid #d7d7d7;border-top: unset;border-bottom: unset;border-right: unset;">
                                 <span class="position-relative">Copy</span>
                             </button>
                         </div>
-                        <div class="d-flex gap-4 mt-3" style="font-size:22px;">
-                            <i class="lni lni-x"></i>
-                            <i class="lni lni-facebook"></i>
-                            <i class="lni lni-instagram"></i>
-                            <i class="lni lni-whatsapp"></i>
+                        <div class="d-flex flex-row gap-3 mt-3">
+                            @foreach (var company in dataSourch.ListDataCompanySocial)
+                            {
+                                <div style="width:30px; height:25px;">
+                                    <NavLink target="_blank" class="w-100 h-100 media-sosial" style="border-radius: 5px;" href="@company.Url"><img class="w-100 h-100" src="@company.Id_Media" alt="Alternate Text" /></NavLink>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>
@@ -586,7 +588,7 @@
                         <div class="btn-group w-100">
                             <button class="dropdown-toggle btn-slide px-0 justify-content-around" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span style="width: 54%;overflow: hidden;text-overflow: ellipsis;">
-                                    @dataSourch?.DataProduk?.Option_Default
+                                    @(dataSourch?.DataProduk?.Option_Default == "" ? "Empty" : dataSourch?.DataProduk?.Option_Default)
                                 </span>
                                 <i class="lni lni-chevron-up" style="transform: rotateZ(180deg);font-size: 18px;font-weight: 500;"></i>
                             </button>
@@ -597,10 +599,10 @@
                                             <button 
                                                 type="button" 
                                                 class="dropdown-item @(dataSourch?.DataProduk?.Id_Option_Default == Option.Option_Id ? "active" : "") d-flex flex-row align-items-center gap-2"
-                                                disabled="@(dataSourch?.DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == Option.Option_Id && x.Size_Id == dataSourch?.DataProduk?.Id_Size_Default)?.Stock >= dataSourch?.DataProduk?.Min_Order ? false : true)"
+                                                disabled="@(dataSourch?.DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == Option.Option_Id && x.Size_Id == dataSourch?.DataProduk?.Id_Size_Default && x.Status == "aktif")?.Stock >= dataSourch?.DataProduk?.Min_Order ? false : true)"
                                                 @onclick="() => OnVariantChanged(Option.Option_Id)">
                                                 <Image Style="width:50px; height:50px;" Src="@Option.MediaUrl?.Id_Media" />
-                                                @Option.Option_Label
+                                                @(Option.Option_Label == "" ? "Empty" : Option.Option_Label)
                                             </button>
                                         </li>
                                     }
@@ -611,7 +613,7 @@
                         <div class="btn-group w-100">
                             <button class="dropdown-toggle btn-slide px-0 justify-content-around" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span style="width: 54%;overflow: hidden;text-overflow: ellipsis;">
-                                    @dataSourch?.DataProduk?.Size_Default
+                                    @(dataSourch?.DataProduk?.Size_Default == "" ? "Empty" : dataSourch?.DataProduk?.Size_Default)
                                 </span>
                                 <i class="lni lni-chevron-up" style="transform: rotateZ(180deg);font-size: 18px;font-weight: 500;" ></i>
                             </button>
@@ -621,10 +623,10 @@
                                     <li class="style-drop">
                                         <button 
                                             type="button"
-                                            disabled="@(dataSourch?.DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == dataSourch?.DataProduk?.Id_Option_Default && x.Size_Id == size.Size_Id)?.Stock >= dataSourch?.DataProduk?.Min_Order ? false : true)"
+                                            disabled="@(dataSourch?.DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == dataSourch?.DataProduk?.Id_Option_Default && x.Size_Id == size.Size_Id && x.Status == "aktif")?.Stock >= dataSourch?.DataProduk?.Min_Order ? false : true)"
                                             class="dropdown-item @(dataSourch?.DataProduk?.Id_Size_Default == size.Size_Id ? "active" : "")" 
                                             @onclick="() => OnSizeChanged(size.Size_Id)">
-                                            @size.Size_Label
+                                            @(size.Size_Label == "" ? "Empty" : size.Size_Label)
                                         </button>
                                     </li>
                                 }

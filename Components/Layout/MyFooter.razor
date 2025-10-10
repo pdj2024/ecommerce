@@ -128,14 +128,14 @@ else
                         <h5 class="mb-3 head-footer" >Information</h5>
                         <ul>
                             <li>
-                                <span class="underline-anim">
-                                    Career
-                                </span>
-                            </li>
-                            <li>
-                                <span class="underline-anim">
-                                    Store Location
-                                </span>
+                                <div class="d-flex flex-row gap-3">
+                                    @foreach (var company in dataSourch.ListDataCompanySocial)
+                                    {
+                                        <div style="width:35px; height:30px;">
+                                            <NavLink target="_blank" class="w-100 h-100 media-sosial" style="border-radius: 5px;" href="@company.Url"><img class="w-100 h-100" src="@company.Id_Media" alt="Alternate Text" /></NavLink>
+                                        </div>
+                                    }
+                                </div>
                             </li>
                         </ul>
                     </div>
@@ -215,14 +215,14 @@ else
                             <div class="col-12 section-footer">
                                 <ul>
                                     <li>
-                                        <span class="underline-anim">
-                                            Career
-                                        </span>
-                                    </li>
-                                    <li>
-                                        <span class="underline-anim">
-                                            Store Location
-                                        </span>
+                                        <div class="d-flex flex-row gap-3">
+                                            @foreach (var company in dataSourch.ListDataCompanySocial)
+                                            {
+                                                <div style="width:35px; height:30px;">
+                                                    <NavLink target="_blank" class="w-100 h-100 media-sosial" style="border-radius: 5px;" href="@company.Url"><img class="w-100 h-100" src="@company.Id_Media" alt="Alternate Text" /></NavLink>
+                                                </div>
+                                            }
+                                        </div>
                                     </li>
                                 </ul>
                             </div>

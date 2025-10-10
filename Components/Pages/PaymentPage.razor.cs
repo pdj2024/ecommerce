@@ -73,6 +73,9 @@ namespace PacificWeb.Components.Pages
         public Pembayaran dataLayanan { get; set; } = new Pembayaran();
         public SourchData dataSourch { get; set; } = new();
         public decimal nettoKeranjang { get; set; } = 0;
+        public decimal totalDpp { get; set; } = 0;
+        public decimal ppnValue { get; set; } = 0;
+        public decimal subtotal { get; set; } = 0;
         public decimal paymentMethodFee { get; set; } = 0;
         public decimal shipingMethodFee { get; set; } = 0;
         public int countRedirect { get; set; } = 5;
@@ -83,6 +86,12 @@ namespace PacificWeb.Components.Pages
         public bool loadProses { get; set; } = false;
         public bool loadContent { get; set; } = true;
         public bool loadRefresh { get; set; } = true;
+        public bool contentCrash { get; set; } = true;
+
+
+
+
+
         protected override async Task OnInitializedAsync()
         {
 
@@ -99,19 +108,27 @@ namespace PacificWeb.Components.Pages
                 NavigationManager.NavigateTo("/", true);
             }
 
+            try 
+            {
+                if (CartList == "cart")
+                {
+                    string decoded = Encoding.UTF8.GetString(Convert.FromBase64String(itemVariant));
+                    listCard = decoded.Replace("%section%", ",");
+                }
+                else if (CartList == "direct") {
+                    string decoded = Encoding.UTF8.GetString(Convert.FromBase64String(itemVariant));
+                    listDirectItem = decoded.Split("%section%");
+                    Console.WriteLine(listDirectItem.Count().ToString());
+                }
+                else
+                {
+                    NavigationManager.NavigateTo("/", true);
+                }
+            } 
 
-            if (CartList == "cart")
+            catch 
             {
-                string decoded = Encoding.UTF8.GetString(Convert.FromBase64String(itemVariant));
-                listCard = decoded.Replace("%section%", ",");
-            }
-            else if (CartList == "direct") {
-                string decoded = Encoding.UTF8.GetString(Convert.FromBase64String(itemVariant));
-                listDirectItem = decoded.Split("%section%");
-            }
-            else
-            {
-                NavigationManager.NavigateTo("/", true);
+                contentCrash = false;
             }
 
                 Pesanan_Info.Header.Add(new Pesanan.Headers());
@@ -137,6 +154,7 @@ namespace PacificWeb.Components.Pages
                     prosesApi = "option",
                     ParamUrl = new ParameterApi.ParameterUrl
                     {
+                        status = "aktif",
                         orderBy = "fee",
                         orderDir = "asc",
                     }
@@ -148,8 +166,20 @@ namespace PacificWeb.Components.Pages
                     prosesApi = "getAll",
                     ParamUrl = new ParameterApi.ParameterUrl
                     {
+                        status = "aktif",
                         orderBy = "fee",
                         orderDir = "asc",
+                    }
+                });
+
+                var nilaiDefaultTask = pdjService.GetNilaiDefaultApi(new ParameterApi
+                {
+                    routeApi = "nilaidefault",
+                    prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        status = "aktif",
+                        no_id = "comp_1"
                     }
                 });
 
@@ -163,7 +193,8 @@ namespace PacificWeb.Components.Pages
                         ParamUrl = new ParameterApi.ParameterUrl
                         {
                             noid_list = listCard,
-                            show_media = "true"
+                            show_media = "true",
+                            status = "aktif",
                         }
                     });
 
@@ -181,12 +212,18 @@ namespace PacificWeb.Components.Pages
                 }
                 else
                 {
+                    if(listDirectItem.Count() <=2) 
+                    {
+                        contentCrash = false;
+                    }
+
                     var dataDirect = await pdjService.GetProdukApi(new ParameterApi
                     {
                         routeApi = "produk",
                         prosesApi = "getAll",
                         ParamUrl = new ParameterApi.ParameterUrl
                         {
+                            status = "aktif",
                             no_id = listDirectItem[0],
                             show_media = "true",
                             show_variant = true
@@ -201,10 +238,14 @@ namespace PacificWeb.Components.Pages
                         dataSourch.ListDataCart.Add(new Cart 
                         { 
                             Id_Variant = itemDirect.No_Id, 
-                            Qty = int.Parse(listDirectItem[2]), 
+                            Qty = int.Parse(listDirectItem[2] ?? "0"), 
                             Harga = itemDirect.Harga,
-                            Size = itemDirect?.Size_Id,
-                            Option = itemDirect?.Option_Id,
+                            Size_Id = itemDirect?.Size_Id,
+                            Size_Label = itemDirect?.Size_Label,
+                            Option_Id = itemDirect?.Option_Id,
+                            Option_Label = itemDirect?.Option_Label,
+                            Diskon1 = itemProduct?.Diskon1,
+                            Diskon2 = itemProduct?.Diskon2,
                             Nama_Display = itemProduct?.Nama_Display,
                             Stock = itemDirect.Stock,
                             Id_Media = dataDirect.FirstOrDefault(x => x.No_Id == listDirectItem[0])?.Options.FirstOrDefault(x => x.Option_Id == itemDirect.Option_Id)?.MediaUrl.Id_Media}
@@ -215,12 +256,14 @@ namespace PacificWeb.Components.Pages
                     {
                         await pdjService.ButtonCLick("modalPaymentStatus3");
                         Console.WriteLine("stock tidak cukup");
-                        //await Task.Delay(3000);
-                        //await pdjService.GoBack();
+                        await Task.Delay(3000);
+                        await pdjService.GoBack();
                     } else
                     {
                         await pdjService.ButtonCLick("modalPaymentStatus4");
                         Console.WriteLine("rusak");
+                        await Task.Delay(3000);
+                        await pdjService.GoBack();
                     }
 
 
@@ -228,19 +271,37 @@ namespace PacificWeb.Components.Pages
 
 
                 // Tunggu semua task selesai
-                await Task.WhenAll(companyTask, metodeBayarTask, metodeKirimTask);
+                await Task.WhenAll(companyTask, metodeBayarTask, metodeKirimTask, nilaiDefaultTask);
 
                 // Assign semua data sekaligus
                 dataSourch.ListDataCompany = companyTask.Result;
                 dataSourch.ListDataPembayaran = metodeBayarTask.Result;
                 dataSourch.ListDataPengiriman = metodeKirimTask.Result;
+                dataSourch.ListDataNilaiDefault = nilaiDefaultTask.Result;
+                StateHasChanged();
 
+                hitungTotal();
 
-
-                nettoKeranjang = dataSourch.ListDataCart.Sum(x => x.Harga * x.Qty);
                 loadContent = false;
                 StateHasChanged();
 
+            }
+        }
+
+        public void hitungTotal() 
+        {
+            totalDpp = dataSourch.ListDataCart.Sum(x => ((decimal)x.Harga * (decimal)x.Qty) - (((decimal)x.Harga * (decimal)x.Qty)) * ((decimal)x.Diskon1 / (decimal)100));
+            subtotal = totalDpp + paymentMethodFee + shipingMethodFee;
+
+            if(dataSourch.ListDataNilaiDefault.FirstOrDefault().Incl_Ppn)
+            {
+                ppnValue = ((decimal)dataSourch.ListDataNilaiDefault.FirstOrDefault().Ppn / ((decimal)100 + (decimal)dataSourch.ListDataNilaiDefault.FirstOrDefault().Ppn)) * (decimal)subtotal;
+                nettoKeranjang = (subtotal / ((decimal)1 + (decimal)((decimal)dataSourch.ListDataNilaiDefault.FirstOrDefault().Ppn / (decimal)100))) + ppnValue;
+            } 
+            else
+            {
+                ppnValue = ((decimal)dataSourch.ListDataNilaiDefault.FirstOrDefault().Ppn / (decimal)100) * (decimal)subtotal;
+                nettoKeranjang = subtotal + ppnValue;
             }
         }
 
@@ -262,7 +323,7 @@ namespace PacificWeb.Components.Pages
             paymentMethodFee = method.Fee;
             cara_bayar = method.Cara_Bayar.Split(" ")[0];
             dataLayanan = method;
-            nettoKeranjang = dataSourch.ListDataCart.Sum(x => x.Harga * x.Qty) + paymentMethodFee + shipingMethodFee;
+            hitungTotal();
             StateHasChanged();
         }
 
@@ -283,7 +344,7 @@ namespace PacificWeb.Components.Pages
 
             shipingMethodFee = shipping.Fee;
             dataKirim = shipping;
-            nettoKeranjang = dataSourch.ListDataCart.Sum(x => x.Harga * x.Qty) + paymentMethodFee + shipingMethodFee;
+            hitungTotal();
             StateHasChanged();
         }
 
@@ -475,7 +536,7 @@ namespace PacificWeb.Components.Pages
                     Jenis_Item = item.Jenis_Item,
                     Id_Variant = item.Id_Variant,
                     Qty = item.Qty,
-                    Harga_Satuan = item.Harga
+                    Harga_Satuan = (item?.Harga - (item?.Harga * (item?.Diskon1 / 100)))
                 };
 
                 ListDataItem.Add(data_item);
@@ -523,10 +584,11 @@ namespace PacificWeb.Components.Pages
             });
 
 
-
             var data = dataCard.messageResponse.Split("%section%");
+            dataSourch.DataResponsePesanan = dataCard.dataRespons;
 
-            if (dataCard.statusResponse)
+
+            if (dataSourch.DataResponsePesanan.BuatPesanan.StatusCode == 200 && dataSourch.DataResponsePesanan.Payment.StatusCode == 200)
             {
                 var noBukti = data.Count() > 1 ? data[1] : "";
 
@@ -536,7 +598,7 @@ namespace PacificWeb.Components.Pages
                     prosesApi = "getAll",
                     ParamUrl = new ParameterApi.ParameterUrl
                     { 
-                        no_bukti = noBukti
+                        no_bukti = dataSourch.DataResponsePesanan.BuatPesanan.NewId
                     }
                 });
 
@@ -556,20 +618,28 @@ namespace PacificWeb.Components.Pages
                 }
 
 
-
                 loadProses = false;
                 StateHasChanged();
                 await JSRuntime.InvokeVoidAsync("buttonClick", "#modalPaymentStatus2");
 
                 if (Pesanan_Create.Header.FirstOrDefault() == null) { 
                     loadRefresh = true;
-                    Pesanan_Create.Header.Add(new Headers { No_Bukti = noBukti });
+                    Pesanan_Create.Header.Add(new Headers { No_Bukti = dataSourch.DataResponsePesanan.BuatPesanan.NewId });
                 } 
                 else {
                     loadRefresh = false;
                 }
 
-            } else
+            }
+            else if(dataSourch.DataResponsePesanan.BuatPesanan.StatusCode == 200 && dataSourch.DataResponsePesanan.Payment.StatusCode != 200)
+            {
+                StateHasChanged();
+                await pdjService.ButtonCLick("modalPaymentStatus5");
+                await Task.Delay(5000);
+                NavigationManager.NavigateTo("/cart-page/belum-bayar", true);
+                return;
+            }
+            else
             {
                 alertCreate = true;
                 loadProses = false; 
