@@ -67,6 +67,8 @@ namespace PacificWeb.Components.Pages
 
         private System.Timers.Timer? _debounceTimer;
 
+        public bool[] PesananLoad { get; set; } = [false, false, false, false];
+
         public bool loadProses { get; set; } = false;
         public bool? infoPembatalan { get; set; } = null;
         public bool loadRefresh { get; set; } = false;
@@ -142,61 +144,7 @@ namespace PacificWeb.Components.Pages
                 
                 if (pageTabs == "belum-bayar") 
                 {
-                    dataSourch.DataPesanan = await pdjService.GetPesananApi(new ParameterApi
-                {
-                    routeApi = "order",
-                    prosesApi = "getAll",
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        id_customer = dataSourch.DataUser.No_Id,
-                        show_media = "true",
-                        orderBy = "Updated_At",
-                        orderDir = "desc",
-                        status_order_1 = "belum bayar",
-                        status = "aktif",
-                    }
-                });
-                } 
-                
-                else if (pageTabs == "dikemas") 
-                {
-                    dataSourch.DataPesanan = await pdjService.GetPesananApi(new ParameterApi
-                {
-                    routeApi = "order",
-                    prosesApi = "getAll",
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        id_customer = dataSourch.DataUser.No_Id,
-                        show_media = "true",
-                        orderBy = "Updated_At",
-                        orderDir = "desc",
-                        status_order_1 = "dikemas",
-                        status = "aktif",
-                    }
-                });
-                } 
-                
-                else if (pageTabs == "dikirim") 
-                {
-                    dataSourch.DataPesanan = await pdjService.GetPesananApi(new ParameterApi
-                {
-                    routeApi = "order",
-                    prosesApi = "getAll",
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        id_customer = dataSourch.DataUser.No_Id,
-                        show_media = "true",
-                        orderBy = "Updated_At",
-                        orderDir = "desc",
-                        status_order_1 = "dikirim",
-                        status = "aktif",
-                    }
-                });
-                } 
-                
-                else if (pageTabs == "histori") 
-                {
-                    dataSourch.DataPesanan = await pdjService.GetPesananApi(new ParameterApi
+                    dataSourch.DataPesananBelum = await pdjService.showMorePesanan(new ParameterApi
                     {
                         routeApi = "order",
                         prosesApi = "getAll",
@@ -204,10 +152,68 @@ namespace PacificWeb.Components.Pages
                         {
                             id_customer = dataSourch.DataUser.No_Id,
                             show_media = "true",
-                            orderBy = "Updated_At",
                             orderDir = "desc",
-                            status_order_1 = "histori",
+                            status_order_1 = "belum bayar",
                             status = "aktif",
+                            orderBy = "no_bukti",
+                            pagesize = 5,
+                        }
+                    });
+                } 
+                
+                else if (pageTabs == "dikemas") 
+                {
+                    dataSourch.DataPesananDikemas = await pdjService.showMorePesanan(new ParameterApi
+                    {
+                        routeApi = "order",
+                        prosesApi = "getAll",
+                        ParamUrl = new ParameterApi.ParameterUrl
+                        {
+                            id_customer = dataSourch.DataUser.No_Id,
+                            show_media = "true",
+                            orderDir = "desc",
+                            status_order_1 = "dikemas",
+                            status = "aktif",
+                            orderBy = "no_bukti",
+                            pagesize = 5,
+                        }
+                    });
+                } 
+                
+                else if (pageTabs == "dikirim") 
+                {
+                    dataSourch.DataPesananDikirim = await pdjService.showMorePesanan(new ParameterApi
+                    {
+                        routeApi = "order",
+                        prosesApi = "getAll",
+                        ParamUrl = new ParameterApi.ParameterUrl
+                        {
+                            id_customer = dataSourch.DataUser.No_Id,
+                            show_media = "true",
+                            orderDir = "desc",
+                            status_order_1 = "dikirim",
+                            status = "aktif",
+                            orderBy = "no_bukti",
+                            pagesize = 5,
+                        }
+                    });
+                } 
+                
+                else if (pageTabs == "histori") 
+                {
+                    dataSourch.DataPesananHistori = await pdjService.showMorePesanan(new ParameterApi
+                    {
+                        routeApi = "order",
+                        prosesApi = "getAll",
+                        ParamUrl = new ParameterApi.ParameterUrl
+                        {
+                            id_customer = dataSourch.DataUser.No_Id,
+                            show_media = "true",
+                            orderDir = "desc",
+                            status_order_1 = "selesai",
+                            status = "aktif",
+                            orderBy = "no_bukti",
+                            pagesize = 5,
                         }
                     });
                 } 
@@ -216,7 +222,6 @@ namespace PacificWeb.Components.Pages
                 {
                     NavigationManager.NavigateTo("/", true);
                 }
-
 
                 var NavbarTask = pdjService.GetNavbarApi(new ParameterApi
                 {
@@ -783,6 +788,132 @@ namespace PacificWeb.Components.Pages
             string encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(text));
 
             NavigationManager.NavigateTo($"/payment-page/cart/{encoded}", forceLoad: true);
+        }
+
+
+        private async Task showMore(string pageTipe = "")
+        {
+            loadProses = true;
+            string lastCursor = "";
+            StateHasChanged();
+
+            if (pageTipe == "belum bayar")
+            {
+
+                lastCursor = dataSourch.DataPesananBelum.LastCursor;
+                var data = await pdjService.showMorePesanan(new ParameterApi
+                {
+                    routeApi = "order",
+                    prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        id_customer = dataSourch.DataUser.No_Id,
+                        show_media = "true",
+                        orderDir = "desc",
+                        status_order_1 = pageTipe,
+                        status = "aktif",
+                        orderBy = "no_bukti",
+                        cursor_no_bukti = lastCursor,
+                        pagesize = 5,
+                    }
+                });
+
+                dataSourch.DataPesananBelum.Header.AddRange(data.Header);
+                dataSourch.DataPesananBelum.Items.AddRange(data.Items);
+                dataSourch.DataPesananBelum.Biaya.AddRange(data.Biaya);
+                dataSourch.DataPesananBelum.hasMore = data.hasMore;
+                dataSourch.DataPesananBelum.TotalCount = data.TotalCount;
+                dataSourch.DataPesananBelum.LastCursor = data.LastCursor;
+
+            } 
+
+            else if (pageTipe == "dikemas")
+            {
+                lastCursor = dataSourch.DataPesananDikemas.LastCursor;
+                var data = await pdjService.showMorePesanan(new ParameterApi
+                {
+                    routeApi = "order",
+                    prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        id_customer = dataSourch.DataUser.No_Id,
+                        show_media = "true",
+                        orderDir = "desc",
+                        status_order_1 = pageTipe,
+                        status = "aktif",
+                        orderBy = "no_bukti",
+                        cursor_no_bukti = lastCursor,
+                        pagesize = 5,
+                    }
+                });
+                
+                dataSourch.DataPesananDikemas.Header.AddRange(data.Header);
+                dataSourch.DataPesananDikemas.Items.AddRange(data.Items);
+                dataSourch.DataPesananDikemas.Biaya.AddRange(data.Biaya);
+                dataSourch.DataPesananDikemas.hasMore = data.hasMore;
+                dataSourch.DataPesananDikemas.TotalCount = data.TotalCount;
+                dataSourch.DataPesananDikemas.LastCursor = data.LastCursor;
+            } 
+
+            else if (pageTipe == "dikirim")
+            {
+                lastCursor = dataSourch.DataPesananDikirim.LastCursor;
+                var data = await pdjService.showMorePesanan(new ParameterApi
+                {
+                    routeApi = "order",
+                    prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        id_customer = dataSourch.DataUser.No_Id,
+                        show_media = "true",
+                        orderDir = "desc",
+                        status_order_1 = pageTipe,
+                        status = "aktif",
+                        orderBy = "no_bukti",
+                        cursor_no_bukti = lastCursor,
+                        pagesize = 5,
+                    }
+                });
+
+                dataSourch.DataPesananDikirim.Header.AddRange(data.Header);
+                dataSourch.DataPesananDikirim.Items.AddRange(data.Items);
+                dataSourch.DataPesananDikirim.Biaya.AddRange(data.Biaya);
+                dataSourch.DataPesananDikirim.hasMore = data.hasMore;
+                dataSourch.DataPesananDikirim.TotalCount = data.TotalCount;
+                dataSourch.DataPesananDikirim.LastCursor = data.LastCursor;
+            } 
+
+            else if (pageTipe == "selesai")
+            {
+                lastCursor = dataSourch.DataPesananHistori.LastCursor;
+                var data = await pdjService.showMorePesanan(new ParameterApi
+                {
+                    routeApi = "order",
+                    prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        id_customer = dataSourch.DataUser.No_Id,
+                        show_media = "true",
+                        orderDir = "desc",
+                        status_order_1 = pageTipe,
+                        status = "aktif",
+                        orderBy = "no_bukti",
+                        cursor_no_bukti = lastCursor,
+                        pagesize = 5,
+                    }
+                });
+
+                dataSourch.DataPesananHistori.Header.AddRange(data.Header);
+                dataSourch.DataPesananHistori.Items.AddRange(data.Items);
+                dataSourch.DataPesananHistori.Biaya.AddRange(data.Biaya);
+                dataSourch.DataPesananHistori.hasMore = data.hasMore;
+                dataSourch.DataPesananHistori.TotalCount = data.TotalCount;
+                dataSourch.DataPesananHistori.LastCursor = data.LastCursor;
+            } 
+
+            
+            loadProses = false;
+            StateHasChanged();
         }
     }
 }

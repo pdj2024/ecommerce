@@ -152,17 +152,6 @@ namespace PacificWeb.Components.Pages
                     }
                 });
 
-                var PesananTask = pdjService.GetPesananApi(new ParameterApi
-                {
-                    routeApi = "order",
-                    prosesApi = "getAll",
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        id_customer = dataSourch.DataUser.No_Id,
-                        show_media = "true",
-                    }
-                });
-
                 var NavbarTask = pdjService.GetNavbarApi(new ParameterApi
                 {
                     routeApi = "navbar",
@@ -239,11 +228,10 @@ namespace PacificWeb.Components.Pages
 
 
                 // Tunggu semua task selesai
-                await Task.WhenAll(searchTask, brandTask, kategoriTask, companyTask, PesananTask, NavbarTask, CartTask, SosmedTask, SummaryPesananTask);
+                await Task.WhenAll(searchTask, brandTask, kategoriTask, companyTask, NavbarTask, CartTask, SosmedTask, SummaryPesananTask);
 
                 // Assign semua data sekaligus
                 dataSourch.ListDataCompany = companyTask.Result;
-                dataSourch.DataPesanan = PesananTask.Result;
                 dataSourch.ListDataNavbar = NavbarTask.Result;
                 dataSourch.ListDataCart = CartTask.Result;
                 dataSourch.ListDataCompanySocial = SosmedTask.Result;

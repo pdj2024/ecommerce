@@ -143,9 +143,13 @@ namespace Models
         public int HeaderRows { get; set; } = 0;
         public int ItemRows { get; set; } = 0;
         public int BiayaRows { get; set; } = 0;
+        public bool Payment_Problem { get; set; } = false;
         public List<Headers> Header { get; set; } = new();
         public List<Item> Items { get; set; } = new();
         public List<Biayas> Biaya { get; set; } = new();
+        public int TotalCount { get; set; } = 0;
+        public bool hasMore { get; set; } = true;
+        public string LastCursor { get; set; } = "";
 
     }
 

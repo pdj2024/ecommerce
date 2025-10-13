@@ -917,6 +917,69 @@ namespace Services
 
         }
 
+        public async Task<Pesanan> showMorePesanan(ParameterApi urlParam)
+        {
+            var config = initConfigApi(urlParam);
+            var tbListProduk = new Pesanan();
+
+            try
+            {
+                var response = await config.httpReq.GetAsync(config.UrlApi, config.cancelTimer.Token);
+
+                var checking = await CheckAPI(response, config.UrlApi, "BACA");
+
+                if (checking.statusResponse)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    using var jsonDoc = JsonDocument.Parse(json);
+                    var root = jsonDoc.RootElement;
+
+                    if (root.TryGetProperty("Data", out var dataFromDbProduk))
+                    {
+                        tbListProduk = JsonConvert.DeserializeObject<Pesanan>(dataFromDbProduk.GetRawText());
+                    }
+                    
+                    if (root.TryGetProperty("TotalCount", out var dataFromDbTotalCount))
+                    {
+                        tbListProduk.TotalCount = JsonConvert.DeserializeObject<int>(dataFromDbTotalCount.GetRawText());
+                    }
+                    
+                    if (root.TryGetProperty("HasMore", out var dataFromDbHasMore))
+                    {
+                        tbListProduk.hasMore = JsonConvert.DeserializeObject<bool>(dataFromDbHasMore.GetRawText());
+                    }
+
+                    if (root.TryGetProperty("LastCursor", out var dataFromDbLastCursor))
+                    {
+                        tbListProduk.LastCursor = JsonConvert.DeserializeObject<string>(dataFromDbLastCursor.GetRawText());
+                    }
+
+                    if(tbListProduk.Header.Count() <= 0 )
+                    {
+                        writeLog($"Data Kosong");
+                    }
+                }
+                return tbListProduk;
+            }
+            catch (Exception ex)
+            {
+                if (ex is OperationCanceledException)
+                {
+                    writeLog("Gagal Baca Data : Request ke API terlalu lama (timeout).");
+                }
+                else if (ex is HttpRequestException)
+                {
+                    writeLog($"Gagal Baca Data : Terjadi kesalahan jaringan atau server. {ex.Message}");
+                }
+                else
+                {
+                    writeLog($"Gagal Baca Data : Terjadi error: {ex.Message}");
+                }
+            }
+
+            return tbListProduk;
+        }
+
         public async Task<(List<Brand> SearchBrand, List<Produk> SearchProduk, int TotalCount, bool hasMore)> GetSearchApi(ParameterApi urlParam)
         {
             var config = initConfigApi(urlParam);
@@ -1028,7 +1091,7 @@ namespace Services
             return tbListProduk;
 
         }
-        
+
         public async Task<List<NilaiDefault>> GetNilaiDefaultApi(ParameterApi urlParam)
 
         {

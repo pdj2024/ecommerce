@@ -36,7 +36,7 @@ namespace PacificWeb.Components.Layout
         public List<Cart> ListDataCartCheck { get; set; } = new List<Cart>();
         public bool loadProses { get; set; } = false;
         public bool loadContent { get; set; } = true;
-        public bool[] PesananLoad { get; set; } = [false, false, false, false];
+        [Parameter]  public bool[] PesananLoad { get; set; }
         public bool loadProsesNetto { get; set; } = false;
         public decimal nettoKeranjang { get; set; } = 0;
         public int searchCount { get; set; } = 0;
@@ -351,9 +351,7 @@ namespace PacificWeb.Components.Layout
             if (tab == "belum-bayar" && PesananLoad[0] == false)
             {
 
-                PesananLoad[0] = true;
-
-                data = await pdjService.GetPesananApi(new ParameterApi
+                dataSourch.DataPesananBelum = await pdjService.showMorePesanan(new ParameterApi
                 {
                     routeApi = "order",
                     prosesApi = "getAll",
@@ -361,20 +359,23 @@ namespace PacificWeb.Components.Layout
                     {
                         id_customer = dataSourch.DataUser.No_Id,
                         show_media = "true",
-                        orderBy = "Updated_At",
                         orderDir = "desc",
                         status_order_1 = "belum bayar",
                         status = "aktif",
+                        orderBy = "no_bukti",
+                        pagesize = 5,
+
                     }
                 });
-            
+
+                PesananLoad[0] = true;
+
             } 
+
             else if (tab == "dikemas" && PesananLoad[1] == false) 
             {
 
-                PesananLoad[1] = true;
-
-                data = await pdjService.GetPesananApi(new ParameterApi
+                dataSourch.DataPesananDikemas = await pdjService.showMorePesanan(new ParameterApi
                 {
                     routeApi = "order",
                     prosesApi = "getAll",
@@ -382,20 +383,21 @@ namespace PacificWeb.Components.Layout
                     {
                         id_customer = dataSourch.DataUser.No_Id,
                         show_media = "true",
-                        orderBy = "Updated_At",
                         orderDir = "desc",
                         status_order_1 = "dikemas",
                         status = "aktif",
+                        orderBy = "no_bukti",
+                        pagesize = 5,
                     }
                 });
+                PesananLoad[1] = true;
 
             }
+
             else if (tab == "dikirim" && PesananLoad[2] == false) 
             {
-                
-                PesananLoad[2] = true;
 
-                data = await pdjService.GetPesananApi(new ParameterApi
+                dataSourch.DataPesananDikirim = await pdjService.showMorePesanan(new ParameterApi
                 {
                     routeApi = "order",
                     prosesApi = "getAll",
@@ -403,20 +405,21 @@ namespace PacificWeb.Components.Layout
                     {
                         id_customer = dataSourch.DataUser.No_Id,
                         show_media = "true",
-                        orderBy = "Updated_At",
                         orderDir = "desc",
                         status_order_1 = "dikirim",
                         status = "aktif",
+                        orderBy = "no_bukti",
+                        pagesize = 5,
                     }
                 });
-            
+                PesananLoad[2] = true;
+
             } 
+
             else if (tab == "selesai" && PesananLoad[3] == false) 
             {
 
-                PesananLoad[3] = true;
-
-                data = await pdjService.GetPesananApi(new ParameterApi
+                dataSourch.DataPesananHistori = await pdjService.showMorePesanan(new ParameterApi
                 {
                     routeApi = "order",
                     prosesApi = "getAll",
@@ -424,18 +427,16 @@ namespace PacificWeb.Components.Layout
                     {
                         id_customer = dataSourch.DataUser.No_Id,
                         show_media = "true",
-                        orderBy = "Updated_At",
                         orderDir = "desc",
                         status_order_1 = "histori",
                         status = "aktif",
+                        orderBy = "no_bukti",
+                        pagesize = 5,
                     }
                 });
-            
-            }
+                PesananLoad[3] = true;
 
-            dataSourch.DataPesanan.Header.AddRange(data.Header);
-            dataSourch.DataPesanan.Items.AddRange(data.Items);
-            dataSourch.DataPesanan.Biaya.AddRange(data.Biaya);
+            }
 
             refreshLoad?.Invoke();
 
