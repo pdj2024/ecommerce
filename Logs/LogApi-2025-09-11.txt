@@ -1,0 +1,2656 @@
+
+                        [2025-09-11 09:23:17]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:23:18]
+                        URL: http://43.228.212.41:77/api/banner/getAll?pagesize=8&orderBy=nama_banner&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:23:18]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:23:19]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:23:19]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:23:19] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:23:23]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&show_variant=True&id_customer=cus_6&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:23:32]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:23:34]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:23:34]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:23:34] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:23:35]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:23:36]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:23:36] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:28:29]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:28:30]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:28:30]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:28:31] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:28:31]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:28:32]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:28:32] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:44:02]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:45:44]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:45:45]
+                        URL: http://43.228.212.41:77/api/banner/getAll?pagesize=8&orderBy=nama_banner&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:45:45]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:45:45]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:45:46]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:45:46] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:45:50]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&show_variant=True&id_customer=cus_6&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:46:39]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:46:41]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:46:41]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:46:41] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:46:42]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:46:42]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:46:42] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:50:45]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:50:47]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:50:47]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:50:47] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:50:48]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:50:48]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:50:48]
+                        URL: http://43.228.212.41:77/api/banner/getAll?pagesize=8&orderBy=nama_banner&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:50:49]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:50:49]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:50:49]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:50:49] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:50:53]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&show_variant=True&id_customer=cus_6&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:51:00]
+                        URL: http://43.228.212.41:77/api/cart/create?pagesize=8&show_variant=True
+                        Status: 400 Bad Request
+                        Response: Client error: TAMBAH - id_variant wajib diisi
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:51:01]
+                        URL: http://43.228.212.41:77/api/cart/create?pagesize=8&show_variant=True
+                        Status: 400 Bad Request
+                        Response: Client error: TAMBAH - id_variant wajib diisi
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:51:05]
+                        URL: http://43.228.212.41:77/api/cart/create?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Berhasil tambah Cart baru
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:51:05]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:51:12]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=asc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:51:12]
+                        URL: http://43.228.212.41:77/api/shipping/getAll?pagesize=8&orderBy=fee&orderDir=asc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Opsi Shipping
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:51:12]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_cart=cart_38&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:51:16]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:51:16]
+                        URL: http://43.228.212.41:77/api/banner/getAll?pagesize=8&orderBy=nama_banner&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:51:16]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:51:16]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:51:17]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 09:51:20]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&show_variant=True&id_customer=cus_6&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:11:19]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=asc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:11:19]
+                        URL: http://43.228.212.41:77/api/shipping/getAll?pagesize=8&orderBy=fee&orderDir=asc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Opsi Shipping
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:11:19]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_cart=cart_38&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:11:49]
+                        URL: http://43.228.212.41:77/api/order/create?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Pesanan baru berhasil dibuat
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:11:52]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&show_variant=True&no_bukti=
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:14:26]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:14:26]
+                        URL: http://43.228.212.41:77/api/banner/getAll?pagesize=8&orderBy=nama_banner&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:14:26]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:14:27]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:14:27]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:14:27] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:14:31]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&show_variant=True&id_customer=cus_6&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:14:39]
+                        URL: http://43.228.212.41:77/api/cart/create?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Berhasil tambah Cart baru
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:14:39]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:14:43]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=asc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:14:44]
+                        URL: http://43.228.212.41:77/api/shipping/getAll?pagesize=8&orderBy=fee&orderDir=asc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Opsi Shipping
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:14:44]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_cart=cart_39&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:19:26]
+                        URL: http://43.228.212.41:77/api/order/create?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Pesanan baru berhasil dibuat
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:19:29]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&show_variant=True&no_bukti=
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:20:37]
+                        URL: http://43.228.212.41:77/api/order/create?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Pesanan baru berhasil dibuat
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:20:41]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&show_variant=True&no_bukti=
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:20:56]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:20:56]
+                        URL: http://43.228.212.41:77/api/banner/getAll?pagesize=8&orderBy=nama_banner&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:20:57]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:20:57]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:20:57]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:20:58] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:21:01]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&show_variant=True&id_customer=cus_6&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:21:14]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:21:14]
+                        URL: http://43.228.212.41:77/api/banner/getAll?pagesize=8&orderBy=nama_banner&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:21:14]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:21:14]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:21:15]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:21:15] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:21:19]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&show_variant=True&id_customer=cus_6&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:21:21]
+                        URL: http://43.228.212.41:77/api/cart/create?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Berhasil tambah Cart baru
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:21:21]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:21:28]
+                        URL: http://43.228.212.41:77/api/cart/create?pagesize=8&show_variant=True
+                        Status: 400 Bad Request
+                        Response: Client error: TAMBAH - id_variant wajib diisi
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:21:33]
+                        URL: http://43.228.212.41:77/api/cart/create?pagesize=8&show_variant=True
+                        Status: 400 Bad Request
+                        Response: Client error: TAMBAH - id_variant wajib diisi
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:21:40]
+                        URL: http://43.228.212.41:77/api/cart/create?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Berhasil tambah Cart baru
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:21:41]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:21:50]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=asc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:21:50]
+                        URL: http://43.228.212.41:77/api/shipping/getAll?pagesize=8&orderBy=fee&orderDir=asc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Opsi Shipping
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:21:50]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_cart=cart_40&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:21:50]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_cart=cart_41&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:23:12]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=asc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:23:12]
+                        URL: http://43.228.212.41:77/api/shipping/getAll?pagesize=8&orderBy=fee&orderDir=asc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Opsi Shipping
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:23:12]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_cart=cart_40&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:23:12]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_cart=cart_41&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:23:24]
+                        URL: http://43.228.212.41:77/api/order/create?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Pesanan baru berhasil dibuat
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:23:28]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&show_variant=True&no_bukti=
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:24:50]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=asc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:24:50]
+                        URL: http://43.228.212.41:77/api/shipping/getAll?pagesize=8&orderBy=fee&orderDir=asc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Opsi Shipping
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:24:50]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_cart=cart_40&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:24:50] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:24:51]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_cart=cart_41&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:24:51] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:25:05]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:25:05]
+                        URL: http://43.228.212.41:77/api/banner/getAll?pagesize=8&orderBy=nama_banner&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:25:06]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:25:06]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:25:06]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:25:06] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:25:10]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&show_variant=True&id_customer=cus_6&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:25:14]
+                        URL: http://43.228.212.41:77/api/cart/create?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Berhasil tambah Cart baru
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:25:14]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:25:19]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=asc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:25:19]
+                        URL: http://43.228.212.41:77/api/shipping/getAll?pagesize=8&orderBy=fee&orderDir=asc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Opsi Shipping
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:25:19]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_cart=cart_42&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:25:33]
+                        URL: http://43.228.212.41:77/api/order/create?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Pesanan baru berhasil dibuat
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:25:33]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&show_variant=True&no_bukti=INV-250900063
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:26:58]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:26:58]
+                        URL: http://43.228.212.41:77/api/banner/getAll?pagesize=8&orderBy=nama_banner&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:26:58]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:26:59]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:26:59]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:27:01]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:27:01]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:27:01] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:27:03]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:27:03]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:27:04] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:36:03]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:36:05]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:36:05]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:36:05] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:36:07]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:36:07]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:36:07] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:43:41]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:43:42]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:43:42]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:43:43] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:43:45]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:43:45]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:43:46] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:43:53]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:43:55]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:43:55]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:43:55] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:43:57]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:43:57]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:43:58] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:47:02]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:47:03]
+                        URL: http://43.228.212.41:77/api/banner/getAll?pagesize=8&orderBy=nama_banner&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:47:03]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:47:03]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:47:04]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:47:04] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:47:07]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&show_variant=True&id_customer=cus_6&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:49:40]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:49:40]
+                        URL: http://43.228.212.41:77/api/banner/getAll?pagesize=8&orderBy=nama_banner&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:49:40]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:49:40]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:49:41]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:49:41] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:49:43]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:49:47]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:49:49]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:49:49]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:49:49] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:49:50]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:49:51]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 10:49:51] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 11:13:18]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 11:13:32]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 11:14:11]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 11:35:14]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 11:35:16]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 11:35:16]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 11:35:17] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 11:35:19]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 11:35:19]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 11:35:20] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 11:39:27]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 11:39:29]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 11:39:29]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 11:39:31] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 11:39:32]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 11:39:32]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 11:39:34] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 11:49:40]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 11:49:42]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 11:49:42]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 11:49:46] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 11:49:48]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 11:49:48]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 11:49:50] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:03:48]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:03:50]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:03:50]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:03:54] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:03:56]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:03:56]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:04:01] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:06:18]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:06:19]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:06:19]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:06:25] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:06:26]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:06:27]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:06:31] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:09:25]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:09:26]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:09:26]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:09:32] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:09:34]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:09:34]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:09:40] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:10:54]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:10:56]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:10:56]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:11:01] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:11:03]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:11:03]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:11:09] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:20:35]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:20:36]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:20:36]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:20:45] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:20:46]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:20:47]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:20:48]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:20:48]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:20:56]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:20:56] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:21:04]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:21:04] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:23:31]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:23:40] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:30:14]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:30:15]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:30:15]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:30:25] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:30:27]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:30:27]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:30:35] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:38:26]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:38:28]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:38:28]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:38:41] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:38:43]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:38:44]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 12:38:57] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:00:31]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:00:37]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:00:37]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:00:49] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:00:52]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:00:52]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:01:04] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:11:07]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:20:29]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:20:31]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:20:31]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:20:45] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:20:47]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:20:47]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:21:04] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:21:36]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:21:38]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:21:38]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:21:52] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:21:53]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:21:54]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:22:13] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:23:48]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:23:50]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:23:50]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:24:02] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:24:04]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:24:04]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:24:18] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:25:34]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:25:36]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:25:36]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:25:48] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:25:51]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:25:52]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:26:06] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:37:29]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:37:29]
+                        URL: http://43.228.212.41:77/api/banner/getAll?pagesize=8&orderBy=nama_banner&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:37:30]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:37:30]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:37:30]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:37:51] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:37:53]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:38:18]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:38:18]
+                        URL: http://43.228.212.41:77/api/banner/getAll?pagesize=8&orderBy=nama_banner&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:38:20]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:38:20]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:38:21]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:38:43] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:38:45]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:45:31]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:45:32]
+                        URL: http://43.228.212.41:77/api/banner/getAll?pagesize=8&orderBy=nama_banner&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:45:32]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:45:32]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:45:33]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:45:33] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:45:35]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:46:05]
+                        URL: http://43.228.212.41:77/api/cart/create?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Berhasil tambah Cart baru
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:46:05]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:46:10]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=asc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:46:10]
+                        URL: http://43.228.212.41:77/api/shipping/getAll?pagesize=8&orderBy=fee&orderDir=asc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Opsi Shipping
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:46:11]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_cart=cart_43&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:46:59]
+                        URL: http://43.228.212.41:77/api/order/create?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Pesanan baru berhasil dibuat
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:47:00]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&show_variant=True&no_bukti=INV-250900071
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:47:45]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:47:45]
+                        URL: http://43.228.212.41:77/api/banner/getAll?pagesize=8&orderBy=nama_banner&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:47:45]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:47:45]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:47:45]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:47:45] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 13:47:47]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:04:34]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:04:35]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:04:36]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:04:36] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:04:38]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:04:38]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:04:38] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:10:04]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:10:05]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:10:06]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:10:06] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:10:08]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:10:09]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:10:09] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:12:13]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:12:15]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:12:15]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:12:15] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:12:16]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:12:17]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:12:17] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:16:29]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:16:31]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:16:31]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:16:31] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:16:33]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:16:34]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:16:34] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:17:30]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:17:30]
+                        URL: http://43.228.212.41:77/api/banner/getAll?pagesize=8&orderBy=nama_banner&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:17:30]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:17:31]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:17:31]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:17:31] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:17:33]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:17:42]
+                        URL: http://43.228.212.41:77/api/cart/create?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Berhasil tambah Cart baru
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:17:43]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:17:46]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=asc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:17:47]
+                        URL: http://43.228.212.41:77/api/shipping/getAll?pagesize=8&orderBy=fee&orderDir=asc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Opsi Shipping
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:17:47]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_cart=cart_44&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:18:12]
+                        URL: http://43.228.212.41:77/api/order/create?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Pesanan baru berhasil dibuat
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:18:12]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&show_variant=True&no_bukti=INV-250900075
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:19:18]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:19:18]
+                        URL: http://43.228.212.41:77/api/banner/getAll?pagesize=8&orderBy=nama_banner&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:19:18]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:19:18]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:19:19]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:19:19] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:19:21]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:19:51]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:19:53]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:19:53]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:19:53] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:19:55]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:19:55]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 14:19:55] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:09:46]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:09:47]
+                        URL: http://43.228.212.41:77/api/banner/getAll?pagesize=8&orderBy=nama_banner&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:09:48]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:09:48]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:12:23]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:12:23]
+                        URL: http://43.228.212.41:77/api/banner/getAll?pagesize=8&orderBy=nama_banner&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:12:23]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:12:23]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:14:08]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:14:08]
+                        URL: http://43.228.212.41:77/api/banner/getAll?pagesize=8&orderBy=nama_banner&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:14:08]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:14:09]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:23:39]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:23:39]
+                        URL: http://43.228.212.41:77/api/banner/getAll?pagesize=8&orderBy=nama_banner&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:23:39]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:23:40]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:24:45]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:24:46]
+                        URL: http://43.228.212.41:77/api/banner/getAll?pagesize=8&orderBy=nama_banner&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:24:46]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:24:46]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:24:47]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:24:47] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:24:52]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:27:13]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:27:13]
+                        URL: http://43.228.212.41:77/api/banner/getAll?pagesize=8&orderBy=nama_banner&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:27:13]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:27:13]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:27:14]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:27:14] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:27:20]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:27:30]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:27:32]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:27:32]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:27:32] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:27:34]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:27:35]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:27:35] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:28:31]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:29:30]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:35:40]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:40:13]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:51:32]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:51:34]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:51:34]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:51:36] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:51:37]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:51:38]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 15:51:39] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 16:03:15]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 16:18:12]
+                        URL: http://43.228.212.41:77/api/payment/option?pagesize=8&orderBy=fee&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-09-11 16:18:14]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 16:18:14]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 16:18:15] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 16:18:17]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 16:18:18]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 16:18:18] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 17:00:43]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 17:01:23]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 17:01:28]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 17:03:05]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 17:03:27]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 17:08:27]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 17:09:21]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&orderBy=no_bukti&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 17:09:54]
+                        URL: http://43.228.212.41:77/api/cart/create?pagesize=8&show_variant=True
+                        Status: 400 Bad Request
+                        Response: Client error: TAMBAH - id_customer wajib diisi
+                        ---------------------------------------------------------
+
+                        [2025-09-11 17:10:17]
+                        URL: http://43.228.212.41:77/api/produk/getAll?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-09-11 17:10:17]
+                        URL: http://43.228.212.41:77/api/banner/getAll?pagesize=8&orderBy=nama_banner&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2025-09-11 17:10:18]
+                        URL: http://43.228.212.41:77/api/brand/getAll?pagesize=8&orderBy=nama_brand&orderDir=desc&show_variant=True
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-09-11 17:10:18]
+                        URL: http://43.228.212.41:77/api/kategori/getAll?pagesize=8&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-09-11 17:10:18]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&orderBy=Updated_At&orderDir=desc&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2025-09-11 17:10:21] - Error API Connection
+                        Message: Gagal Baca Data : Terjadi error: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. LineNumber: 0 | BytePositionInLine: 0.
+                        ---------------------------------------------------------
+
+                        [2025-09-11 17:10:23]
+                        URL: http://43.228.212.41:77/api/order/getAll?pagesize=8&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 17:10:42]
+                        URL: http://43.228.212.41:77/api/cart/create?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Berhasil tambah Cart baru
+                        ---------------------------------------------------------
+
+                        [2025-09-11 17:10:42]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 17:10:50]
+                        URL: http://43.228.212.41:77/api/cart/create?pagesize=8&show_variant=True
+                        Status: 400 Bad Request
+                        Response: Client error: TAMBAH - id_variant wajib diisi
+                        ---------------------------------------------------------
+
+                        [2025-09-11 17:10:58]
+                        URL: http://43.228.212.41:77/api/cart/create?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Berhasil tambah Cart baru
+                        ---------------------------------------------------------
+
+                        [2025-09-11 17:10:58]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-09-11 17:11:09]
+                        URL: http://43.228.212.41:77/api/cart/create?pagesize=8&show_variant=True
+                        Status: 400 Bad Request
+                        Response: Client error: TAMBAH - id_variant wajib diisi
+                        ---------------------------------------------------------
+
+                        [2025-09-11 17:11:17]
+                        URL: http://43.228.212.41:77/api/cart/create?pagesize=8&show_variant=True
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Berhasil tambah Cart baru
+                        ---------------------------------------------------------
+
+                        [2025-09-11 17:11:17]
+                        URL: http://43.228.212.41:77/api/cart/getAll?pagesize=8&show_variant=True&id_customer=cus_16&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------

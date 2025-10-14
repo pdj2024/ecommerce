@@ -11,7 +11,7 @@
     <base href="@NavigationManager.BaseUri" />
     <base href="~/" />
     <link href="_content/Radzen.Blazor/css/humanistic-base.css" rel="stylesheet" />
-    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.svg" />
+    <link rel="shortcut icon" type="image/x-icon" href="images/logo/icon-pdj.png" />
 
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.css">
@@ -22,11 +22,16 @@
     <link href="_content/DevExpress.Blazor.Themes/blazing-berry.bs5.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="_content/DevExpress.Blazor.Reporting.Viewer/css/dx-blazor-reporting-components.bs5.css">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
     <!-- ========================= CSS here ========================= -->
     <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/LineIcons.3.0.css" />
+    <link rel="stylesheet" href="css/icons.css" />
     <link rel="stylesheet" href="css/glightbox.min.css" />
     <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <script type="text/javascript"
             src="https://app.sandbox.midtrans.com/snap/snap.js"
@@ -36,21 +41,40 @@
 </head>
 
 <body>
-    <Routes  />
-    <script src="_framework/blazor.web.js"></script>
+    @* style="display:none !important;" *@
+    <div class="preloader" style="display:none !important;">
+        <div class="preloader-inner">
+            <div class="preloader-icon">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
 
+
+    <Routes  />
+
+    <div class="overlay" style="z-index:1002"></div>
+
+    <button onclick="scrollToTop()" style="border: 0px;" class="scroll-top">
+        <i class="lni lni-chevron-up"></i>
+    </button>
+
+    <script src="_framework/blazor.web.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <!-- Add chart.js reference if chart components are used in your application. -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.0.1/chart.umd.js" integrity="sha512-gQhCDsnnnUfaRzD8k1L5llCCV6O9HN09zClIzzeJ8OJ9MpGmIlCxm+pdCkqTwqJ4JcjbojFr79rl2F1mzcoLMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- Add chartjs-plugin-datalabels.min.js reference if chart components with data label feature is used in your application. -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js" integrity="sha512-JPcRR8yFa8mmCsfrw4TNte1ZvF1e3+1SdGMslZvmrzDYxS69J7J49vkFL8u6u8PlPJK+H3voElBtUCzaXj+6ig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="_content/Radzen.Blazor/Radzen.Blazor.js?v=@(typeof(Radzen.Colors).Assembly.GetName().Version)"></script>
 
-    <script src="js/bootstrap.min.js"></script>
+    @* <script src="js/bootstrap.min.js"></script> *@
     <script src="js/glightbox.min.js"></script>
     <script src="js/main.js"></script>
+    <link href="https://cdn.lineicons.com/5.0/lineicons.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-    <script src="_content/Radzen.Blazor/Radzen.Blazor.js?v=@(typeof(Radzen.Colors).Assembly.GetName().Version)"></script>
     
     <script>
         function selectAllText(elementToBind) {
@@ -66,6 +90,229 @@
                 }
             }
         }
+
+        function buttonClick(selectorName) {
+            document.querySelector(selectorName).click();
+        }
+
+        function initFlayer() {
+            const target = document.querySelector('#hidden-flayer');
+            const flayer = document.querySelector('#flayer');
+
+            const observer = new IntersectionObserver(
+              (entries) => {
+                entries.forEach(entry => {
+                  if (entry.isIntersecting) {
+                    // Section terlihat -> sembunyikan flayer
+                    flayer.classList.remove('visible');
+                  } else {
+                    // Section tidak terlihat -> tampilkan flayer
+                    flayer.classList.add('visible');
+                  }
+                });
+              },
+              {
+                root: null,         // viewport
+                threshold: 0,       // trigger begitu section keluar sepenuhnya
+                rootMargin: '-85px 0px 0px 0px'
+              }
+            );
+
+            observer.observe(target);
+        }
+
+
+        function initVaCopy() {
+            const boxes = document.querySelectorAll('.va-box');
+
+            boxes.forEach(box => {
+                const btn = box.querySelector('.copy-btn');
+                const textEl = box.querySelector('.va-body');
+
+                let timerId = null;
+
+                const getVa = () => {
+                    // Prioritas: data-va (agar value tersembunyi juga bisa dicopy), fallback isi teks body
+                    return box.getAttribute('data-va')?.trim() || textEl?.textContent?.trim() || '';
+                };
+
+                const setCopied = () => {
+                    btn.textContent = 'Copied';
+                    btn.classList.add('copied');
+                    clearTimeout(timerId);
+                    timerId = setTimeout(() => {
+                        btn.textContent = 'Copy';
+                        btn.classList.remove('copied');
+                    }, 5000);
+                };
+
+                const copyText = async (value) => {
+                    try {
+                        if (navigator.clipboard?.writeText) {
+                            await navigator.clipboard.writeText(value);
+                        } else {
+                            // Fallback untuk browser lama
+                            const ta = document.createElement('textarea');
+                            ta.value = value;
+                            ta.style.position = 'fixed';
+                            ta.style.opacity = '0';
+                            document.body.appendChild(ta);
+                            ta.focus();
+                            ta.select();
+                            document.execCommand('copy');
+                            document.body.removeChild(ta);
+                        }
+                        setCopied();
+                    } catch (e) {
+                        console.error('Copy failed:', e);
+                        // Jika gagal, beri sedikit feedback
+                        btn.textContent = 'Failed';
+                        btn.classList.remove('copied');
+                        clearTimeout(timerId);
+                        timerId = setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
+                    }
+                };
+
+                btn.addEventListener('click', () => {
+                    const value = getVa();
+                    if (value) copyText(value);
+                });
+            });
+        }
+
+
+        function initslideProduct() {
+            const products = document.querySelectorAll(".product");
+
+            if (products.length === 0) return;
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("show");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            products.forEach(p => observer.observe(p));
+        }
+
+        function initItemsOrder(data) {
+            const headerBtn = document.querySelector(".header-accord-" + data);
+            const noneAccords = document.querySelectorAll(".none-accord-" + data);
+
+            if (!headerBtn) return;
+
+            if (!headerBtn.classList.contains("collapsed")) {
+                // kalau accordion terbuka ? sembunyikan
+                noneAccords.forEach(el => {
+                    el.classList.add("hide");
+                    setTimeout(() => {
+                        el.style.setProperty("display", "none", "important");
+                    }, 10);
+                });
+            } else {
+                // kalau accordion tertutup ? tampilkan lagi
+                noneAccords.forEach(el => {
+                    el.style.display = "block";
+                    setTimeout(() => {
+                        el.classList.remove("hide");
+                    }, 10);
+                });
+            }
+        }
+
+        function downloadFileFromBase64(filename, base64) {
+            const link = document.createElement("a");
+            link.href = "data:image/png;base64," + base64;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+
+        async function copyVa(kode) {
+
+            // Cari tombol target spesifik berdasarkan kode
+            const btn = document.querySelector(`.copy-btn-${kode}`);
+            if (!btn) return;
+
+            // Ambil nilai VA: prioritas data-va di parent
+            const box = btn.closest('.va-box');
+            const value = box?.getAttribute('data-va')?.trim() || btn.dataset.va?.trim() || '';
+
+            let timerId;
+
+            const setCopied = () => {
+                btn.textContent = 'Copied';
+                btn.classList.add('copied');
+                clearTimeout(timerId);
+                timerId = setTimeout(() => {
+                    btn.textContent = 'Copy';
+                    btn.classList.remove('copied');
+                }, 5000);
+            };
+
+            try {
+                if (navigator.clipboard?.writeText) {
+                    await navigator.clipboard.writeText(value);
+                } else {
+                    // Fallback untuk browser lama
+                    const ta = document.createElement('textarea');
+                    ta.value = value;
+                    ta.style.position = 'fixed';
+                    ta.style.opacity = '0';
+                    document.body.appendChild(ta);
+                    ta.focus();
+                    ta.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(ta);
+                }
+                setCopied();
+            } catch (err) {
+                console.error('Copy failed:', err);
+                btn.textContent = 'Failed';
+                clearTimeout(timerId);
+                timerId = setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
+            }
+        }
+
+
+
+
+        function initHeaderMega() {
+            document.querySelectorAll('.mega-parent').forEach(item => {
+                item.addEventListener('mouseenter', () => {
+                    item.querySelector('.mega-menu').classList.add('open');
+                    document.querySelector('.overlay').classList.add('show');
+                });
+                item.addEventListener('mouseleave', () => {
+                    item.querySelector('.mega-menu').classList.remove('open');
+                    document.querySelector('.overlay').classList.remove('show');
+                });
+            });
+        }
+
+        function statusBarHidden() {
+            window.setTimeout(fadeout, 500);
+        }
+
+        function fadeout() {
+            document.querySelector('.preloader').style.opacity = '0';
+            document.querySelector('.preloader').style.display = 'none';
+        }
+
+        function colLoadOut() {
+            const el = document.querySelector('.col-load');
+            if (!el) return console.log("class load not found");
+            el.style.opacity = '0';
+            setTimeout(() => {
+                el.style.display = 'none';
+            }, 500); // tunggu 0.5s sampai transisi selesai
+        }
+
         function setFocusAndSelect(elementToBind) {
             setTimeout(function () {
                
@@ -109,9 +356,198 @@
                 gutter: 0,
                 controls: true,
                 autoplayButtonOutput: false,
-                controlsText: ['<i class="lni lni-chevron-left"></i>', '<i class="lni lni-chevron-right"></i>'],
+                controlsText: ['<i class="lni lni-chevron-left"></i>', '<i class="lni lni-chevron-left" style="transform: scaleX(-1);"></i>'],
+            });
+
+            var slider_laptop = tns({
+                container: ".hero-slider-laptop",
+                items: 1,
+                slideBy: "page",
+                autoplay: true,
+                nav: false,
+                mouseDrag: true,
+                gutter: 0,
+                controls: true,
+                autoplayButtonOutput: false,
+                controlsText: ['<i class="lni lni-chevron-left"></i>', '<i class="lni lni-chevron-left" style="transform: scaleX(-1);"></i>'],
+            });
+
+            var slider_tablet = tns({
+                container: ".hero-slider-tablet",
+                items: 1,
+                slideBy: "page",
+                autoplay: true,
+                nav: false,
+                mouseDrag: true,
+                gutter: 0,
+                controls: true,
+                autoplayButtonOutput: false,
+                controlsText: ['<i class="lni lni-chevron-left"></i>', '<i class="lni lni-chevron-left" style="transform: scaleX(-1);"></i>'],
+            });
+
+            var slider_phone = tns({
+                container: ".hero-slider-phone",
+                items: 1,
+                slideBy: "page",
+                autoplay: true,
+                nav: false,
+                mouseDrag: true,
+                gutter: 0,
+                controls: true,
+                autoplayButtonOutput: false,
+                controlsText: ['<i class="lni lni-chevron-left"></i>', '<i class="lni lni-chevron-left" style="transform: scaleX(-1);"></i>'],
             });
         };
+
+        function initDetailProd() {
+            var sliderdetailProd = tns({
+                container: ".slider-images",
+                items: 5,
+                mouseDrag: true,
+                slideBy: "page",
+                swipeAngle: false,
+                speed: 400,
+                loop: false,
+                nav: false,
+                controls: false,
+            });
+        };
+
+
+        function initLoginEffect(value, direct) {
+
+            const loginBox = document.querySelector('.login-effect');
+            const signUp = document.querySelector('.signup-page');
+            const logIn = document.querySelector('.login-page');
+
+
+            if (!direct) {
+
+                loginBox.classList.add('change');
+
+                setTimeout(() => {
+
+                    loginBox.classList.remove('change');
+
+                }, 1200);
+
+
+                setTimeout(() => {
+
+                    if(value == "sign-up")
+                    {
+                        logIn.classList.remove('active');
+                        signUp.classList.add('active');
+
+                    } else {
+
+                        signUp.classList.remove('active');
+                        logIn.classList.add('active');
+                    }
+
+                }, 1500);
+
+            } else {
+                if(value == "sign-up") 
+                {
+                    logIn.classList.remove('active');
+                    signUp.classList.add('active');
+
+                } else {
+
+                    signUp.classList.remove('active');
+                    logIn.classList.add('active');
+                }
+            }
+
+
+        };
+
+        function initBigDetailProd() {
+            var sliderdetailProd = tns({
+                container: ".big-slider-images",
+                items: 1,
+                mouseDrag: true,
+                slideBy: "page",
+                swipeAngle: false,
+                speed: 400,
+                loop: false,
+                nav: false,
+                controls: false,
+                navContainer: "#customize-thumbnails",
+                navAsThumbnails: true,
+            });
+        };
+
+        function initBigDetailProdInfo() {
+            var swiper = new Swiper(".mySwiper", {
+              loop: false,
+                  spaceBetween: 0,
+                  slidesPerView: 4,
+                  freeMode: true,
+              watchSlidesProgress: true,
+            });
+
+            var swiper2 = new Swiper(".mySwiper2", {
+                loop: true,
+                spaceBetween: 10,
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+                thumbs: {
+                    swiper: swiper,
+                },
+            });
+        };
+
+        function initMobileButton() {
+            let navbarToggler = document.querySelector(".mobile-menu-btn");
+            navbarToggler.addEventListener('click', function () {
+                navbarToggler.classList.toggle("active");
+                let navbarContent = document.querySelector("#navbarSupportedContent");
+            });
+        };
+
+        function showNavbar(valueClass, valueOn) {
+            let navbarToggler = document.querySelector("." + valueClass);
+            
+            if(navbarToggler == null) return;
+
+            if(valueOn) 
+            {
+                navbarToggler.classList.add('active');
+            } 
+            else 
+            {
+                navbarToggler.classList.remove('active');
+            }
+
+            
+        };
+
+        let swiperInstance = null;
+
+        function initSearchButton() {
+            if (swiperInstance) {
+                swiperInstance.destroy(true, true);
+            }
+
+            swiperInstance = new Swiper(".mySwiper1", {
+                pagination: {
+                el: ".swiper-pagination",
+                type: "fraction",
+                },
+                navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+                },
+            });
+        };
+
+        function scrollToTop() {
+            window.scrollTo(0, 0);
+        }
 
     </script>
 
