@@ -10,7 +10,14 @@ html {
   scroll-behavior: smooth;
 }
 
+.grecaptcha-badge {
+    right: -270px !important;
+}
 
+#phoneInput {
+    width: 100%;
+    padding: .5rem;
+}
 
 body {
     font-family: "Inter", sans-serif;
@@ -1696,6 +1703,23 @@ h4.title a p {
     transform: scaleY(2); /* mulai tak terlihat */
 }
 
+.otp-view {
+    visibility: hidden;
+    position: relative;
+    opacity: 0;
+    top: 30px;
+    height: 0rem;
+    overflow: hidden;
+    transition: top 0.8s ease-in-out, opacity 0.8s ease, display 0.8s ease;
+}
+
+.otp-view.active {
+    height: 33rem;
+    visibility: visible;
+    opacity: 1;
+    top: 0px;
+}
+
 .signup-page {
     visibility: hidden;
     position: relative;
@@ -3035,7 +3059,7 @@ ol {
   font-size: 16px;
   color: #fff !important;
   position: fixed;
-  bottom: 10px;
+  bottom: 12px;
   right: 15px;
   z-index: 9;
   cursor: pointer;

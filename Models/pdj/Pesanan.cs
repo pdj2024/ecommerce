@@ -10,6 +10,7 @@ namespace Models
         public class Headers
         {
             public string No_Bukti { get; set; } = "";
+            public string No_Tracking { get; set; } = "";
             public string Status_Order_1 { get; set; } = "";
             public string Status_Order_2 { get; set; } = "";
             public string Id_Customer { get; set; } = "";
@@ -86,7 +87,7 @@ namespace Models
 
         public class ActionsMidtrans
         {
-            public int name { get; set; } = 0;
+            public string name { get; set; } = "";
             public string method { get; set; } = "";
             public string url { get; set; } = "";
         }

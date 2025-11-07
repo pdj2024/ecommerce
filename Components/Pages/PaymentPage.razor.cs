@@ -56,6 +56,15 @@ namespace PacificWeb.Components.Pages
         public pdjService pdjService { get; set; }
 
         [Inject]
+        public GlobalDataService GlobalDataService { get; set; }
+
+        [Inject]
+        public ScopedDataServices ScopedDataServices { get; set; }
+
+        [Inject]
+        public NewPdjService NewPdjService { get; set; }
+
+        [Inject]
         public IHttpClientFactory HttpClientFactory { get; set; }
 
         [Parameter]
@@ -100,8 +109,38 @@ namespace PacificWeb.Components.Pages
 
             if (user.Identity?.IsAuthenticated ?? false)
             {
-                dataSourch.DataUser.Email = user.FindFirst(c => c.Type == ClaimTypes.Email)?.Value;
-                dataSourch.DataUser.No_Id = user.FindFirst(c => c.Type == ClaimTypes.Name)?.Value;
+                var Phone = user.FindFirst(c => c.Type == ClaimTypes.OtherPhone)?.Value;
+                var No_Id = user.FindFirst(c => c.Type == ClaimTypes.Sid)?.Value;
+                var Password = user.FindFirst(c => c.Type == ClaimTypes.PrimarySid)?.Value;
+                var Nama_display = user.FindFirst(c => c.Type == ClaimTypes.Name)?.Value;
+
+                var LoginData = GlobalDataService.GlobalData.ListDataLogin.FirstOrDefault(x => x.No_Id == No_Id);
+
+                if (LoginData == null)
+                {
+                    var param = new ParameterApi
+                    {
+                        routeApi = "auth",
+                        prosesApi = "login",
+                        ParamUrl = new ParameterApi.ParameterUrl()
+                    };
+
+                    var loginStatus = await NewPdjService.LoginUserApi(param, new LoginViewModel { NoTlp = Phone, Password = Password });
+
+                    if (loginStatus)
+                    {
+                        ScopedDataServices.ScopedData.DataLogin = GlobalDataService.GlobalData.ListDataLogin.FirstOrDefault(x => x.No_Id == No_Id);
+                    }
+                    else
+                    {
+                        NavigationManager.NavigateTo($"/auth-user-logout/logout", forceLoad: true);
+                        ScopedDataServices.ScopedData.DataLogin = null;
+                    }
+                }
+                else
+                {
+                    ScopedDataServices.ScopedData.DataLogin = LoginData;
+                }
             }
             else
             {
@@ -131,9 +170,9 @@ namespace PacificWeb.Components.Pages
                 contentCrash = false;
             }
 
-                Pesanan_Info.Header.Add(new Pesanan.Headers());
-                Pesanan_Info.Items.Add(new Pesanan.Item());
-                Pesanan_Info.Biaya.Add(new Pesanan.Biayas());
+            Pesanan_Info.Header.Add(new Pesanan.Headers());
+            Pesanan_Info.Items.Add(new Pesanan.Item());
+            Pesanan_Info.Biaya.Add(new Pesanan.Biayas());
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -141,48 +180,8 @@ namespace PacificWeb.Components.Pages
             if (firstRender)
             {
 
-                var companyTask = pdjService.GetCompanyApi(new ParameterApi
-                {
-                    routeApi = "company",
-                    prosesApi = "get-profile",
-                    ParamUrl = new ParameterApi.ParameterUrl { no_id = "comp_1" }
-                });
 
-                var metodeBayarTask = pdjService.GetMetodeBayarApi(new ParameterApi
-                {
-                    routeApi = "payment",
-                    prosesApi = "option",
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        status = "aktif",
-                        orderBy = "fee",
-                        orderDir = "asc",
-                    }
-                });
-
-                var metodeKirimTask = pdjService.GetMetodeKirimApi(new ParameterApi
-                {
-                    routeApi = "shipping",
-                    prosesApi = "getAll",
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        status = "aktif",
-                        orderBy = "fee",
-                        orderDir = "asc",
-                    }
-                });
-
-                var nilaiDefaultTask = pdjService.GetNilaiDefaultApi(new ParameterApi
-                {
-                    routeApi = "nilaidefault",
-                    prosesApi = "getAll",
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        status = "aktif",
-                        no_id = "comp_1"
-                    }
-                });
-
+                var refreshTask = NewPdjService.RefreshDataMainKonten();
 
                 if (CartList == "cart")
                 {
@@ -190,6 +189,8 @@ namespace PacificWeb.Components.Pages
                     {
                         routeApi = "cart",
                         prosesApi = "getAll",
+                        token = ScopedDataServices.ScopedData.DataLogin.token,
+                        refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
                         ParamUrl = new ParameterApi.ParameterUrl
                         {
                             noid_list = listCard,
@@ -258,27 +259,35 @@ namespace PacificWeb.Components.Pages
                         Console.WriteLine("stock tidak cukup");
                         await Task.Delay(3000);
                         await pdjService.GoBack();
+                        return;
                     } else
                     {
                         await pdjService.ButtonCLick("modalPaymentStatus4");
                         Console.WriteLine("rusak");
                         await Task.Delay(3000);
                         await pdjService.GoBack();
+                        return;
                     }
-
 
                 }
 
+                var data = GlobalDataService?.GlobalData?.ListDataPengiriman.FirstOrDefault(x => x.selectShipping == true);
+                var dataZ = GlobalDataService?.GlobalData?.ListDataPembayaran.FirstOrDefault(x => x.selectPayment == true);
 
-                // Tunggu semua task selesai
-                await Task.WhenAll(companyTask, metodeBayarTask, metodeKirimTask, nilaiDefaultTask);
+                if(data != null)
+                {
+                    data.selectShipping = false;
+                }
 
-                // Assign semua data sekaligus
-                dataSourch.ListDataCompany = companyTask.Result;
-                dataSourch.ListDataPembayaran = metodeBayarTask.Result;
-                dataSourch.ListDataPengiriman = metodeKirimTask.Result;
-                dataSourch.ListDataNilaiDefault = nilaiDefaultTask.Result;
+                if(dataZ != null)
+                {
+                    dataZ.selectPayment = false;
+                }
+
                 StateHasChanged();
+
+                Pesanan_Info.Header[0].Nama_Penerima = ScopedDataServices.ScopedData.DataLogin.DataUser.Nama_Display;
+                Pesanan_Info.Header[0].Telpon_Penerima = ScopedDataServices.ScopedData.DataLogin.DataUser.Telepon;
 
                 hitungTotal();
 
@@ -293,22 +302,22 @@ namespace PacificWeb.Components.Pages
             totalDpp = dataSourch.ListDataCart.Sum(x => ((decimal)x.Harga * (decimal)x.Qty) - (((decimal)x.Harga * (decimal)x.Qty)) * ((decimal)x.Diskon1 / (decimal)100));
             subtotal = totalDpp + paymentMethodFee + shipingMethodFee;
 
-            if(dataSourch.ListDataNilaiDefault.FirstOrDefault().Incl_Ppn)
+            if(GlobalDataService.GlobalData.ListDataNilaiDefault.FirstOrDefault().Incl_Ppn)
             {
-                ppnValue = ((decimal)dataSourch.ListDataNilaiDefault.FirstOrDefault().Ppn / ((decimal)100 + (decimal)dataSourch.ListDataNilaiDefault.FirstOrDefault().Ppn)) * (decimal)subtotal;
-                nettoKeranjang = (subtotal / ((decimal)1 + (decimal)((decimal)dataSourch.ListDataNilaiDefault.FirstOrDefault().Ppn / (decimal)100))) + ppnValue;
+                ppnValue = ((decimal)GlobalDataService?.GlobalData?.ListDataNilaiDefault.FirstOrDefault().Ppn / ((decimal)100 + (decimal)GlobalDataService?.GlobalData?.ListDataNilaiDefault.FirstOrDefault().Ppn)) * (decimal)subtotal;
+                nettoKeranjang = (subtotal / ((decimal)1 + (decimal)((decimal)GlobalDataService?.GlobalData?.ListDataNilaiDefault.FirstOrDefault().Ppn / (decimal)100))) + ppnValue;
             } 
             else
             {
-                ppnValue = ((decimal)dataSourch.ListDataNilaiDefault.FirstOrDefault().Ppn / (decimal)100) * (decimal)subtotal;
+                ppnValue = ((decimal)GlobalDataService?.GlobalData?.ListDataNilaiDefault.FirstOrDefault().Ppn / (decimal)100) * (decimal)subtotal;
                 nettoKeranjang = subtotal + ppnValue;
             }
         }
 
         public async Task SelectPaymentMethod(Pembayaran payment)
         {
-            var active = dataSourch?.ListDataPembayaran.FirstOrDefault(x => x.selectPayment == true);
-            var method = dataSourch?.ListDataPembayaran.FirstOrDefault(x => x.Cara_Bayar == payment.Cara_Bayar);
+            var active = GlobalDataService?.GlobalData?.ListDataPembayaran.FirstOrDefault(x => x.selectPayment == true);
+            var method = GlobalDataService?.GlobalData?.ListDataPembayaran.FirstOrDefault(x => x.Cara_Bayar == payment.Cara_Bayar);
 
             if (active == null)
             {
@@ -329,8 +338,8 @@ namespace PacificWeb.Components.Pages
 
         public async Task SelectShipingMethod(Pengiriman shipping)
         {
-            var active = dataSourch?.ListDataPengiriman.FirstOrDefault(x => x.selectShipping == true);
-            var method = dataSourch?.ListDataPengiriman.FirstOrDefault(x => x.No_Id == shipping.No_Id);
+            var active = GlobalDataService?.GlobalData?.ListDataPengiriman.FirstOrDefault(x => x.selectShipping == true);
+            var method = GlobalDataService?.GlobalData?.ListDataPengiriman.FirstOrDefault(x => x.No_Id == shipping.No_Id);
 
             if (active == null)
             {
@@ -356,8 +365,8 @@ namespace PacificWeb.Components.Pages
         public async Task FinisedOrder()
         {
 
-            dataKirim = dataSourch?.ListDataPengiriman.FirstOrDefault(x => x.selectShipping == true);
-            dataLayanan = dataSourch?.ListDataPembayaran.FirstOrDefault(x => x.selectPayment == true);
+            dataKirim = GlobalDataService?.GlobalData?.ListDataPengiriman.FirstOrDefault(x => x.selectShipping == true);
+            dataLayanan = GlobalDataService?.GlobalData?.ListDataPembayaran.FirstOrDefault(x => x.selectPayment == true);
 
             if (dataKirim == null || dataLayanan == null)
             {
@@ -415,6 +424,8 @@ namespace PacificWeb.Components.Pages
             {
                 routeApi = "order",
                 prosesApi = "getAll",
+                token = ScopedDataServices.ScopedData.DataLogin.token,
+                refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
                 ParamUrl = new ParameterApi.ParameterUrl
                 {
                     no_bukti = item.No_Bukti
@@ -514,13 +525,14 @@ namespace PacificWeb.Components.Pages
                 await JSRuntime.InvokeVoidAsync("downloadFileFromBase64", $"QR-PDJ-{item.No_Bukti}-{DateTime.Now.ToLocalTime()}.png", base64Data);
             }
         }
+        
         public async Task PayOrder()
         {
             loadProses = true;
             loadRefresh = true;
             StateHasChanged();
-            dataKirim = dataSourch?.ListDataPengiriman.FirstOrDefault(x => x.selectShipping == true);
-            dataLayanan = dataSourch?.ListDataPembayaran.FirstOrDefault(x => x.selectPayment == true);
+            dataKirim = GlobalDataService?.GlobalData?.ListDataPengiriman.FirstOrDefault(x => x.selectShipping == true);
+            dataLayanan = GlobalDataService?.GlobalData?.ListDataPembayaran.FirstOrDefault(x => x.selectPayment == true);
 
             List<object> ListDataItem = new List<object>();
             List<object> ListDataBiaya = new List<object>();
@@ -562,7 +574,7 @@ namespace PacificWeb.Components.Pages
 
             var dataOrderCart = new
             {
-                Id_Customer = dataSourch?.DataUser.No_Id,
+                Id_Customer = ScopedDataServices.ScopedData.DataLogin.No_Id,
                 Status_Bayar = "",
                 Id_Payment_Gateway = "",
                 Payment_Type = dataLayanan.Cara_Bayar,
@@ -580,13 +592,15 @@ namespace PacificWeb.Components.Pages
             {
                 routeApi = "order",
                 prosesApi = "create",
+                token = ScopedDataServices.ScopedData.DataLogin.token,
+                refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
                 ParamUrl = new ParameterApi.ParameterUrl()
             });
 
 
             var data = dataCard.messageResponse.Split("%section%");
             dataSourch.DataResponsePesanan = dataCard.dataRespons;
-
+            await pdjService.ShowConsoleData(dataCard.dataRespons);
 
             if (dataSourch.DataResponsePesanan.BuatPesanan.StatusCode == 200 && dataSourch.DataResponsePesanan.Payment.StatusCode == 200)
             {
@@ -596,6 +610,8 @@ namespace PacificWeb.Components.Pages
                 {
                     routeApi = "order",
                     prosesApi = "getAll",
+                    token = ScopedDataServices.ScopedData.DataLogin.token,
+                    refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
                     ParamUrl = new ParameterApi.ParameterUrl
                     { 
                         no_bukti = dataSourch.DataResponsePesanan.BuatPesanan.NewId

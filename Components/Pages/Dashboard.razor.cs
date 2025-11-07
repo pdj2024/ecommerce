@@ -1,17 +1,11 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 using Models;
 using PacificWeb.Components.Layout;
 using Radzen;
-using Radzen.Blazor;
 using Services;
-using System.Configuration;
-using System.Drawing;
-using System.Reflection;
 using System.Security.Claims;
-using static Services.pdjService;
 
 
 
@@ -42,13 +36,21 @@ namespace PacificWeb.Components.Pages
         [Inject]
         public pdjService pdjService { get; set; }
 
+        [Inject]
+        public GlobalDataService GlobalDataService { get; set; }
+
+        [Inject]
+        public ScopedDataServices ScopedDataServices { get; set; }
+
+        [Inject]
+        public NewPdjService NewPdjService { get; set; }
+
+
         MyHeader header_page;
         MyFooter footer_page;
 
         //Header and Footer DataSource
         
-        public SourchData dataSourch = new();
-
         public Produk DataProduk { get; set; } = new Produk();
 
         public bool loadProses { get; set; } = false;
@@ -67,9 +69,43 @@ namespace PacificWeb.Components.Pages
 
             if (user.Identity?.IsAuthenticated ?? false)
             {
-                dataSourch.DataUser.Email = user.FindFirst(c => c.Type == ClaimTypes.Email)?.Value;
-                dataSourch.DataUser.No_Id = user.FindFirst(c => c.Type == ClaimTypes.Name)?.Value;
+                var Phone = user.FindFirst(c => c.Type == ClaimTypes.OtherPhone)?.Value;
+                var No_Id = user.FindFirst(c => c.Type == ClaimTypes.Sid)?.Value;
+                var Password = user.FindFirst(c => c.Type == ClaimTypes.PrimarySid)?.Value;
+                var Nama_display = user.FindFirst(c => c.Type == ClaimTypes.Name)?.Value;
+
+                var LoginData = GlobalDataService.GlobalData.ListDataLogin.FirstOrDefault(x => x.No_Id == No_Id);
+
+                if (LoginData == null)
+                {
+                    var param = new ParameterApi
+                    {
+                        routeApi = "auth",
+                        prosesApi = "login",
+                        ParamUrl = new ParameterApi.ParameterUrl()
+                    };
+
+                    var loginStatus = await NewPdjService.LoginUserApi(param, new LoginViewModel { NoTlp = Phone, Password = Password });
+
+                    if (loginStatus)
+                    {
+                        ScopedDataServices.ScopedData.DataLogin = GlobalDataService.GlobalData.ListDataLogin.FirstOrDefault(x => x.No_Id == No_Id);
+                    } 
+                    else
+                    {
+                        NavigationManager.NavigateTo($"/auth-user-logout/logout", forceLoad: true);
+                        ScopedDataServices.ScopedData.DataLogin = null;
+                    }
+                } 
+                else
+                {
+                    ScopedDataServices.ScopedData.DataLogin = LoginData;
+                }
+            } else
+            {
+                ScopedDataServices.ScopedData.DataLogin = null;
             }
+
         }
 
 
@@ -80,130 +116,20 @@ namespace PacificWeb.Components.Pages
             {
 
                 // Jalankan semua request paralel
-                var produkTask = pdjService.GetProdukApi(new ParameterApi
-                {
-                    routeApi = "produk",
-                    prosesApi = "getAll",
-                    ParamUrl = new ParameterApi.ParameterUrl { pagesize = 12, show_variant = true, max_media = 2 , status = "aktif" }
-                });
 
-                var bannerTask = pdjService.GetBannerApi(new ParameterApi
-                {
-                    routeApi = "banner",
-                    prosesApi = "getAll",
-                    ParamUrl = new ParameterApi.ParameterUrl { pagesize = 3, orderBy = "nama_banner", orderDir = "desc", status = "aktif" }
-                });
+                await NewPdjService.RefreshDataMainKonten();
 
-                var brandTask = pdjService.GetBrandApi(new ParameterApi
-                {
-                    routeApi = "brand",
-                    prosesApi = "getAll",
-                    ParamUrl = new ParameterApi.ParameterUrl { orderBy = "nama_brand", orderDir = "desc", status = "aktif" }
-                });
+                ScopedDataServices.ScopedData.Finised = true;
 
-                var kategoriTask = pdjService.GetKategoriApi(new ParameterApi
-                {
-                    routeApi = "kategori",
-                    prosesApi = "getAll",
-                    ParamUrl = new ParameterApi.ParameterUrl { pagesize = 3, status = "aktif" }
-                });
-
-                var companyTask = pdjService.GetCompanyApi(new ParameterApi
-                {
-                    routeApi = "company",
-                    prosesApi = "get-profile",
-                    ParamUrl = new ParameterApi.ParameterUrl { no_id = "comp_1" }
-                });
-
-                var CartTask = pdjService.GetCartApi(new ParameterApi
-                {
-                    routeApi = "cart",
-                    prosesApi = "getAll",
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        id_customer = dataSourch.DataUser.No_Id,
-                        show_media = "true",
-                        orderBy = "Updated_At",
-                        orderDir = "desc",
-                        status = "aktif"
-                    }
-                });
-
-                //var PesananTask = pdjService.GetPesananApi(new ParameterApi
-                //{
-                //    routeApi = "order",
-                //    prosesApi = "getAll",
-                //    ParamUrl = new ParameterApi.ParameterUrl
-                //    {
-                //        id_customer = dataSourch.DataUser.No_Id,
-                //        show_media = "true",
-                //    }
-                //});
-
-                var SummaryPesananTask = pdjService.GetSummaryPesananApi(new ParameterApi
-                {
-                    routeApi = "order",
-                    prosesApi = "getSummary",
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        id_customer = dataSourch.DataUser.No_Id,
-                    }
-                });
-
-                var NavbarTask = pdjService.GetNavbarApi(new ParameterApi
-                {
-                    routeApi = "navbar",
-                    prosesApi = "getAll",
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        no_id = "comp_1",
-                        status = "aktif"
-                    }
-                });
-
-                var SosmedTask = pdjService.GetSosmedApi(new ParameterApi
-                {
-                    routeApi = "company",
-                    prosesApi = "get-social",
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        no_id = "comp_1",
-                        status = "aktif"
-                    }
-                });
-
-
-                // Tunggu semua task selesai
-                await Task.WhenAll(produkTask, bannerTask, brandTask, kategoriTask, companyTask, NavbarTask, SosmedTask, CartTask, SummaryPesananTask);
-
-
-                // Assign semua data sekaligus
-                dataSourch.ListDataCompany = companyTask.Result;
-                //dataSourch.DataPesanan = PesananTask.Result;
-                dataSourch.ListDataSummaryPesanan = SummaryPesananTask.Result;
-                dataSourch.ListDataNavbar = NavbarTask.Result;
-                dataSourch.ListDataCompanySocial = SosmedTask.Result;
-                dataSourch.ListDataCart = CartTask.Result;
-
-
-                dataSourch.ListDataProduk = produkTask.Result;
-                dataSourch.ListDataBanner = bannerTask.Result;
-                dataSourch.ListDataBrand = brandTask.Result;
-                dataSourch.ListDataKategori = kategoriTask.Result;
-
-                dataSourch.Finised = true;
-                // Render ulang satu kali setelah semua data tersedia
+                loadContent = false;
                 StateHasChanged();
 
-                // Jalankan JS interop setelah DOM terupdate
-                if (!this.Disposed) // tambahkan flag disposed manual
+                if (!this.Disposed)
                 {
                     await JSRuntime.InvokeVoidAsync("initslideProduct");
                     await JSRuntime.InvokeVoidAsync("initTinySlider");
                 }
 
-                //await JSRuntime.InvokeVoidAsync("scrollToTop");
-                loadContent = false;
                 StateHasChanged();
 
                 await header_page.SelectItemCart(null);
@@ -265,52 +191,6 @@ namespace PacificWeb.Components.Pages
             {
                 Value = value;
                 Disabled = disabled;
-            }
-        }
-
-        private async Task Increase()
-        {
-            Quantity++;
-            await QuantityChanged.InvokeAsync(Quantity);
-        }
-
-        private async Task Decrease()
-        {
-            if (Quantity > 1)
-            {
-                Quantity--;
-                await QuantityChanged.InvokeAsync(Quantity);
-            }
-        }
-
-        private async Task tambahKeranjang(Produk item)
-        {
-            loadProses = true;
-            StateHasChanged();
-
-            ParameterApi paramApi = new ParameterApi
-            {
-                routeApi = "cart",
-                prosesApi = "create",
-                ParamUrl = new ParameterApi.ParameterUrl()
-            };
-
-            item.Id_Variant = item.Variants.FirstOrDefault(x => x.Option_Id == item.Id_Option_Default && x.Size_Id == item.Id_Size_Default)?.No_Id ?? "";
-            Cart itemCart = new Cart { Id_Variant = item.Id_Variant, Qty = Quantity, Id_Customer = dataSourch?.DataUser.No_Id  };
-           (string statusMessage, bool statusRespon, int statusCode, string proses) = await pdjService.CudCartApi("TAMBAH", itemCart, paramApi);
-
-            if (statusRespon && statusCode == 200)
-            {
-                loadProses = false;
-                await header_page.RefreshCart();
-                StateHasChanged();
-                await JSRuntime.InvokeVoidAsync("buttonClick", "#closeDetailProd");
-                await Task.Delay(200);
-                await JSRuntime.InvokeVoidAsync("buttonClick", "#openCartProd");
-            } else
-            {
-                loadProses = false;
-                StateHasChanged();
             }
         }
 

@@ -35,7 +35,7 @@
                                 else
                                 {
                                     <NavLink @onclick="@(x => NavigationManager.NavigateTo("/", true))" style="cursor:pointer;">
-                                        <img src="@(@dataSourch?.ListDataCompany?.FirstOrDefault()?.Media?.FirstOrDefault(x => x.Media_Type == "landscape").Id_Media ?? "images/logo/logo-pdj.png")" alt="Logo" class="checkout-logo">
+                                        <img src="@(@GlobalDataService?.GlobalData?.ListDataCompany?.FirstOrDefault()?.Media?.FirstOrDefault(x => x.Media_Type == "landscape").Id_Media ?? "images/logo/logo-pdj.png")" alt="Logo" class="checkout-logo">
                                     </NavLink>
                                     <NavLink @onclick="@(x => NavigationManager.NavigateTo("/cart-page/keranjang", true))" class="btn btn-slide border-0" style="width:fit-content; border-radius:100%; padding: 12px 10px;">
                                         <i class="lni lni-cart-1 cart-icon-pay"> </i>
@@ -164,7 +164,7 @@
                                 else
                                 {
                                     <div class="panel__body shipping-list">
-                                        @foreach (var shipping_method in dataSourch?.ListDataPengiriman)
+                                        @foreach (var shipping_method in GlobalDataService?.GlobalData?.ListDataPengiriman)
                                         {
                                             <label class="shipping-item">
                                                 <div class="custom-payment w-75">
@@ -212,7 +212,7 @@
                                 else
                                 {
                                     <div class="panel__body payment-list">
-                                        @foreach (var payment_method in dataSourch?.ListDataPembayaran)
+                                        @foreach (var payment_method in GlobalDataService?.GlobalData?.ListDataPembayaran)
                                         {
                                             <label class="payment-item">
                                                 <div class="custom-payment w-75">
@@ -310,30 +310,30 @@
                                     else
                                     {
                                         <div class="summary__line">
-                                            <span>Items</span>
+                                            <span>Subtotal Barang</span>
                                             <span style="font-weight:600;">@string.Format("Rp. {0:N0}", totalDpp)</span>
                                         </div>
                                         <div class="summary__line">
                                             <span>
-                                                Shipping Costs
+                                                Biaya Pengiriman
                                             </span>
                                             <span style="font-weight:600;">@string.Format("Rp. {0:N0}", shipingMethodFee)</span>
                                         </div>
                                         <div class="summary__line">
-                                            <span>Service Fee</span>
+                                            <span>Biaya Layanan</span>
                                             <span style="font-weight:600;">@string.Format("Rp. {0:N0}", paymentMethodFee)</span>
                                         </div>
 
-                                        @if (dataSourch.ListDataNilaiDefault.FirstOrDefault()?.Incl_Ppn == false)
+                                        @if (GlobalDataService?.GlobalData?.ListDataNilaiDefault.FirstOrDefault()?.Incl_Ppn == false)
                                         {
                                             <div class="summary__line">
-                                                <span style="font-style:italic;">PPN (@dataSourch.ListDataNilaiDefault.FirstOrDefault()?.Ppn%)</span>
+                                                <span style="font-style:italic;">PPN (@GlobalDataService?.GlobalData?.ListDataNilaiDefault.FirstOrDefault()?.Ppn%)</span>
                                                 <span style="font-weight:600;">@string.Format("Rp. {0:N0}", ppnValue)</span>
                                             </div>
                                         }
 
-                                        <div class="summary__line summary__line--bold">
-                                            <span>Total</span>
+                                        <div class="summary__line summary__line--bold" style="font-size:1.2rem">
+                                            <span>Total Pembayaran</span>
                                             <span>@string.Format("Rp. {0:N0}", nettoKeranjang)</span>
                                         </div>
                                     }
@@ -495,30 +495,30 @@
                                     else
                                     {
                                         <div class="summary__line">
-                                            <span>Items</span>
+                                            <span>Subtotal Barang</span>
                                             <span style="font-weight:600;">@string.Format("Rp. {0:N0}", totalDpp)</span>
                                         </div>
                                         <div class="summary__line">
                                             <span>
-                                                Shipping Costs
+                                                Biaya Pengiriman
                                             </span>
                                             <span style="font-weight:600;">@string.Format("Rp. {0:N0}", shipingMethodFee)</span>
                                         </div>
                                         <div class="summary__line">
-                                            <span>Service Fee</span>
+                                            <span>Biaya Layanan</span>
                                             <span style="font-weight:600;">@string.Format("Rp. {0:N0}", paymentMethodFee)</span>
                                         </div>
 
-                                        @if (dataSourch.ListDataNilaiDefault.FirstOrDefault()?.Incl_Ppn == false)
+                                        @if (GlobalDataService?.GlobalData?.ListDataNilaiDefault.FirstOrDefault()?.Incl_Ppn == false)
                                         {
                                             <div class="summary__line">
-                                                <span style="font-style:italic;">PPN (@dataSourch.ListDataNilaiDefault.FirstOrDefault()?.Ppn%)</span>
+                                                <span style="font-style:italic;">PPN (@GlobalDataService?.GlobalData?.ListDataNilaiDefault.FirstOrDefault()?.Ppn%)</span>
                                                 <span style="font-weight:600;">@string.Format("Rp. {0:N0}", ppnValue)</span>
                                             </div>
                                         }
 
-                                        <div class="summary__line summary__line--bold">
-                                            <span>Total</span>
+                                        <div class="summary__line summary__line--bold" style="font-size:1.2rem">
+                                            <span>Total Pembayaran</span>
                                             <span>@string.Format("Rp. {0:N0}", nettoKeranjang)</span>
                                         </div>
                                     }
@@ -593,19 +593,19 @@ else
                             <aside class="checkout-summary2 panel" style="background-color:white; padding:0px; height:fit-content; margin-bottom:0px; margin-top:20px">
                                 <div>
                                     <div class="summary__line" style="border-top: unset;">
-                                        <span>Subtotal Item</span>
+                                        <span>Subtotal Barang</span>
                                         <span style="font-weight:600;">@string.Format("Rp. {0:N0}", dataSourch?.ListDataCart.Sum(x => x.Qty * x.Harga))</span>
                                     </div>
                                     <div class="summary__line">
-                                        <span>Pengiriman</span>
+                                        <span>Biaya Pengiriman</span>
                                         <span style="font-weight:600;">@string.Format("Rp. {0:N0}", shipingMethodFee)</span>
                                     </div>
                                     <div class="summary__line">
-                                        <span>Biaya Platform</span>
+                                        <span>Biaya Layanan</span>
                                         <span style="font-weight:600;">@string.Format("Rp. {0:N0}", paymentMethodFee)</span>
                                     </div>
                                     <div class="summary__line summary__line--bold">
-                                        <span>Total</span>
+                                        <span>Total Pembayaran</span>
                                         <span>@string.Format("Rp. {0:N0}", nettoKeranjang)</span>
                                     </div>
                                 </div>
@@ -693,7 +693,7 @@ else
                         <div class="row">
                             <div class="col-12 col-md-6">
                                 <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
-                                    <input readonly style="background-color:transparent !important; font-weight: 700; font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your name*" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.No_Bukti" />
+                                    <input readonly style="background-color:transparent !important; font-weight: 700; font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your name*" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.No_Tracking" />
                                     <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Order Id</label>
                                 </div>
                             </div>

@@ -52,6 +52,15 @@ namespace PacificWeb.Components.Pages
         [Inject]
         public pdjService pdjService { get; set; }
 
+        [Inject]
+        public GlobalDataService GlobalDataService { get; set; }
+
+        [Inject]
+        public ScopedDataServices ScopedDataServices { get; set; }
+
+        [Inject]
+        public NewPdjService NewPdjService { get; set; }
+
         public class FilterItem
         {
             public string Nama_Display { get; set; }
@@ -95,8 +104,42 @@ namespace PacificWeb.Components.Pages
 
             if (user.Identity?.IsAuthenticated ?? false)
             {
-                dataSourch.DataUser.Email = user.FindFirst(c => c.Type == ClaimTypes.Email)?.Value;
-                dataSourch.DataUser.No_Id = user.FindFirst(c => c.Type == ClaimTypes.Name)?.Value;
+                var Phone = user.FindFirst(c => c.Type == ClaimTypes.OtherPhone)?.Value;
+                var Password = user.FindFirst(c => c.Type == ClaimTypes.PrimarySid)?.Value;
+                var Nama_display = user.FindFirst(c => c.Type == ClaimTypes.Name)?.Value;
+                var No_Id = user.FindFirst(c => c.Type == ClaimTypes.Sid)?.Value;
+
+                var LoginData = GlobalDataService.GlobalData.ListDataLogin.FirstOrDefault(x => x.No_Id == No_Id);
+
+                if (LoginData == null)
+                {
+                    var param = new ParameterApi
+                    {
+                        routeApi = "auth",
+                        prosesApi = "login",
+                        ParamUrl = new ParameterApi.ParameterUrl()
+                    };
+
+                    var loginStatus = await NewPdjService.LoginUserApi(param, new LoginViewModel { NoTlp = Phone, Password = Password });
+
+                    if (loginStatus)
+                    {
+                        ScopedDataServices.ScopedData.DataLogin = GlobalDataService.GlobalData.ListDataLogin.FirstOrDefault(x => x.No_Id == No_Id);
+                    }
+                    else
+                    {
+                        NavigationManager.NavigateTo($"/auth-user-logout/logout", forceLoad: true);
+                        ScopedDataServices.ScopedData.DataLogin = null;
+                    }
+                }
+                else
+                {
+                    ScopedDataServices.ScopedData.DataLogin = LoginData;
+                }
+            }
+            else
+            {
+                ScopedDataServices.ScopedData.DataLogin = null;
             }
         }
 
@@ -131,37 +174,8 @@ namespace PacificWeb.Components.Pages
 
                 SearchText = SearchQuery.Keyword;
 
-
-                var companyTask = pdjService.GetCompanyApi(new ParameterApi
-                {
-                    routeApi = "company",
-                    prosesApi = "get-profile",
-                    ParamUrl = new ParameterApi.ParameterUrl { no_id = "comp_1" }
-                });
-
-                var CartTask = pdjService.GetCartApi(new ParameterApi
-                {
-                    routeApi = "cart",
-                    prosesApi = "getAll",
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        id_customer = dataSourch.DataUser.No_Id,
-                        show_media = "true",
-                        orderBy = "Updated_At",
-                        orderDir = "desc"
-                    }
-                });
-
-                var NavbarTask = pdjService.GetNavbarApi(new ParameterApi
-                {
-                    routeApi = "navbar",
-                    prosesApi = "getAll",
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        no_id = "comp_1",
-                    }
-                });
-
+                var CartTask = NewPdjService.RefreshDataMainKonten();
+                
                 var searchTask = pdjService.GetSearchApi(new ParameterApi
                 {
                     routeApi = "produk",
@@ -184,62 +198,10 @@ namespace PacificWeb.Components.Pages
                     }
                 });
 
-                var kategoriTask = pdjService.GetKategoriApi(new ParameterApi
-                {
-                    routeApi = "kategori",
-                    prosesApi = "getAll",
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        status = "aktif",
-                    }
-                });
-
-                var brandTask = pdjService.GetBrandApi(new ParameterApi
-                {
-                    routeApi = "brand",
-                    prosesApi = "getAll",
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        orderBy = "nama_brand",
-                        orderDir = "desc",
-                    }
-                });
-
-                var SosmedTask = pdjService.GetSosmedApi(new ParameterApi
-                {
-                    routeApi = "company",
-                    prosesApi = "get-social",
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        no_id = "comp_1",
-                        status = "aktif"
-                    }
-                });
-
-                var SummaryPesananTask = pdjService.GetSummaryPesananApi(new ParameterApi
-                {
-                    routeApi = "order",
-                    prosesApi = "getSummary",
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        id_customer = dataSourch.DataUser.No_Id,
-                    }
-                });
-
 
                 // Tunggu semua task selesai
-                await Task.WhenAll(searchTask, brandTask, kategoriTask, companyTask, NavbarTask, CartTask, SosmedTask, SummaryPesananTask);
+                await Task.WhenAll(searchTask, CartTask);
 
-                // Assign semua data sekaligus
-                dataSourch.ListDataCompany = companyTask.Result;
-                dataSourch.ListDataNavbar = NavbarTask.Result;
-                dataSourch.ListDataCart = CartTask.Result;
-                dataSourch.ListDataCompanySocial = SosmedTask.Result;
-                dataSourch.ListDataSummaryPesanan = SummaryPesananTask.Result;
-
-
-                dataSourch.ListDataKategori = kategoriTask.Result;
-                dataSourch.ListDataBrand = brandTask.Result;
                 dataSourch.SearchList = searchTask.Result;
 
 
@@ -262,7 +224,7 @@ namespace PacificWeb.Components.Pages
                 {
                     foreach (var idBrand in SearchQuery.Brand.Split(","))
                     {
-                        var kate = dataSourch.ListDataBrand.FirstOrDefault(x => x.No_Id == idBrand);
+                        var kate = GlobalDataService.GlobalData.ListDataBrand.FirstOrDefault(x => x.No_Id == idBrand);
 
                         if (kate != null)
                         {
@@ -272,7 +234,10 @@ namespace PacificWeb.Components.Pages
                     }
                 }
 
+                dataSourch.ListDataKategori.AddRange(GlobalDataService.GlobalData.ListDataKategori);
+                dataSourch.ListDataBrand.AddRange(GlobalDataService.GlobalData.ListDataBrand);
                 dataSourch.Finised = true;
+                ScopedDataServices.ScopedData.Finised = true;
                 StateHasChanged();
 
                 await JSRuntime.InvokeVoidAsync("scrollToTop");

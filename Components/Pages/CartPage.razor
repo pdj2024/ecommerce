@@ -77,7 +77,7 @@
                         }
                     } else
                     {
-                        @foreach (var item in dataSourch?.ListDataCart)
+                        @foreach (var item in ScopedDataServices?.ScopedData?.ListDataCart)
                         {
                             <div class="cart-item d-none d-lg-flex border-bottom-0 pb-0" style="@(item.Qty < item.Min_Order || item.Qty > item.Stock ? "background-color:whitesmoke" : "background-color:white")">
                                 <div class="img-harga d-flex align-items-center gap-3" style="width:5%">
@@ -160,7 +160,20 @@
                     
                         <div class="cart-item d-flex d-lg-none flex-column" style="padding: 0px 0px;">
                             <ul class="shopping-list w-100 pe-0 gap-0" style="overflow:unset; max-height: unset">
-                                @foreach (var cart in dataSourch?.ListDataCart)
+
+                                @if(ScopedDataServices?.ScopedData?.ListDataCart.Count() >= 0)
+                                {
+                                    <li class="flex-wrap pb-3 px-3" style="background-color:white; gap: 10px;align-items: center;justify-content: flex-start;">
+                                        <label class="custom-checkbox d-flex">
+                                            <input type="checkbox" checked=@checkAll @onchange=@( e => checkAllItem(e) ) >
+                                            <span></span>
+                                        </label>
+                                        <h5 style="font-size: 14px">Pilih Semua</h5>
+                                    </li>
+                                }
+
+
+                                @foreach (var cart in ScopedDataServices?.ScopedData?.ListDataCart)
                                 {
                                     <li class="flex-wrap py-3 px-3" style=@(cart.Qty < cart.Min_Order || cart.Qty > cart.Stock ? "background-color:whitesmoke" : "background-color:white")>
                                         <div class="cart-img-head d-flex flex-row gap-3" >
@@ -244,7 +257,7 @@
                             </ul>
                         </div>
                     
-                        @if(dataSourch?.ListDataCart.Count() <= 0 && !loadContent)
+                        @if(ScopedDataServices?.ScopedData?.ListDataCart.Count() <= 0 && !loadContent)
                         {
                             <div class="d-flex flex-column align-items-center mt-4 py-5" style="color:#6b7280">
                                 <svg xmlns="http://www.w3.org/2000/svg" height="2rem" viewBox="0 -960 960 960" width="2rem" class="mb-3" fill="currentColor">
@@ -259,16 +272,27 @@
 
                     <aside class="order-summary col-12 col-xl-4 border-0 sticky-xl-top py-0" style="border-radius:0px;">
                         <div class="py-xl-5 py-2"></div>
-                        <h2 class="summary-title">Order Summary</h2>
+
+                        @if(ScopedDataServices?.ScopedData?.ListDataCart.Count() >= 0)
+                        {
+                            <div class="flex-wrap pb-3 px-3" style="background-color: white;gap: 10px;align-items: center;display: flex;padding: 0px !important;justify-content: flex-start;">
+                                <label class="custom-checkbox d-flex">
+                                    <input type="checkbox" checked=@checkAll @onchange=@( e => checkAllItem(e) ) >
+                                    <span></span>
+                                </label>
+                                <h5 style="font-size: 14px">Pilih Semua</h5>
+                            </div>
+                        }
+
                         <div class="summary-line total">
                             <span>Total</span>
                             <span>@string.Format("Rp {0:N0}", nettoKeranjang)</span>
                         </div>
 
-                        @if(dataSourch?.ListDataCart.Count() >= 1 && !loadContent)
+                        @if(ScopedDataServices?.ScopedData?.ListDataCart.Count() >= 1 && !loadContent)
                         {
-                            <div class="w-100" style="@(dataSourch?.ListDataCart.Where(x => x.SelectCart).FirstOrDefault( cart => cart.Qty < cart.Min_Order || cart.Qty > cart.Stock ) != null || dataSourch?.ListDataCart.Where(x => x.SelectCart)?.Count() <= 0 ? "cursor:not-allowed" : "")">
-                                <button class="btn btn-primary w-100"   @onclick=@(() => CheckoutCart()) style="border-radius:0px; @(dataSourch?.ListDataCart.Where(x => x.SelectCart).FirstOrDefault( cart => cart.Qty < cart.Min_Order || cart.Qty > cart.Stock ) != null || dataSourch?.ListDataCart.Where(x => x.SelectCart)?.Count() <= 0 ? "cursor:not-allowed" : "") " disabled="@( dataSourch?.ListDataCart.Where(x => x.SelectCart).FirstOrDefault( cart => cart.Qty < cart.Min_Order || cart.Qty > cart.Stock ) != null || dataSourch?.ListDataCart.Where(x => x.SelectCart)?.Count() <= 0 ? true : false)" >Checkout</button>
+                            <div class="w-100" style="@(ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart).FirstOrDefault( cart => cart.Qty < cart.Min_Order || cart.Qty > cart.Stock ) != null || ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart)?.Count() <= 0 ? "cursor:not-allowed" : "")">
+                                <button class="btn btn-primary w-100"   @onclick=@(() => CheckoutCart()) style="border-radius:0px; @(ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart).FirstOrDefault( cart => cart.Qty < cart.Min_Order || cart.Qty > cart.Stock ) != null || ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart)?.Count() <= 0 ? "cursor:not-allowed" : "") " disabled="@( ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart).FirstOrDefault( cart => cart.Qty < cart.Min_Order || cart.Qty > cart.Stock ) != null || ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart)?.Count() <= 0 ? true : false)" >Checkout</button>
                             </div>
                         }
                     </aside>
@@ -322,7 +346,7 @@
                                             <div class="d-flex w-100 flex-column gap-3 p-3 p-lg-4">
                                                 <div class="d-flex flex-row justify-content-between gap-3 py-1 ">
                                                     <h5>
-                                                        @item.No_Bukti
+                                                        @($"Order ID : {item.No_Tracking}")
                                                     </h5>
                                                     <p style="color:#1500b2">
                                                         @ti.ToTitleCase(item.Status_Order_1)
@@ -564,7 +588,7 @@
                                         <div class="d-flex w-100 flex-column gap-3 p-3 p-lg-4">
                                             <div class="d-flex flex-row justify-content-between gap-3 py-1 ">
                                                 <h5>
-                                                    @item.No_Bukti
+                                                    @($"Order ID : {item.No_Tracking}")
                                                 </h5>
                                                 <p style="color:#1500b2">
                                                     @ti.ToTitleCase(item.Status_Order_1)
@@ -803,7 +827,7 @@
                                             <div class="d-flex w-100 flex-column gap-3 p-3 p-lg-4">
                                                 <div class="d-flex flex-row justify-content-between gap-3 py-1 ">
                                                     <h5>
-                                                        @item.No_Bukti
+                                                        @($"Order ID : {item.No_Tracking}")
                                                     </h5>
                                                     <p style="color:#1500b2">
                                                         @ti.ToTitleCase(item.Status_Order_1)
@@ -1038,7 +1062,7 @@
                                             <div class="d-flex w-100 flex-column gap-3 p-3 p-lg-4">
                                                 <div class="d-flex flex-row justify-content-between gap-3 py-1 ">
                                                     <h5>
-                                                        @item.No_Bukti
+                                                        @($"Order ID : {item.No_Tracking}")
                                                     </h5>
                                                     <p style="color:#1500b2">
                                                         @ti.ToTitleCase(item.Status_Order_1)
@@ -1281,7 +1305,7 @@
                         <div class="row">
                             <div class="col-12 col-md-6">
                                 <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
-                                    <input readonly style="background-color:transparent !important; font-weight: 700; font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your name*" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.No_Bukti" />
+                                    <input readonly style="background-color:transparent !important; font-weight: 700; font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your name*" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.No_Tracking" />
                                     <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Order Id</label>
                                 </div>
                             </div>
@@ -1420,9 +1444,9 @@
 
                         @foreach(var payment_method in dataSourch?.ListDataPembayaran)
                         {
-                            <label class="payment-item">
+                            <label class="payment-item @(payment_method.disabeldPayment ? "bg-secondary" : "")">
                                 <div class="custom-payment w-75">
-                                    <input type="radio" name="pay" checked="@payment_method.selectPayment" @onchange="(e) => SelectPaymentMethod(payment_method)">
+                                    <input type="radio" name="pay" disabled=@payment_method.disabeldPayment checked="@payment_method.selectPayment" @onchange="(e) => SelectPaymentMethod(payment_method)">
                                     <span class="" style="text-overflow:ellipsis; overflow:hidden;">@payment_method.Display</span>
                                 </div>
                                 <div class="shipping-item__right">@string.Format("Rp. {0:N0}", @payment_method.Fee)</div>
@@ -1474,7 +1498,7 @@
                 <button type="button" id="closeModal" data-bs-dismiss="modal" class="btn btn-danger bg-danger" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;border-radius:0px;">
                     <span class="position-relative">Batal</span>
                 </button>
-                <button type="button" id="closeModal" data-bs-dismiss="modal" class="btn btn-success bg-success" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content; border-radius:0px;">
+                <button type="button" id="closeModal" disabled=@(dataSourch.ListDataPembayaran.FirstOrDefault(x => x.selectPayment == true) == null) data-bs-dismiss="modal" class="btn btn-success bg-success" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content; border-radius:0px;">
                     <span class="position-relative">Simpan</span>
                 </button>
             </div>
@@ -1537,6 +1561,10 @@
                                 </span>
                         </button>
             
+                } else {
+                    <button type="button" id="closeModal" data-bs-dismiss="modal" class="btn btn-danger bg-danger" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;border-radius:0px;">
+                        <span class="position-relative">Tutup</span>
+                    </button>
                 }
             </div>
                 
@@ -1546,4 +1574,4 @@
 </div>
 
 <!-- End Review Modal -->
-<MyFooter dataSourch=@dataSourch @ref="footer_page"/>
+<MyFooter @ref="footer_page"/>

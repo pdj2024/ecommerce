@@ -3,8 +3,9 @@
 using Microsoft.AspNetCore.Components.Authorization
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
-<MyHeader dataSourch=@dataSourch  @ref="header_page" />
 <PageTitle>Search: @dataSourch.SearchList.TotalCount.ToString() result for @SearchText </PageTitle>
+
+<MyHeader  @ref="header_page" />
 <!-- Start Trending Product Area -->
 <section class="trending-product section px-0 px-lg-3 px-xl-2 px-xxl-10" style="margin-top: 70px;">
     <div class="container-fluid" style="position:relative;" >
@@ -344,9 +345,9 @@ using Microsoft.AspNetCore.Components.Authorization
 
 
 
-<MyFooter dataSourch=@dataSourch @ref="footer_page" />
+<MyFooter @ref="footer_page" />
 
-<PacificWeb.Components.Sections.SelectProduk dataSourch=@dataSourch DataProduk="DataProduk" Quantity="DataProduk.Min_Order" header_page="header_page"/>
+<PacificWeb.Components.Sections.SelectProduk DataProduk="DataProduk" Quantity="DataProduk.Min_Order" header_page="header_page"/>
 
 <div class="offcanvas offcanvas-start" style="width: 500px;" tabindex="-1" id="offcanvasFilter" aria-labelledby="offcanvasLeftLabel">
     <div class="offcanvas-header">

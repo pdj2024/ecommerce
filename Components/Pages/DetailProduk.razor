@@ -5,7 +5,7 @@
 
 <PageTitle>Detail - @(dataSourch?.DataProduk?.Nama_Display == "" ? "Not Found" : dataSourch?.DataProduk?.Nama_Display )</PageTitle>
 
-<MyHeader dataSourch=@dataSourch @ref="header_page" />
+<MyHeader @ref="header_page" />
 
 <!-- Start Breadcrumbs -->
 <div class="breadcrumbs padding-style py-0 px-0 px-lg-3 px-xl-5 px-xxl-10" style="margin-top: 70px;">
@@ -129,7 +129,7 @@
                                         <div class="row align-items-center">
                                             <div class="col-12 px-0 pb-2">
                                                 <ul class="breadcrumb-nav">
-                                                    <li><a>Home</a></li>
+                                                    <li><a>Produk</a></li>
                                                     <li><a>@dataSourch?.DataProduk?.Nama_Display</a></li>
                                                 </ul>
                                             </div>
@@ -386,7 +386,7 @@
                                         <button class="d-flex justify-content-center align-items-center w-auto border-0 gap-2" style="background-color:transparent; font-size: 16px;font-weight: 500;" data-bs-toggle="modal" data-bs-target="#exampleModal1">
                                                 <i class="lni lni-share-1"></i> 
                                                 <span class="underline-anim" style="padding-bottom: 0px;">
-                                                    Share
+                                                    Bagikan
                                                 </span>
                                         </button>
 
@@ -394,7 +394,7 @@
                                             <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#1f1f1f"><path d="M480-312q20 0 32.5-13.27 12.5-13.28 12.5-32.5 0-19.23-13.07-31.73t-32-12.5Q461-402 448-389.5t-13 31.73q0 19.22 13.05 32.5Q461.1-312 480-312Zm-32-144h66q0-13.68 1-23.34t5-17.66q4-8 9.95-15.77Q535.9-520.55 547-532q20-20 38.5-40.5T604-631q0-53-36-83t-88-30q-48 0-80 27t-44 63l59 25q6-18 21-36t44-18q32 0 46 17t14 37q0 23-17 40t-36 35q-13 12-20 21t-11.5 20q-4.5 11-6 24t-1.5 33Zm32 408L336-192H216q-29 0-50.5-21.5T144-264v-528q0-29 21.5-50.5T216-864h528q29.7 0 50.85 21.5Q816-821 816-792v528q0 29-21.15 50.5T744-192H624L480-48ZM216-264h149l115 115 114-115h150v-528H216v528Zm264-264Z"/>
                                             </svg>
                                             <span class="underline-anim" style="padding-bottom: 0px;">
-                                                Ask a question
+                                                Ajukan pertanyaan
                                             </span>
                                         </button>
 
@@ -411,7 +411,7 @@
                         <div class="col-12 d-flex py-5 justify-content-center align-items-center">
                             <div class="py-5 px-3 d-flex flex-column justify-content-center align-items-center mt-5">
                                 <svg xmlns="http://www.w3.org/2000/svg" height="5rem" viewBox="0 -960 960 960" width="5rem" fill="#1f1f1f"><path d="M481-792 245-657l235 135 235-135-234-135ZM144-320v-320q0-19.77 9.45-35.94Q162.9-692.12 180-702l262.62-152.27Q452-859 460.82-862q8.82-3 19.04-3 10.21 0 19.5 3 9.28 3 17.64 8l263 152q17.1 9.88 26.55 26.06Q816-659.77 816-640v184h-72v-135L479-439 216-591v270l240 139v83L180-258q-17-9-26.5-25.45T144-320ZM720-96q9.6 0 16.8-7.2 7.2-7.2 7.2-16.8 0-9.6-7.2-16.8-7.2-7.2-16.8-7.2-9.6 0-16.8 7.2-7.2 7.2-7.2 16.8 0 9.6 7.2 16.8Q710.4-96 720-96Zm-24-96h48v-96h-48v96ZM719.77 0Q640 0 584-56.23q-56-56.22-56-136Q528-272 584.23-328q56.22-56 136-56Q800-384 856-327.77q56 56.22 56 136Q912-112 855.77-56q-56.22 56-136 56ZM480-487Z"/></svg>
-                                <h4 class="pt-1" style="font-weight: 500; font-size: 18px;">product not found</h4>
+                                <h4 class="pt-1" style="font-weight: 500; font-size: 18px;">produk tidak ditemukan</h4>
                             </div>
                         </div>
                     }
@@ -431,7 +431,7 @@
     <div class="modal-dialog modal-dialog-centered" style="max-width:480px;">
         <div class="modal-content" style="border-radius: 0px;" >
             <div class="modal-header justify-content-between d-flex border-bottom-0 pb-0">
-                <h5 class="modal-title w-100 text-xl-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">Ask a question</h5>
+                <h5 class="modal-title w-100 text-xl-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">Ajukan pertanyaan</h5>
                 <button type="button" class="btn-close m-0" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -449,13 +449,13 @@
                         <div class="input-group mb-1 style-grup px-1 border-1 form-style">
                             <textarea Rows="4" class="form-control search-form form-text" placeholder="Your massage*" aria-label="Search" aria-describedby="basic-addon1" required />
                         </div>
-                        <p style="font-size:13px; font-weight:300; font-style:italic;">The fields marked * are required.</p>
+                        <p style="font-size:13px; font-weight:300; font-style:italic;">Kolom yang bertanda * wajib diisi.</p>
                     </div>
                 </div>
             </div>
             <div class="modal-footer justify-content-center button border-top-0 pt-2 px-5">
                 <button type="button" class="btn-slide border-0" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;">
-                    <span class="position-relative">Send Question</span>
+                    <span class="position-relative">Kirim Pertanyaan</span>
                 </button>
             </div>
         </div>
@@ -475,7 +475,7 @@
                 <div class="row px-3">
                     <div class="col-12">
                         <p style="font-size:18px; font-weight:400; letter-spacing:-1px; margin-top: -15px; width:fit-content" class="mb-3">
-                            Share this product
+                            Bagikan produk ini
                         </p>
                         <div class="input-group mb-3 va-box" style="border-radius:0px; border: 1px solid #d7d7d7;" data-va="@NavigationManager.Uri">
                             <input type="text" class="form-control" value="@NavigationManager.Uri" placeholder="Url Product" aria-label="Recipient's username" aria-describedby="button-addon2" readonly style="border: none; border-radius: 0px;background-color: white; overflow: hidden !important; text-overflow: ellipsis; font-size: 14px;">
@@ -501,7 +501,7 @@
 
 <div class="col-12 mt-4 pt-5">
     <div class="section-title mb-1 pt-5">
-        <h2>You may also like</h2>
+        <h2>Anda mungkin juga menyukainya</h2>
     </div>
 </div>
 
@@ -528,7 +528,7 @@
                 }
             } 
 
-            @foreach (var dataProduk in dataSourch?.ListDataProduk)
+            @foreach (var dataProduk in GlobalDataService.GlobalData?.ListDataProduk)
             {
                 <div class="col-lg-3 col-md-4 col-6 col-xxl-2 pt-2 pb-2 product">
                     <!-- Start Single Product -->
@@ -543,7 +543,7 @@
 <!-- End Trending Product Area -->
 
 
-<PacificWeb.Components.Sections.SelectProduk dataSourch=@dataSourch Quantity=DataProdukModal.Min_Order DataProduk="DataProdukModal" header_page="header_page" />
+<PacificWeb.Components.Sections.SelectProduk Quantity=DataProdukModal.Min_Order DataProduk="DataProdukModal" header_page="header_page" />
 
 @if (dataSourch?.DataProduk != null && dataSourch?.DataProduk?.No_Id != "")
 {
@@ -654,7 +654,7 @@
     </div>}
 
 
-<MyFooter @ref="footer_page" dataSourch=@dataSourch />
+<MyFooter @ref="footer_page" />
 
 @if (!loadContent && (dataSourch?.DataProduk != null && dataSourch?.DataProduk?.No_Id != ""))
 {

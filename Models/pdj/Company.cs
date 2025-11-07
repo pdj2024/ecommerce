@@ -1,7 +1,9 @@
-using System;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Reflection;
 
 namespace Models
 {
@@ -44,18 +46,19 @@ namespace Models
 
     public class SourchData
     {
+        public List<DataLogin> ListDataLogin { get; set; } = new List<DataLogin>();
         public List<Company> ListDataCompany { get; set; } = new List<Company>();
-        public List<Brand> ListDataBanner { get; set; } = new List<Brand>();
+        public List<Banner> ListDataBanner { get; set; } = new List<Banner>();
         public List<Brand> ListDataBrand { get; set; } = new List<Brand>();
         public List<Produk> ListDataProduk { get; set; } = new List<Produk>();
         public List<Kategori> ListDataKategori { get; set; } = new List<Kategori>();
-        public List<Cart> ListDataCart { get; set; } = new List<Cart>();
         public List<Navbar> ListDataNavbar { get; set; } = new List<Navbar>();
         public List<DataUser> ListDataUser { get; set; } = new List<DataUser>();
         public List<Pembayaran> ListDataPembayaran { get; set; } = new List<Pembayaran>();
         public List<Pengiriman> ListDataPengiriman { get; set; } = new List<Pengiriman>();
         public List<NilaiDefault> ListDataNilaiDefault { get; set; } = new List<NilaiDefault>();
         public List<CompanySosial> ListDataCompanySocial { get; set; } = new List<CompanySosial>();
+        public List<Cart> ListDataCart { get; set; } = new List<Cart>();
         public List<Pesanan.SummaryResponse> ListDataSummaryPesanan { get; set; } = new List<Pesanan.SummaryResponse>();
 
 
@@ -83,9 +86,266 @@ namespace Models
         public (List<Brand> SearchBrand, List<Produk> SearchProduk, int TotalCount, bool hasMore) SearchList { get; set; } = (new(), new(), 0, false);
 
         public bool Finised { get; set; } = false;
+
+
+        public readonly Dictionary<Type, (string, bool, DateTime)> ListPropertyMap = new()
+        {
+            { typeof(Company), (nameof(ListDataCompany), false, new DateTime())},
+            { typeof(Banner), (nameof(ListDataBanner) , false, new DateTime())},
+            { typeof(Brand), (nameof(ListDataBrand), false, new DateTime())},
+            { typeof(Produk), (nameof(ListDataProduk), false, new DateTime())},
+            { typeof(Kategori), (nameof(ListDataKategori), false, new DateTime())},
+            { typeof(Cart), (nameof(ListDataCart), false, new DateTime())},
+            { typeof(Navbar), (nameof(ListDataNavbar), false, new DateTime())},
+            { typeof(DataUser), (nameof(ListDataUser), false, new DateTime()) },
+            { typeof(Pembayaran), (nameof(ListDataPembayaran), false, new DateTime()) },
+            { typeof(Pengiriman), (nameof(ListDataPengiriman), false, new DateTime())},
+            { typeof(NilaiDefault), (nameof(ListDataNilaiDefault), false, new DateTime())},
+            { typeof(CompanySosial), (nameof(ListDataCompanySocial), false, new DateTime())},
+            { typeof(Pesanan.SummaryResponse), (nameof(ListDataSummaryPesanan), false, new DateTime())},
+        };
+
+
+        public void SetListData(Type type, object value)
+        {
+            if (value == null)
+            {
+                writeLog($"Tipe {type.Name} Kosong ListPropertyMap.");
+                return;
+            }
+
+            if (ListPropertyMap.TryGetValue(type, out var propName))
+            {
+                var prop1 = GetType().GetProperty(propName.Item1);
+                prop1.SetValue(this, value);
+
+                ListPropertyMap[type] = (propName.Item1, true, DateTime.Now);
+            }
+            else
+            {
+                writeLog($"Tipe {type.Name} belum terdaftar dalam ListPropertyMap.");
+            }
+        }
+
+        //public void SetSingleData(Type type, object value)
+        //{
+        //    if (value == null)
+        //    {
+        //        writeLog($"Tipe {type.Name} Kosong SinglePropertyMap.");
+        //        return;
+        //    }
+
+        //    if (SinglePropertyMap.TryGetValue(type, out var propName))
+        //    {
+        //        var prop = GetType().GetProperty(propName);
+        //        prop?.SetValue(this, value);
+        //    }
+        //    else
+        //    {
+        //        writeLog($"Tipe {type.Name} belum terdaftar dalam SinglePropertyMap.");
+        //    }
+        //}
+
+
+        public object? GetListData(Type type)
+        {
+            if (ListPropertyMap.TryGetValue(type, out var propName))
+            {
+                var prop = GetType().GetProperty(propName.Item1);
+                return prop?.GetValue(this);
+            }
+            else
+            {
+                writeLog($"Tipe {type.Name} Kosong ListPropertyMap.");
+                return null;
+            }
+        }
+
+        //public object? GetSingleData(Type type)
+        //{
+        //    if (SinglePropertyMap.TryGetValue(type, out var propName))
+        //    {
+        //        var prop = GetType().GetProperty(propName);
+        //        return prop?.GetValue(this);
+        //    }
+        //    else
+        //    {
+        //        writeLog($"Tipe {type.Name} Kosong SinglePropertyMap.");
+        //        return null;
+        //    }
+        //}
+
+        public object? GetSingleDataById(Type type, object no_id)
+        {
+            if (ListPropertyMap.TryGetValue(type, out var propName))
+            {
+                // Ambil list dari property yang sesuai tipe
+                var prop = GetType().GetProperty(propName.Item1);
+                var listObj = prop?.GetValue(this);
+
+                if (listObj is IEnumerable<object> list)
+                {
+                    //Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(list, new JsonSerializerOptions { WriteIndented = true }));
+
+                    // Cari item yang punya property "no_id" sesuai dengan parameter
+                    var item = list.FirstOrDefault(x => x.GetType().GetProperty("no_id").GetValue(x).ToString() == no_id.ToString());
+
+                    //Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(item, new JsonSerializerOptions { WriteIndented = true }));
+
+                    if (item == null)
+                        writeLog($"Data dengan no_id '{no_id}' tidak ditemukan di {type.Name}.");
+
+                    return item;
+                }
+                else
+                {
+                    writeLog($"Properti {propName} bukan IEnumerable<object> untuk tipe {type.Name}.");
+                    return null;
+                }
+            }
+            else
+            {
+                writeLog($"Tipe {type.Name} tidak ditemukan di ListPropertyMap.");
+                return null;
+            }
+        }
+
+
+        public object? AddSingleDataById(Type type, object dataCurrent)
+        {
+            if (ListPropertyMap.TryGetValue(type, out var propName))
+            {
+                var prop = GetType().GetProperty(propName.Item1);
+                var listObj = prop?.GetValue(this);
+
+                if (listObj is IList list)
+                {
+                    list.Insert(0, dataCurrent); // ✅ tambahkan item baru
+                    return dataCurrent;
+                }
+
+                writeLog($"Properti {propName} bukan IList untuk tipe {type.Name}.");
+                return null;
+            }
+            else
+            {
+                writeLog($"Tipe {type.Name} tidak ditemukan di ListPropertyMap.");
+                return null;
+            }
+        }
+
+        public object? SetSingleDataById(Type type, object no_id, object dataCurrent)
+        {
+            if (ListPropertyMap.TryGetValue(type, out var propName))
+            {
+                var prop = GetType().GetProperty(propName.Item1);
+                var listObj = prop?.GetValue(this);
+
+                if (listObj is IList list) // ubah ke IList agar bisa akses index
+                {
+                    for (int i = 0; i < list.Count; i++)
+                    {
+                        var obj = list[i];
+                        var propId = obj.GetType().GetProperty("no_id");
+                        if (propId?.GetValue(obj)?.ToString() == no_id.ToString())
+                        {
+                            list[i] = dataCurrent; // ini yang benar-benar update list
+                            return dataCurrent;
+                        }
+                    }
+
+                    writeLog($"Data dengan no_id '{no_id}' tidak ditemukan di {type.Name}.");
+                    return null;
+                }
+                else
+                {
+                    writeLog($"Properti {propName} bukan IList untuk tipe {type.Name}.");
+                    return null;
+                }
+            }
+            else
+            {
+                writeLog($"Tipe {type.Name} tidak ditemukan di ListPropertyMap.");
+                return null;
+            }
+        }
+
+        public object? DelSingleDataById(Type type, object no_id, object dataCurrent)
+        {
+            if (ListPropertyMap.TryGetValue(type, out var propName))
+            {
+                var prop = GetType().GetProperty(propName.Item1);
+                var listObj = prop?.GetValue(this);
+
+                if (listObj is IList list) // ubah ke IList agar bisa akses index
+                {
+                    for (int i = 0; i < list.Count; i++)
+                    {
+                        var obj = list[i];
+                        var propId = obj.GetType().GetProperty("no_id");
+                        if (propId?.GetValue(obj)?.ToString() == no_id.ToString())
+                        {
+                            dataCurrent = list[i]; // ini yang benar-benar update list
+                            list.RemoveAt(i);
+                            return dataCurrent;
+                        }
+                    }
+
+                    writeLog($"Data dengan no_id '{no_id}' tidak ditemukan di {type.Name}.");
+                    return null;
+                }
+                else
+                {
+                    writeLog($"Properti {propName} bukan IList untuk tipe {type.Name}.");
+                    return null;
+                }
+            }
+            else
+            {
+                writeLog($"Tipe {type.Name} tidak ditemukan di ListPropertyMap.");
+                return null;
+            }
+        }
+
+
+        public async Task writeLog(string content)
+        {
+            var log = $@"
+                        [{DateTime.Now:yyyy-MM-dd HH:mm:ss}] - Error API Connection
+                        Message: {content}
+                        ---------------------------------------------------------";
+
+            var logDir = Path.Combine("Logs");
+            var fileName = $"LogApi-{DateTime.Now:yyyy-MM-dd}.txt";
+            var logPath = Path.Combine(logDir, fileName);
+
+            Directory.CreateDirectory(logDir);
+
+            using (var stream = new FileStream(logPath, FileMode.Append, FileAccess.Write, FileShare.ReadWrite))
+            using (var writer = new StreamWriter(stream))
+            {
+                await writer.WriteLineAsync(log);
+            }
+        }
+
     }
 
-    public partial class Company
+
+    public class ScopedData
+    {
+        public DataLogin DataLogin { get; set; } = new();
+        public Produk DataProduk { get; set; } = new();
+
+        public List<Cart> ListDataCart { get; set; } = new List<Cart>();
+        public List<Pesanan.SummaryResponse> ListDataSummaryPesanan { get; set; } = new List<Pesanan.SummaryResponse>();
+
+
+
+
+        public bool Finised { get; set; } = false;
+    }
+
+     public partial class Company
     {
         public string No_Id { get; set; } = "";
         public string Nama_Toko { get; set; } = "Hallow All";

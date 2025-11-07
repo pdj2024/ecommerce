@@ -14,5 +14,7 @@ namespace Models
         public int Fee { get; set; } = 0;
         public string Status { get; set; } = "";
         public bool selectPayment { get; set; } = false;
+
+        public bool disabeldPayment { get; set; } = false;
     }
 }

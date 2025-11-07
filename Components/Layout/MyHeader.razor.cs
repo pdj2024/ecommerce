@@ -37,30 +37,45 @@ namespace PacificWeb.Components.Layout
         public pdjService pdjService { get; set; }
 
         [Inject]
+        public GlobalDataService GlobalDataService { get; set; }
+
+        [Inject]
+        public ScopedDataServices ScopedDataServices { get; set; }
+
+        [Inject]
+        public NewPdjService NewPdjService { get; set; }
+
+        [Inject]
         protected NavigationManager NavigationManager { get; set; }
 
         private string SearchText = "";
         private string email = "";
+        private string uid = "";
+        private string token = "";
         private string pass = "";
+        private int infoSubmit = 0;
         private bool LoadVisible = true;
 
         private System.Timers.Timer? _debounceTimer;
 
-
-        [Parameter] public SourchData dataSourch { get; set; } = new SourchData();
         public List<Cart> ListDataCartCheck { get; set; } = new List<Cart>();
         public (List<Brand> SearchBrand, List<Produk> SearchProduk, int TotalCount, bool hasMore) SearchList { get; set; } = (new(), new(), 0, false);
 
         [SupplyParameterFromForm]
         public LoginViewModel Model { get; set; } = new();
 
+        [SupplyParameterFromForm]
+        public LoginViewModel ModelRegist { get; set; } = new();
 
+
+        public bool checkAll { get; set; } = true;
         public bool loadProses { get; set; } = false;
         public bool loadContent { get; set; } = true;
         public bool loadProsesNetto { get; set; } = false;
         public decimal? nettoKeranjang { get; set; } = 0;
         public int searchCount { get; set; } = 0;
         public int dataQty { get; set; } = 0;
+        public bool InfoInitFlag { get; set; } = false;
 
 
 
@@ -85,7 +100,7 @@ namespace PacificWeb.Components.Layout
             {
 
                 int count = 0;
-                while (dataSourch.Finised == false)
+                while (ScopedDataServices.ScopedData.Finised == false)
                 {
                     if (count >= 6)
                     {
@@ -99,7 +114,7 @@ namespace PacificWeb.Components.Layout
 
                             if (count >= 15)
                             {
-                                dataSourch.Finised = true;
+                                ScopedDataServices.ScopedData.Finised = true;
                             }
                         }
                     } 
@@ -180,6 +195,34 @@ namespace PacificWeb.Components.Layout
             StateHasChanged();
         }
 
+        private void checkAllItem(ChangeEventArgs e)
+        {
+            checkAll = Convert.ToBoolean(e.Value);  
+            if (checkAll)
+            {
+                nettoKeranjang = 0;
+                foreach (var dataCart in ScopedDataServices?.ScopedData?.ListDataCart)
+                {
+                    if (!dataCart.SelectCart) 
+                    {
+                        dataCart.SelectCart = true;
+                    }
+
+                    nettoKeranjang += (decimal)dataCart.Qty * ((decimal)dataCart?.Harga - ((decimal)dataCart?.Harga * ((decimal)dataCart?.Diskon1 / 100)));
+                }
+            } else
+            {
+                nettoKeranjang = 0;
+                foreach (var dataCart in ScopedDataServices?.ScopedData?.ListDataCart)
+                {
+                    if (dataCart.SelectCart)
+                    {
+                        dataCart.SelectCart = false;
+                    }
+                }
+            }
+        }
+
         private void OnClearInput()
         {
             SearchText = "";
@@ -197,31 +240,33 @@ namespace PacificWeb.Components.Layout
             {
                 routeApi = "cart",
                 prosesApi = "getAll",
+                token = ScopedDataServices?.ScopedData?.DataLogin.token,
+                refreshToken = ScopedDataServices?.ScopedData?.DataLogin.refreshToken,
                 ParamUrl = new ParameterApi.ParameterUrl
                 {
-                    id_customer = dataSourch?.DataUser.No_Id ,
+                    id_customer = ScopedDataServices?.ScopedData?.DataLogin.No_Id,
                     show_media = "true",
                     orderBy = "Updated_At",
                     orderDir = "desc"
                 }
             };
             ListDataCartCheck.Clear();
-            ListDataCartCheck.AddRange(dataSourch?.ListDataCart?.FindAll(x => x.SelectCart == true));
+            ListDataCartCheck.AddRange(ScopedDataServices?.ScopedData?.ListDataCart?.FindAll(x => x.SelectCart == true));
             var DataCartList = await pdjService.GetCartApi(paramApi);
 
             if(data_id == null)
             {
-                dataSourch.ListDataCart = DataCartList;
+                ScopedDataServices.ScopedData.ListDataCart = DataCartList;
             } 
             else
             {
-                var DataShow = dataSourch.ListDataCart.FirstOrDefault(x => x.Id_Cart == data_id);
+                var DataShow = ScopedDataServices.ScopedData.ListDataCart.FirstOrDefault(x => x.Id_Cart == data_id);
                 DataShow.Qty = DataCartList.FirstOrDefault(x => x.Id_Cart == data_id).Qty;
             }
 
             if (ListDataCartCheck.Count() >= 1)
             {
-                foreach (var item in dataSourch?.ListDataCart)
+                foreach (var item in ScopedDataServices?.ScopedData?.ListDataCart)
                 {
                     if (ListDataCartCheck.Any(x => x.Id_Cart == item.Id_Cart))
                     {
@@ -241,11 +286,11 @@ namespace PacificWeb.Components.Layout
 
             if (cart != null)
             {
-                var data = dataSourch?.ListDataCart.FirstOrDefault(x => x.Id_Cart == cart.Id_Cart);
+                var data = ScopedDataServices?.ScopedData?.ListDataCart.FirstOrDefault(x => x.Id_Cart == cart.Id_Cart);
                 data.SelectCart = !data.SelectCart;
 
                 nettoKeranjang = 0;
-                foreach (var dataCart in dataSourch?.ListDataCart)
+                foreach (var dataCart in ScopedDataServices?.ScopedData?.ListDataCart)
                 {
                     if (!dataCart.SelectCart) continue;
                     nettoKeranjang += (decimal)dataCart.Qty * ((decimal)dataCart?.Harga - ((decimal)dataCart?.Harga * ((decimal)dataCart?.Diskon1 / 100)));
@@ -254,7 +299,7 @@ namespace PacificWeb.Components.Layout
             else
             {
                 nettoKeranjang = 0;
-                foreach (var dataCart in dataSourch?.ListDataCart)
+                foreach (var dataCart in ScopedDataServices?.ScopedData?.ListDataCart)
                 {
                     if (!dataCart.SelectCart) continue;
                     nettoKeranjang += (decimal)dataCart.Qty * ((decimal)dataCart?.Harga - ((decimal)dataCart?.Harga * ((decimal)dataCart?.Diskon1 / 100)));
@@ -272,6 +317,8 @@ namespace PacificWeb.Components.Layout
             {
                 routeApi = "cart",
                 prosesApi = "delete",
+                token = ScopedDataServices.ScopedData.DataLogin.token,
+                refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
                 ParamUrl = new ParameterApi.ParameterUrl 
                 { 
                     no_id = cart.Id_Cart
@@ -292,7 +339,7 @@ namespace PacificWeb.Components.Layout
 
         private async Task Increase(string id_cart)
         {
-            var data = dataSourch?.ListDataCart.FirstOrDefault(x => x.Id_Cart == id_cart);
+            var data = ScopedDataServices?.ScopedData?.ListDataCart.FirstOrDefault(x => x.Id_Cart == id_cart);
             
             if (data.Qty >= data.Stock)
             {
@@ -314,6 +361,8 @@ namespace PacificWeb.Components.Layout
             {
                 routeApi = "cart",
                 prosesApi = "create",
+                token = ScopedDataServices.ScopedData.DataLogin.token,
+                refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
                 ParamUrl = new ParameterApi.ParameterUrl()
             };
 
@@ -332,7 +381,7 @@ namespace PacificWeb.Components.Layout
                 await InvokeAsync(async () =>
                 {
 
-                    Cart itemcart = new Cart { Id_Variant = data.Id_Variant, Qty = dataQty, Id_Customer = dataSourch?.DataUser.No_Id };
+                    Cart itemcart = new Cart { Id_Variant = data.Id_Variant, Qty = dataQty, Id_Customer = ScopedDataServices?.ScopedData?.DataLogin.No_Id };
                     (string statusMessage, bool statusRespon, int statusCode, string proses) = await pdjService.CudCartApi("TAMBAH", itemcart, paramApi);
 
 
@@ -343,7 +392,7 @@ namespace PacificWeb.Components.Layout
 
 
                     nettoKeranjang = 0;
-                    foreach (var dataCart in dataSourch?.ListDataCart)
+                    foreach (var dataCart in ScopedDataServices?.ScopedData?.ListDataCart)
                     {
                         if (!dataCart.SelectCart) continue;
                         nettoKeranjang += (decimal)dataCart.Qty * ((decimal)dataCart?.Harga - ((decimal)dataCart?.Harga * ((decimal)dataCart?.Diskon1 / 100)));
@@ -364,7 +413,7 @@ namespace PacificWeb.Components.Layout
         private async Task Decrease(string id_cart)
         {
 
-            var data = dataSourch?.ListDataCart.FirstOrDefault(x => x.Id_Cart == id_cart);
+            var data = ScopedDataServices?.ScopedData?.ListDataCart.FirstOrDefault(x => x.Id_Cart == id_cart);
 
             if (data.Qty <= data.Min_Order)
             {
@@ -386,6 +435,8 @@ namespace PacificWeb.Components.Layout
             {
                 routeApi = "cart",
                 prosesApi = "create",
+                token = ScopedDataServices.ScopedData.DataLogin.token,
+                refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
                 ParamUrl = new ParameterApi.ParameterUrl()
             };
 
@@ -408,7 +459,7 @@ namespace PacificWeb.Components.Layout
                     await InvokeAsync(async () =>
                     {
 
-                        Cart itemcart = new Cart { Id_Variant = data.Id_Variant, Qty = dataQty, Id_Customer = dataSourch?.DataUser.No_Id  };
+                        Cart itemcart = new Cart { Id_Variant = data.Id_Variant, Qty = dataQty, Id_Customer = ScopedDataServices?.ScopedData?.DataLogin.No_Id  };
                         (string statusMessage, bool statusRespon, int statusCode, string proses) = await pdjService.CudCartApi("TAMBAH", itemcart, paramApi);
 
 
@@ -419,7 +470,7 @@ namespace PacificWeb.Components.Layout
 
 
                         nettoKeranjang = 0;
-                        foreach (var dataCart in dataSourch?.ListDataCart)
+                        foreach (var dataCart in ScopedDataServices?.ScopedData?.ListDataCart)
                         {
                             if (!dataCart.SelectCart) continue;
                             nettoKeranjang += (decimal)dataCart.Qty * ((decimal)dataCart?.Harga - ((decimal)dataCart?.Harga * ((decimal)dataCart?.Diskon1 / 100)));
@@ -440,7 +491,7 @@ namespace PacificWeb.Components.Layout
         public async Task CheckoutCart() {
 
             string text = "";
-            foreach (var item in dataSourch?.ListDataCart)
+            foreach (var item in ScopedDataServices?.ScopedData?.ListDataCart)
             {
                 if (item.SelectCart) text += $"{item.Id_Cart}%section%";
             }
@@ -489,13 +540,106 @@ namespace PacificWeb.Components.Layout
 
         public async void changeLogin(string value, bool direct = false)
         {
-            await JSRuntime.InvokeVoidAsync("initLoginEffect", value, direct);
+            if (InfoInitFlag == false)
+            {
+                await JSRuntime.InvokeVoidAsync("initButtonFlag");
+                InfoInitFlag = true;
+            }
+            
+
+            if (value == "otp-view")
+            {
+
+                if (ModelRegist.NoTlp == "" || ModelRegist.NoTlp == null || ModelRegist.Password == "" || ModelRegist.Password == null)
+                {
+                    infoSubmit = 1;
+                    StateHasChanged();
+                    return;
+                }
+
+                var Numberinfo = await JSRuntime.InvokeAsync<string>("initKlikFlag");
+                if (Numberinfo == "FALSE") {
+                    infoSubmit = 2;
+                    StateHasChanged();
+                    return;
+                } 
+                else
+                {
+
+                    var dataCek = await NewPdjService.CheckUserRegApi(new ParameterApi
+                    {
+                        routeApi = "auth",
+                        prosesApi = "check",
+                        ParamUrl = new ParameterApi.ParameterUrl()
+                    }, new LoginViewModel { NoTlp = Numberinfo, Password = ModelRegist.Password });
+
+                    if (!dataCek)
+                    {
+                        infoSubmit = 3;
+                        StateHasChanged();
+                        return;
+                    }
+
+                    var statusOtp = await JSRuntime.InvokeAsync<bool>("sendOTP", Numberinfo);
+
+                    if (statusOtp)
+                    {
+                        await JSRuntime.InvokeVoidAsync("initLoginEffect", value, direct);
+                        return;
+                    }
+                    else
+                    {
+                        infoSubmit = 2;
+                        StateHasChanged();
+                        return;
+                    }
+                }
+
+
+            }
+            else
+            {
+                infoSubmit = 0;
+                Model.NoTlp = "";
+                Model.Password = "";
+                ModelRegist.NoTlp = "";
+                ModelRegist.Password = "";
+
+                await JSRuntime.InvokeVoidAsync("initLoginEffect", value, direct);
+
+            }
         }
+
 
         private async Task LoginStart()
         {
-            var dataDecode = await pdjService.DecodeEncode(true, new List<string> { Model.Email, Model.Password, "kosong"});
-            NavigationManager.NavigateTo($"/auth-user/login/{dataDecode[0]}/{dataDecode[1]}/{dataDecode[2]}", forceLoad: true);
+
+            var Numberinfo = await JSRuntime.InvokeAsync<string>("initKlikFlagLogin");
+            if (Numberinfo == "FALSE") return;
+
+
+            var param = new ParameterApi
+            {
+                routeApi = "auth",
+                prosesApi = "login",
+                ParamUrl = new ParameterApi.ParameterUrl { }
+            };
+
+            Model.NoTlp = Numberinfo;
+
+            var loginStatus = await NewPdjService.CheckLoginApi(param, Model);
+
+            if (loginStatus)
+            {
+                var dataDecode = await pdjService.DecodeEncode(true, new List<string> { ScopedDataServices.ScopedData.DataLogin.No_Id });
+                NavigationManager.NavigateTo($"/auth-user-session/session/{dataDecode[0]}", forceLoad: true);
+            } 
+            else
+            {
+                infoSubmit = 1;
+                StateHasChanged();
+                return;
+            }
         }
 
         public async void NavigateToDetailProduk(string id)

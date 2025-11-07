@@ -43,6 +43,12 @@ namespace Services
         [Inject]
         protected DialogService DialogService { get; set; }
 
+        [Inject]
+        private GlobalDataService GlobalDataService { get; set; }
+
+        [Inject]
+        private ScopedDataServices ScopedDataServices { get; set; }
+
         public HttpContext? HttpContext => _httpContextAccessor.HttpContext;
 
         private readonly NavigationManager navigationManager;
@@ -278,11 +284,14 @@ namespace Services
 
         public (HttpClient httpReq, CancellationTokenSource cancelTimer, string UrlApi) initConfigApi(ParameterApi urlParam)
         {
+
             urlParam = urlParam ?? new ParameterApi();
+
             var httpReq = new HttpClient();
-            var cancelTimer = new CancellationTokenSource(TimeSpan.FromSeconds(10));
-            //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-             
+            var cancelTimer = new CancellationTokenSource(TimeSpan.FromSeconds(5));
+
+            httpReq.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", urlParam.token);
+
             string UrlApi = urlParam.defaultUrl + urlParam.routeApi + "/" + urlParam.prosesApi + "?" + ToQueryString(urlParam.ParamUrl); 
 
             return (httpReq, cancelTimer, UrlApi);
@@ -1192,7 +1201,6 @@ namespace Services
         }
 
         public async Task<List<DataUser>> GetUserApi(ParameterApi urlParam)
-
         {
             var config = initConfigApi(urlParam);
             var tbListProduk = new List<DataUser>();
@@ -1241,27 +1249,79 @@ namespace Services
 
         }
 
-        public async Task<(DataUser, bool)> LoginUserApi(ParameterApi urlParam, LoginViewModel data)
+        public async Task<bool> LoginUserApi(ParameterApi urlParam, LoginViewModel data)
         {
+            Dictionary<string, List<string>> masUserMenu = new Dictionary<string, List<string>>();
+
+            var config = initConfigApi(urlParam);
+            var tbListProduk = new DataUser();
+
+            var jsonSettings = new JsonSerializerSettings
+            {
+                Formatting = Newtonsoft.Json.Formatting.None,
+                MissingMemberHandling = MissingMemberHandling.Ignore
+            };
+
+            var requestBody = new { Telepon = data.NoTlp, Password = data.Password };
+
+            var jsonContent = JsonConvert.SerializeObject(requestBody, jsonSettings);
+            var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
             try
             {
-                var httpReq = new HttpClient { BaseAddress = new Uri("https://localhost:5001") };
-                var DataUser = await GetUserApi(urlParam);
-                var UserLogin = DataUser.FirstOrDefault();
+                var response = await config.httpReq.PostAsync(config.UrlApi, content, config.cancelTimer.Token);
+                var checking = await CheckAPI(response, config.UrlApi, "Login");
 
-                if (UserLogin != null)
+                if (response.IsSuccessStatusCode)
                 {
-                    Dictionary<string, List<string>> masUserMenu = new Dictionary<string, List<string>>();
+                    var json = await response.Content.ReadAsStringAsync();
+                    using var jsonDoc = JsonDocument.Parse(json);
+                    var root = jsonDoc.RootElement;
+                    var dataLogin = GlobalDataService?.GlobalData?.ListDataLogin.FirstOrDefault(x => x.Telepon == data.NoTlp);
 
-                    masUserMenu.Add(UserLogin.Email, new List<string> { "Akses" });
+                    root.TryGetProperty("No_Id", out var No_Id);
+                    root.TryGetProperty("Nama_Display", out var Nama_Display);
+                    root.TryGetProperty("token", out var token);
+                    root.TryGetProperty("refreshToken", out var refreshToken);
+
+                    if (dataLogin != null)
+                    {
+                        dataLogin.token = token.ToString();
+                        dataLogin.refreshToken = refreshToken.ToString();
+                        dataLogin.No_Id = No_Id.ToString();
+                        dataLogin.Nama_Display = token.ToString();
+
+                        ScopedDataServices.ScopedData.DataLogin = dataLogin;
+                    }
+                    else
+                    {
+                        GlobalDataService.GlobalData.ListDataLogin.Add(new DataLogin
+                        {
+                            token = token.ToString(),
+                            Nama_Display = Nama_Display.ToString(),
+                            refreshToken = refreshToken.ToString(),
+                            No_Id = No_Id.ToString()
+                        });
+
+                        ScopedDataServices.ScopedData.DataLogin = new DataLogin {
+                            token = token.ToString(),
+                            Nama_Display = Nama_Display.ToString(),
+                            refreshToken = refreshToken.ToString(),
+                            No_Id = No_Id.ToString()
+                        };
+                    }
+
+
+                    masUserMenu.Add(data.NoTlp, new List<string> { "Akses" });
 
                     var claims = new List<Claim>
                     {
-                        new Claim(ClaimTypes.Email, UserLogin.Email),
-                        new Claim(ClaimTypes.Name, UserLogin.No_Id),
+                        new Claim(ClaimTypes.OtherPhone, data.NoTlp),
+                        new Claim(ClaimTypes.Sid, dataLogin.No_Id),
+                        new Claim(ClaimTypes.Name, dataLogin.Nama_Display),
                     };
 
-                    var thisUsersAccountPolicies = masUserMenu[UserLogin.Email];
+                    var thisUsersAccountPolicies = masUserMenu[data.NoTlp];
 
                     foreach (var userAccountPolicy in thisUsersAccountPolicies)
                     {
@@ -1273,20 +1333,65 @@ namespace Services
 
                     await HttpContext?.SignInAsync(principal);
 
-                    return (UserLogin, true);
+                    return true;
                 }
-                else
-                {
-                    return (null, false);
-                }
+
             }
             catch (Exception ex)
             {
-                writeLog($"Login error: {ex.Message}");
+                writeLog($"Regist error: {ex.Message}");
             }
 
-            return (null, false);
+            return false;
         }
+
+        public async Task<bool> RegistUserApi(ParameterApi urlParam, DataLogin data)
+        {
+            var config = initConfigApi(urlParam);
+            var tbListProduk = new DataUser();
+
+            var jsonSettings = new JsonSerializerSettings
+            {
+                Formatting = Newtonsoft.Json.Formatting.None,
+                MissingMemberHandling = MissingMemberHandling.Ignore
+            };
+
+            var requestBody = new { Telepon = data.Telepon , Token = data.tokenJwt, Password = data.Password };
+
+            var jsonContent = JsonConvert.SerializeObject(requestBody, jsonSettings);
+            var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+            try
+            {
+                var response = await config.httpReq.PostAsync(config.UrlApi, content, config.cancelTimer.Token);
+                var checking = await CheckAPI(response, config.UrlApi, "Regist");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    using var jsonDoc = JsonDocument.Parse(json);
+                    var root = jsonDoc.RootElement;
+
+                    if (root.TryGetProperty("success", out var dataFromDb))
+                    {
+                        return Convert.ToBoolean(dataFromDb.ToString());
+                    }
+                    else
+                    {
+                        writeLog($"Data Kosong");
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                writeLog($"Regist error: {ex.Message}");
+            }
+
+            return false;
+        }
+
+
 
         public async Task<bool> LogoutUserApi()
         {
@@ -1302,20 +1407,6 @@ namespace Services
 
             return false;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1541,7 +1632,6 @@ namespace Services
             _jsRuntime = jsRuntime;
             this.authProvider = authProvider;
             _httpContextAccessor = httpContextAccessor;
-
         }
 
         public async Task<bool> isThisUser(string name)

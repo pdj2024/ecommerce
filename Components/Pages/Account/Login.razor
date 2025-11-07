@@ -29,7 +29,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="input-group mb-3 style-grup px-1 border-1 py-1 pb-2 form-style">
-                                        <InputText type="text" style="font-size: 14px;" @bind-Value="Model.Email" id="Email" class="form-control search-form form-text" placeholder="Your email*" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" required />
+                                        <InputText type="text" style="font-size: 14px;" @bind-Value="Model.NoTlp" id="Email" class="form-control search-form form-text" placeholder="Your Number Phone*" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" required />
                                     </div>
                                     <div class="input-group mb-3 style-grup px-1 border-1 py-1 pb-2 form-style">
                                         <InputText type="password" @bind-Value="Model.Password" id="Password" style="font-size: 14px;" class="form-control search-form form-text" placeholder="Your password*" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" required />
@@ -87,14 +87,14 @@
 
         var param = new ParameterApi
             {
-                routeApi = "customer",
-                prosesApi = "getAll",
-                ParamUrl = new ParameterApi.ParameterUrl { email = Model.Email }
+                routeApi = "auth",
+                prosesApi = "login",
+                ParamUrl = new ParameterApi.ParameterUrl {}
             };
 
         var loginStatus = await pdjService.LoginUserApi(param, Model);
 
-        if (loginStatus.Item2)
+        if (loginStatus)
         {
             navigationManager.NavigateTo("/", forceLoad: true);
         } else
