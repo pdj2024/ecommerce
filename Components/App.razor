@@ -27,8 +27,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 
     <!-- ========================= CSS here ========================= -->
+    <link href="https://cdn.lineicons.com/5.0/lineicons.css" rel="stylesheet" />
+
     <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/icons.css" />
     <link rel="stylesheet" href="css/glightbox.min.css" />
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -71,7 +72,6 @@
     @* <script src="js/bootstrap.min.js"></script> *@
     <script src="js/glightbox.min.js"></script>
     <script src="js/main.js"></script>
-    <link href="https://cdn.lineicons.com/5.0/lineicons.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
@@ -88,6 +88,7 @@
 
         var phoneInput = null;
         var phoneInputLogin = null;
+        var phoneInputChange = null;
 
         function initButtonFlag() {
             const phoneInputField = document.querySelector("#phone");
@@ -111,6 +112,18 @@
             });
         }
 
+        function initButtonFlagChange() {
+            const phoneInputField = document.querySelector("#phone-change");
+            phoneInputChange = window.intlTelInput(phoneInputField, {
+                initialCountry: "id", // Indonesia default
+                preferredCountries: ["id", "sg", "my", "us"],
+                separateDialCode: true, // <== INI YANG TAMBAHAN UTAMA
+                nationalMode: false,
+                formatOnDisplay: true,
+                utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+            });
+        }
+
         function initKlikFlag() {
             // Saat tombol Verify diklik
             const number = phoneInput.getNumber(); // format E.164
@@ -120,16 +133,17 @@
             const e164Text = document.querySelector("#e164Number");
 
             if (isValid) {
-                e164Text.textContent = number;
-                resultBox.style.display = "none";
-                resultBox.style.backgroundColor = "#e7f3f9";
-                resultBox.style.color = "#0b385f";
+                // e164Text.textContent = number;
+                // resultBox.style.display = "none";
+                // resultBox.style.backgroundColor = "#e7f3f9";
+
+                // resultBox.style.color = "#0b385f";
                 return number;
             } else {
-                e164Text.textContent = "Nomor tidak valid.";
-                resultBox.style.display = "block";
-                resultBox.style.backgroundColor = "#fdecea";
-                resultBox.style.color = "#a94442";
+                // e164Text.textContent = "Nomor tidak valid.";
+                // resultBox.style.display = "block";
+                // resultBox.style.backgroundColor = "#fdecea";
+                // resultBox.style.color = "#a94442";
                 return "FALSE";
             }
         }
@@ -144,16 +158,40 @@
 
 
             if (isValid) {
-                e164Text.textContent = number;
-                resultBox.style.display = "none";
-                resultBox.style.backgroundColor = "#e7f3f9";
-                resultBox.style.color = "#0b385f";
+                // e164Text.textContent = number;
+                // resultBox.style.display = "none";
+                // resultBox.style.backgroundColor = "#e7f3f9";
+                // resultBox.style.color = "#0b385f";
                 return number;
             } else {
-                e164Text.textContent = "Nomor tidak valid.";
-                resultBox.style.display = "block";
-                resultBox.style.backgroundColor = "#fdecea";
-                resultBox.style.color = "#a94442";
+                // e164Text.textContent = "Nomor tidak valid.";
+                // resultBox.style.display = "block";
+                // resultBox.style.backgroundColor = "#fdecea";
+                // resultBox.style.color = "#a94442";
+                return "FALSE";
+            }
+        }
+
+        function initKlikFlagChange() {
+            // Saat tombol Verify diklik
+            const number = phoneInputChange.getNumber(); // format E.164
+            const isValid = phoneInputChange.isValidNumber();
+
+            const resultBox = document.querySelector("#result-change");
+            const e164Text = document.querySelector("#e164Number-change");
+
+
+            if (isValid) {
+                // e164Text.textContent = number;
+                // resultBox.style.display = "none";
+                // resultBox.style.backgroundColor = "#e7f3f9";
+                // resultBox.style.color = "#0b385f";
+                return number;
+            } else {
+                // e164Text.textContent = "Nomor tidak valid.";
+                // resultBox.style.display = "block";
+                // resultBox.style.backgroundColor = "#fdecea";
+                // resultBox.style.color = "#a94442";
                 return "FALSE";
             }
         }
@@ -621,6 +659,7 @@
             const signUp = document.querySelector('.signup-page');
             const otpView = document.querySelector('.otp-view');
             const logIn = document.querySelector('.login-page');
+            const change = document.querySelector('.lupa-pw');
 
 
             if (!direct) {
@@ -641,45 +680,115 @@
                         logIn.classList.remove('active');
                         otpView.classList.remove('active');
                         signUp.classList.add('active');
+                        change?.classList.remove('active');
                     } 
                     else if (value == "otp-view") 
                     {
                         otpView.classList.add('active');
                         signUp.classList.remove('active');
                         logIn.classList.remove('active');
+                        change?.classList.remove('active');
+                    } 
+                    else if (value == "lupa-pw") 
+                    {
+                        change?.classList.add('active');
+                        otpView.classList.remove('active');
+                        signUp.classList.remove('active');
+                        logIn.classList.remove('active');
                     } 
                     else 
                     {
+                        logIn.classList.add('active');
                         otpView.classList.remove('active');
                         signUp.classList.remove('active');
-                        logIn.classList.add('active');
+                        change?.classList.remove('active');
                     }
 
                 }, 1500);
 
             } else {
+
                 if(value == "sign-up")
                 {
+                    signUp.classList.add('active');
                     logIn.classList.remove('active');
                     otpView.classList.remove('active');
-                    signUp.classList.add('active');
+                    change?.classList.remove('active');
                 }
                 else if (value == "otp-view")
                 {
                     otpView.classList.add('active');
                     signUp.classList.remove('active');
                     logIn.classList.remove('active');
+                    change?.classList.remove('active');
+                }
+                else if (value == "lupa-pw")
+                {
+                    change?.classList.add('active');
+                    otpView.classList.remove('active');
+                    signUp.classList.remove('active');
+                    logIn.classList.remove('active');
                 }
                 else
                 {
+                    logIn.classList.add('active');
                     otpView.classList.remove('active');
                     signUp.classList.remove('active');
-                    logIn.classList.add('active');
+                    change?.classList.remove('active');
                 }
             }
 
 
         };
+
+
+        window.countdownTimer = {
+            duration: 5 * 60, // 5 menit dalam detik
+            remaining: 5 * 60,
+            intervalId: null,
+
+            start: function () {
+                if (this.intervalId) return; // sudah berjalan
+
+                this.intervalId = setInterval(() => {
+                    if (this.remaining <= 0) {
+                        clearInterval(this.intervalId);
+                        this.intervalId = null;
+
+                        window.history.back();
+                        return;
+                    } else {
+                        this.remaining--;
+                    }
+
+                    this.updateDisplay();
+                }, 1000);
+            },
+
+            pause: function () {
+                if (this.intervalId) {
+                    clearInterval(this.intervalId);
+                    this.intervalId = null;
+                }
+            },
+
+            reset: function () {
+                this.pause();
+                this.remaining = this.duration;
+                this.updateDisplay();
+            },
+
+            updateDisplay: function () {
+                const el = document.querySelector(".countdownTimer");
+                if (!el) return;
+
+                const minutes = Math.floor(this.remaining / 60);
+                const seconds = this.remaining % 60;
+
+                el.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+        };
+
 
         function initBigDetailProd() {
             var sliderdetailProd = tns({

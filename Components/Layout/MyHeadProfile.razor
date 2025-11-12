@@ -31,43 +31,62 @@ else
                     <!-- End Header Logo -->
                 </div>
 
-                <div class="col-lg-8 col-md-4 col-4" style="height:100%">
-                    <div class="nav-inner" style="height:100%">
-                        <!-- Start Navbar -->
-                        <nav class="navbar-expand-lg" style="height:100%; display: flex;">
-                            <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasLeft" aria-controls="offcanvasLeft"
-                                    aria-expanded="false" aria-label="Toggle navigation" >
-                                <span class="toggler-icon"></span>
-                                <span class="toggler-icon"></span>
-                                <span class="toggler-icon"></span>
-                            </button>
-                            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent" style="height:100%">
-                                <ul class="nav nav-pills" id="pills-tab" role="tablist">
-                                    <li class="nav-item" style="position:relative" role="presentation">
-                                        <button class="nav-link @(pageRoute == "keranjang" ? "active" : "")" id="pills-keranjang-tab" data-bs-toggle="pill" data-bs-target="#pills-keranjang" type="button" role="tab" aria-controls="pills-keranjang" aria-selected="true">Keranjang</button>
-                                        <span class="total-items-profil">@ScopedDataServices?.ScopedData?.ListDataCart.Count()</span>
-                                    </li>
-                                    <li class="nav-item" style="position:relative" role="presentation">
-                                        <button class="nav-link @(pageRoute == "belum-bayar" ? "active" : "")" @onclick=@(x => moveTabs("belum-bayar")) id="pills-belum-bayar-tab" data-bs-toggle="pill" data-bs-target="#pills-belum-bayar" type="button" role="tab" aria-controls="pills-belum-bayar" aria-selected="false">Belum Bayar</button>
-                                        <span class="total-items-profil">@(ScopedDataServices?.ScopedData?.ListDataSummaryPesanan.FirstOrDefault()?.summary.FirstOrDefault(x => x.status_order_1 == "belum bayar")?.jumlah ?? 0)</span>
-                                    </li>
-                                    <li class="nav-item" style="position:relative" role="presentation">
-                                        <button class="nav-link @(pageRoute == "dikemas" ? "active" : "")" @onclick=@(x => moveTabs("dikemas")) id="pills-dikemas-tab" data-bs-toggle="pill" data-bs-target="#pills-dikemas" type="button" role="tab" aria-controls="pills-dikemas" aria-selected="false">Dikemas</button>
-                                        <span class="total-items-profil">@(ScopedDataServices?.ScopedData?.ListDataSummaryPesanan.FirstOrDefault()?.summary.FirstOrDefault(x => x.status_order_1 == "dikemas")?.jumlah ?? 0)</span>
-                                    </li>
-                                    <li class="nav-item" style="position:relative" role="presentation">
-                                        <button class="nav-link @(pageRoute == "dikirim" ? "active" : "")" @onclick=@(x => moveTabs("dikirim")) id="pills-dikirim-tab" data-bs-toggle="pill" data-bs-target="#pills-dikirim" type="button" role="tab" aria-controls="pills-dikirim" aria-selected="false">Dikirim</button>
-                                        <span class="total-items-profil">@(ScopedDataServices?.ScopedData?.ListDataSummaryPesanan.FirstOrDefault()?.summary.FirstOrDefault(x => x.status_order_1 == "dikirim")?.jumlah ?? 0)</span>
-                                    </li>
-                                    <li class="nav-item" style="position:relative" role="presentation">
-                                        <button class="nav-link @(pageRoute == "histori" ? "active" : "")" @onclick=@(x => moveTabs("histori"))  id="pills-histori-tab" data-bs-toggle="pill" data-bs-target="#pills-histori" type="button" role="tab" aria-controls="pills-histori" aria-selected="false">Histori Beli</button>
-                                    </li>
-                                </ul>
-                            </div> <!-- navbar collapse -->
-                        </nav>
-                        <!-- End Navbar -->
+                @if(pageRoute == "setting")
+                {
+                    <div class="col-lg-8 col-md-4 col-4" style="height:100%">
+                        <div class="nav-inner" style="height:100%">
+                            <nav class="navbar-expand-lg" style="height:100%; display: flex;">
+                                <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasLeft" aria-controls="offcanvasLeft"
+                                        aria-expanded="false" aria-label="Toggle navigation" >
+                                    <span class="toggler-icon"></span>
+                                    <span class="toggler-icon"></span>
+                                    <span class="toggler-icon"></span>
+                                </button>
+                            </nav>
+                        </div>
                     </div>
-                </div>
+                } 
+                else 
+                {
+                    <div class="col-lg-8 col-md-4 col-4" style="height:100%">
+                        <div class="nav-inner" style="height:100%">
+                            <!-- Start Navbar -->
+                            <nav class="navbar-expand-lg" style="height:100%; display: flex;">
+                                <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasLeft" aria-controls="offcanvasLeft"
+                                        aria-expanded="false" aria-label="Toggle navigation" >
+                                    <span class="toggler-icon"></span>
+                                    <span class="toggler-icon"></span>
+                                    <span class="toggler-icon"></span>
+                                </button>
+                                <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent" style="height:100%">
+                                    <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                                        <li class="nav-item" style="position:relative" role="presentation">
+                                            <button class="nav-link @(pageRoute == "keranjang" ? "active" : "")" id="pills-keranjang-tab" data-bs-toggle="pill" data-bs-target="#pills-keranjang" type="button" role="tab" aria-controls="pills-keranjang" aria-selected="true">Keranjang</button>
+                                            <span class="total-items-profil">@ScopedDataServices?.ScopedData?.ListDataCart.Count()</span>
+                                        </li>
+                                        <li class="nav-item" style="position:relative" role="presentation">
+                                            <button class="nav-link @(pageRoute == "belum-bayar" ? "active" : "")" @onclick=@(x => moveTabs("belum-bayar")) id="pills-belum-bayar-tab" data-bs-toggle="pill" data-bs-target="#pills-belum-bayar" type="button" role="tab" aria-controls="pills-belum-bayar" aria-selected="false">Belum Bayar</button>
+                                            <span class="total-items-profil">@(ScopedDataServices?.ScopedData?.ListDataSummaryPesanan.FirstOrDefault()?.summary.FirstOrDefault(x => x.status_order_1 == "belum bayar")?.jumlah ?? 0)</span>
+                                        </li>
+                                        <li class="nav-item" style="position:relative" role="presentation">
+                                            <button class="nav-link @(pageRoute == "dikemas" ? "active" : "")" @onclick=@(x => moveTabs("dikemas")) id="pills-dikemas-tab" data-bs-toggle="pill" data-bs-target="#pills-dikemas" type="button" role="tab" aria-controls="pills-dikemas" aria-selected="false">Dikemas</button>
+                                            <span class="total-items-profil">@(ScopedDataServices?.ScopedData?.ListDataSummaryPesanan.FirstOrDefault()?.summary.FirstOrDefault(x => x.status_order_1 == "dikemas")?.jumlah ?? 0)</span>
+                                        </li>
+                                        <li class="nav-item" style="position:relative" role="presentation">
+                                            <button class="nav-link @(pageRoute == "dikirim" ? "active" : "")" @onclick=@(x => moveTabs("dikirim")) id="pills-dikirim-tab" data-bs-toggle="pill" data-bs-target="#pills-dikirim" type="button" role="tab" aria-controls="pills-dikirim" aria-selected="false">Dikirim</button>
+                                            <span class="total-items-profil">@(ScopedDataServices?.ScopedData?.ListDataSummaryPesanan.FirstOrDefault()?.summary.FirstOrDefault(x => x.status_order_1 == "dikirim")?.jumlah ?? 0)</span>
+                                        </li>
+                                        <li class="nav-item" style="position:relative" role="presentation">
+                                            <button class="nav-link @(pageRoute == "histori" ? "active" : "")" @onclick=@(x => moveTabs("histori"))  id="pills-histori-tab" data-bs-toggle="pill" data-bs-target="#pills-histori" type="button" role="tab" aria-controls="pills-histori" aria-selected="false">Histori Beli</button>
+                                        </li>
+                                    </ul>
+                                </div> <!-- navbar collapse -->
+                            </nav>
+                            <!-- End Navbar -->
+                        </div>
+                    </div>
+                }
+
 
                 <div class="col-4 d-lg-none d-flex justify-content-center">
                     <!-- Start Header Logo -->
@@ -146,7 +165,7 @@ else
                                             </button>
                                         </li> 
                                         <li style="cursor:pointer;">
-                                            <button class="dropdown-item dropdown-item-custom">
+                                            <button class="dropdown-item dropdown-item-custom" @onclick="@(e => NavigateToHome("cart-page/setting"))">
                                                 <div class="d-flex flex-row justify-content-end gap-3">
                                                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm70-80h79l14-106q31-8 57.5-23.5T639-327l99 41 39-68-86-65q5-14 7-29.5t2-31.5q0-16-2-31.5t-7-29.5l86-65-39-68-99 42q-22-23-48.5-38.5T533-694l-13-106h-79l-14 106q-31 8-57.5 23.5T321-633l-99-41-39 68 86 64q-5 15-7 30t-2 32q0 16 2 31t7 30l-86 65 39 68 99-42q22 23 48.5 38.5T427-266l13 106Zm42-180q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Zm-2-140Z"/>
                                                     </svg>

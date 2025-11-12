@@ -185,12 +185,8 @@ namespace Models
 
                 if (listObj is IEnumerable<object> list)
                 {
-                    //Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(list, new JsonSerializerOptions { WriteIndented = true }));
-
                     // Cari item yang punya property "no_id" sesuai dengan parameter
                     var item = list.FirstOrDefault(x => x.GetType().GetProperty("no_id").GetValue(x).ToString() == no_id.ToString());
-
-                    //Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(item, new JsonSerializerOptions { WriteIndented = true }));
 
                     if (item == null)
                         writeLog($"Data dengan no_id '{no_id}' tidak ditemukan di {type.Name}.");

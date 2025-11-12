@@ -77,6 +77,7 @@ namespace PacificWeb.Components.Layout
         public int dataQty { get; set; } = 0;
         public bool InfoInitFlag { get; set; } = false;
 
+        public int dataChange { get; set; } = 0;
 
 
         public void NavigateToHome(string route)
@@ -98,7 +99,6 @@ namespace PacificWeb.Components.Layout
         {
             if (firstRender)
             {
-
                 int count = 0;
                 while (ScopedDataServices.ScopedData.Finised == false)
                 {
@@ -244,7 +244,7 @@ namespace PacificWeb.Components.Layout
                 refreshToken = ScopedDataServices?.ScopedData?.DataLogin.refreshToken,
                 ParamUrl = new ParameterApi.ParameterUrl
                 {
-                    id_customer = ScopedDataServices?.ScopedData?.DataLogin.No_Id,
+                    id_customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id,
                     show_media = "true",
                     orderBy = "Updated_At",
                     orderDir = "desc"
@@ -252,16 +252,16 @@ namespace PacificWeb.Components.Layout
             };
             ListDataCartCheck.Clear();
             ListDataCartCheck.AddRange(ScopedDataServices?.ScopedData?.ListDataCart?.FindAll(x => x.SelectCart == true));
-            var DataCartList = await pdjService.GetCartApi(paramApi);
+            var DataCartList = await NewPdjService.GetApi<Cart>(paramApi);
 
             if(data_id == null)
             {
-                ScopedDataServices.ScopedData.ListDataCart = DataCartList;
+                ScopedDataServices.ScopedData.ListDataCart = DataCartList.Data;
             } 
             else
             {
                 var DataShow = ScopedDataServices.ScopedData.ListDataCart.FirstOrDefault(x => x.Id_Cart == data_id);
-                DataShow.Qty = DataCartList.FirstOrDefault(x => x.Id_Cart == data_id).Qty;
+                DataShow.Qty = DataCartList.Data.FirstOrDefault(x => x.Id_Cart == data_id).Qty;
             }
 
             if (ListDataCartCheck.Count() >= 1)
@@ -298,12 +298,7 @@ namespace PacificWeb.Components.Layout
             }
             else
             {
-                nettoKeranjang = 0;
-                foreach (var dataCart in ScopedDataServices?.ScopedData?.ListDataCart)
-                {
-                    if (!dataCart.SelectCart) continue;
-                    nettoKeranjang += (decimal)dataCart.Qty * ((decimal)dataCart?.Harga - ((decimal)dataCart?.Harga * ((decimal)dataCart?.Diskon1 / 100)));
-                }
+                checkAllItem(new ChangeEventArgs { Value = checkAll });
             }
 
 
@@ -326,7 +321,7 @@ namespace PacificWeb.Components.Layout
             };
             loadProses = true;
             StateHasChanged();
-            (string statusMessage, bool statusRespon, int statusCode, string proses) = await pdjService.CudCartApi("HAPUS", cart, paramApi);
+            (string statusMessage, bool statusRespon, int statusCode, string proses) = await NewPdjService.CudCartApi("HAPUS", cart, paramApi);
 
             if (statusRespon && statusCode == 200)
             {
@@ -381,8 +376,8 @@ namespace PacificWeb.Components.Layout
                 await InvokeAsync(async () =>
                 {
 
-                    Cart itemcart = new Cart { Id_Variant = data.Id_Variant, Qty = dataQty, Id_Customer = ScopedDataServices?.ScopedData?.DataLogin.No_Id };
-                    (string statusMessage, bool statusRespon, int statusCode, string proses) = await pdjService.CudCartApi("TAMBAH", itemcart, paramApi);
+                    Cart itemcart = new Cart { Id_Variant = data.Id_Variant, Qty = dataQty, Id_Customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id };
+                    (string statusMessage, bool statusRespon, int statusCode, string proses) = await NewPdjService.CudCartApi("TAMBAH", itemcart, paramApi);
 
 
                     if (statusRespon && statusCode == 200)
@@ -459,8 +454,8 @@ namespace PacificWeb.Components.Layout
                     await InvokeAsync(async () =>
                     {
 
-                        Cart itemcart = new Cart { Id_Variant = data.Id_Variant, Qty = dataQty, Id_Customer = ScopedDataServices?.ScopedData?.DataLogin.No_Id  };
-                        (string statusMessage, bool statusRespon, int statusCode, string proses) = await pdjService.CudCartApi("TAMBAH", itemcart, paramApi);
+                        Cart itemcart = new Cart { Id_Variant = data.Id_Variant, Qty = dataQty, Id_Customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id  };
+                        (string statusMessage, bool statusRespon, int statusCode, string proses) = await NewPdjService.CudCartApi("TAMBAH", itemcart, paramApi);
 
 
                         if (statusRespon && statusCode == 200)
@@ -542,10 +537,44 @@ namespace PacificWeb.Components.Layout
         {
             if (InfoInitFlag == false)
             {
+                await JSRuntime.InvokeVoidAsync("initButtonFlagChange");
                 await JSRuntime.InvokeVoidAsync("initButtonFlag");
                 InfoInitFlag = true;
             }
-            
+
+            if (value == "change-pw")
+            {
+                if (ModelRegist.NoTlp == "" || ModelRegist.NoTlp == null || ModelRegist.Password == "" || ModelRegist.Password == null)
+                {
+                    infoSubmit = 1;
+                    StateHasChanged();
+                    return;
+                }
+
+                var Numberinfo = await JSRuntime.InvokeAsync<string>("initKlikFlagChange");
+                if (Numberinfo == "FALSE")
+                {
+                    infoSubmit = 2;
+                    StateHasChanged();
+                    return;
+                }
+
+                var statusOtp = await JSRuntime.InvokeAsync<bool>("sendOTP", Numberinfo);
+
+                if (statusOtp)
+                {
+                    await JSRuntime.InvokeVoidAsync("initLoginEffect", "otp-view", direct);
+                    dataChange = 2;
+                    StateHasChanged();
+                    return;
+                }
+                else
+                {
+                    infoSubmit = 2;
+                    StateHasChanged();
+                    return;
+                }
+            }
 
             if (value == "otp-view")
             {
@@ -613,6 +642,18 @@ namespace PacificWeb.Components.Layout
 
         private async Task LoginStart()
         {
+            infoSubmit = 0;
+            StateHasChanged();
+
+
+            if (Model.NoTlp == "" || Model.NoTlp == null || Model.Password == "" || Model.Password == null)
+            {
+                infoSubmit = 2;
+                StateHasChanged();
+                return;
+            }
+
+            pdjService.ShowConsoleData(Model);
 
             var Numberinfo = await JSRuntime.InvokeAsync<string>("initKlikFlagLogin");
             if (Numberinfo == "FALSE") return;
@@ -631,7 +672,7 @@ namespace PacificWeb.Components.Layout
 
             if (loginStatus)
             {
-                var dataDecode = await pdjService.DecodeEncode(true, new List<string> { ScopedDataServices.ScopedData.DataLogin.No_Id });
+                var dataDecode = await pdjService.DecodeEncode(true, new List<string> { ScopedDataServices?.ScopedData?.DataLogin?.No_Id });
                 NavigationManager.NavigateTo($"/auth-user-session/session/{dataDecode[0]}", forceLoad: true);
             } 
             else

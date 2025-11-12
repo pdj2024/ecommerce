@@ -17,6 +17,7 @@ namespace Models
         public string Status { get; set; } = "";
         public bool Pernah_Order { get; set; } = false;
         public string Id_Media { get; set; } = "";
+        public string Alamat { get; set; } = "";
 
         //public DateTime Tgl_Created { get; set; } = new();
         //public DateTime? Tgl_NonAktif { get; set; } = new();

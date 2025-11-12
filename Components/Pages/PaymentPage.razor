@@ -43,6 +43,34 @@
                                 }
                             </div>
 
+                            <div class="checkout-header" style="display: block;position: sticky;top: 0px;background-color: white;z-index: 10;">
+                                @if (loadContent)
+                                {
+                                    <form aria-busy="true" class="mb-2 w-100">
+                                        <div class="d-flex align-items-start gap-3" aria-busy="true">
+                                            <div style="flex:1">
+                                                <div class="skeleton skeleton-text mb-2" style="width:30%"></div>
+                                            </div>
+                                            <div class="ms-3">
+                                                <div class="skeleton" style="width:56px; height:16px; border-radius:8px;"></div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <div class="countdownPesanan" style="font-size: 18px;text-align: center;width: 100%; position:sticky;">
+                                        <span style="font-style: italic;">
+                                            Selesaikan pesanan dalam
+                                        </span>
+
+                                        <span class="countdownTimer" style="font-style: italic;letter-spacing: 2px;font-weight: 800;color: #1500b2 !important;margin-left: 10px;">
+                                            @(DateTime.Today.ToString("mm:ss"))
+                                        </span>
+                                    </div>
+                                }
+                            </div>
+
                             <div class="accordion accordion-flush d-block d-md-block d-lg-none" id="accordionFlushExample">
                                 <div class="accordion-item" style="background-color:#f5f5f5">
                                     <h2 class="accordion-header" id="flush-headingOne">
@@ -416,7 +444,7 @@
                                 <div class="" style="height: 100%; padding-bottom:15.5rem">
                                     @if (loadContent)
                                     {
-                                        <form aria-busy="true" class="mb-2 px-5">
+                                        <form aria-busy="true" class="mb-2 px-5 py-3">
                                             <div class="d-flex align-items-start gap-3 mb-3" aria-busy="true">
                                                 <div class="skeleton skeleton-avatar"></div>
                                                 <div style="flex:1">
@@ -723,10 +751,16 @@ else
                             </div>
 
                             <div class="col-12">
-                                @if (@Head?.Metode_Bayar == "QRIS" && @Head?.Status_Order_1 == "belum bayar") 
+                                @if (@Head?.Metode_Bayar == "QRIS" && @Head?.Status_Order_1 == "belum bayar")
                                 {
-                                    <div class="d-flex align-items-center justify-content-center mt-3">
+                                    <div class="d-flex align-items-center justify-content-center mt-3 position-relative">
                                         <img class="qr-payment" style="max-width:50%" src="@Head?.QrBase64" alt="Alternate Text" />
+                                        @if (@Head?.Metode_Bayar == "QRIS" && @Head?.Status_Order_1 == "belum bayar")
+                                        {
+                                            <button type="button" class="btn btn-success bg-success position-absolute" style="border-radius: 100%;height: 40px;width: 40px;padding: 0px 0px;top: 30px;left: 70px;" @onclick="@(x => DownloadImage(Head))">
+                                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" style="margin-top:-4px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z" /></svg>
+                                            </button>
+                                        }
                                     </div>
                                 }
                                 else if (@Head?.Metode_Bayar != "QRIS" && @Head?.Status_Order_1 == "belum bayar")
@@ -779,8 +813,16 @@ else
                     </div>
             
                     <div class="modal-footer justify-content-center button border-top-0 pt-2 px-5">
+                        <button 
+                            type="button"
+                            style="border-radius:0px"
+                            class="@( @Head?.Status_Order_1 == "belum bayar" ? "btn btn-secondary bg-secondary" : "btn btn-success bg-success" )" 
+                            @onclick="@( x => directStatus(@Head))" > 
+                            @(Head.Status_Order_1 == "belum bayar" ? "Selesaikan Nanti" : "Lihat Pesanan")
+                        </button>
+
                         @if (@Head?.Status_Order_1 == "belum bayar") {
-                            <button type="button" style="min-width:7rem; border-radius:0px;" disabled=@loadProses class="btn btn-primary" @onclick="@( x => refreshStatus(Head))" >
+                            <button type="button" style="min-width:7rem; border-radius:0px;" disabled=@loadProses class="btn btn-success bg-success" @onclick="@( x => refreshStatus(Head))" >
                                 @if(loadProses) 
                                 {
                                     <div class="spinner-border spinner-border-sm" role="status">
@@ -789,23 +831,10 @@ else
                                 } 
                                 else
                                 {
-                                    @("Refresh")
+                                    @("Cek Status")
                                 }
                             </button>
                         }
-
-                        @if (@Head?.Metode_Bayar == "QRIS" && @Head?.Status_Order_1 == "belum bayar") 
-                        {
-                            <button type="button" class="btn btn-success bg-success" style="border-radius:0px" @onclick="@( x => DownloadImage(Head))" >Download</button>
-                        }
-
-                        <button 
-                            type="button"
-                            style="border-radius:0px"
-                            class="@( @Head?.Status_Order_1 == "belum bayar" ? "btn btn-secondary bg-secondary" : "btn btn-success bg-success" )" 
-                            @onclick="@( x => directStatus(@Head))" > 
-                            @(Head.Status_Order_1 == "belum bayar" ? "Selesaikan Nanti" : "Lihat Pesanan")
-                        </button>
                     </div>
 
                 }

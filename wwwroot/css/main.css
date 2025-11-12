@@ -108,6 +108,10 @@ a {
     color: #ededed;
 }
 
+.iti__country-list {
+    margin: 10px 0px 0px -20px !important;
+}
+
 .size-box.disabled span {
     opacity: 0.5;
 }
@@ -1714,6 +1718,23 @@ h4.title a p {
 }
 
 .otp-view.active {
+    height: 33rem;
+    visibility: visible;
+    opacity: 1;
+    top: 0px;
+}
+
+.lupa-pw {
+    visibility: hidden;
+    position: relative;
+    opacity: 0;
+    top: 30px;
+    height: 0rem;
+    overflow: hidden;
+    transition: top 0.8s ease-in-out, opacity 0.8s ease, display 0.8s ease;
+}
+
+.lupa-pw.active {
     height: 33rem;
     visibility: visible;
     opacity: 1;

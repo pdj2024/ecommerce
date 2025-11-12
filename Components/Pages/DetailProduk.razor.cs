@@ -204,14 +204,14 @@ namespace PacificWeb.Components.Pages
 
         public async Task selectProduk(string id_kode)
         {
-            var produkTask = await pdjService.GetProdukApi(new ParameterApi
+            var produkTask = await NewPdjService.GetApi<Produk>(new ParameterApi
             {
                 routeApi = "produk",
                 prosesApi = "getAll",
                 ParamUrl = new ParameterApi.ParameterUrl { pagesize = 2, show_variant = true, max_media = 10, no_id = id_kode }
             });
 
-            DataProduk = produkTask.FirstOrDefault(x => x.No_Id == id_kode);
+            DataProduk = produkTask.Data.FirstOrDefault(x => x.No_Id == id_kode);
 
             if (DataProduk == null)
             {
@@ -396,14 +396,14 @@ namespace PacificWeb.Components.Pages
             {
                 routeApi = "cart",
                 prosesApi = "create",
-                token = ScopedDataServices.ScopedData.DataLogin.token,
-                refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
+                token = ScopedDataServices.ScopedData.DataLogin?.token,
+                refreshToken = ScopedDataServices.ScopedData.DataLogin?.refreshToken,
                 ParamUrl = new ParameterApi.ParameterUrl {  }
             };
 
             item.Id_Variant = item.Variants.FirstOrDefault(x => x.Option_Id == item.Id_Option_Default && x.Size_Id == item.Id_Size_Default)?.No_Id ?? "";
-            Cart itemCart = new Cart { Id_Variant = item.Id_Variant, Qty = via == "modal" ? QuantityProd : Quantity , Id_Customer = ScopedDataServices.ScopedData.DataLogin.No_Id  };
-            (string statusMessage, bool statusRespon, int statusCode, string proses) = await pdjService.CudCartApi("TAMBAH", itemCart, paramApi);
+            Cart itemCart = new Cart { Id_Variant = item.Id_Variant, Qty = via == "modal" ? QuantityProd : Quantity , Id_Customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id  };
+            (string statusMessage, bool statusRespon, int statusCode, string proses) = await NewPdjService.CudCartApi("TAMBAH", itemCart, paramApi);
 
             if (statusRespon && statusCode == 200)
             {
@@ -424,7 +424,7 @@ namespace PacificWeb.Components.Pages
 
         public async Task NavigateToPayment(Produk item)
         {
-            if (ScopedDataServices.ScopedData.DataLogin.No_Id == null || ScopedDataServices.ScopedData.DataLogin.No_Id == "")
+            if (ScopedDataServices?.ScopedData?.DataLogin?.No_Id == null || ScopedDataServices?.ScopedData?.DataLogin?.No_Id == "")
             {
                 await JSRuntime.InvokeVoidAsync("buttonClick", "#closeDetailProd");
 
@@ -439,7 +439,7 @@ namespace PacificWeb.Components.Pages
             StateHasChanged();
 
             item.Id_Variant = item.Variants.FirstOrDefault(x => x.Option_Id == item.Id_Option_Default && x.Size_Id == item.Id_Size_Default)?.No_Id ?? "";
-            Cart itemCart = new Cart { Id_Variant = item.Id_Variant, Qty = Quantity, Id_Customer = ScopedDataServices.ScopedData.DataLogin.No_Id };
+            Cart itemCart = new Cart { Id_Variant = item.Id_Variant, Qty = Quantity, Id_Customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id };
 
             string text = $"{item.No_Id}%section%{item.Id_Variant}%section%{Quantity}";
             string encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(text));

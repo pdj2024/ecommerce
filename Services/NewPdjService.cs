@@ -56,7 +56,460 @@ namespace Services
         }
 
 
+        public async Task<bool> ChangeAkunApi(ParameterApi urlParam, object data)
+        {
+            var config = await initConfigApi(urlParam);
+            var tbListProduk = new DataUser();
 
+            var jsonSettings = new JsonSerializerSettings
+            {
+                Formatting = Newtonsoft.Json.Formatting.None,
+                MissingMemberHandling = MissingMemberHandling.Ignore
+            };
+
+            var requestBody = data;
+
+            var jsonContent = JsonConvert.SerializeObject(requestBody, jsonSettings);
+            var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+            try
+            {
+                var response = await config.httpReq.PostAsync(config.UrlApi, content, config.cancelTimer.Token);
+                var checking = await CheckResponseAPI(response, config.UrlApi, $"Change-{urlParam.prosesApi}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                else if (checking.statusCode == 401)
+                {
+                    var statusRefresh = await RefreshToken();
+
+                    if (statusRefresh)
+                    {
+                        urlParam.token = ScopedDataServices.ScopedData.DataLogin.token;
+                        config = await initConfigApi(urlParam);
+
+                        response = await config.httpReq.GetAsync(config.UrlApi, config.cancelTimer.Token);
+
+                        checking = await CheckResponseAPI(response, config.UrlApi, "BACA");
+
+                        if (response.IsSuccessStatusCode)
+                        {
+                            return true;
+                        }
+                    }
+                    else
+                    {
+                        NavigationManager.NavigateTo($"/auth-user-logout/logout", forceLoad: true);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                writeLog($"Regist error: {ex.Message}");
+            }
+
+            return false;
+        }
+
+
+
+        public async Task<(string messageResponse, bool statusResponse, int codeNumber, string proses)> CudCartApi(string proses, Cart cart = null, ParameterApi urlParam = null)
+		{
+			var config = await initConfigApi(urlParam);
+			var result = (statusCode: 0, statusResponse: false, MessageInfo: "");
+			object requestBody = null;
+			string jsonContent = "";
+			HttpResponseMessage response;
+
+			var jsonSettings = new JsonSerializerSettings
+			{
+				Formatting = Newtonsoft.Json.Formatting.None,
+				MissingMemberHandling = MissingMemberHandling.Ignore
+			};
+
+			try
+			{
+				switch (proses)
+				{
+					case "HAPUS":
+						response = await config.httpReq.DeleteAsync(config.UrlApi, config.cancelTimer.Token);
+						break;
+
+					case "TAMBAH":
+						requestBody = new
+						{
+							id_Customer = cart.Id_Customer,
+							id_Variant = cart.Id_Variant,
+							add_qty = cart.Qty
+						};
+
+						jsonContent = JsonConvert.SerializeObject(requestBody, jsonSettings);
+						var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+						response = await config.httpReq.PostAsync(config.UrlApi, content, config.cancelTimer.Token);
+						break;
+
+					default:
+						jsonContent = JsonConvert.SerializeObject(requestBody, jsonSettings);
+						content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+						response = await config.httpReq.PutAsync(config.UrlApi, content, config.cancelTimer.Token);
+						break;
+				}
+
+				result = await CheckResponseAPI(response, config.UrlApi, proses);
+
+				if (response.IsSuccessStatusCode)
+				{
+
+				}
+				else if (result.statusCode == 401)
+				{
+					var statusRefresh = await RefreshToken();
+
+					if (statusRefresh)
+					{
+						urlParam.token = ScopedDataServices.ScopedData.DataLogin.token;
+						config = await initConfigApi(urlParam);
+
+						response = await config.httpReq.GetAsync(config.UrlApi, config.cancelTimer.Token);
+
+						result = await CheckResponseAPI(response, config.UrlApi, "BACA");
+
+						if (response.IsSuccessStatusCode)
+						{
+
+						}
+					}
+                    else
+                    {
+                        NavigationManager.NavigateTo($"/auth-user-logout/logout", forceLoad: true);
+                    }
+				}
+
+				return (result.MessageInfo, result.statusResponse, result.statusCode, proses);
+			}
+			catch (Exception ex)
+			{
+				if (ex is OperationCanceledException)
+				{
+					writeLog("Gagal CUD Data : Request ke API terlalu lama (timeout).");
+				}
+				else if (ex is HttpRequestException)
+				{
+					writeLog($"Gagal CUD Data : Terjadi kesalahan jaringan atau server. {ex.Message}");
+				}
+				else
+				{
+					writeLog($"Gagal CUD Data : Terjadi error: {ex.Message}");
+				}
+			}
+
+			return ("Terjadi Kesalahan: Gagal memproses data", false, 500, proses);
+		}
+
+		public async Task<(string messageResponse, bool statusResponse, int codeNumber, string proses, Pesanan.PaymentResponse dataRespons)> CudPesananApi(string proses, object order = null, ParameterApi urlParam = null)
+		{
+			var config = await initConfigApi(urlParam);
+			var result = (statusCode: 0, statusResponse: false, MessageInfo: "");
+			object requestBody = null;
+			string jsonContent = "";
+			HttpResponseMessage response;
+
+			var dataResponses = new Pesanan.PaymentResponse();
+
+			var jsonSettings = new JsonSerializerSettings
+			{
+				Formatting = Newtonsoft.Json.Formatting.None,
+				MissingMemberHandling = MissingMemberHandling.Ignore
+			};
+
+			try
+			{
+				switch (proses)
+				{
+					case "HAPUS":
+						response = await config.httpReq.DeleteAsync(config.UrlApi, config.cancelTimer.Token);
+						break;
+
+					case "TAMBAH":
+						requestBody = order;
+
+						jsonContent = JsonConvert.SerializeObject(requestBody, jsonSettings);
+						var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+						response = await config.httpReq.PostAsync(config.UrlApi, content, config.cancelTimer.Token);
+						break;
+
+					default:
+						jsonContent = JsonConvert.SerializeObject(requestBody, jsonSettings);
+						content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+						response = await config.httpReq.PutAsync(config.UrlApi, content, config.cancelTimer.Token);
+						break;
+				}
+
+				result = await CheckResponseAPI(response, config.UrlApi, proses);
+
+				if (response.IsSuccessStatusCode)
+				{
+					var json = await response.Content.ReadAsStringAsync();
+					using var jsonDoc = JsonDocument.Parse(json);
+					var root = jsonDoc.RootElement;
+
+					dataResponses = JsonConvert.DeserializeObject<Pesanan.PaymentResponse>(root.GetRawText());
+				}
+				else if (result.statusCode == 401)
+				{
+					var statusRefresh = await RefreshToken();
+
+					if (statusRefresh)
+					{
+						urlParam.token = ScopedDataServices.ScopedData.DataLogin.token;
+						config = await initConfigApi(urlParam);
+
+						response = await config.httpReq.GetAsync(config.UrlApi, config.cancelTimer.Token);
+
+						result = await CheckResponseAPI(response, config.UrlApi, "BACA");
+
+						if (response.IsSuccessStatusCode)
+						{
+							var json = await response.Content.ReadAsStringAsync();
+							using var jsonDoc = JsonDocument.Parse(json);
+							var root = jsonDoc.RootElement;
+
+							dataResponses = JsonConvert.DeserializeObject<Pesanan.PaymentResponse>(root.GetRawText());
+						}
+					}
+                    else
+                    {
+                        NavigationManager.NavigateTo($"/auth-user-logout/logout", forceLoad: true);
+                    }
+				}
+
+
+				return (result.MessageInfo, response.IsSuccessStatusCode, result.statusCode, proses, dataResponses);
+			}
+			catch (Exception ex)
+			{
+				if (ex is OperationCanceledException)
+				{
+					writeLog("Gagal CUD Data : Request ke API terlalu lama (timeout).");
+				}
+				else if (ex is HttpRequestException)
+				{
+					writeLog($"Gagal CUD Data : Terjadi kesalahan jaringan atau server. {ex.Message}");
+				}
+				else
+				{
+					writeLog($"Gagal CUD Data : Terjadi error: {ex.Message}");
+				}
+			}
+
+			return ("Terjadi Kesalahan: Gagal memproses data", false, 500, proses, dataResponses);
+		}
+
+
+		public async Task<Pesanan> showMorePesanan(ParameterApi urlParam)
+		{
+			var config = await initConfigApi(urlParam);
+			var tbListProduk = new Pesanan();
+
+			try
+			{
+				var response = await config.httpReq.GetAsync(config.UrlApi, config.cancelTimer.Token);
+
+				var checking = await CheckResponseAPI(response, config.UrlApi, "BACA");
+
+				if (response.IsSuccessStatusCode)
+				{
+					var json = await response.Content.ReadAsStringAsync();
+					using var jsonDoc = JsonDocument.Parse(json);
+					var root = jsonDoc.RootElement;
+
+					if (root.TryGetProperty("Data", out var dataFromDbProduk))
+					{
+						tbListProduk = JsonConvert.DeserializeObject<Pesanan>(dataFromDbProduk.GetRawText());
+					}
+
+					if (root.TryGetProperty("TotalCount", out var dataFromDbTotalCount))
+					{
+						tbListProduk.TotalCount = JsonConvert.DeserializeObject<int>(dataFromDbTotalCount.GetRawText());
+					}
+
+					if (root.TryGetProperty("HasMore", out var dataFromDbHasMore))
+					{
+						tbListProduk.hasMore = JsonConvert.DeserializeObject<bool>(dataFromDbHasMore.GetRawText());
+					}
+
+					if (root.TryGetProperty("LastCursor", out var dataFromDbLastCursor))
+					{
+						tbListProduk.LastCursor = JsonConvert.DeserializeObject<string>(dataFromDbLastCursor.GetRawText());
+					}
+
+					if (tbListProduk.Header.Count() <= 0)
+					{
+						writeLog($"Data Kosong");
+					}
+				}
+				else if (checking.statusCode == 401)
+				{
+					var statusRefresh = await RefreshToken();
+
+					if (statusRefresh)
+					{
+						urlParam.token = ScopedDataServices.ScopedData.DataLogin.token;
+						config = await initConfigApi(urlParam);
+
+						response = await config.httpReq.GetAsync(config.UrlApi, config.cancelTimer.Token);
+
+						checking = await CheckResponseAPI(response, config.UrlApi, "BACA");
+
+						if (response.IsSuccessStatusCode)
+						{
+							var json = await response.Content.ReadAsStringAsync();
+							using var jsonDoc = JsonDocument.Parse(json);
+							var root = jsonDoc.RootElement;
+
+							if (root.TryGetProperty("Data", out var dataFromDbProduk))
+							{
+								tbListProduk = JsonConvert.DeserializeObject<Pesanan>(dataFromDbProduk.GetRawText());
+							}
+
+							if (root.TryGetProperty("TotalCount", out var dataFromDbTotalCount))
+							{
+								tbListProduk.TotalCount = JsonConvert.DeserializeObject<int>(dataFromDbTotalCount.GetRawText());
+							}
+
+							if (root.TryGetProperty("HasMore", out var dataFromDbHasMore))
+							{
+								tbListProduk.hasMore = JsonConvert.DeserializeObject<bool>(dataFromDbHasMore.GetRawText());
+							}
+
+							if (root.TryGetProperty("LastCursor", out var dataFromDbLastCursor))
+							{
+								tbListProduk.LastCursor = JsonConvert.DeserializeObject<string>(dataFromDbLastCursor.GetRawText());
+							}
+
+							if (tbListProduk.Header.Count() <= 0)
+							{
+								writeLog($"Data Kosong");
+							}
+						}
+					}
+					else
+					{
+                        NavigationManager.NavigateTo($"/auth-user-logout/logout", forceLoad: true);
+                    }
+				}
+
+				return tbListProduk;
+			}
+			catch (Exception ex)
+			{
+				if (ex is OperationCanceledException)
+				{
+					writeLog("Gagal Baca Data : Request ke API terlalu lama (timeout).");
+				}
+				else if (ex is HttpRequestException)
+				{
+					writeLog($"Gagal Baca Data : Terjadi kesalahan jaringan atau server. {ex.Message}");
+				}
+				else
+				{
+					writeLog($"Gagal Baca Data : Terjadi error: {ex.Message}");
+				}
+			}
+
+			return tbListProduk;
+		}
+
+		public async Task<Pesanan> GetPesananApi(ParameterApi urlParam)
+        {
+            var config = await initConfigApi(urlParam);
+            var tbListProduk = new List<Pesanan>();
+            var tbListHead = new Pesanan();
+
+            try
+            {
+                var response = await config.httpReq.GetAsync(config.UrlApi, config.cancelTimer.Token);
+
+                var checking = await CheckResponseAPI(response, config.UrlApi, "BACA");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    using var jsonDoc = JsonDocument.Parse(json);
+                    var root = jsonDoc.RootElement;
+
+                    if (root.TryGetProperty("Data", out var dataFromDb))
+                    {
+                        tbListHead = JsonConvert.DeserializeObject<Pesanan>(dataFromDb.GetRawText());
+                    }
+                    else
+                    {
+                        writeLog($"Data Kosong");
+                    }
+                }
+                else if (checking.statusCode == 401)
+                {
+                    var statusRefresh = await RefreshToken();
+
+                    if (statusRefresh)
+                    {
+                        urlParam.token = ScopedDataServices.ScopedData.DataLogin.token;
+                        config = await initConfigApi(urlParam);
+
+                        response = await config.httpReq.GetAsync(config.UrlApi, config.cancelTimer.Token);
+
+                        checking = await CheckResponseAPI(response, config.UrlApi, "BACA");
+
+                        if (response.IsSuccessStatusCode)
+                        {
+                            var json = await response.Content.ReadAsStringAsync();
+                            using var jsonDoc = JsonDocument.Parse(json);
+                            var root = jsonDoc.RootElement;
+
+                            if (root.TryGetProperty("Data", out var dataFromDb))
+                            {
+                                tbListHead = JsonConvert.DeserializeObject<Pesanan>(dataFromDb.GetRawText());
+                            }
+                            else
+                            {
+                                writeLog($"Data Kosong");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        NavigationManager.NavigateTo($"/auth-user-logout/logout", forceLoad: true);
+                    }
+                }
+
+                return tbListHead;
+            }
+            catch (Exception ex)
+            {
+                if (ex is OperationCanceledException)
+                {
+                    writeLog("Gagal Baca Data : Request ke API terlalu lama (timeout).");
+                }
+                else if (ex is HttpRequestException)
+                {
+                    writeLog($"Gagal Baca Data : Terjadi kesalahan jaringan atau server. {ex.Message}");
+                }
+                else
+                {
+                    writeLog($"Gagal Baca Data : Terjadi error: {ex.Message}");
+                }
+            }
+
+            return tbListHead;
+
+        }
 
 
         public async Task<bool> LoginUserApi(ParameterApi urlParam, LoginViewModel data)
@@ -363,8 +816,36 @@ namespace Services
                 prosesApi = "get-profile",
                 ParamUrl = new ParameterApi.ParameterUrl { no_id = "comp_1" }
             });
+            
 
-            if (ScopedDataServices.ScopedData.DataLogin != null && ScopedDataServices.ScopedData.DataLogin.No_Id != "")
+            var NavbarTask = GetListGlobalDataAsync<Navbar>(new ParameterApi
+            {
+                routeApi = "navbar",
+                prosesApi = "getAll",
+                ParamUrl = new ParameterApi.ParameterUrl
+                {
+                    no_id = "comp_1",
+                    status = "aktif"
+                }
+            });
+
+            var SosmedTask = GetListGlobalDataAsync<CompanySosial>(new ParameterApi
+            {
+                routeApi = "company",
+                prosesApi = "get-social",
+                ParamUrl = new ParameterApi.ParameterUrl
+                {
+                    no_id = "comp_1",
+                    status = "aktif"
+                }
+            });
+
+                        
+            // Tunggu semua task selesai
+            await Task.WhenAll(produkTask, bannerTask, brandTask, kategoriTask, companyTask, NavbarTask, SosmedTask);
+
+
+            if (ScopedDataServices.ScopedData.DataLogin != null && ScopedDataServices?.ScopedData?.DataLogin?.No_Id != "")
             {
                 var CartTask = GetApi<Cart>(new ParameterApi
                 {
@@ -374,7 +855,7 @@ namespace Services
                     refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
                     ParamUrl = new ParameterApi.ParameterUrl
                     {
-                        id_customer = ScopedDataServices.ScopedData.DataLogin.No_Id,
+                        id_customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id,
                         show_media = "true",
                         orderBy = "Updated_At",
                         orderDir = "desc",
@@ -390,19 +871,7 @@ namespace Services
                     refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
                     ParamUrl = new ParameterApi.ParameterUrl
                     {
-                        id_customer = ScopedDataServices.ScopedData.DataLogin.No_Id,
-                    }
-                });
-
-                var infoCustomer = GetApi<DataUser>(new ParameterApi
-                {
-                    routeApi = "customer",
-                    prosesApi = "getAll",
-                    token = ScopedDataServices.ScopedData.DataLogin.token,
-                    refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        no_id = ScopedDataServices.ScopedData.DataLogin.No_Id,
+                        id_customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id,
                     }
                 });
 
@@ -448,42 +917,35 @@ namespace Services
 
                 });
 
+                var infoCustomer = GetApi<DataUser>(new ParameterApi
+                {
+                    routeApi = "customer",
+                    prosesApi = "getAll",
+                    token = ScopedDataServices.ScopedData.DataLogin.token,
+                    refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        no_id = ScopedDataServices?.ScopedData?.DataLogin?.No_Id,
+                    }
+                });
+
                 await Task.WhenAll(CartTask, SummaryPesananTask, nilaiDefaultTask, metodeKirimTask, metodeBayarTask, infoCustomer);
+
+                if (infoCustomer.Result?.Data == null)
+                {
+                    NavigationManager.NavigateTo($"/auth-user-logout/logout", forceLoad: true);
+                    return;
+                }
 
                 ScopedDataServices.ScopedData.ListDataSummaryPesanan = SummaryPesananTask.Result?.Data ?? new();
                 ScopedDataServices.ScopedData.ListDataCart = CartTask.Result?.Data ?? new();
-                ScopedDataServices.ScopedData.DataLogin.DataUser = infoCustomer.Result.Data.FirstOrDefault();
+                ScopedDataServices.ScopedData.DataLogin.DataUser = infoCustomer.Result?.Data?.FirstOrDefault() ?? new();
+                ScopedDataServices.ScopedData.DataLogin.DataUser.Password = "xample_pass";
 
-                var data = GlobalDataService.GlobalData.ListDataLogin.FirstOrDefault(x => x.No_Id == ScopedDataServices.ScopedData.DataLogin.No_Id);
-                data.DataUser = infoCustomer.Result.Data.FirstOrDefault();
+                var data = GlobalDataService.GlobalData.ListDataLogin.FirstOrDefault(x => x.No_Id == ScopedDataServices?.ScopedData?.DataLogin?.No_Id);
+                data.DataUser = infoCustomer.Result?.Data?.FirstOrDefault() ?? new();
+                data.DataUser.Password = "xample_pass";
             }
-
-            var NavbarTask = GetListGlobalDataAsync<Navbar>(new ParameterApi
-            {
-                routeApi = "navbar",
-                prosesApi = "getAll",
-                ParamUrl = new ParameterApi.ParameterUrl
-                {
-                    no_id = "comp_1",
-                    status = "aktif"
-                }
-            });
-
-            var SosmedTask = GetListGlobalDataAsync<CompanySosial>(new ParameterApi
-            {
-                routeApi = "company",
-                prosesApi = "get-social",
-                ParamUrl = new ParameterApi.ParameterUrl
-                {
-                    no_id = "comp_1",
-                    status = "aktif"
-                }
-            });
-
-            
-            
-            // Tunggu semua task selesai
-            await Task.WhenAll(produkTask, bannerTask, brandTask, kategoriTask, companyTask, NavbarTask, SosmedTask);
         }
 
 
@@ -561,7 +1023,7 @@ namespace Services
                         var ListNewData = await GetApi<T>(parameterApi);
                         GlobalDataService.GlobalData.SetListData(typeof(T), ListNewData?.Data ?? new());
                     }
-                    else if (Updated && (DateTime.Now - lastSync).TotalHours >= 12)
+                    else if (Updated && (DateTime.Now - lastSync).TotalMinutes >= 10)
                     {
                         var ListNewData = await GetApi<T>(parameterApi);
                         GlobalDataService.GlobalData.SetListData(typeof(T), ListNewData?.Data ?? new());
@@ -876,7 +1338,7 @@ namespace Services
                     }
                     else
                     {
-                        return null;
+                        NavigationManager.NavigateTo($"/auth-user-logout/logout", forceLoad: true);
                     }
                 }
             }
@@ -899,7 +1361,7 @@ namespace Services
             return null;
         }
 
-        private async Task<StatusResposeApi<T>> UpdateApi<T>(ParameterApi paramUrl, object DataUpdate)
+        public async Task<StatusResposeApi<T>> UpdateApi<T>(ParameterApi paramUrl, object DataUpdate)
         {
             var config = await initConfigApi(paramUrl);
             StatusResposeApi<T> deserApi = null;
@@ -947,7 +1409,7 @@ namespace Services
                     }
                     else
                     {
-                        return null;
+                        NavigationManager.NavigateTo($"/auth-user-logout/logout", forceLoad: true);
                     }
                 }
             }
@@ -1020,7 +1482,7 @@ namespace Services
                     else
                     {
 
-                        return null;
+                        NavigationManager.NavigateTo($"/auth-user-logout/logout", forceLoad: true);
                     }
                 }
             }
@@ -1093,7 +1555,7 @@ namespace Services
                     else
                     {
 
-                        return null;
+                        NavigationManager.NavigateTo($"/auth-user-logout/logout", forceLoad: true);
                     }
                 }
             }
@@ -1117,7 +1579,83 @@ namespace Services
             return null;
         }
 
-      
+
+
+
+        public async Task<ChangePayment> ChangePayment(ParameterApi paramUrl, object DataUpdate)
+        {
+            var config = await initConfigApi(paramUrl);
+            ChangePayment deserApi = null;
+
+            var jsonSettings = new JsonSerializerSettings
+            {
+                Formatting = Newtonsoft.Json.Formatting.None,
+                MissingMemberHandling = MissingMemberHandling.Ignore
+            };
+
+            try
+            {
+                if (DataUpdate == null) return deserApi;
+                var jsonContent = JsonConvert.SerializeObject(DataUpdate, jsonSettings);
+                var response = await config.httpReq.PostAsync(config.UrlApi, new StringContent(jsonContent, Encoding.UTF8, "application/json"), config.cancelTimer.Token);
+
+                var checking = await CheckResponseAPI(response, config.UrlApi, "Update");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    deserApi = JsonConvert.DeserializeObject<ChangePayment>(json);
+                    return deserApi;
+                }
+
+                else if ((int)response.StatusCode == 401)
+                {
+                    var statusRefresh = await RefreshToken();
+
+                    if (statusRefresh)
+                    {
+                        paramUrl.token = ScopedDataServices.ScopedData.DataLogin.token;
+                        config = await initConfigApi(paramUrl);
+
+                        response = await config.httpReq.PutAsync(config.UrlApi, new StringContent(jsonContent, Encoding.UTF8, "application/json"), config.cancelTimer.Token);
+
+                        checking = await CheckResponseAPI(response, config.UrlApi, "RefreshToken");
+
+                        if (response.IsSuccessStatusCode)
+                        {
+                            var json = await response.Content.ReadAsStringAsync();
+                            deserApi = JsonConvert.DeserializeObject<ChangePayment>(json);
+                            return deserApi;
+                        }
+                    }
+                    else
+                    {
+                        NavigationManager.NavigateTo($"/auth-user-logout/logout", forceLoad: true);
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+                if (ex is OperationCanceledException)
+                {
+                    await writeLog("Gagal Update Data : Request ke API terlalu lama (timeout).");
+                }
+                else if (ex is HttpRequestException)
+                {
+                    await writeLog($"Gagal Update Data : Terjadi kesalahan jaringan atau server. {ex.Message}");
+                }
+                else
+                {
+                    await writeLog($"Gagal Update Data : Terjadi error: {ex.Message}");
+                }
+            }
+
+            return null;
+        }
+
+
+
 
 
         public async Task<bool> LogoutAsync(ParameterApi paramUrl)
@@ -1246,7 +1784,7 @@ namespace Services
             await _refreshLock.WaitAsync(); // 🔒 Pastikan hanya 1 refresh berjalan
             try
             {
-                var LoginUser = GlobalDataService.GlobalData.ListDataLogin.FirstOrDefault(x => x.No_Id == ScopedDataServices.ScopedData.DataLogin.No_Id);
+                var LoginUser = GlobalDataService.GlobalData.ListDataLogin.FirstOrDefault(x => x.No_Id == ScopedDataServices?.ScopedData?.DataLogin?.No_Id);
 
                 var cancelTimer = new CancellationTokenSource(TimeSpan.FromSeconds(5));
                 var httpReq = new HttpClient();
@@ -1291,7 +1829,7 @@ namespace Services
                             HttpOnly = true,
                         };
 
-                        LoginUser = GlobalDataService.GlobalData.ListDataLogin.FirstOrDefault(x => x.No_Id == ScopedDataServices.ScopedData.DataLogin.No_Id);
+                        LoginUser = GlobalDataService.GlobalData.ListDataLogin.FirstOrDefault(x => x.No_Id == ScopedDataServices?.ScopedData?.DataLogin?.No_Id);
 
                         LoginUser.token = deserApi.token ?? LoginUser.token;
                         LoginUser.refreshToken = deserApi.refreshToken ?? LoginUser.refreshToken;

@@ -276,7 +276,7 @@ else
                                         </button>
                                     </li> 
                                     <li style="cursor:pointer;">
-                                        <button class="dropdown-item dropdown-item-custom">
+                                        <button class="dropdown-item dropdown-item-custom" @onclick="@(e => NavigateToHome("cart-page/setting"))">
                                             <div class="d-flex flex-row justify-content-end gap-3">
                                                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm70-80h79l14-106q31-8 57.5-23.5T639-327l99 41 39-68-86-65q5-14 7-29.5t2-31.5q0-16-2-31.5t-7-29.5l86-65-39-68-99 42q-22-23-48.5-38.5T533-694l-13-106h-79l-14 106q-31 8-57.5 23.5T321-633l-99-41-39 68 86 64q-5 15-7 30t-2 32q0 16 2 31t7 30l-86 65 39 68 99-42q22 23 48.5 38.5T427-266l13 106Zm42-180q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Zm-2-140Z"/>
                                                 </svg>
@@ -330,7 +330,7 @@ else
 <div class="offcanvas offcanvas-end" style="width: 500px;" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
     <div class="offcanvas-header">
         <h5 id="offcanvasRightLabel" style="font-size: 1.5rem;font-weight: 800;">
-            Search
+            Pencarian
         </h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
@@ -348,7 +348,7 @@ else
                                 </div>
                             } else
                             {
-                                <span>Clear</span>
+                                <span>Hapus</span>
                             }
                     </button>
                 </div>
@@ -427,7 +427,7 @@ else
                 <div class="col-12 mt-3">
                     <div class="btn-group w-100">
                         <button class="btn-slide justify-content-start border-0" type="button" @onclick="@(x => seeResult())" aria-expanded="false">
-                            See all results for “@SearchText”
+                            Lihat semua hasil untuk “@SearchText”
                         </button>
                     </div>
                 </div>
@@ -442,8 +442,8 @@ else
                     <svg xmlns="http://www.w3.org/2000/svg" height="5rem" viewBox="0 -960 960 960" width="5rem" class="mb-3" fill="currentColor">
                         <path d="m634-440-81-80h69l110-200H353l-80-80h525q23 0 35.5 19.5t.5 42.5L692-482q-11 20-28 31t-30 11ZM280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm540 52L566-280H304q-44 0-67-37.5t-3-78.5l42-86-72-162L28-820l56-56L876-84l-56 56ZM486-360l-80-80h-62l-40 80h182Zm136-160h-69 69Zm58 440q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80Z"/>
                     </svg>
-                    <h5 style="color:#6b7280">Not Result Found "@SearchText"</h5>
-                    <p style="color:#6b7280">Check the spelling or use a different word or phrase.</p>
+                    <h5 style="color:#6b7280">Tidak Ditemukan Hasil "@SearchText"</h5>
+                    <p style="color:#6b7280">Periksa ejaan atau gunakan kata berbeda.</p>
                 </div>
             }
 
@@ -826,7 +826,7 @@ else
                     <div class="modal-body pb-3">
                         <div class="row">
                             <div class="col-12">
-                                <OtpPage UId=@uid NoTlp=@ModelRegist.NoTlp Pass=@ModelRegist.Password/>
+                                <OtpPage IdInfo=@dataChange UId=@uid NoTlp=@ModelRegist.NoTlp Pass=@ModelRegist.Password/>
                             </div>
                         </div>
                     </div>
@@ -903,7 +903,7 @@ else
                         <h5 class="modal-title w-100 text-xl-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">Masuk Disini</h5>
                         <p style="font-size:13px; font-weight:300 " class="text-xl-center w-100">
                             Belum Memiliki Akun?
-                            <span class="underline-anim" style="font-weight:500" @onclick="@(x => changeLogin("sign-up"))">Mendaftar</span> .
+                            <span class="underline-anim" style="font-weight:500" @onclick="@(x => changeLogin("sign-up"))" >Mendaftar</span> .
                         </p>
                         <button type="button" id="closeLoginRegis" style="position: absolute;top: 25px;right: 25px;" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -941,6 +941,16 @@ else
                             </div>
                         } 
 
+                        @if (infoSubmit == 2) {
+                            <div class="toast show showing align-items-center mt-1 mb-3 mx-auto border-0 shadow-none" style="opacity : 1 !important;" role="alert" aria-live="assertive" aria-atomic="true">
+                                <div class="d-flex w-100">
+                                    <div class="toast-body text-center w-100">
+                                        <strong class="me-auto text-danger text-center">Isi nomor telpon dan password !</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
                         <div class="modal-footer justify-content-center button border-top-0 pt-5 pb-3 px-5">
                             <button type="submit" class="btn-slide py-2 px-4" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;">
                                 <span class="position-relative">Masuk</span>
@@ -951,6 +961,67 @@ else
 
                     <button type="button" class="btn btn-primary border-0" id="liveToastBtn" style="width:0px; height:0px; overflow:hidden"></button>
 
+                    <p style="font-size:13px; font-weight:300 " class="text-xl-center w-100">
+                        <span class="underline-anim" style="font-weight:500" @onclick="@(x => changeLogin("lupa-pw"))" >Lupa Password?</span> .
+                    </p>
+
+                </div>
+                
+                <div class="lupa-pw" style="">
+                    <div class="modal-header justify-content-center d-flex flex-column border-bottom-0 pb-0">
+                        <h5 class="modal-title w-100 text-xl-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">
+                            Lupa Kata Sandi
+                        </h5>
+                        <button type="button" style="position: absolute;top: 25px;right: 25px;" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body pb-3">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="input-group mb-3 style-grup px-1 border-1 pt-2 pb-2 form-style">
+                                    <InputText id="phone-change" @bind-value=@ModelRegist.NoTlp type="tel" name="phone" class="form-control search-form form-text input-otp" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" placeholder="Nomer Telepon (e.x 0812-3456-7899) *" required style="padding-left: 85px; font-size: 14px;" />
+                                </div>
+
+                                <div class="input-group mb-3 style-grup px-1 border-1 py-1 pb-2 form-style">
+                                    <InputText type="password" @bind-value=@ModelRegist.Password id="Password" style="font-size: 14px;" class="form-control search-form form-text" placeholder="Masukkan Kata Sandi Baru *" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" required />
+                                </div>
+
+                                <div>
+                                    <div id="result-change" class="result-box" style="display:none;">
+                                        <strong id="e164Number-change"></strong>
+                                    </div>
+                                </div>
+
+                                <p style="font-size:13px; font-weight:300; font-style:italic;">Kolom yang bertanda * wajib diisi.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    @if (infoSubmit == 1) {
+                        <div class="toast show showing align-items-center mt-1 mb-3 mx-auto border-0 shadow-none" style="opacity : 1 !important;" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="d-flex w-100">
+                                <div class="toast-body text-center w-100">
+                                    <strong class="me-auto text-danger text-center">Isi nomer telepon dan kata sandi yang baru !</strong>
+                                </div>
+                            </div>
+                        </div>
+                    } 
+
+                    @if (infoSubmit == 2) {
+                        <div class="toast show showing align-items-center mt-1 mb-3 mx-auto border-0 shadow-none" style="opacity : 1 !important;" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="d-flex w-100">
+                                <div class="toast-body text-center w-100">
+                                    <strong class="me-auto text-danger text-center">Nomor telpon tidak valid !</strong>
+                                </div>
+                            </div>
+                        </div>
+                    } 
+
+                    <div class="modal-footer justify-content-center button border-top-0 pt-5 pb-3 px-5">
+                        <button type="submit" @onclick="@(x => changeLogin("change-pw"))" class="btn-slide py-2 px-4" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;">
+                            <span class="position-relative">Perbarui Kata Sandi</span>
+                        </button>
+                    </div>
 
                 </div>
             </div>

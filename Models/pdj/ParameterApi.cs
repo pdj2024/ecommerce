@@ -25,6 +25,20 @@ namespace Models
         public string refreshToken { get; set; } = "";
     }
 
+    public class ChangePayment
+    {
+        public string Message { get; set; } = "";
+        public string StatusLama { get; set; } = "";
+        public CancelResults CancelResult { get; set; } = new();
+    }
+
+    public class CancelResults
+    {
+        public int Status { get; set; } = 0;
+        public string Message { get; set; } = "";
+        public Pesanan.MidtransResponses Data { get; set; } = new ();
+    }
+
     public class StatusResposeTransaksiApi<T>
     {
         public int StatusCode { get; set; } = 0;
@@ -91,6 +105,7 @@ namespace Models
                 public string id_cart { get; set; }
                 public string status_bayar { get; set; }
                 public string id_payment_gateway { get; set; }
+                public string payment_type { get; set; }
                 public string id_detil { get; set; }
                 public string show_media { get; set; }
                 public string no_bukti { get; set; }

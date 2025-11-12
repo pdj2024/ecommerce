@@ -157,7 +157,6 @@ namespace PacificWeb.Components.Pages
                 else if (CartList == "direct") {
                     string decoded = Encoding.UTF8.GetString(Convert.FromBase64String(itemVariant));
                     listDirectItem = decoded.Split("%section%");
-                    Console.WriteLine(listDirectItem.Count().ToString());
                 }
                 else
                 {
@@ -179,121 +178,126 @@ namespace PacificWeb.Components.Pages
         {
             if (firstRender)
             {
+                try 
+                { 
+                
+                    var refreshTask = NewPdjService.RefreshDataMainKonten();
 
-
-                var refreshTask = NewPdjService.RefreshDataMainKonten();
-
-                if (CartList == "cart")
-                {
-                    var dataCard = await pdjService.GetCartApi(new ParameterApi
+                    if (CartList == "cart")
                     {
-                        routeApi = "cart",
-                        prosesApi = "getAll",
-                        token = ScopedDataServices.ScopedData.DataLogin.token,
-                        refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
-                        ParamUrl = new ParameterApi.ParameterUrl
+                        var dataCard = await NewPdjService.GetApi<Cart>(new ParameterApi
                         {
-                            noid_list = listCard,
-                            show_media = "true",
-                            status = "aktif",
-                        }
-                    });
+                            routeApi = "cart",
+                            prosesApi = "getAll",
+                            token = ScopedDataServices.ScopedData.DataLogin.token,
+                            refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
+                            ParamUrl = new ParameterApi.ParameterUrl
+                            {
+                                noid_list = listCard,
+                                show_media = "true",
+                                status = "aktif",
+                            }
+                        });
 
-                    if (dataCard.Count() >= 1)
-                    {
-                        dataSourch.ListDataCart.AddRange(dataCard);
+                        if (dataCard.Data.Count() >= 1)
+                        {
+                            dataSourch.ListDataCart.AddRange(dataCard.Data);
                         
-                    } else
-                    {
-                        await pdjService.ButtonCLick("modalPaymentStatus4");
-                        await Task.Delay(5000);
-                        await pdjService.GoBack();
-                    }
-
-                }
-                else
-                {
-                    if(listDirectItem.Count() <=2) 
-                    {
-                        contentCrash = false;
-                    }
-
-                    var dataDirect = await pdjService.GetProdukApi(new ParameterApi
-                    {
-                        routeApi = "produk",
-                        prosesApi = "getAll",
-                        ParamUrl = new ParameterApi.ParameterUrl
+                        } else
                         {
-                            status = "aktif",
-                            no_id = listDirectItem[0],
-                            show_media = "true",
-                            show_variant = true
+                            await pdjService.ButtonCLick("modalPaymentStatus4");
+                            await Task.Delay(5000);
+                            await pdjService.GoBack();
                         }
-                    });
 
-                    var itemDirect = dataDirect.FirstOrDefault(x => x.No_Id == listDirectItem[0])?.Variants.FirstOrDefault(x => x.No_Id == listDirectItem[1]);
-                    var itemProduct = dataDirect.FirstOrDefault(x => x.No_Id == listDirectItem[0]);
-
-                    if (itemDirect != null && itemDirect.Stock >= int.Parse(listDirectItem[2]))
-                    {
-                        dataSourch.ListDataCart.Add(new Cart 
-                        { 
-                            Id_Variant = itemDirect.No_Id, 
-                            Qty = int.Parse(listDirectItem[2] ?? "0"), 
-                            Harga = itemDirect.Harga,
-                            Size_Id = itemDirect?.Size_Id,
-                            Size_Label = itemDirect?.Size_Label,
-                            Option_Id = itemDirect?.Option_Id,
-                            Option_Label = itemDirect?.Option_Label,
-                            Diskon1 = itemProduct?.Diskon1,
-                            Diskon2 = itemProduct?.Diskon2,
-                            Nama_Display = itemProduct?.Nama_Display,
-                            Stock = itemDirect.Stock,
-                            Id_Media = dataDirect.FirstOrDefault(x => x.No_Id == listDirectItem[0])?.Options.FirstOrDefault(x => x.Option_Id == itemDirect.Option_Id)?.MediaUrl.Id_Media}
-                        );
-                        Console.WriteLine("add cart");
                     }
-                    else if (itemDirect != null && itemDirect.Stock < int.Parse(listDirectItem[2]))
+                    else
                     {
-                        await pdjService.ButtonCLick("modalPaymentStatus3");
-                        Console.WriteLine("stock tidak cukup");
-                        await Task.Delay(3000);
-                        await pdjService.GoBack();
-                        return;
-                    } else
-                    {
-                        await pdjService.ButtonCLick("modalPaymentStatus4");
-                        Console.WriteLine("rusak");
-                        await Task.Delay(3000);
-                        await pdjService.GoBack();
-                        return;
+                        if(listDirectItem.Count() <=2) 
+                        {
+                            contentCrash = false;
+                        }
+
+                        var dataDirect = await NewPdjService.GetApi<Produk>(new ParameterApi
+                        {
+                            routeApi = "produk",
+                            prosesApi = "getAll",
+                            ParamUrl = new ParameterApi.ParameterUrl
+                            {
+                                status = "aktif",
+                                no_id = listDirectItem[0],
+                                show_media = "true",
+                                show_variant = true
+                            }
+                        });
+
+                        var itemDirect = dataDirect.Data.FirstOrDefault(x => x.No_Id == listDirectItem[0])?.Variants.FirstOrDefault(x => x.No_Id == listDirectItem[1]);
+                        var itemProduct = dataDirect.Data.FirstOrDefault(x => x.No_Id == listDirectItem[0]);
+
+                        if (itemDirect != null && itemDirect.Stock >= int.Parse(listDirectItem[2]))
+                        {
+                            dataSourch.ListDataCart.Add(new Cart 
+                            { 
+                                Id_Variant = itemDirect.No_Id, 
+                                Qty = int.Parse(listDirectItem[2] ?? "0"), 
+                                Harga = itemDirect.Harga,
+                                Size_Id = itemDirect?.Size_Id,
+                                Size_Label = itemDirect?.Size_Label,
+                                Option_Id = itemDirect?.Option_Id,
+                                Option_Label = itemDirect?.Option_Label,
+                                Diskon1 = itemProduct?.Diskon1,
+                                Diskon2 = itemProduct?.Diskon2,
+                                Nama_Display = itemProduct?.Nama_Display,
+                                Stock = itemDirect.Stock,
+                                Id_Media = dataDirect.Data.FirstOrDefault(x => x.No_Id == listDirectItem[0])?.Options.FirstOrDefault(x => x.Option_Id == itemDirect.Option_Id)?.MediaUrl.Id_Media}
+                            );
+                        }
+                        else if (itemDirect != null && itemDirect.Stock < int.Parse(listDirectItem[2]))
+                        {
+                            await pdjService.ButtonCLick("modalPaymentStatus3");
+                            await Task.Delay(3000);
+                            await pdjService.GoBack();
+                            return;
+                        } else
+                        {
+                            await pdjService.ButtonCLick("modalPaymentStatus4");
+                            await Task.Delay(3000);
+                            await pdjService.GoBack();
+                            return;
+                        }
+
                     }
 
+                    var data = GlobalDataService?.GlobalData?.ListDataPengiriman.FirstOrDefault(x => x.selectShipping == true);
+                    var dataZ = GlobalDataService?.GlobalData?.ListDataPembayaran.FirstOrDefault(x => x.selectPayment == true);
+
+                    if(data != null)
+                    {
+                        data.selectShipping = false;
+                    }
+
+                    if(dataZ != null)
+                    {
+                        dataZ.selectPayment = false;
+                    }
+
+                    StateHasChanged();
+
+                    Pesanan_Info.Header[0].Nama_Penerima = ScopedDataServices.ScopedData.DataLogin.DataUser.UserName;
+                    Pesanan_Info.Header[0].Telpon_Penerima = ScopedDataServices.ScopedData.DataLogin.DataUser.Telepon;
+                    Pesanan_Info.Header[0].Alamat_Kirim = ScopedDataServices.ScopedData.DataLogin.DataUser.Alamat;
+
+                    hitungTotal();
+
+                    loadContent = false;
+                    StateHasChanged();
+                
+                }
+                catch {
+                    contentCrash = false;
                 }
 
-                var data = GlobalDataService?.GlobalData?.ListDataPengiriman.FirstOrDefault(x => x.selectShipping == true);
-                var dataZ = GlobalDataService?.GlobalData?.ListDataPembayaran.FirstOrDefault(x => x.selectPayment == true);
-
-                if(data != null)
-                {
-                    data.selectShipping = false;
-                }
-
-                if(dataZ != null)
-                {
-                    dataZ.selectPayment = false;
-                }
-
-                StateHasChanged();
-
-                Pesanan_Info.Header[0].Nama_Penerima = ScopedDataServices.ScopedData.DataLogin.DataUser.Nama_Display;
-                Pesanan_Info.Header[0].Telpon_Penerima = ScopedDataServices.ScopedData.DataLogin.DataUser.Telepon;
-
-                hitungTotal();
-
-                loadContent = false;
-                StateHasChanged();
-
+                await JSRuntime.InvokeVoidAsync("countdownTimer.start");
             }
         }
 
@@ -420,7 +424,7 @@ namespace PacificWeb.Components.Pages
 
             StateHasChanged();
 
-            var dataOrder = await pdjService.GetPesananApi(new ParameterApi
+            var dataOrder = await NewPdjService.GetPesananApi(new ParameterApi
             {
                 routeApi = "order",
                 prosesApi = "getAll",
@@ -522,7 +526,7 @@ namespace PacificWeb.Components.Pages
             if (!string.IsNullOrEmpty(GeneratedImageBase64))
             {
                 var base64Data = GeneratedImageBase64.Replace("data:image/png;base64,", "");
-                await JSRuntime.InvokeVoidAsync("downloadFileFromBase64", $"QR-PDJ-{item.No_Bukti}-{DateTime.Now.ToLocalTime()}.png", base64Data);
+                await JSRuntime.InvokeVoidAsync("downloadFileFromBase64", $"QR-PDJ-{item.No_Tracking}-{DateTime.Now.ToLocalTime()}.png", base64Data);
             }
         }
         
@@ -574,7 +578,7 @@ namespace PacificWeb.Components.Pages
 
             var dataOrderCart = new
             {
-                Id_Customer = ScopedDataServices.ScopedData.DataLogin.No_Id,
+                Id_Customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id,
                 Status_Bayar = "",
                 Id_Payment_Gateway = "",
                 Payment_Type = dataLayanan.Cara_Bayar,
@@ -587,8 +591,9 @@ namespace PacificWeb.Components.Pages
                 ambil_dari_cart = CartList == "cart" ? true : false
             };
 
+            await JSRuntime.InvokeVoidAsync("countdownTimer.pause");
 
-            var dataCard = await pdjService.CudPesananApi("TAMBAH", dataOrderCart, new ParameterApi
+            var dataCard = await NewPdjService.CudPesananApi("TAMBAH", dataOrderCart, new ParameterApi
             {
                 routeApi = "order",
                 prosesApi = "create",
@@ -600,13 +605,12 @@ namespace PacificWeb.Components.Pages
 
             var data = dataCard.messageResponse.Split("%section%");
             dataSourch.DataResponsePesanan = dataCard.dataRespons;
-            await pdjService.ShowConsoleData(dataCard.dataRespons);
 
             if (dataSourch.DataResponsePesanan.BuatPesanan.StatusCode == 200 && dataSourch.DataResponsePesanan.Payment.StatusCode == 200)
             {
                 var noBukti = data.Count() > 1 ? data[1] : "";
 
-                var dataOrder = await pdjService.GetPesananApi(new ParameterApi
+                var dataOrder = await NewPdjService.GetPesananApi(new ParameterApi
                 {
                     routeApi = "order",
                     prosesApi = "getAll",

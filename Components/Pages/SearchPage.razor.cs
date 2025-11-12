@@ -210,7 +210,7 @@ namespace PacificWeb.Components.Pages
                 {
                     foreach (var idKat in SearchQuery.Kategori.Split(","))
                     {
-                        var kate = dataSourch.ListDataKategori.FirstOrDefault(x => x.No_Id == idKat);
+                        var kate = GlobalDataService.GlobalData.ListDataKategori.FirstOrDefault(x => x.No_Id == idKat);
 
                         if (kate != null)
                         {
@@ -306,14 +306,14 @@ namespace PacificWeb.Components.Pages
         public async Task selectProduk(string id_kode)
         {
 
-            var produkTask = await pdjService.GetProdukApi(new ParameterApi
+            var produkTask = await NewPdjService.GetApi<Produk>(new ParameterApi
             {
                 routeApi = "produk",
                 prosesApi = "getAll",
                 ParamUrl = new ParameterApi.ParameterUrl { pagesize = 2, show_variant = true, max_media = 10, no_id = id_kode }
             });
 
-            DataProduk = produkTask.FirstOrDefault(x => x.No_Id == id_kode);
+            DataProduk = produkTask.Data.FirstOrDefault(x => x.No_Id == id_kode);
 
             if (DataProduk == null)
             {

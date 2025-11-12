@@ -55,6 +55,11 @@ namespace PacificWeb.Components.Sections
         public string? UId { get; set; }
 
         [Parameter]
+        public int? IdInfo { get; set; } = 0;
+
+        public bool IdSucces { get; set; } = false;
+
+        [Parameter]
         public string? NoTlp { get; set; }
 
         [Parameter]
@@ -83,7 +88,7 @@ namespace PacificWeb.Components.Sections
                 auth = false;
                 StateHasChanged();
 
-                var dataDecodeA = await pdjService.DecodeEncode(true, new List<string> { ScopedDataServices.ScopedData.DataLogin.No_Id });
+                var dataDecodeA = await pdjService.DecodeEncode(true, new List<string> { ScopedDataServices?.ScopedData?.DataLogin?.No_Id });
                 NavigationManager.NavigateTo($"/auth-user-session/session/{dataDecodeA[0]}", forceLoad: true);
             } 
             else
@@ -96,6 +101,48 @@ namespace PacificWeb.Components.Sections
 
         }
 
+        public async Task cobaLagi()
+        {
+            if (IdInfo == 1)
+            {
+                object dataobj = new
+                {
+                    No_Id = ScopedDataServices.ScopedData.DataLogin.No_Id,
+                    New_Token = TokenJwt,
+                    Password = Pass
+                };
+
+                var info = await NewPdjService.ChangeAkunApi(new ParameterApi
+                {
+                    routeApi = "auth",
+                    prosesApi = "change-phone",
+                    token = ScopedDataServices.ScopedData.DataLogin.token,
+                    refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
+                }, dataobj);
+
+                IdSucces = info;
+                return;
+            }
+
+            else if (IdInfo == 2)
+            {
+                object dataobj = new
+                {
+                    Token = TokenJwt,
+                    New_Password = Pass,
+                };
+
+                var info = await NewPdjService.ChangeAkunApi(new ParameterApi
+                {
+                    routeApi = "auth",
+                    prosesApi = "change-password",
+                }, dataobj);
+
+                IdSucces = info;
+                return;
+            }
+        }
+
         public async Task sendOtp()
         {
             var verifyCode = await JSRuntime.InvokeAsync<string>("verifyCode");
@@ -104,11 +151,59 @@ namespace PacificWeb.Components.Sections
             {
                 TokenJwt = verifyCode;
 
+                if (IdInfo == 1)
+                {
+                    object dataobj = new
+                    {
+                        No_Id = ScopedDataServices.ScopedData.DataLogin.No_Id,
+                        New_Token = TokenJwt,
+                        Password = Pass
+                    };
+
+                    var info = await NewPdjService.ChangeAkunApi(new ParameterApi
+                    {
+                        routeApi = "auth",
+                        prosesApi = "change-phone",
+                    }, dataobj);
+
+                    IdSucces = info;
+                    return;
+                }
+            
+                else if ( IdInfo == 2 )
+                {
+                    object dataobj = new
+                    {
+                        Token = TokenJwt,
+                        New_Password = Pass,
+                    };
+
+                    pdjService.ShowConsoleData(dataobj);
+
+                    var info = await NewPdjService.ChangeAkunApi(new ParameterApi
+                    {
+                        routeApi = "auth",
+                        prosesApi = "change-password",
+                    }, dataobj);
+
+                    IdSucces = info;
+                    return;
+                }
+
+
+
+
                 var data = await pdjService.RegistUserApi(new ParameterApi
                 {
                     routeApi = "auth",
                     prosesApi = "register",
-                }, new DataLogin { Telepon = NoTlp , tokenJwt = TokenJwt, Password = Pass });
+                }, 
+                new DataLogin 
+                { 
+                    Telepon = NoTlp , 
+                    tokenJwt = TokenJwt, 
+                    Password = Pass 
+                });
 
                 if (data)
                 {

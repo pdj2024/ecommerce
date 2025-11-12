@@ -116,8 +116,9 @@ namespace PacificWeb.Components.Pages
             {
 
                 // Jalankan semua request paralel
+                var mainContent = NewPdjService.RefreshDataMainKonten();
 
-                await NewPdjService.RefreshDataMainKonten();
+                await Task.WhenAll(mainContent);
 
                 ScopedDataServices.ScopedData.Finised = true;
 
@@ -151,14 +152,14 @@ namespace PacificWeb.Components.Pages
 
         public async Task selectProduk(string id_kode)
         {
-            var produkTask = await pdjService.GetProdukApi(new ParameterApi
+            var produkTask = await NewPdjService.GetApi<Produk>(new ParameterApi
             {
                 routeApi = "produk",
                 prosesApi = "getAll",
                 ParamUrl = new ParameterApi.ParameterUrl { pagesize = 2, show_variant = true, max_media = 10, no_id = id_kode }
             });
 
-            DataProduk = produkTask.FirstOrDefault(x => x.No_Id == id_kode);
+            DataProduk = produkTask.Data.FirstOrDefault(x => x.No_Id == id_kode);
 
             if (DataProduk == null)
             {
