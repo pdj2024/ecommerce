@@ -21,14 +21,23 @@ namespace PacificWeb.Components.Layout
         public pdjService pdjService { get; set; }
 
         [Inject]
+        public GlobalDataService GlobalDataService { get; set; }
+
+        [Inject]
+        public ScopedDataServices ScopedDataServices { get; set; }
+
+        [Inject]
+        public NewPdjService NewPdjService { get; set; }
+
+        [Inject]
         protected NavigationManager NavigationManager { get; set; }
 
         private string SearchText = "";
         private bool LoadVisible = true;
 
         private System.Timers.Timer? _debounceTimer;
-        [Parameter] public SourchData dataSourch { get; set; } = new SourchData();
         [Parameter] public string pageRoute { get; set; } = "";
+        [Parameter] public SourchData dataSourch { get; set; }
 
 
         public (List<Brand> SearchBrand, List<Produk> SearchProduk, int TotalCount, bool hasMore) SearchList { get; set; } = (new(), new(), 0, false);
@@ -79,7 +88,7 @@ namespace PacificWeb.Components.Layout
             {
 
                 int count = 0;
-                while (dataSourch.Finised == false)
+                while (ScopedDataServices?.ScopedData?.Finised == false)
                 {
                     if (count >= 6)
                     {
@@ -93,7 +102,7 @@ namespace PacificWeb.Components.Layout
 
                             if (count >= 15)
                             {
-                                dataSourch.Finised = true;
+                                ScopedDataServices.ScopedData.Finised = true;
                             }
                         }
                     }
@@ -188,15 +197,18 @@ namespace PacificWeb.Components.Layout
             {
                 routeApi = "cart",
                 prosesApi = "getAll",
+                token = ScopedDataServices.ScopedData.DataLogin.token,
+                refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
                 ParamUrl = new ParameterApi.ParameterUrl
                 {
-                    id_customer = dataSourch.DataUser.No_Id,
+                    id_customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id,
                     show_media = "true"
                 }
             };
             ListDataCartCheck.Clear();
             ListDataCartCheck.AddRange(dataSourch?.ListDataCart?.FindAll(x => x.SelectCart == true));
-            dataSourch.ListDataCart = await pdjService.GetCartApi(paramApi);
+            var dataCart = await NewPdjService.GetApi<Cart>(paramApi);
+            dataSourch.ListDataCart = dataCart.Data;
             if (ListDataCartCheck.Count() >= 1)
             {
                 foreach (var item in dataSourch?.ListDataCart)
@@ -256,7 +268,7 @@ namespace PacificWeb.Components.Layout
             };
             loadProses = true;
             StateHasChanged();
-            (string statusMessage, bool statusRespon, int statusCode, string proses) = await pdjService.CudCartApi("HAPUS", cart, paramApi);
+            (string statusMessage, bool statusRespon, int statusCode, string proses) = await NewPdjService.CudCartApi("HAPUS", cart, paramApi);
 
             if (statusRespon && statusCode == 200)
             {
@@ -281,8 +293,8 @@ namespace PacificWeb.Components.Layout
                 StateHasChanged();
             }
             data.Qty++;
-            Cart itemcart = new Cart { Id_Variant = data.Id_Variant, Qty = 1, Id_Customer = dataSourch.DataUser.No_Id };
-            (string statusMessage, bool statusRespon, int statusCode, string proses) = await pdjService.CudCartApi("TAMBAH", itemcart, paramApi);
+            Cart itemcart = new Cart { Id_Variant = data.Id_Variant, Qty = 1, Id_Customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id };
+            (string statusMessage, bool statusRespon, int statusCode, string proses) = await NewPdjService.CudCartApi("TAMBAH", itemcart, paramApi);
 
             if (statusRespon && statusCode == 200)
             {
@@ -318,8 +330,8 @@ namespace PacificWeb.Components.Layout
             if (data.Qty > 1)
             {
                 data.Qty--;
-                Cart itemcart = new Cart { Id_Variant = data.Id_Variant, Qty = -1, Id_Customer = dataSourch.DataUser.No_Id };
-                (string statusMessage, bool statusRespon, int statusCode, string proses) = await pdjService.CudCartApi("TAMBAH", itemcart, paramApi);
+                Cart itemcart = new Cart { Id_Variant = data.Id_Variant, Qty = -1, Id_Customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id };
+                (string statusMessage, bool statusRespon, int statusCode, string proses) = await NewPdjService.CudCartApi("TAMBAH", itemcart, paramApi);
 
                 if (statusRespon && statusCode == 200)
                 {
@@ -351,13 +363,15 @@ namespace PacificWeb.Components.Layout
             if (tab == "belum-bayar" && PesananLoad[0] == false)
             {
 
-                dataSourch.DataPesananBelum = await pdjService.showMorePesanan(new ParameterApi
+                dataSourch.DataPesananBelum = await NewPdjService.showMorePesanan(new ParameterApi
                 {
                     routeApi = "order",
                     prosesApi = "getAll",
+                    token = ScopedDataServices.ScopedData.DataLogin.token,
+                    refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
                     ParamUrl = new ParameterApi.ParameterUrl
                     {
-                        id_customer = dataSourch.DataUser.No_Id,
+                        id_customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id,
                         show_media = "true",
                         orderDir = "desc",
                         status_order_1 = "belum bayar",
@@ -375,13 +389,15 @@ namespace PacificWeb.Components.Layout
             else if (tab == "dikemas" && PesananLoad[1] == false) 
             {
 
-                dataSourch.DataPesananDikemas = await pdjService.showMorePesanan(new ParameterApi
+                dataSourch.DataPesananDikemas = await NewPdjService.showMorePesanan(new ParameterApi
                 {
                     routeApi = "order",
                     prosesApi = "getAll",
+                    token = ScopedDataServices.ScopedData.DataLogin.token,
+                    refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
                     ParamUrl = new ParameterApi.ParameterUrl
                     {
-                        id_customer = dataSourch.DataUser.No_Id,
+                        id_customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id,
                         show_media = "true",
                         orderDir = "desc",
                         status_order_1 = "dikemas",
@@ -397,13 +413,15 @@ namespace PacificWeb.Components.Layout
             else if (tab == "dikirim" && PesananLoad[2] == false) 
             {
 
-                dataSourch.DataPesananDikirim = await pdjService.showMorePesanan(new ParameterApi
+                dataSourch.DataPesananDikirim = await NewPdjService.showMorePesanan(new ParameterApi
                 {
                     routeApi = "order",
                     prosesApi = "getAll",
+                    token = ScopedDataServices.ScopedData.DataLogin.token,
+                    refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
                     ParamUrl = new ParameterApi.ParameterUrl
                     {
-                        id_customer = dataSourch.DataUser.No_Id,
+                        id_customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id,
                         show_media = "true",
                         orderDir = "desc",
                         status_order_1 = "dikirim",
@@ -419,13 +437,15 @@ namespace PacificWeb.Components.Layout
             else if (tab == "selesai" && PesananLoad[3] == false) 
             {
 
-                dataSourch.DataPesananHistori = await pdjService.showMorePesanan(new ParameterApi
+                dataSourch.DataPesananHistori = await NewPdjService.showMorePesanan(new ParameterApi
                 {
                     routeApi = "order",
                     prosesApi = "getAll",
+                    token = ScopedDataServices.ScopedData.DataLogin.token,
+                    refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
                     ParamUrl = new ParameterApi.ParameterUrl
                     {
-                        id_customer = dataSourch.DataUser.No_Id,
+                        id_customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id,
                         show_media = "true",
                         orderDir = "desc",
                         status_order_1 = "histori",
@@ -501,5 +521,35 @@ namespace PacificWeb.Components.Layout
                 NavigationManager.NavigateTo($"/search-page?keyword={Uri.EscapeDataString(keywordText)}", true);
             }
         }
+
+
+        private void searchContent(Navbar Navbar)
+        {
+            string prod = "";
+            string kate = "";
+
+            if (Navbar.Nav_Type.Split("_")[0] == "special")
+            {
+                prod = string.Join(",", Navbar.Filter.Select(x => x));
+            }
+            else
+            {
+                kate = string.Join(",", Navbar.Kategori.Select(x => x.No_Id));
+            }
+
+            prod = Convert.ToBase64String(Encoding.UTF8.GetBytes(prod));
+            kate = Convert.ToBase64String(Encoding.UTF8.GetBytes(kate));
+            var keywordText = Convert.ToBase64String(Encoding.UTF8.GetBytes(SearchText));
+
+            NavigationManager.NavigateTo($"/search-page?keyword={Uri.EscapeDataString(keywordText)}&produk={Uri.EscapeDataString(prod)}&kategori={Uri.EscapeDataString(kate)}", true);
+        }
+
+        private async Task ShowNavbar(string classItem, bool status)
+        {
+            await JSRuntime.InvokeVoidAsync("showNavbar", classItem, status);
+        }
+
     }
+
+
 }

@@ -43,6 +43,16 @@ namespace PacificWeb.Components.Pages
 
         [Inject]
         public pdjService pdjService { get; set; }
+
+        [Inject]
+        public GlobalDataService GlobalDataService { get; set; }
+
+        [Inject]
+        public ScopedDataServices ScopedDataServices { get; set; }
+
+        [Inject]
+        public NewPdjService NewPdjService { get; set; }
+
         [Parameter] public int Quantity { get; set; } = 1;
         [Parameter] public int QuantityProd { get; set; } = 1;
         public bool loadProses { get; set; } = false;
@@ -71,14 +81,44 @@ namespace PacificWeb.Components.Pages
 
             if (user.Identity?.IsAuthenticated ?? false)
             {
-                dataSourch.DataUser.Email = user.FindFirst(c => c.Type == ClaimTypes.Email)?.Value;
-                dataSourch.DataUser.No_Id = user.FindFirst(c => c.Type == ClaimTypes.Name)?.Value;
-                
-            }
+                var Phone = user.FindFirst(c => c.Type == ClaimTypes.OtherPhone)?.Value;
+                var Password = user.FindFirst(c => c.Type == ClaimTypes.PrimarySid)?.Value;
+                var Nama_display = user.FindFirst(c => c.Type == ClaimTypes.Name)?.Value;
+                var No_Id = user.FindFirst(c => c.Type == ClaimTypes.Sid)?.Value;
 
-            if (user != null || user.Identity.IsAuthenticated)
+                var LoginData = GlobalDataService.GlobalData.ListDataLogin.FirstOrDefault(x => x.No_Id == No_Id);
+
+                if (LoginData == null)
+                {
+                    var param = new ParameterApi
+                    {
+                        routeApi = "auth",
+                        prosesApi = "login",
+                        ParamUrl = new ParameterApi.ParameterUrl()
+                    };
+
+                    var loginStatus = await NewPdjService.LoginUserApi(param, new LoginViewModel { NoTlp = Phone, Password = Password });
+
+                    if (loginStatus)
+                    {
+                        ScopedDataServices.ScopedData.DataLogin = GlobalDataService.GlobalData.ListDataLogin.FirstOrDefault(x => x.No_Id == No_Id);
+                        auth = true;
+                    }
+                    else
+                    {
+                        NavigationManager.NavigateTo($"/auth-user-logout/logout", forceLoad: true);
+                        ScopedDataServices.ScopedData.DataLogin = null;
+                    }
+                }
+                else
+                {
+                    ScopedDataServices.ScopedData.DataLogin = LoginData;
+                    auth = true;
+                }
+            }
+            else
             {
-                auth = true;
+                ScopedDataServices.ScopedData.DataLogin = null;
             }
 
 
@@ -94,7 +134,7 @@ namespace PacificWeb.Components.Pages
             if (firstRender)
             {
 
-                var ProdukTask = pdjService.GetProdukApi(new ParameterApi
+                var ProdukTask = NewPdjService.GetApi<Produk>(new ParameterApi
                 {
                     routeApi = "produk",
                     prosesApi = "getAll",
@@ -108,87 +148,15 @@ namespace PacificWeb.Components.Pages
                     }
                 });
 
-                var ListProdukTask = pdjService.GetProdukApi(new ParameterApi
-                {
-                    routeApi = "produk",
-                    prosesApi = "getAll",
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        pagesize = 12,
-                        show_variant = true,
-                        status = "aktif"
-                    }
-                });
-
-                var companyTask = pdjService.GetCompanyApi(new ParameterApi
-                {
-                    routeApi = "company",
-                    prosesApi = "get-profile",
-                    ParamUrl = new ParameterApi.ParameterUrl { no_id = "comp_1" }
-                });
-
-                var CartTask = pdjService.GetCartApi(new ParameterApi
-                {
-                    routeApi = "cart",
-                    prosesApi = "getAll",
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        id_customer = dataSourch?.DataUser.No_Id ,
-                        show_media = "true",
-                        orderBy = "Updated_At",
-                        orderDir = "desc",
-                        status = "aktif"
-                    }
-                });
-
-                var NavbarTask = pdjService.GetNavbarApi(new ParameterApi
-                {
-                    routeApi = "navbar",
-                    prosesApi = "getAll",
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        no_id = "comp_1",
-                        status = "aktif"
-                    }
-                });
-
-                var SosmedTask = pdjService.GetSosmedApi(new ParameterApi
-                {
-                    routeApi = "company",
-                    prosesApi = "get-social",
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        no_id = "comp_1",
-                        status = "aktif"
-                    }
-                });
-
-                var SummaryPesananTask = pdjService.GetSummaryPesananApi(new ParameterApi
-                {
-                    routeApi = "order",
-                    prosesApi = "getSummary",
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        id_customer = dataSourch.DataUser.No_Id,
-                    }
-                });
-
-
-                // Tunggu semua task selesai
-                await Task.WhenAll(ProdukTask, ListProdukTask, companyTask, NavbarTask, CartTask, SosmedTask, SummaryPesananTask);
+                var mainContent = NewPdjService.RefreshDataMainKonten();
 
 
                 // Assign semua data sekaligus
-                dataSourch.ListDataCompany = companyTask.Result;
-                dataSourch.ListDataNavbar = NavbarTask.Result;
-                dataSourch.ListDataCart = CartTask.Result;
-                dataSourch.ListDataCompanySocial = SosmedTask.Result;
-                dataSourch.ListDataSummaryPesanan = SummaryPesananTask.Result;
+                await Task.WhenAll(ProdukTask, mainContent);
 
-
-                dataSourch.DataProduk = ProdukTask.Result.FirstOrDefault() ?? null;
-                dataSourch.ListDataProduk = ListProdukTask.Result;
+                dataSourch.DataProduk = ProdukTask?.Result?.Data?.FirstOrDefault() ?? null;
                 dataSourch.Finised = true;
+                ScopedDataServices.ScopedData.Finised = true;
 
                 StateHasChanged();
 
@@ -236,14 +204,14 @@ namespace PacificWeb.Components.Pages
 
         public async Task selectProduk(string id_kode)
         {
-            var produkTask = await pdjService.GetProdukApi(new ParameterApi
+            var produkTask = await NewPdjService.GetApi<Produk>(new ParameterApi
             {
                 routeApi = "produk",
                 prosesApi = "getAll",
                 ParamUrl = new ParameterApi.ParameterUrl { pagesize = 2, show_variant = true, max_media = 10, no_id = id_kode }
             });
 
-            DataProduk = produkTask.FirstOrDefault(x => x.No_Id == id_kode);
+            DataProduk = produkTask.Data.FirstOrDefault(x => x.No_Id == id_kode);
 
             if (DataProduk == null)
             {
@@ -252,7 +220,7 @@ namespace PacificWeb.Components.Pages
                 return;
             }
 
-            DataProdukModal = dataSourch?.ListDataProduk.FirstOrDefault(x => x.No_Id == id_kode);
+            DataProdukModal = GlobalDataService.GlobalData?.ListDataProduk.FirstOrDefault(x => x.No_Id == id_kode);
 
             var dataProd = DataProdukModal?.Variants.FirstOrDefault(x => x.Stock >= DataProdukModal?.Min_Order && x.Status.ToLower() == "aktif");
 
@@ -428,12 +396,14 @@ namespace PacificWeb.Components.Pages
             {
                 routeApi = "cart",
                 prosesApi = "create",
-                ParamUrl = new ParameterApi.ParameterUrl()
+                token = ScopedDataServices.ScopedData.DataLogin?.token,
+                refreshToken = ScopedDataServices.ScopedData.DataLogin?.refreshToken,
+                ParamUrl = new ParameterApi.ParameterUrl {  }
             };
 
             item.Id_Variant = item.Variants.FirstOrDefault(x => x.Option_Id == item.Id_Option_Default && x.Size_Id == item.Id_Size_Default)?.No_Id ?? "";
-            Cart itemCart = new Cart { Id_Variant = item.Id_Variant, Qty = via == "modal" ? QuantityProd : Quantity , Id_Customer = dataSourch?.DataUser.No_Id  };
-            (string statusMessage, bool statusRespon, int statusCode, string proses) = await pdjService.CudCartApi("TAMBAH", itemCart, paramApi);
+            Cart itemCart = new Cart { Id_Variant = item.Id_Variant, Qty = via == "modal" ? QuantityProd : Quantity , Id_Customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id  };
+            (string statusMessage, bool statusRespon, int statusCode, string proses) = await NewPdjService.CudCartApi("TAMBAH", itemCart, paramApi);
 
             if (statusRespon && statusCode == 200)
             {
@@ -454,7 +424,7 @@ namespace PacificWeb.Components.Pages
 
         public async Task NavigateToPayment(Produk item)
         {
-            if (dataSourch.DataUser.No_Id == null || dataSourch.DataUser.No_Id == "")
+            if (ScopedDataServices?.ScopedData?.DataLogin?.No_Id == null || ScopedDataServices?.ScopedData?.DataLogin?.No_Id == "")
             {
                 await JSRuntime.InvokeVoidAsync("buttonClick", "#closeDetailProd");
 
@@ -469,7 +439,7 @@ namespace PacificWeb.Components.Pages
             StateHasChanged();
 
             item.Id_Variant = item.Variants.FirstOrDefault(x => x.Option_Id == item.Id_Option_Default && x.Size_Id == item.Id_Size_Default)?.No_Id ?? "";
-            Cart itemCart = new Cart { Id_Variant = item.Id_Variant, Qty = Quantity, Id_Customer = dataSourch?.DataUser.No_Id };
+            Cart itemCart = new Cart { Id_Variant = item.Id_Variant, Qty = Quantity, Id_Customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id };
 
             string text = $"{item.No_Id}%section%{item.Id_Variant}%section%{Quantity}";
             string encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes(text));

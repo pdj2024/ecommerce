@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.JSInterop;
 using Models;
-using PacificWeb.Controllers;
 using PacificWeb.Components;
+using PacificWeb.Controllers;
 using Radzen;
 using Services;
 
@@ -98,16 +99,36 @@ builder.Services.AddScoped(sp =>
     return new Services.pdjService(navigationManager, dialogService, jsRuntime, authProvider, httpContextAccessor); // Pass dialogService and jsRuntime
 });
 
+
+
+
+builder.Services.AddSingleton<GlobalDataService>();
+builder.Services.AddScoped<ScopedDataServices>();
+
 builder.Services.AddScoped(sp =>
 {
-
     var navigationManager = sp.GetRequiredService<NavigationManager>();
-    var jsRuntime = sp.GetRequiredService<IJSRuntime>(); // Add this
-    var authProvider = sp.GetRequiredService<AuthenticationStateProvider>();
+    var jsRuntime = sp.GetRequiredService<IJSRuntime>();
+
+    // Singleton boleh diambil langsung (tidak menimbulkan scope conflict)
+    var globalDataService = sp.GetRequiredService<GlobalDataService>();
+
+    var newpdjservice = sp.GetRequiredService<pdjService>();
+
+    // Scoped boleh juga
+    var scopedDataServices = sp.GetRequiredService<ScopedDataServices>();
     var httpContextAccessor = sp.GetRequiredService<IHttpContextAccessor>();
 
-    return new PacificWeb.Controllers.LoginController(navigationManager, jsRuntime, authProvider, httpContextAccessor); // Pass dialogService and jsRuntime
+    // Buat instance secara manual
+    return new NewPdjService(
+        globalDataService,
+        scopedDataServices,
+        newpdjservice,
+        jsRuntime,
+        navigationManager,
+        httpContextAccessor);
 });
+
 
 
 

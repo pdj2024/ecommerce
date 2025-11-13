@@ -1,0 +1,152 @@
+﻿@rendermode InteractiveServer
+
+
+<style>
+    .main-otp {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: auto;
+    }
+
+    .container-otp {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 30px;
+        border-radius: 10px;
+        background-color: rgb(255, 255, 255);
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        width: 500px;
+    }
+
+    .number-input-otp, .verification-otp, .result-otp {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        margin-top: 20px;
+    }
+
+
+    .img-otp {
+        width: 50px;
+    }
+
+</style>
+
+<div class="verification-otp" style="">
+    <p style="font-size:18px; font-weight:400; letter-spacing:-1px; width:fit-content" class="ps-3">
+        Masukkan Kode OTP
+    </p>
+    <div class="input-group mb-3 style-grup px-1 border-1 py-1 pb-2 form-style">
+        <input type="text" style="font-size: 14px;" class="form-control search-form form-text input-otp" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" id="verificationCode" placeholder="OTP Code" required />
+    </div>
+
+    <div class="modal-footer justify-content-center button border-top-0 pt-0 pb-3 px-5">
+        <button type="button" class="btn-slide py-2 px-4 button-otp" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;" @onclick=@(() => sendOtp()) id="verify">
+            <span class="position-relative">Verifikasi OTP</span>
+        </button>
+    </div>
+
+    @if(loadProses)
+    {
+        <p class="text-danger mt-3 mb-2 mx-auto" style="font-weight:300;">Terjadi kesalahan saat melakukan verifikasi. Coba Lagi Nanti!</p>
+    }
+
+    <p class="mx-auto">Tidak menerima kode? <a class="underline-anim" @onclick=@(() => sendOtp())>Kirim Ulang !</a></p>
+</div>
+
+<div class="result-otp" style="display: none;">
+    <div class="correct" style="display: none;">
+        <div class="modal-footer justify-content-center button border-top-0 pt-0 pb-3 d-flex flex-column">
+            <img class="img-otp" src="https://cdn-icons-png.flaticon.com/512/4315/4315445.png" alt="">
+
+            @if (IdSucces)
+            {
+                @if (IdInfo == 1)
+                {
+                    <h4 class="text-center">Nomer Berhasil Diperbarui!</h4>
+                } 
+                else
+                {
+                    <h4 class="text-center">Password Berhasil Diperbarui!</h4>
+                } 
+            } 
+            else
+            {
+                @if (IdInfo == 1)
+                {
+                    <h4 class="text-center">Nomer Gagal Diperbarui!</h4>
+                } 
+                else if (IdInfo == 2)
+                {
+                    <h4 class="text-center">Password Gagal Diperbarui!</h4>
+                } 
+                else
+                {
+                    <h4 class="text-center">Nomer Berhasil Verifikasi!</h4>
+                }
+            }
+
+        </div>
+        <div class="modal-footer justify-content-center button border-top-0 pt-0 pb-3 px-5 mt-5">
+            @if (IdSucces)
+            {
+                @if ( IdInfo == 1 || IdInfo == 2 )
+                {
+                    <button type="button" data-bs-dismiss="modal" aria-label="Close" class="btn-slide py-2 px-4 button-otp mt-5" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;">
+                        <span class="position-relative">Tutup</span>
+                    </button>
+                }
+            }
+            else
+            {
+                @if ( IdInfo == 1 || IdInfo == 2 )
+                {
+                    <button type="button" @onclick=@cobaLagi data-bs-dismiss="modal" aria-label="Close" class="btn-slide py-2 px-4 button-otp mt-5" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;">
+                        <span class="position-relative">Coba Lagi</span>
+                    </button>
+                }
+                else
+                {
+                    <button type="button" class="btn-slide py-2 px-4 button-otp mt-5" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;" @onclick=@(() => LoginStart())>
+                        <span class="position-relative">Oke</span>
+                    </button>
+                }
+            }
+
+        </div>
+    </div>
+
+    <div class="incorrect" style="display: none;">
+        <div class="modal-footer justify-content-center button border-top-0 pt-0 pb-3 d-flex flex-column">
+            <img class="img-otp" src="https://cdn-icons-png.flaticon.com/512/14025/14025477.png" alt="">
+
+            @if (IdInfo == 1)
+            {
+                <h4 class="text-center">Nomer Gagal Diperbarui!</h4>
+            }
+            else if (IdInfo == 2)
+            {
+                <h4 class="text-center">Password Gagal Diperbarui!</h4>
+            }
+            else
+            {
+                <h4 class="text-center">Nomer Gagal Verifikasi!</h4>
+            }
+
+        </div>
+        <div class="modal-footer justify-content-center button border-top-0 pt-0 pb-3 px-5 mt-5">
+            <button type="button" class="btn-slide py-2 px-4 button-otp mt-5" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;" @onclick=@(() => sendOtp())>
+                <span class="position-relative">Try Again!</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+@if (auth)
+{
+    <p class="text-danger mt-3 mb-2 mx-auto" style="font-weight:300;">Terjadi kesalahan saat melakukan verifikasi. Coba Lagi Nanti!</p>
+}

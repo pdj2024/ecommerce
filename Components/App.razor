@@ -1,4 +1,4 @@
-@inject NavigationManager NavigationManager
+﻿@inject NavigationManager NavigationManager
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,7 +13,7 @@
     <link href="_content/Radzen.Blazor/css/humanistic-base.css" rel="stylesheet" />
     <link rel="shortcut icon" type="image/x-icon" href="images/logo/icon-pdj.png" />
 
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
@@ -27,8 +27,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 
     <!-- ========================= CSS here ========================= -->
+    <link href="https://cdn.lineicons.com/5.0/lineicons.css" rel="stylesheet" />
+
     <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/icons.css" />
     <link rel="stylesheet" href="css/glightbox.min.css" />
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -53,7 +54,7 @@
 
 
     <Routes  />
-
+    <div id="recaptcha-container"></div>
     <div class="overlay" style="z-index:1002"></div>
 
     <button onclick="scrollToTop()" style="border: 0px;" class="scroll-top">
@@ -71,12 +72,250 @@
     @* <script src="js/bootstrap.min.js"></script> *@
     <script src="js/glightbox.min.js"></script>
     <script src="js/main.js"></script>
-    <link href="https://cdn.lineicons.com/5.0/lineicons.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"></script>
+
+
+    <script src="https://www.gstatic.com/firebasejs/9.12.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.12.1/firebase-auth-compat.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     
     <script>
+
+        var phoneInput = null;
+        var phoneInputLogin = null;
+        var phoneInputChange = null;
+
+        function initButtonFlag() {
+            const phoneInputField = document.querySelector("#phone");
+            phoneInput = window.intlTelInput(phoneInputField, {
+                initialCountry: "id", // Indonesia default
+                preferredCountries: ["id", "sg", "my", "us"],
+                separateDialCode: true, // <== INI YANG TAMBAHAN UTAMA
+                nationalMode: false,
+                formatOnDisplay: true,
+                utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+            });
+
+            const phoneInputLoginField = document.querySelector("#phone-login");
+            phoneInputLogin = window.intlTelInput(phoneInputLoginField, {
+                initialCountry: "id", // Indonesia default
+                preferredCountries: ["id", "sg", "my", "us"],
+                separateDialCode: true, // <== INI YANG TAMBAHAN UTAMA
+                nationalMode: false,
+                formatOnDisplay: true,
+                utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+            });
+        }
+
+        function initButtonFlagChange() {
+            const phoneInputField = document.querySelector("#phone-change");
+            phoneInputChange = window.intlTelInput(phoneInputField, {
+                initialCountry: "id", // Indonesia default
+                preferredCountries: ["id", "sg", "my", "us"],
+                separateDialCode: true, // <== INI YANG TAMBAHAN UTAMA
+                nationalMode: false,
+                formatOnDisplay: true,
+                utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+            });
+        }
+
+        function initKlikFlag() {
+            // Saat tombol Verify diklik
+            const number = phoneInput.getNumber(); // format E.164
+            const isValid = phoneInput.isValidNumber();
+
+            const resultBox = document.querySelector("#result");
+            const e164Text = document.querySelector("#e164Number");
+
+            if (isValid) {
+                // e164Text.textContent = number;
+                // resultBox.style.display = "none";
+                // resultBox.style.backgroundColor = "#e7f3f9";
+
+                // resultBox.style.color = "#0b385f";
+                return number;
+            } else {
+                // e164Text.textContent = "Nomor tidak valid.";
+                // resultBox.style.display = "block";
+                // resultBox.style.backgroundColor = "#fdecea";
+                // resultBox.style.color = "#a94442";
+                return "FALSE";
+            }
+        }
+
+        function initKlikFlagLogin() {
+            // Saat tombol Verify diklik
+            const number = phoneInputLogin.getNumber(); // format E.164
+            const isValid = phoneInputLogin.isValidNumber();
+
+            const resultBox = document.querySelector("#result-login");
+            const e164Text = document.querySelector("#e164Number-login");
+
+
+            if (isValid) {
+                // e164Text.textContent = number;
+                // resultBox.style.display = "none";
+                // resultBox.style.backgroundColor = "#e7f3f9";
+                // resultBox.style.color = "#0b385f";
+                return number;
+            } else {
+                // e164Text.textContent = "Nomor tidak valid.";
+                // resultBox.style.display = "block";
+                // resultBox.style.backgroundColor = "#fdecea";
+                // resultBox.style.color = "#a94442";
+                return "FALSE";
+            }
+        }
+
+        function initKlikFlagChange() {
+            // Saat tombol Verify diklik
+            const number = phoneInputChange.getNumber(); // format E.164
+            const isValid = phoneInputChange.isValidNumber();
+
+            const resultBox = document.querySelector("#result-change");
+            const e164Text = document.querySelector("#e164Number-change");
+
+
+            if (isValid) {
+                // e164Text.textContent = number;
+                // resultBox.style.display = "none";
+                // resultBox.style.backgroundColor = "#e7f3f9";
+                // resultBox.style.color = "#0b385f";
+                return number;
+            } else {
+                // e164Text.textContent = "Nomor tidak valid.";
+                // resultBox.style.display = "block";
+                // resultBox.style.backgroundColor = "#fdecea";
+                // resultBox.style.color = "#a94442";
+                return "FALSE";
+            }
+        }
+
+
+
+
+        // OTP VERIFY
+        // OTP VERIFY
+        // OTP VERIFY
+        // OTP VERIFY
+
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyDFK7JsCa_0j_npH269GFBdxFSrGcGqZp4",
+          authDomain: "arimbi-ecommerce.firebaseapp.com",
+          projectId: "arimbi-ecommerce",
+          storageBucket: "arimbi-ecommerce.firebasestorage.app",
+          messagingSenderId: "412018624106",
+          appId: "1:412018624106:web:d8db56d6b07a89bab4ec13",
+          measurementId: "G-E0Q0EL4M1Y"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Ubah bahasa reCAPTCHA & SMS ke Indonesia
+        firebase.auth().languageCode = 'id';
+
+        // Render invisible reCAPTCHA
+        render();
+
+        function render() {
+            const el = document.getElementById('recaptcha-container');
+            if (!el) {
+                console.error("recaptcha-container element not found");
+                return;
+            }
+
+            if (window.recaptchaVerifier) {
+                window.recaptchaVerifier.clear(); // pastikan bersih
+            }
+
+            window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+                'size': 'invisible'
+            });
+
+            recaptchaVerifier.render().then(function(widgetId) {
+                console.log('reCAPTCHA rendered, widgetId =', widgetId);
+            }).catch(function(err){
+                console.error('reCAPTCHA render error:', err);
+            });
+        }
+
+        window.sendOTP = async function (dataNomer) {
+            try {
+                console.log("Send OTP started");
+
+                const number = dataNomer;
+
+                // Pastikan recaptcha sudah ada dan valid
+                if (!window.recaptchaVerifier) {
+                    console.error("ReCAPTCHA belum diinisialisasi.");
+                    return false;
+                } else {
+                    console.log("ReCAPTCHA Sudah diinisialisasi.");
+                }
+
+                // Tunggu hasil Firebase sign-in
+                const confirmationResult = await firebase.auth().signInWithPhoneNumber(number, window.recaptchaVerifier);
+
+                // Simpan hasil ke global
+                window.confirmationResult = confirmationResult;
+                console.log("OTP berhasil dikirim");
+
+                return true;
+            } catch (error) {
+                console.error('signInWithPhoneNumber error:', error);
+                console.error('Gagal mengirim OTP:\n' + (error.message || JSON.stringify(error)));
+                return false;
+            }
+        };
+
+        // Verify OTP code
+
+        window.verifyCode = async function () {
+            try {
+                const code = document.getElementById('verificationCode').value;
+
+                if (!window.confirmationResult) {
+                    console.error('OTP belum dikirim. Coba lagi.');
+                    return null;
+                }
+
+                // Tunggu hasil verifikasi Firebase
+                const result = await window.confirmationResult.confirm(code);
+                const user = result.user;
+
+                let idToken = null;
+                if (user) {
+                    idToken = await user.getIdToken(true);
+                }
+
+                // Sembunyikan / tampilkan elemen jika elemen ada
+                const verificationDiv = document.querySelector('.verification-otp');
+                const resultDiv = document.querySelector('.result-otp');
+                const correctDiv = document.querySelector('.correct');
+
+                if (verificationDiv) verificationDiv.style.display = 'none';
+                if (resultDiv) resultDiv.style.display = '';
+                if (correctDiv) correctDiv.style.display = '';
+
+                console.log("Verifikasi OTP berhasil, idToken:");
+                return idToken;
+
+            } catch (error) {
+                console.error('verifyCode error:', error);
+                console.error('Verifikasi gagal:\n' + (error.message || JSON.stringify(error)));
+                return null;
+            }
+        };
+
+
+
         function selectAllText(elementToBind) {
             var elementToCheck = document.getElementById(elementToBind);
             if (elementToCheck) {
@@ -418,7 +657,9 @@
 
             const loginBox = document.querySelector('.login-effect');
             const signUp = document.querySelector('.signup-page');
+            const otpView = document.querySelector('.otp-view');
             const logIn = document.querySelector('.login-page');
+            const change = document.querySelector('.lupa-pw');
 
 
             if (!direct) {
@@ -437,31 +678,117 @@
                     if(value == "sign-up")
                     {
                         logIn.classList.remove('active');
+                        otpView.classList.remove('active');
                         signUp.classList.add('active');
-
-                    } else {
-
+                        change?.classList.remove('active');
+                    } 
+                    else if (value == "otp-view") 
+                    {
+                        otpView.classList.add('active');
                         signUp.classList.remove('active');
+                        logIn.classList.remove('active');
+                        change?.classList.remove('active');
+                    } 
+                    else if (value == "lupa-pw") 
+                    {
+                        change?.classList.add('active');
+                        otpView.classList.remove('active');
+                        signUp.classList.remove('active');
+                        logIn.classList.remove('active');
+                    } 
+                    else 
+                    {
                         logIn.classList.add('active');
+                        otpView.classList.remove('active');
+                        signUp.classList.remove('active');
+                        change?.classList.remove('active');
                     }
 
                 }, 1500);
 
             } else {
-                if(value == "sign-up") 
+
+                if(value == "sign-up")
                 {
-                    logIn.classList.remove('active');
                     signUp.classList.add('active');
-
-                } else {
-
+                    logIn.classList.remove('active');
+                    otpView.classList.remove('active');
+                    change?.classList.remove('active');
+                }
+                else if (value == "otp-view")
+                {
+                    otpView.classList.add('active');
                     signUp.classList.remove('active');
+                    logIn.classList.remove('active');
+                    change?.classList.remove('active');
+                }
+                else if (value == "lupa-pw")
+                {
+                    change?.classList.add('active');
+                    otpView.classList.remove('active');
+                    signUp.classList.remove('active');
+                    logIn.classList.remove('active');
+                }
+                else
+                {
                     logIn.classList.add('active');
+                    otpView.classList.remove('active');
+                    signUp.classList.remove('active');
+                    change?.classList.remove('active');
                 }
             }
 
 
         };
+
+
+        window.countdownTimer = {
+            duration: 5 * 60, // 5 menit dalam detik
+            remaining: 5 * 60,
+            intervalId: null,
+
+            start: function () {
+                if (this.intervalId) return; // sudah berjalan
+
+                this.intervalId = setInterval(() => {
+                    if (this.remaining <= 0) {
+                        clearInterval(this.intervalId);
+                        this.intervalId = null;
+
+                        window.history.back();
+                        return;
+                    } else {
+                        this.remaining--;
+                    }
+
+                    this.updateDisplay();
+                }, 1000);
+            },
+
+            pause: function () {
+                if (this.intervalId) {
+                    clearInterval(this.intervalId);
+                    this.intervalId = null;
+                }
+            },
+
+            reset: function () {
+                this.pause();
+                this.remaining = this.duration;
+                this.updateDisplay();
+            },
+
+            updateDisplay: function () {
+                const el = document.querySelector(".countdownTimer");
+                if (!el) return;
+
+                const minutes = Math.floor(this.remaining / 60);
+                const seconds = this.remaining % 60;
+
+                el.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+        };
+
 
         function initBigDetailProd() {
             var sliderdetailProd = tns({
