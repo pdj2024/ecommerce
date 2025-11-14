@@ -840,6 +840,13 @@ namespace Services
                 }
             });
 
+            var TeksTask = GetListGlobalDataAsync<TexkSection>(new ParameterApi
+            {
+                routeApi = "teks",
+                prosesApi = "getAll",
+                ParamUrl = new ParameterApi.ParameterUrl {}
+            });
+
                         
             // Tunggu semua task selesai
             await Task.WhenAll(produkTask, bannerTask, brandTask, kategoriTask, companyTask, NavbarTask, SosmedTask);

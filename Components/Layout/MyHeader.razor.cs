@@ -8,16 +8,19 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.JSInterop;
 using Models;
 using Newtonsoft.Json.Linq;
+using PacificWeb.Components.Pages.Account;
 using Radzen;
 using Services;
 using System.Data;
+using System.Data.Common;
 using System.Linq;
+using System.Numerics;
 using System.Security.Claims;
 using System.Text;
+using System.Text.RegularExpressions;
 using static Models.Pesanan;
 using static System.Net.WebRequestMethods;
 using static System.Runtime.InteropServices.JavaScript.JSType;
-
 
 namespace PacificWeb.Components.Layout
 {
@@ -633,6 +636,8 @@ namespace PacificWeb.Components.Layout
                 Model.Password = "";
                 ModelRegist.NoTlp = "";
                 ModelRegist.Password = "";
+                noRegist = null;
+                noLogin = null;
 
                 await JSRuntime.InvokeVoidAsync("initLoginEffect", value, direct);
 
@@ -688,6 +693,38 @@ namespace PacificWeb.Components.Layout
             List<string> stringData = await pdjService.DecodeEncode(true, new List<string> { id });
             NavigationManager.NavigateTo($"/detail-produk/{stringData.FirstOrDefault()}", forceLoad: true);
         }
+
+
+        public int? noRegist { get; set; } = null;
+        public int? noLogin { get; set; } = null;
+
+
+        public async Task NumberOnlyInput(ChangeEventArgs e, string info)
+        {
+            var value = e.Value?.ToString() ?? "";
+
+            value = Regex.Replace(value, @"[^0-9]", "");
+
+            if(info == "phone-login")
+            {
+                Model.NoTlp = value;
+            } 
+            else if (info == "phone")
+            {
+                ModelRegist.NoTlp = value;
+            }
+            else if (info == "phone-change")
+            {
+                ModelRegist.NoTlp = value;
+            }
+
+            Console.WriteLine(value);
+            await JSRuntime.InvokeVoidAsync("setInputValue", info, value);
+        }
+
+
+
+
 
         public void searchCombo(Navbar Navbar = null, Brand brand = null, Kategori kategori = null)
         {

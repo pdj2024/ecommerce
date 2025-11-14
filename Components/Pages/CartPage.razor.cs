@@ -11,10 +11,12 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Drawing.Processing;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
+using System.Data.Common;
 using System.Globalization;
 using System.Reflection;
 using System.Security.Claims;
 using System.Text;
+using System.Text.RegularExpressions;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
@@ -63,6 +65,9 @@ namespace PacificWeb.Components.Pages
 
         public LoginViewModel ModelRegist { get; set; } = new();
 
+        public int? noRegist { get; set; } = null;
+        public int? noLogin { get; set; } = null;
+
         [Parameter] public int Quantity { get; set; } = 1;
         public decimal? nettoKeranjang { get; set; } = 0;
         public decimal? nettoKeranjangChange { get; set; } = 0;
@@ -103,6 +108,29 @@ namespace PacificWeb.Components.Pages
 
 
 
+        public async Task NumberOnlyInput(ChangeEventArgs e, string info)
+        {
+            var value = e.Value?.ToString() ?? "";
+
+            value = Regex.Replace(value, @"[^0-9]", "");
+
+            if (info == "phone-login")
+            {
+
+            }
+            else if (info == "phone")
+            {
+                ModelRegist.NoTlp = value;
+            }
+            else if (info == "phone-change")
+            {
+                ModelRegist.NoTlp = value;
+            }
+
+
+            Console.WriteLine(value);
+            await JSRuntime.InvokeVoidAsync("setInputValue", info, value);
+        }
 
 
         public async void changeLogin(string value, bool direct = false, string status = "")

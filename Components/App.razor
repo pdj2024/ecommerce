@@ -19,8 +19,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
     <link href="_content/Blazor.Bootstrap/blazor.bootstrap.css" rel="stylesheet" />
 
-    <link href="_content/DevExpress.Blazor.Themes/blazing-berry.bs5.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="_content/DevExpress.Blazor.Reporting.Viewer/css/dx-blazor-reporting-components.bs5.css">
+    @* <link href="_content/DevExpress.Blazor.Themes/blazing-berry.bs5.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="_content/DevExpress.Blazor.Reporting.Viewer/css/dx-blazor-reporting-components.bs5.css"> *@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -227,7 +227,7 @@
         function render() {
             const el = document.getElementById('recaptcha-container');
             if (!el) {
-                console.error("recaptcha-container element not found");
+                // console.error("recaptcha-container element not found");
                 return;
             }
 
@@ -240,24 +240,24 @@
             });
 
             recaptchaVerifier.render().then(function(widgetId) {
-                console.log('reCAPTCHA rendered, widgetId =', widgetId);
+                // console.log('reCAPTCHA rendered, widgetId =', widgetId);
             }).catch(function(err){
-                console.error('reCAPTCHA render error:', err);
+                // console.error('reCAPTCHA render error:', err);
             });
         }
 
         window.sendOTP = async function (dataNomer) {
             try {
-                console.log("Send OTP started");
+                // console.log("Send OTP started");
 
                 const number = dataNomer;
 
                 // Pastikan recaptcha sudah ada dan valid
                 if (!window.recaptchaVerifier) {
-                    console.error("ReCAPTCHA belum diinisialisasi.");
+                    // console.error("ReCAPTCHA belum diinisialisasi.");
                     return false;
                 } else {
-                    console.log("ReCAPTCHA Sudah diinisialisasi.");
+                    // console.log("ReCAPTCHA Sudah diinisialisasi.");
                 }
 
                 // Tunggu hasil Firebase sign-in
@@ -265,12 +265,12 @@
 
                 // Simpan hasil ke global
                 window.confirmationResult = confirmationResult;
-                console.log("OTP berhasil dikirim");
+                // console.log("OTP berhasil dikirim");
 
                 return true;
             } catch (error) {
-                console.error('signInWithPhoneNumber error:', error);
-                console.error('Gagal mengirim OTP:\n' + (error.message || JSON.stringify(error)));
+                // console.error('signInWithPhoneNumber error:', error);
+                // console.error('Gagal mengirim OTP:\n' + (error.message || JSON.stringify(error)));
                 return false;
             }
         };
@@ -282,7 +282,7 @@
                 const code = document.getElementById('verificationCode').value;
 
                 if (!window.confirmationResult) {
-                    console.error('OTP belum dikirim. Coba lagi.');
+                    // console.error('OTP belum dikirim. Coba lagi.');
                     return null;
                 }
 
@@ -304,12 +304,12 @@
                 if (resultDiv) resultDiv.style.display = '';
                 if (correctDiv) correctDiv.style.display = '';
 
-                console.log("Verifikasi OTP berhasil, idToken:");
+                // console.log("Verifikasi OTP berhasil, idToken:");
                 return idToken;
 
             } catch (error) {
-                console.error('verifyCode error:', error);
-                console.error('Verifikasi gagal:\n' + (error.message || JSON.stringify(error)));
+                // console.error('verifyCode error:', error);
+                // console.error('Verifikasi gagal:\n' + (error.message || JSON.stringify(error)));
                 return null;
             }
         };
@@ -471,6 +471,9 @@
             document.body.removeChild(link);
         }
 
+        window.setInputValue = function (id, value) {
+            document.getElementById(id).value = value;
+        };
 
         async function copyVa(kode) {
 
@@ -545,7 +548,7 @@
 
         function colLoadOut() {
             const el = document.querySelector('.col-load');
-            if (!el) return console.log("class load not found");
+            if (!el) return;
             el.style.opacity = '0';
             setTimeout(() => {
                 el.style.display = 'none';

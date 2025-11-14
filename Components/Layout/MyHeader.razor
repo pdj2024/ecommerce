@@ -845,7 +845,7 @@ else
                         <div class="row">
                             <div class="col-12">
                                 <div class="input-group mb-3 style-grup px-1 border-1 pt-2 pb-2 form-style">
-                                    <InputText @bind-Value="ModelRegist.NoTlp" id="phone" type="tel" name="phone" class="form-control search-form form-text input-otp" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" placeholder="Nomer Telepon (e.x 0812-3456-7899) *" required style="padding-left: 85px; font-size: 14px;" />
+                                    <InputText @bind-value=@ModelRegist.NoTlp @oninput=@(x => NumberOnlyInput(x, "regist")) id="phone" type="tel" name="phone" class="form-control search-form form-text input-otp" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" placeholder="Nomer Telepon (e.x 081234567899) *" required style="padding-left: 85px; font-size: 14px;" />
                                 </div>
 
                                 <div class="input-group mb-3 style-grup px-1 border-1 py-1 pb-2 form-style">
@@ -914,10 +914,10 @@ else
                             <div class="row">
                                 <div class="col-12">
                                     <div class="input-group mb-3 style-grup px-1 border-1 pt-2 pb-2 form-style">
-                                        <InputText @bind-Value="Model.NoTlp" id="phone-login" type="tel" name="phone" class="form-control search-form form-text" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" placeholder="Nomer Telepon (e.x 0812-3456-7899) *" style="padding-left: 85px; font-size: 14px;" />
+                                        <InputText @bind-Value=@Model.NoTlp @oninput=@(x => NumberOnlyInput(x, "phone-login")) id="phone-login" type="tel" name="phone" class="form-control search-form form-text" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" placeholder="Nomer Telepon (e.x 081234567899) *" style="padding-left: 85px; font-size: 14px;" />
                                     </div>
                                     <div class="input-group mb-3 style-grup px-1 border-1 py-1 pb-2 form-style">
-                                        <InputText type="password" @bind-Value="Model.Password" id="Password" style="font-size: 14px;" class="form-control search-form form-text" placeholder="Kata Sandi *" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" />
+                                        <InputText type="password" @bind-Value="Model.Password" id="Password-Login" style="font-size: 14px;" class="form-control search-form form-text" placeholder="Kata Sandi *" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" />
                                     </div>
 
                                     <div>
@@ -961,8 +961,9 @@ else
 
                     <button type="button" class="btn btn-primary border-0" id="liveToastBtn" style="width:0px; height:0px; overflow:hidden"></button>
 
-                    <p style="font-size:13px; font-weight:300 " class="text-xl-center w-100">
-                        <span class="underline-anim" style="font-weight:500" @onclick="@(x => changeLogin("lupa-pw"))" >Lupa Password?</span> .
+                    <p style="font-size:13px; font-weight:300 " class="text-center w-100">
+                        Lupa Password?
+                        <span class="underline-anim" style="font-weight:500" @onclick="@(x => changeLogin("lupa-pw"))" >Klik Disini</span>.
                     </p>
 
                 </div>
@@ -979,7 +980,7 @@ else
                         <div class="row">
                             <div class="col-12">
                                 <div class="input-group mb-3 style-grup px-1 border-1 pt-2 pb-2 form-style">
-                                    <InputText id="phone-change" @bind-value=@ModelRegist.NoTlp type="tel" name="phone" class="form-control search-form form-text input-otp" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" placeholder="Nomer Telepon (e.x 0812-3456-7899) *" required style="padding-left: 85px; font-size: 14px;" />
+                                    <InputText id="phone-change" @bind-value=@ModelRegist.NoTlp @oninput=@(x => NumberOnlyInput(x, "regist")) type="tel" name="phone" class="form-control search-form form-text input-otp" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" placeholder="Nomer Telepon (e.x 081234567899) *" required style="padding-left: 85px; font-size: 14px;" />
                                 </div>
 
                                 <div class="input-group mb-3 style-grup px-1 border-1 py-1 pb-2 form-style">

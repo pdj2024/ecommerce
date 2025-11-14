@@ -84,6 +84,24 @@ namespace PacificWeb.Components.Sections
 
         }
 
+        public void SearchCombo(string brand)
+        {
+            var bra = "";
+
+            var data = DataProduk?.Nama_Kategori.FindIndex(x => x == brand) ?? -1;
+
+            if (data != -1)
+            {
+                bra = Convert.ToBase64String(Encoding.UTF8.GetBytes( DataProduk?.Id_Kategori[data]));
+                NavigationManager.NavigateTo($"/search-page?keyword=&produk=&kategori={Uri.EscapeDataString(bra)}&brand=", true);
+                return;
+            }
+
+            Console.WriteLine(data);
+            pdjService.ShowConsoleData(DataProduk);
+        }
+
+
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             

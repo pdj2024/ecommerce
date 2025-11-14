@@ -149,17 +149,17 @@ else
             <div class="slide-track-brand">
                 @foreach (var brand in GlobalDataService?.GlobalData?.ListDataBrand)
                 {
-                    <a class="slide-brand"><img src="@brand.Id_Media" alt="@brand.No_Id_Media"></a>
+                    <a class="slide-brand"><img @onclick=@(x => SearchCombo(brand)) style="cursor: pointer;" src="@brand.Id_Media" alt="@brand.No_Id_Media"></a>
                 }
 
                 @foreach (var brand in GlobalDataService?.GlobalData?.ListDataBrand)
                 {
-                    <a class="slide-brand"><img src="@brand.Id_Media" alt="@brand.No_Id_Media"></a>
+                    <a class="slide-brand"><img @onclick=@(x => SearchCombo(brand)) style="cursor: pointer;" src="@brand.Id_Media" alt="@brand.No_Id_Media"></a>
                 }
 
                 @foreach (var brand in GlobalDataService?.GlobalData?.ListDataBrand)
                 {
-                    <a class="slide-brand"><img src="@brand.Id_Media" alt="@brand.No_Id_Media"></a>
+                    <a class="slide-brand"><img @onclick=@(x => SearchCombo(brand)) style="cursor: pointer;" src="@brand.Id_Media" alt="@brand.No_Id_Media"></a>
                 }
 
             </div>
@@ -174,9 +174,9 @@ else
         <div class="row py-0 py-lg-3 py-xl-4 py-xxl-5">
             <div class="col-12">
                 <div class="section-title">
-                    <h2>Trending Product</h2>
+                    <h2>@GlobalDataService.GlobalData.ListDataTexkSection.FirstOrDefault(x => x.Section_Name == "section1")?.Judul</h2>
                     <p>
-                        Kami menyediakan banyak sekali produk dari berbagi jenis brand, model dan style terkini. Segera checkout sebelum kehabisan.
+                        @GlobalDataService.GlobalData.ListDataTexkSection.FirstOrDefault(x => x.Section_Name == "section1")?.Keterangan
                     </p>
                 </div>
             </div>
@@ -227,12 +227,10 @@ else
                 <div class="inner">
                     <div class="content">
                         <h2 class="wow fadeInUp mt-3" data-wow-delay=".4s">
-                            Temukan Barang Yang Kamu Inginkan<br>
-                            Untuk Style Harian Kamu
+                            @GlobalDataService.GlobalData.ListDataTexkSection.FirstOrDefault(x => x.Section_Name == "section2")?.Judul
                         </h2>
                         <p class="wow fadeInUp" data-wow-delay=".6s">
-                            Banyak promo 20% hingga akhir tahun
-                            segera lihat, masukkan keranjang,<br> lalu checek out dengan promo.
+                            @GlobalDataService.GlobalData.ListDataTexkSection.FirstOrDefault(x => x.Section_Name == "section1")?.Keterangan
                         </p>
                     </div>
                 </div>

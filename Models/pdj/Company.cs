@@ -32,6 +32,15 @@ namespace Models
         public string No_Id_Media { get; set; } = "";
     }
 
+    public class TexkSection
+    {
+        public string No_Id { get; set; } = "";
+        public string Section_Name { get; set; } = "";
+        public string Judul { get; set; } = "";
+        public string Keterangan { get; set; } = "";
+        public string Extra { get; set; } = "";
+    }
+
     public class NilaiDefault
     {
         public int Limit_Produk_Home { get; set; } = 12;
@@ -59,6 +68,7 @@ namespace Models
         public List<NilaiDefault> ListDataNilaiDefault { get; set; } = new List<NilaiDefault>();
         public List<CompanySosial> ListDataCompanySocial { get; set; } = new List<CompanySosial>();
         public List<Cart> ListDataCart { get; set; } = new List<Cart>();
+        public List<TexkSection> ListDataTexkSection { get; set; } = new List<TexkSection>();
         public List<Pesanan.SummaryResponse> ListDataSummaryPesanan { get; set; } = new List<Pesanan.SummaryResponse>();
 
 
@@ -90,6 +100,7 @@ namespace Models
 
         public readonly Dictionary<Type, (string, bool, DateTime)> ListPropertyMap = new()
         {
+            { typeof(TexkSection), (nameof(ListDataTexkSection), false, new DateTime())},
             { typeof(Company), (nameof(ListDataCompany), false, new DateTime())},
             { typeof(Banner), (nameof(ListDataBanner) , false, new DateTime())},
             { typeof(Brand), (nameof(ListDataBrand), false, new DateTime())},
