@@ -202,6 +202,21 @@ namespace PacificWeb.Components.Pages
             await JSRuntime.InvokeVoidAsync("copyVa", init);
         }
 
+
+        public void SearchCombo(string brand)
+        {
+            var bra = "";
+
+            var data = dataSourch?.DataProduk?.Nama_Kategori.FindIndex(x => x == brand) ?? -1;
+
+            if (data != -1)
+            {
+                bra = Convert.ToBase64String(Encoding.UTF8.GetBytes(dataSourch?.DataProduk?.Id_Kategori[data]));
+                NavigationManager.NavigateTo($"/search-page?keyword=&produk=&kategori={Uri.EscapeDataString(bra)}&brand=", true);
+                return;
+            }
+        }
+
         public async Task selectProduk(string id_kode)
         {
             var produkTask = await NewPdjService.GetApi<Produk>(new ParameterApi

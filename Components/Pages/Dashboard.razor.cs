@@ -6,6 +6,8 @@ using PacificWeb.Components.Layout;
 using Radzen;
 using Services;
 using System.Security.Claims;
+using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 
@@ -142,6 +144,18 @@ namespace PacificWeb.Components.Pages
         public void NavigateToDetailProduk(string id)
         {
             NavigationManager.NavigateTo($"/detail-produk/{id}", forceLoad: true);
+        }
+
+
+        public void SearchCombo(Brand brand)
+        {
+            var bra = "";
+            if (brand != null)
+            {
+                bra = Convert.ToBase64String(Encoding.UTF8.GetBytes((brand.No_Id == null || brand.No_Id == "" ? brand.Id : brand.No_Id)));
+                NavigationManager.NavigateTo($"/search-page?keyword=&produk=&kategori=&brand={Uri.EscapeDataString(bra)}", true);
+                return;
+            }
         }
 
 

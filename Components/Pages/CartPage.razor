@@ -1811,7 +1811,7 @@ else
                         <div class="row">
                             <div class="col-12">
                                 <div class="input-group mb-3 style-grup px-1 border-1 pt-2 pb-2 form-style">
-                                    <InputText id="phone-change" @bind-value=@ModelRegist.NoTlp type="tel" name="phone" class="form-control search-form form-text input-otp" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" placeholder="Nomer Telepon Baru (e.x 0812-3456-7899) *" required style="padding-left: 85px; font-size: 14px;" />
+                                    <InputText id="phone-change" @bind-value=@ModelRegist.NoTlp @oninput=@(x => NumberOnlyInput(x, "regist")) type="tel" name="phone" class="form-control search-form form-text input-otp" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" placeholder="Nomer Telepon Baru (e.x 081234567899) *" required style="padding-left: 85px; font-size: 14px;" />
                                 </div>
 
                                 <div>

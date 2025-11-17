@@ -45,7 +45,7 @@
                             Kategori:
                             @foreach (var kategori in DataProduk?.Nama_Kategori)
                             {
-                                <a href="javascript:void(0)">
+                                <a style="cursor:pointer" @onclick=@(x => SearchCombo(kategori))>
                                     @kategori
                                 </a>
                             }
