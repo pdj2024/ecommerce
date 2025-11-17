@@ -94,9 +94,10 @@ builder.Services.AddScoped(sp =>
 
     var authProvider = sp.GetRequiredService<AuthenticationStateProvider>();
     var httpContextAccessor = sp.GetRequiredService<IHttpContextAccessor>();
+    var config = sp.GetRequiredService<IConfiguration>();
 
 
-    return new Services.pdjService(navigationManager, dialogService, jsRuntime, authProvider, httpContextAccessor); // Pass dialogService and jsRuntime
+    return new Services.pdjService(navigationManager, dialogService, jsRuntime, authProvider, httpContextAccessor, config); // Pass dialogService and jsRuntime
 });
 
 
@@ -118,6 +119,7 @@ builder.Services.AddScoped(sp =>
     // Scoped boleh juga
     var scopedDataServices = sp.GetRequiredService<ScopedDataServices>();
     var httpContextAccessor = sp.GetRequiredService<IHttpContextAccessor>();
+    var config = sp.GetRequiredService<IConfiguration>();
 
     // Buat instance secara manual
     return new NewPdjService(
@@ -126,7 +128,8 @@ builder.Services.AddScoped(sp =>
         newpdjservice,
         jsRuntime,
         navigationManager,
-        httpContextAccessor);
+        httpContextAccessor,
+        config);
 });
 
 

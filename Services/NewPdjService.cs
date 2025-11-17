@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.JSInterop;
 using Models;
 using Newtonsoft.Json;
@@ -31,11 +32,12 @@ namespace Services
         private readonly pdjService PdjService;
         private readonly IJSRuntime? JSRuntime;
         private readonly NavigationManager? NavigationManager;
+        private readonly IConfiguration? _config;
 
         private readonly SemaphoreSlim _lock = new(1, 1);
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public NewPdjService(GlobalDataService globalDataService, ScopedDataServices scopedDataServices, pdjService pdjService, IJSRuntime jsRuntime, NavigationManager navigationManager, IHttpContextAccessor httpCon)
+        public NewPdjService(GlobalDataService globalDataService, ScopedDataServices scopedDataServices, pdjService pdjService, IJSRuntime jsRuntime, NavigationManager navigationManager, IHttpContextAccessor httpCon, IConfiguration config)
         {
             GlobalDataService = globalDataService;
             ScopedDataServices = scopedDataServices;
@@ -43,6 +45,7 @@ namespace Services
             JSRuntime = jsRuntime;
             NavigationManager = navigationManager;
             _httpContextAccessor = httpCon;
+            _config = config;
         }
 
         public HttpContext? HttpContext => _httpContextAccessor.HttpContext;
@@ -1797,8 +1800,8 @@ namespace Services
                 var httpReq = new HttpClient();
 
                 httpReq.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", LoginUser?.token);
-
-                var url = $"{Pamramurl.defaultUrl}Auth/refresh";
+                string defaultUrl = _config["ApiSettings:BaseUrl"];
+                var url = $"{defaultUrl}Auth/refresh";
 
                 var jsonSettings = new JsonSerializerSettings
                 {
@@ -1914,7 +1917,8 @@ namespace Services
             var LoginUser = GlobalDataService.GlobalData.ListDataLogin.FirstOrDefault(x => x.No_Id == ScopedDataServices?.ScopedData?.DataLogin?.No_Id);
             httpReq.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", LoginUser?.token);
 
-            string UrlApi = urlParam.defaultUrl + urlParam.routeApi + "/" + urlParam.prosesApi + "?" + ToQueryString(urlParam.ParamUrl);
+            string defaultUrl = _config["ApiSettings:BaseUrl"];
+            string UrlApi = defaultUrl + urlParam.routeApi + "/" + urlParam.prosesApi + "?" + ToQueryString(urlParam.ParamUrl);
 
             return (httpReq, cancelTimer, UrlApi);
         }

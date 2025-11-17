@@ -1544,7 +1544,7 @@ body {
     }
 }
 
-@media (min-width: 1400px) {
+@media (min-width: 1600px) {
     .px-xxl-10 {
         padding-right: 10rem !important;
         padding-left: 10rem !important;

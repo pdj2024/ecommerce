@@ -57,6 +57,7 @@ namespace Services
         private readonly DialogService _dialogService;
         private readonly IJSRuntime _jsRuntime;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IConfiguration? _config;
 
         private static Random _rand = new Random();
 
@@ -291,8 +292,8 @@ namespace Services
             var cancelTimer = new CancellationTokenSource(TimeSpan.FromSeconds(5));
 
             httpReq.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", urlParam.token);
-
-            string UrlApi = urlParam.defaultUrl + urlParam.routeApi + "/" + urlParam.prosesApi + "?" + ToQueryString(urlParam.ParamUrl); 
+            string defaultUrl = _config["ApiSettings:BaseUrl"];
+            string UrlApi = defaultUrl + urlParam.routeApi + "/" + urlParam.prosesApi + "?" + ToQueryString(urlParam.ParamUrl); 
 
             return (httpReq, cancelTimer, UrlApi);
         }
@@ -734,7 +735,7 @@ namespace Services
 
         private readonly AuthenticationStateProvider authProvider;
 
-        public pdjService(NavigationManager navigationManager, DialogService dialogService, IJSRuntime jsRuntime, AuthenticationStateProvider authProvider, IHttpContextAccessor httpContextAccessor)
+        public pdjService(NavigationManager navigationManager, DialogService dialogService, IJSRuntime jsRuntime, AuthenticationStateProvider authProvider, IHttpContextAccessor httpContextAccessor, IConfiguration config)
         {
 
             this.navigationManager = navigationManager;
@@ -742,6 +743,7 @@ namespace Services
             _jsRuntime = jsRuntime;
             this.authProvider = authProvider;
             _httpContextAccessor = httpContextAccessor;
+            _config = config;
         }
 
         public async Task<bool> isThisUser(string name)

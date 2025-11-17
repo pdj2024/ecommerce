@@ -267,8 +267,8 @@ else
                 @if (kategori.Nama_Group_Kategori.ToLower() != "gender") { continue; }
                 <div class="col-lg-4 col-md-4 col-12" style="margin-bottom: 20px;">
                     <div class="single-banner">
-                        <div class="content" style="overflow: hidden; height:40vw;">
-                            <Image Src="@kategori.Id_Media" Class="image-content"/>
+                        <div @onclick=@(x => header_page.searchCombo(null, null, kategori)) class="content" style="overflow: hidden; height:40vw;cursor:pointer;">
+                            <Image Style="" Src="@kategori.Id_Media" Class="image-content" />
                             <div class="content-single">
                                 <div class="button">
                                     <button @onclick=@(x => header_page.searchCombo(null, null, kategori)) class="btn content-btn">Katalog @kategori.Nama_Kategori</button>
