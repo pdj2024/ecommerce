@@ -141,6 +141,70 @@ namespace PacificWeb.Components.Pages
             {
                 ScopedDataServices.ScopedData.DataLogin = null;
             }
+
+            var uri = new Uri(NavigationManager.Uri);
+            var queryParams = QueryHelpers.ParseQuery(uri.Query);
+
+            if (queryParams.TryGetValue("keyword", out var dataKeyword))
+            {
+                SearchQuery.Keyword = Encoding.UTF8.GetString(Convert.FromBase64String(dataKeyword));
+            }
+
+            if (queryParams.TryGetValue("produk", out var dataProduk))
+            {
+                SearchQuery.Produk = Encoding.UTF8.GetString(Convert.FromBase64String(dataProduk));
+            }
+
+            if (queryParams.TryGetValue("kategori", out var dataKategori))
+            {
+                SearchQuery.Kategori = Encoding.UTF8.GetString(Convert.FromBase64String(dataKategori));
+            }
+
+            if (queryParams.TryGetValue("brand", out var dataBrand))
+            {
+                SearchQuery.Brand = Encoding.UTF8.GetString(Convert.FromBase64String(dataBrand));
+            }
+
+            SearchText = SearchQuery.Keyword;
+
+            var CartTask = NewPdjService.RefreshDataMainKonten();
+
+
+            // Tunggu semua task selesai
+            await Task.WhenAll(CartTask);
+
+
+            if (!string.IsNullOrWhiteSpace(SearchQuery.Kategori))
+            {
+                foreach (var idKat in SearchQuery.Kategori.Split(","))
+                {
+                    var kate = GlobalDataService.GlobalData.ListDataKategori.FirstOrDefault(x => x.No_Id == idKat);
+
+                    if (kate != null)
+                    {
+                        ListFilter.Add(new FilterItem { No_Id = kate.No_Id, Nama_Display = kate.Nama_Kategori, Checked = true });
+                        kate.Checked_Filter = true;
+                    }
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(SearchQuery.Brand))
+            {
+                foreach (var idBrand in SearchQuery.Brand.Split(","))
+                {
+                    var kate = GlobalDataService.GlobalData.ListDataBrand.FirstOrDefault(x => x.No_Id == idBrand);
+
+                    if (kate != null)
+                    {
+                        ListFilter.Add(new FilterItem { No_Id = kate.No_Id, Nama_Display = kate.Nama_Brand, Checked = true });
+                        kate.Checked_Filter = true;
+                    }
+                }
+            }
+
+            dataSourch.ListDataKategori.AddRange(GlobalDataService.GlobalData.ListDataKategori);
+            dataSourch.ListDataBrand.AddRange(GlobalDataService.GlobalData.ListDataBrand);
+
         }
 
 
@@ -149,33 +213,6 @@ namespace PacificWeb.Components.Pages
         {
             if (firstRender)
             {
-                var uri = new Uri(NavigationManager.Uri);
-                var queryParams = QueryHelpers.ParseQuery(uri.Query);
-
-                if (queryParams.TryGetValue("keyword", out var dataKeyword))
-                {
-                    SearchQuery.Keyword = Encoding.UTF8.GetString(Convert.FromBase64String(dataKeyword));
-                }
-
-                if (queryParams.TryGetValue("produk", out var dataProduk))
-                {
-                    SearchQuery.Produk = Encoding.UTF8.GetString(Convert.FromBase64String(dataProduk));
-                }
-
-                if (queryParams.TryGetValue("kategori", out var dataKategori))
-                {
-                    SearchQuery.Kategori = Encoding.UTF8.GetString(Convert.FromBase64String(dataKategori));
-                }
-
-                if (queryParams.TryGetValue("brand", out var dataBrand))
-                {
-                    SearchQuery.Brand = Encoding.UTF8.GetString(Convert.FromBase64String(dataBrand));
-                }
-
-                SearchText = SearchQuery.Keyword;
-
-                var CartTask = NewPdjService.RefreshDataMainKonten();
-                
                 var searchTask = pdjService.GetSearchApi(new ParameterApi
                 {
                     routeApi = "produk",
@@ -198,52 +235,20 @@ namespace PacificWeb.Components.Pages
                     }
                 });
 
+                var CartTask = NewPdjService.RefreshDataAuthKonten();
 
-                // Tunggu semua task selesai
-                await Task.WhenAll(searchTask, CartTask);
-
+                await Task.WhenAll(CartTask, searchTask);
                 dataSourch.SearchList = searchTask.Result;
 
 
-
-                if (!string.IsNullOrWhiteSpace(SearchQuery.Kategori))
-                {
-                    foreach (var idKat in SearchQuery.Kategori.Split(","))
-                    {
-                        var kate = GlobalDataService.GlobalData.ListDataKategori.FirstOrDefault(x => x.No_Id == idKat);
-
-                        if (kate != null)
-                        {
-                            ListFilter.Add(new FilterItem { No_Id = kate.No_Id, Nama_Display = kate.Nama_Kategori, Checked = true });
-                            kate.Checked_Filter = true;
-                        }
-                    }
-                }
-
-                if (!string.IsNullOrWhiteSpace(SearchQuery.Brand))
-                {
-                    foreach (var idBrand in SearchQuery.Brand.Split(","))
-                    {
-                        var kate = GlobalDataService.GlobalData.ListDataBrand.FirstOrDefault(x => x.No_Id == idBrand);
-
-                        if (kate != null)
-                        {
-                            ListFilter.Add(new FilterItem { No_Id = kate.No_Id, Nama_Display = kate.Nama_Brand, Checked = true });
-                            kate.Checked_Filter = true;
-                        }
-                    }
-                }
-
-                dataSourch.ListDataKategori.AddRange(GlobalDataService.GlobalData.ListDataKategori);
-                dataSourch.ListDataBrand.AddRange(GlobalDataService.GlobalData.ListDataBrand);
                 dataSourch.Finised = true;
                 ScopedDataServices.ScopedData.Finised = true;
+                loadContent = false;
                 StateHasChanged();
 
                 await JSRuntime.InvokeVoidAsync("scrollToTop");
                 await JSRuntime.InvokeVoidAsync("initslideProduct");
 
-                loadContent = false;
                 StateHasChanged();
             }
 
@@ -313,26 +318,26 @@ namespace PacificWeb.Components.Pages
                 ParamUrl = new ParameterApi.ParameterUrl { pagesize = 2, show_variant = true, max_media = 10, no_id = id_kode }
             });
 
-            DataProduk = produkTask.Data.FirstOrDefault(x => x.No_Id == id_kode);
+            ScopedDataServices.ScopedData.DataProduk = produkTask.Data.FirstOrDefault(x => x.No_Id == id_kode);
 
-            if (DataProduk == null)
+            if (ScopedDataServices.ScopedData.DataProduk == null)
             {
                 await JSRuntime.InvokeVoidAsync("initSearchButton");
                 StateHasChanged();
                 return;
             }
 
-            var dataProd = DataProduk?.Variants.FirstOrDefault(x => x.Stock >= DataProduk?.Min_Order);
+            var dataProd = ScopedDataServices.ScopedData.DataProduk?.Variants.FirstOrDefault(x => x.Stock >= ScopedDataServices.ScopedData.DataProduk?.Min_Order);
 
-            var Opsi = DataProduk?.Options.FirstOrDefault(x => x.Option_Id == dataProd.Option_Id);
-            DataProduk.Id_Option_Default = Opsi?.Option_Id ?? "";
-            DataProduk.Option_Default = Opsi?.Option_Label ?? "";
+            var Opsi = ScopedDataServices.ScopedData.DataProduk?.Options.FirstOrDefault(x => x.Option_Id == dataProd.Option_Id);
+            ScopedDataServices.ScopedData.DataProduk.Id_Option_Default = Opsi?.Option_Id ?? "";
+            ScopedDataServices.ScopedData.DataProduk.Option_Default = Opsi?.Option_Label ?? "";
 
-            var Size = DataProduk?.Sizes.FirstOrDefault(x => x.Size_Id == dataProd.Size_Id);
-            DataProduk.Id_Size_Default = Size?.Size_Id ?? "";
-            DataProduk.Size_Default = Size?.Size_Label ?? "";
+            var Size = ScopedDataServices.ScopedData.DataProduk?.Sizes.FirstOrDefault(x => x.Size_Id == dataProd.Size_Id);
+            ScopedDataServices.ScopedData.DataProduk.Id_Size_Default = Size?.Size_Id ?? "";
+            ScopedDataServices.ScopedData.DataProduk.Size_Default = Size?.Size_Label ?? "";
 
-            Quantity = DataProduk?.Min_Order ?? 0;
+            Quantity = ScopedDataServices.ScopedData.DataProduk?.Min_Order ?? 0;
             StateHasChanged();
             await JSRuntime.InvokeVoidAsync("initSearchButton");
         }
@@ -457,7 +462,7 @@ namespace PacificWeb.Components.Pages
 
         public void NavigateToDetailProduk(string id)
         {
-            NavigationManager.NavigateTo($"/detail-produk/{id}", forceLoad: true);
+            NavigationManager.NavigateTo($"/detail-produk/{id}", forceLoad: false);
         }
 
 

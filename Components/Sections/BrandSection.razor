@@ -1,0 +1,26 @@
+﻿<!-- Start Slider Brand Area -->
+<section class="brand-slider-new">
+    <div class="track-brand-new">
+        @foreach (var brand in GlobalDataService?.GlobalData?.ListDataBrand)
+        {
+            <a class="item-brand-new">
+                <img @onclick=@(x => SearchCombo(brand)) style="cursor:pointer" src="@brand.Id_Media" alt="@brand.No_Id_Media">
+            </a>
+        }
+
+        @foreach (var brand in GlobalDataService?.GlobalData?.ListDataBrand)
+        {
+            <a class="item-brand-new">
+                <img @onclick=@(x => SearchCombo(brand)) style="cursor:pointer" src="@brand.Id_Media" alt="@brand.No_Id_Media">
+            </a>
+        }
+
+        @foreach (var brand in GlobalDataService?.GlobalData?.ListDataBrand)
+        {
+            <a class="item-brand-new">
+                <img @onclick=@(x => SearchCombo(brand)) style="cursor:pointer" src="@brand.Id_Media" alt="@brand.No_Id_Media">
+            </a>
+        }
+    </div>
+</section>
+<!-- End Slider Brand Area -->

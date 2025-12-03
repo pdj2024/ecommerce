@@ -51,12 +51,14 @@ namespace Models
             public string Status_Item { get; set; } = "";
             public string Var_Id_Produk { get; set; } = "";
             public string Var_Size { get; set; } = "";
+            public string Var_Size_Label { get; set; } = "";
             public decimal Var_Harga { get; set; } = 0;
             public int Var_Stock { get; set; } = 0;
             public string Var_Sku { get; set; } = "";
             public string Var_Id_Media { get; set; } = "";
             public string Var_Status { get; set; } = "";
             public string Var_Option { get; set; } = "";
+            public string Var_Option_Label { get; set; } = "";
         }
 
         public class Biayas
@@ -76,6 +78,22 @@ namespace Models
             public int StatusCode { get; set; } = 0;
             public string Message { get; set; } = "";
             public string NewId { get; set; } = "";
+        }
+
+        public class Datas
+        {
+            public bool Payment_Problem { get; set; } = false;
+            public List<Fail_Gen_Payments> Fail_Gen_Payment { get; set; } = new();
+            public string[] Success_Gen_Payment { get; set; } = [];
+            public List<Headers> Header { get; set; } = new();
+            public List<Item> Items { get; set; } = new();
+            public List<Biayas> Biaya { get; set; } = new();
+        }
+
+        public class Fail_Gen_Payments
+        {
+            public string No_Bukti { get; set; } = "";
+            public string Error { get; set; } = "";
         }
 
         public class PaymentMidtrans
@@ -141,16 +159,14 @@ namespace Models
 
 
 
-        public int HeaderRows { get; set; } = 0;
-        public int ItemRows { get; set; } = 0;
-        public int BiayaRows { get; set; } = 0;
-        public bool Payment_Problem { get; set; } = false;
-        public List<Headers> Header { get; set; } = new();
-        public List<Item> Items { get; set; } = new();
-        public List<Biayas> Biaya { get; set; } = new();
+        public int StatusCode { get; set; } = 0;
+        public string Message { get; set; } = "";
         public int TotalCount { get; set; } = 0;
-        public bool hasMore { get; set; } = true;
+        public int ReturnedCount { get; set; } = 0;
+        public int RemainingCount { get; set; } = 0;
         public string LastCursor { get; set; } = "";
+        public bool hasMore { get; set; } = true;
+        public Datas Data { get; set; } = new();
 
     }
 

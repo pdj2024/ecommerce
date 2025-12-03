@@ -69,7 +69,7 @@ namespace PacificWeb.Components.Sections
         public async void NavigateToDetailProduk(string id)
         {
             List<string> stringData = await pdjService.DecodeEncode(true, new List<string> { id });
-            NavigationManager.NavigateTo($"/detail-produk/{stringData.FirstOrDefault()}", forceLoad: true);
+            NavigationManager.NavigateTo($"/detail-produk/{stringData.FirstOrDefault()}", forceLoad: false);
         }
 
     }

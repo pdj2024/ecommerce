@@ -1,5 +1,5 @@
 ﻿@rendermode InteractiveServer
-@page "/"
+@* @page "/" *@
 @using Microsoft.AspNetCore.Components.Authorization
 @using PacificWeb.Components.Sections
 @inject AuthenticationStateProvider AuthenticationStateProvider
@@ -10,23 +10,19 @@
 <MyHeader @ref="header_page" />
 
  <!-- Start Hero Area -->
-@if (loadContent)
-{
-    <section class="hero-area" style="margin-top: 85px;">
-        <div class="container p-0 pe-lg-3" style="width:100%; max-width:100%;">
-            <div class="row">
-                <div class="col-12 custom-padding-right">
-                    <div class="card py-3 px-0 border-0" style="border-radius:0px;" aria-busy="true">
-                        <div class="skeleton skeleton-rect mb-3" style="border-radius:0px;height:100dvh"></div>
-                    </div>
+<section class="hero-area hero-shimer" style="margin-top: 85px;">
+    <div class="container p-0 pe-lg-3" style="width:100%; max-width:100%;">
+        <div class="row">
+            <div class="col-12 custom-padding-right">
+                <div class="card py-3 px-0 border-0" style="border-radius:0px;" aria-busy="true">
+                    <div class="skeleton skeleton-rect mb-3" style="border-radius:0px;height:100dvh"></div>
                 </div>
             </div>
         </div>
-    </section>
-}
-else 
-{
-    <section class="hero-area" style="margin-top: 85px;">
+    </div>
+</section>
+
+<section class="hero-area hero-content" style="margin-top: 85px; display:none;">
     <div class="container p-0 pe-lg-3" style="width:100%; max-width:100%;">
         <div class="row">
             <div class="col-12 custom-padding-right d-none d-md-none d-lg-none d-xl-none d-xxl-flex">
@@ -41,7 +37,8 @@ else
                                 @if (@banner.Media_Desktop.Id_Media != null || @banner.Media_Desktop.Id_Media != "")
                                 {
                                     <Image Src="@banner.Media_Desktop.Id_Media" Class="img-cover" Style="max-height:54rem"></Image>
-                                } else
+                                }
+                                else
                                 {
                                     <Image Src="/images/products/placeholder1.png" Class="img-cover" Style="max-height:54rem"></Image>
                                 }
@@ -137,7 +134,10 @@ else
         </div>
     </div>
 </section>
-}
+
+
+
+@* <HeroSection /> *@
 <!-- End Hero Area -->
 
 
@@ -181,40 +181,36 @@ else
                 </div>
             </div>
         </div>
-        <div class="row"> 
-                
-            @if (loadContent)
+
+        <div class="row product-shimer">
+            @for (var i = 0; i <= 11; i++)
             {
-                @for (var i = 0; i <= 11; i++)
-                {
-                    <div class="col-lg-3 col-md-4 col-6 col-xxl-2 pt-2 pb-2">
-                        <div class="card p-3 border-0" style="border-radius:0px;" aria-busy="true">
-                            <div class="skeleton skeleton-rect mb-3"></div>
-                            <div class="d-flex align-items-center justify-content-between">
-                                <div style="flex:1" class="d-flex flex-column align-items-center">
-                                    <div class="skeleton skeleton-title mb-2" style="width:90%"></div>
-                                    <div class="skeleton skeleton-subtitle mb-2" style="width:50%"></div>
-                                </div>
+                <div class="col-lg-3 col-md-4 col-6 col-xxl-2 pt-2 pb-2">
+                    <div class="card p-3 border-0" style="border-radius:0px;" aria-busy="true">
+                        <div class="skeleton skeleton-rect mb-3"></div>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div style="flex:1" class="d-flex flex-column align-items-center">
+                                <div class="skeleton skeleton-title mb-2" style="width:90%"></div>
+                                <div class="skeleton skeleton-subtitle mb-2" style="width:50%"></div>
                             </div>
                         </div>
                     </div>
-                }
-            } 
+                </div>
+            }
+        </div>
             
+        <div class="row product-content" style="display:none;">
             @foreach (var dataProduk in GlobalDataService?.GlobalData?.ListDataProduk)
             {
-
                 <div class="col-lg-3 col-md-4 col-6 col-xxl-2 pt-2 pb-2 product">
 
                     <!-- Start Single Product -->
                     <PacificWeb.Components.Sections.ProductDisplay DataProduk="dataProduk" selectProduk="@selectProduk" />
                     <!-- End Single Product -->
-
                 </div>
-            
             }
-
         </div>
+
     </div>
 </section>
 <!-- End Trending Product Area -->

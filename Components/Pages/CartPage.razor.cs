@@ -87,6 +87,7 @@ namespace PacificWeb.Components.Pages
 
         public int infoSubmit { get; set; } = 0;
         public bool readOnlyProfile { get; set; } = true;
+        public bool loadLogin { get; set; } = false;
         public bool updateProfil { get; set; } = false;
         public bool readOnlyAkun { get; set; } = true;
         public bool infoChange { get; set; } = false;
@@ -95,6 +96,7 @@ namespace PacificWeb.Components.Pages
         public bool? infoPembatalan { get; set; } = null;
         public bool loadRefresh { get; set; } = false;
         public bool loadContent { get; set; } = true;
+        public string Numberinfo { get; set; } = "";
         public Pesanan Pesanan_Create { get; set; } = new Pesanan();
         public Pesanan.Headers Pesanan_Change { get; set; } = new();
 
@@ -112,7 +114,14 @@ namespace PacificWeb.Components.Pages
         {
             var value = e.Value?.ToString() ?? "";
 
+            bool hasPlus = value.StartsWith("+");
+
             value = Regex.Replace(value, @"[^0-9]", "");
+
+            if (hasPlus)
+            {
+                value = "+" + value;
+            }
 
             if (info == "phone-login")
             {
@@ -132,15 +141,18 @@ namespace PacificWeb.Components.Pages
             await JSRuntime.InvokeVoidAsync("setInputValue", info, value);
         }
 
-
         public async void changeLogin(string value, bool direct = false, string status = "")
         {
+            loadLogin = true;
+            StateHasChanged();
+
             if (value == "otp-view")
             {
 
-                if ((ModelRegist.NoTlp == "" || ModelRegist.NoTlp == null) && status == "nomer")
+                if ((ModelRegist.NoTlp == "" || ModelRegist.NoTlp == null) && status == "Nomor")
                 {
                     infoSubmit = 1;
+                    loadLogin = false;
                     StateHasChanged();
                     return;
                 }
@@ -148,34 +160,57 @@ namespace PacificWeb.Components.Pages
                 else if ((ModelRegist.Password == "" || ModelRegist.Password == null) && status == "password")
                 {
                     infoSubmit = 1;
+                    loadLogin = false;
                     StateHasChanged();
                     return;
                 }
 
-                else if (status == "nomer")
+                if (status == "Nomor")
                 {
-                    var Numberinfo = await JSRuntime.InvokeAsync<string>("initKlikFlagChange");
+                    Numberinfo = "";
+                    Numberinfo = await JSRuntime.InvokeAsync<string>("initKlikFlagChange");
 
                     if (Numberinfo == "FALSE")
                     {
                         infoSubmit = 2;
+                        loadLogin = false;
                         StateHasChanged();
                         return;
                     }
                     else
                     {
+
+                        var dataCek = await NewPdjService.CheckUserRegApi(new ParameterApi
+                        {
+                            routeApi = "auth",
+                            prosesApi = "check",
+                            ParamUrl = new ParameterApi.ParameterUrl()
+                        }, new LoginViewModel { NoTlp = Numberinfo });
+
+
+                        if (!dataCek)
+                        {
+                            infoSubmit = 3;
+                            loadLogin = false;
+                            StateHasChanged();
+                            return;
+                        }
+
+
                         var statusOtp = await JSRuntime.InvokeAsync<bool>("sendOTP", Numberinfo);
 
                         if (statusOtp)
                         {
                             await JSRuntime.InvokeVoidAsync("initLoginEffect", value, direct);
                             dataChange = 1;
+                            loadLogin = false;
                             StateHasChanged();
                             return;
                         }
                         else
                         {
                             infoSubmit = 2;
+                            loadLogin = false;
                             StateHasChanged();
                             return;
                         }
@@ -191,12 +226,14 @@ namespace PacificWeb.Components.Pages
 
                         await JSRuntime.InvokeVoidAsync("initLoginEffect", value, direct);
                         dataChange = 2;
+                        loadLogin = false;
                         StateHasChanged();
                         return;
                     }
                     else
                     {
                         infoSubmit = 2;
+                        loadLogin = false;
                         StateHasChanged();
                         return;
                     }
@@ -204,6 +241,7 @@ namespace PacificWeb.Components.Pages
                 
                 else
                 {
+                    loadLogin = false;
                     StateHasChanged();
                     return;
                 }
@@ -215,18 +253,23 @@ namespace PacificWeb.Components.Pages
                 ModelRegist.NoTlp = "";
                 ModelRegist.Password = "";
 
+                loadLogin = false;
+                StateHasChanged();
                 await JSRuntime.InvokeVoidAsync("initLoginEffect", value, direct);
 
             }
+
+            loadLogin = false;
+            StateHasChanged();
         }
 
         protected override async Task OnInitializedAsync()
         {
             ti = CultureInfo.CurrentCulture.TextInfo;
 
-            Pesanan_Create.Header.Add(new Pesanan.Headers());
-            Pesanan_Create.Items.Add(new Pesanan.Item());
-            Pesanan_Create.Biaya.Add(new Pesanan.Biayas());
+            Pesanan_Create.Data.Header.Add(new Pesanan.Headers());
+            Pesanan_Create.Data.Items.Add(new Pesanan.Item());
+            Pesanan_Create.Data.Biaya.Add(new Pesanan.Biayas());
 
             var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
             var user = authState.User;
@@ -268,7 +311,7 @@ namespace PacificWeb.Components.Pages
             }
             else
             {
-                NavigationManager.NavigateTo("/", true);
+                NavigationManager.NavigateTo("/", false);
             }
         }
 
@@ -276,22 +319,12 @@ namespace PacificWeb.Components.Pages
         {
             if (firstRender)
             {
+                JSRuntime.InvokeVoidAsync("removeBackdrops");
+                JSRuntime.InvokeVoidAsync("goTopInstant");
+
                 var RefreshDataMainKonten = NewPdjService.RefreshDataMainKonten();
 
-                var metodeBayarTask = NewPdjService.GetApi<Pembayaran>(new ParameterApi
-                {
-                    routeApi = "payment",
-                    prosesApi = "option",
-                    token = ScopedDataServices.ScopedData.DataLogin.token,
-                    refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        status = "aktif",
-                        orderDir = "asc",
-                    }
-                });
-                
-                if (pageTabs == "belum-bayar") 
+                if (pageTabs == "belum-bayar")
                 {
                     dataSourch.DataPesananBelum = await NewPdjService.showMorePesanan(new ParameterApi
                     {
@@ -310,9 +343,9 @@ namespace PacificWeb.Components.Pages
                             pagesize = 5,
                         }
                     });
-                } 
-                
-                else if (pageTabs == "dikemas") 
+                }
+
+                else if (pageTabs == "dikemas")
                 {
                     dataSourch.DataPesananDikemas = await NewPdjService.showMorePesanan(new ParameterApi
                     {
@@ -331,9 +364,9 @@ namespace PacificWeb.Components.Pages
                             pagesize = 5,
                         }
                     });
-                } 
-                
-                else if (pageTabs == "dikirim") 
+                }
+
+                else if (pageTabs == "dikirim")
                 {
                     dataSourch.DataPesananDikirim = await NewPdjService.showMorePesanan(new ParameterApi
                     {
@@ -352,9 +385,9 @@ namespace PacificWeb.Components.Pages
                             pagesize = 5,
                         }
                     });
-                } 
-                
-                else if (pageTabs == "histori") 
+                }
+
+                else if (pageTabs == "selesai")
                 {
                     dataSourch.DataPesananHistori = await NewPdjService.showMorePesanan(new ParameterApi
                     {
@@ -374,24 +407,28 @@ namespace PacificWeb.Components.Pages
                         }
                     });
                 }
-                
-                else if (pageTabs == "keranjang")
-                {
 
+                else if (pageTabs == "keranjang") { }
+
+                else if (pageTabs == "setting") { }
+
+                else
+                {
+                    NavigationManager.NavigateTo("/", false);
                 }
-                
-                else if (pageTabs == "setting")
+
+                var RefreshDataOuth = NewPdjService.RefreshDataAuthKonten();
+
+                await Task.WhenAll(RefreshDataMainKonten, RefreshDataOuth);
+
+                if (pageTabs == "setting")
                 {
                     await JSRuntime.InvokeVoidAsync("initButtonFlagChange");
                 }
-                else
-                {
-                    NavigationManager.NavigateTo("/", true);
-                }
-
+                
 
                 // Tunggu semua task selesai
-                await Task.WhenAll(RefreshDataMainKonten, metodeBayarTask);
+                await Task.WhenAll();
 
                 // Assign semua data sekaligus
                 dataSourch.ListDataPembayaran.Clear();
@@ -496,7 +533,7 @@ namespace PacificWeb.Components.Pages
             StateHasChanged();
 
             var active = dataSourch?.ListDataPembayaran.FirstOrDefault(x => x.selectPayment == true);
-            var dataHeader = dataSourch.DataPesananBelum.Header.FirstOrDefault(x => x.No_Bukti == item.No_Bukti);
+            var dataHeader = dataSourch.DataPesananBelum.Data.Header.FirstOrDefault(x => x.No_Bukti == item.No_Bukti);
 
             object data = new { no_bukti = item.No_Bukti, payment_type = active.Cara_Bayar };
 
@@ -562,7 +599,8 @@ namespace PacificWeb.Components.Pages
             loadProses = true;
             loadRefresh = true;
             StateHasChanged();
-            dataSourch.DataPesanan = await NewPdjService.GetPesananApi(new ParameterApi
+
+            var data = await NewPdjService.GetPesananApi(new ParameterApi
             {
                 routeApi = "order",
                 prosesApi = "getAll",
@@ -579,7 +617,7 @@ namespace PacificWeb.Components.Pages
             });
 
 
-            var produk = dataSourch?.DataPesanan.Header.FirstOrDefault(x => x.No_Bukti == item?.No_Bukti);
+            var produk = data.Data.Header.FirstOrDefault(x => x.No_Bukti == item?.No_Bukti);
 
             if (produk != null && produk?.Metode_Bayar == "QRIS" && produk?.Status_Order_1 == "belum bayar")
             {
@@ -587,10 +625,10 @@ namespace PacificWeb.Components.Pages
                 produk.QrBase64 = base64Image;
             }
 
-            Pesanan_Create.Header.Clear();
+            Pesanan_Create = new();
             StateHasChanged();
 
-            Pesanan_Create.Header.Add(produk);
+            Pesanan_Create = data;
 
             if (produk?.Status_Order_1 != item?.Status_Order_1)
             {
@@ -680,9 +718,9 @@ namespace PacificWeb.Components.Pages
                 }
             }
 
-            totalDpp  = dataSourch?.DataPesananBelum?.Items.Where(x => x.No_Bukti == headItem.No_Bukti).Sum(x => x.Harga_Satuan * x.Qty);
-            shipingMethodFee  = dataSourch?.DataPesananBelum?.Biaya.FirstOrDefault(x => x.No_Bukti == headItem.No_Bukti && x.Jenis_Item.ToLower() == "layanan")?.Harga_Satuan;
-            paymentMethodFee  = dataSourch?.DataPesananBelum?.Biaya.FirstOrDefault(x => x.No_Bukti == headItem.No_Bukti && x.Jenis_Item.ToLower() == "ongkir")?.Harga_Satuan;
+            totalDpp  = dataSourch?.DataPesananBelum?.Data.Items.Where(x => x.No_Bukti == headItem.No_Bukti).Sum(x => x.Harga_Satuan * x.Qty);
+            shipingMethodFee  = dataSourch?.DataPesananBelum?.Data.Biaya.FirstOrDefault(x => x.No_Bukti == headItem.No_Bukti && x.Jenis_Item.ToLower() == "layanan")?.Harga_Satuan;
+            paymentMethodFee  = dataSourch?.DataPesananBelum?.Data.Biaya.FirstOrDefault(x => x.No_Bukti == headItem.No_Bukti && x.Jenis_Item.ToLower() == "ongkir")?.Harga_Satuan;
 
             hitungTotal();
             await JSRuntime.InvokeVoidAsync("buttonClick", $"#buttonChangeMethod");
@@ -758,9 +796,10 @@ namespace PacificWeb.Components.Pages
             await JSRuntime.InvokeVoidAsync("initItemsOrder", id_kode);
         }
 
-        public async Task openPayment(Pesanan.Headers produk)
+        public async Task openPayment(Pesanan.Headers produk, List<Pesanan.Biayas> biaya = null)
         {
-            Pesanan_Create.Header.Clear();
+            Pesanan_Create.Data.Header.Clear();
+            Pesanan_Create.Data.Biaya.Clear();
             loadRefresh = true;
             StateHasChanged();
 
@@ -770,11 +809,14 @@ namespace PacificWeb.Components.Pages
                 produk.QrBase64 = base64Image;
             }
 
-            Pesanan_Create.Header.Add(produk);
+            Pesanan_Create.Data.Header.Add(produk);
+            Pesanan_Create.Data.Biaya.AddRange(biaya);
 
-            if (Pesanan_Create.Header.Count() >= 2) {
-                var data = Pesanan_Create.Header.LastOrDefault();
-                Pesanan_Create.Header.Remove(data);
+
+
+            if (Pesanan_Create.Data.Header.Count() >= 2) {
+                var data = Pesanan_Create.Data.Header.LastOrDefault();
+                Pesanan_Create.Data.Header.Remove(data);
             }
 
             loadRefresh = false;
@@ -1096,12 +1138,24 @@ namespace PacificWeb.Components.Pages
                 }
             });
 
+            var SummaryPesananTask = NewPdjService.GetApi<Pesanan.SummaryResponse>(new ParameterApi
+            {
+                routeApi = "order",
+                prosesApi = "getSummary",
+                token = ScopedDataServices.ScopedData.DataLogin.token,
+                refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
+                ParamUrl = new ParameterApi.ParameterUrl
+                {
+                    id_customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id,
+                }
+            });
+
             var dataSummary = NewPdjService.RefreshDataMainKonten();
 
-            await Task.WhenAll(DataPesananBelum, DataPesananDikemas, DataPesananDikirim, DataPesananHistori, dataSummary);
+            await Task.WhenAll(DataPesananBelum, DataPesananDikemas, DataPesananDikirim, DataPesananHistori, dataSummary, SummaryPesananTask);
 
 
-
+            ScopedDataServices.ScopedData.ListDataSummaryPesanan = SummaryPesananTask.Result?.Data ?? new();
             dataSourch.DataPesananBelum = DataPesananBelum.Result;
             dataSourch.DataPesananDikemas = DataPesananDikemas.Result;
             dataSourch.DataPesananDikirim = DataPesananDikirim.Result;
@@ -1198,9 +1252,9 @@ namespace PacificWeb.Components.Pages
                     }
                 });
 
-                dataSourch.DataPesananBelum.Header.AddRange(data.Header);
-                dataSourch.DataPesananBelum.Items.AddRange(data.Items);
-                dataSourch.DataPesananBelum.Biaya.AddRange(data.Biaya);
+                dataSourch.DataPesananBelum.Data.Header.AddRange(data.Data.Header);
+                dataSourch.DataPesananBelum.Data.Items.AddRange(data.Data.Items);
+                dataSourch.DataPesananBelum.Data.Biaya.AddRange(data.Data.Biaya);
                 dataSourch.DataPesananBelum.hasMore = data.hasMore;
                 dataSourch.DataPesananBelum.TotalCount = data.TotalCount;
                 dataSourch.DataPesananBelum.LastCursor = data.LastCursor;
@@ -1227,9 +1281,9 @@ namespace PacificWeb.Components.Pages
                     }
                 });
                 
-                dataSourch.DataPesananDikemas.Header.AddRange(data.Header);
-                dataSourch.DataPesananDikemas.Items.AddRange(data.Items);
-                dataSourch.DataPesananDikemas.Biaya.AddRange(data.Biaya);
+                dataSourch.DataPesananDikemas.Data.Header.AddRange(data.Data.Header);
+                dataSourch.DataPesananDikemas.Data.Items.AddRange(data.Data.Items);
+                dataSourch.DataPesananDikemas.Data.Biaya.AddRange(data.Data.Biaya);
                 dataSourch.DataPesananDikemas.hasMore = data.hasMore;
                 dataSourch.DataPesananDikemas.TotalCount = data.TotalCount;
                 dataSourch.DataPesananDikemas.LastCursor = data.LastCursor;
@@ -1255,9 +1309,9 @@ namespace PacificWeb.Components.Pages
                     }
                 });
 
-                dataSourch.DataPesananDikirim.Header.AddRange(data.Header);
-                dataSourch.DataPesananDikirim.Items.AddRange(data.Items);
-                dataSourch.DataPesananDikirim.Biaya.AddRange(data.Biaya);
+                dataSourch.DataPesananDikirim.Data.Header.AddRange(data.Data.Header);
+                dataSourch.DataPesananDikirim.Data.Items.AddRange(data.Data.Items);
+                dataSourch.DataPesananDikirim.Data.Biaya.AddRange(data.Data.Biaya);
                 dataSourch.DataPesananDikirim.hasMore = data.hasMore;
                 dataSourch.DataPesananDikirim.TotalCount = data.TotalCount;
                 dataSourch.DataPesananDikirim.LastCursor = data.LastCursor;
@@ -1283,9 +1337,9 @@ namespace PacificWeb.Components.Pages
                     }
                 });
 
-                dataSourch.DataPesananHistori.Header.AddRange(data.Header);
-                dataSourch.DataPesananHistori.Items.AddRange(data.Items);
-                dataSourch.DataPesananHistori.Biaya.AddRange(data.Biaya);
+                dataSourch.DataPesananHistori.Data.Header.AddRange(data.Data.Header);
+                dataSourch.DataPesananHistori.Data.Items.AddRange(data.Data.Items);
+                dataSourch.DataPesananHistori.Data.Biaya.AddRange(data.Data.Biaya);
                 dataSourch.DataPesananHistori.hasMore = data.hasMore;
                 dataSourch.DataPesananHistori.TotalCount = data.TotalCount;
                 dataSourch.DataPesananHistori.LastCursor = data.LastCursor;
@@ -1295,5 +1349,26 @@ namespace PacificWeb.Components.Pages
             loadProses = false;
             StateHasChanged();
         }
+
+        private async Task KirimPesan(Pesanan.Headers item)
+        {
+            var lines = new List<string>
+            {
+                $"*Nama*: {ScopedDataServices.ScopedData.DataLogin.DataUser.UserName}",
+                $"*Pesanan: {item.No_Tracking} *",
+                $"*Pesan*:",
+                $"Bagaimana progres pesanan saya?"
+            };
+
+            var message = string.Join("\n", lines);
+            var encoded = Uri.EscapeDataString(message);
+
+            var target = GlobalDataService?.GlobalData?.ListDataCompany?.FirstOrDefault()?.No_Wa_1;
+            var to = target.Replace("+", "");
+            var url = $"https://wa.me/{to}?text={encoded}";
+
+            await JSRuntime.InvokeVoidAsync("open", url, "_blank");
+        }
+
     }
 }

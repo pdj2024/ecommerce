@@ -9,22 +9,18 @@
 @inject IHttpContextAccessor HttpContextAccessor
 @inject LoginService AuthService
 
-@if(loadContent)
-{
-    <header class="header navbar navbar-area">
-    <!-- Start Header Bottom -->
-        <div class="container-fluid px-md-5 px-2" style="height:100%">
-            <div class="row align-items-center vw-100" style="height:100%; width:100%; margin:0px">
-                <div class="col-4 d-flex align-items-center justify-content-start"><div class="skeleton skeleton-subtitle mb-2" style="width:50%"></div></div>
-                <div class="col-4 d-flex align-items-center justify-content-center"><div class="skeleton skeleton-subtitle mb-2" style="width:80%"></div></div>
-                <div class="col-4 d-flex align-items-center justify-content-end"><div class="skeleton skeleton-subtitle mb-2" style="width:50%"></div></div>
-            </div>
+<header class="header navbar navbar-area header-shimer">
+<!-- Start Header Bottom -->
+    <div class="container-fluid px-md-5 px-2" style="height:100%">
+        <div class="row align-items-center vw-100" style="height:100%; width:100%; margin:0px">
+            <div class="col-4 d-flex align-items-center justify-content-start"><div class="skeleton skeleton-subtitle mb-2" style="width:50%"></div></div>
+            <div class="col-4 d-flex align-items-center justify-content-center"><div class="skeleton skeleton-subtitle mb-2" style="width:80%"></div></div>
+            <div class="col-4 d-flex align-items-center justify-content-end"><div class="skeleton skeleton-subtitle mb-2" style="width:50%"></div></div>
         </div>
-    </header>
-}
-else 
-{
-    <header class="header navbar navbar-area">
+    </div>
+</header>
+
+<header class="header navbar navbar-area header-content" style="display: none;">
     <!-- Start Header Bottom -->
     <div class="container-fluid px-md-5 px-2" style="height:100%">
         <div class="row align-items-center vw-100" style="height:100%; width:100%; margin:0px">
@@ -119,55 +115,64 @@ else
                                                                 <div class="product-image">
                                                                     @if (dataProduk.MediaUrls.Count() >= 2)
                                                                     {
-                                                                        <img src="@(dataProduk.MediaUrls[0]?.Id_Media == null || dataProduk.MediaUrls[0]?.Id_Media == "" ? "/images/products/placeholder1.png" : dataProduk.MediaUrls[0]?.Id_Media)" alt="@dataProduk.Nama_Display">
-                                                                        <img class="img2" src="@(dataProduk.MediaUrls[1]?.Id_Media == null || dataProduk.MediaUrls[1]?.Id_Media == "" ? "/images/products/placeholder1.png" : dataProduk.MediaUrls[1]?.Id_Media)" alt="@dataProduk.Nama_Display">
+                                                                        <img class="d-none d-md-flex" @onclick="@(e => NavigateToDetailProduk(dataProduk.No_Id))" src="@(dataProduk.MediaUrls[0]?.Id_Media == null || dataProduk.MediaUrls[0]?.Id_Media == "" ? "/images/products/placeholder1.png" : dataProduk.MediaUrls[0]?.Id_Media)" alt="@dataProduk.Nama_Display" style="cursor:pointer">
+                                                                        <img class="img2 d-none d-md-flex" @onclick="@(e => NavigateToDetailProduk(dataProduk.No_Id))" src="@(dataProduk.MediaUrls[1]?.Id_Media == null || dataProduk.MediaUrls[1]?.Id_Media == "" ? "/images/products/placeholder1.png" : dataProduk.MediaUrls[1]?.Id_Media)" alt="@dataProduk.Nama_Display" style="cursor:pointer">
                                                                     }
                                                                     else if (dataProduk.MediaUrls.Count() == 1)
                                                                     {
-                                                                        <img src="@(dataProduk.MediaUrls[0]?.Id_Media == null || dataProduk.MediaUrls[0]?.Id_Media == "" ? "/images/products/placeholder1.png" : dataProduk.MediaUrls[0]?.Id_Media)" alt="@dataProduk.Nama_Display">
+                                                                        <img class="d-none d-md-flex" @onclick="@(e => NavigateToDetailProduk(dataProduk.No_Id))" src="@(dataProduk.MediaUrls[0]?.Id_Media == null || dataProduk.MediaUrls[0]?.Id_Media == "" ? "/images/products/placeholder1.png" : dataProduk.MediaUrls[0]?.Id_Media)" alt="@dataProduk.Nama_Display" style="cursor:pointer">
                                                                     }
                                                                     else
                                                                     {
-                                                                        <img src="/images/products/placeholder1.png" alt="@dataProduk.Nama_Display">
+                                                                        <img class="d-none d-md-flex" @onclick="@(e => NavigateToDetailProduk(dataProduk.No_Id))" src="/images/products/placeholder1.png" alt="@dataProduk.Nama_Display" style="cursor:pointer">
                                                                     }
 
-                                                                    @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
+                                                                    @if (dataProduk.MediaUrls.Count() >= 2)
                                                                     {
-                                                                        <span class="sale-tag">-@dataProduk.Diskon1.ToString()%</span>
+                                                                        <img class="d-flex d-md-none" @onclick="@(e => NavigateToDetailProduk(dataProduk.No_Id))" src="@(dataProduk.MediaUrls[0]?.Id_Media == null || dataProduk.MediaUrls[0]?.Id_Media == "" ? "/images/products/placeholder1.png" : dataProduk.MediaUrls[0]?.Id_Media)" alt="@dataProduk.Nama_Display" style="cursor:pointer">
+                                                                    }
+                                                                    else if (dataProduk.MediaUrls.Count() == 1)
+                                                                    {
+                                                                        <img class="d-flex d-md-none" @onclick="@(e => NavigateToDetailProduk(dataProduk.No_Id))" src="@(dataProduk.MediaUrls[0]?.Id_Media == null || dataProduk.MediaUrls[0]?.Id_Media == "" ? "/images/products/placeholder1.png" : dataProduk.MediaUrls[0]?.Id_Media)" alt="@dataProduk.Nama_Display" style="cursor:pointer">
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <img class="d-flex d-md-none" @onclick="@(e => NavigateToDetailProduk(dataProduk.No_Id))" src="/images/products/placeholder1.png" alt="@dataProduk.Nama_Display" style="cursor:pointer">
                                                                     }
 
-                                                                    @if (dataProduk.Tgl_Created != null && (DateTime.Now - dataProduk.Tgl_Created).TotalDays <= 3)
-                                                                    {
-                                                                        <span class="new-tag">New</span>
-                                                                    }
+                                                                    <span class="sale-tag d-flex flex-row gap-1 bg-transparent">
+                                                                        @if (dataProduk.Diskon1 != null && dataProduk.Diskon1 >= 1)
+                                                                        {
+                                                                            <span class="bg-primary px-2 py-1">-@dataProduk.Diskon1.ToString()%</span>
+                                                                        }
+
+                                                                        @if (dataProduk.Tgl_Created != null && (DateTime.Now - dataProduk.Tgl_Created).TotalDays <= 3)
+                                                                        {
+                                                                            <span class="px-2 py-1 bg-success">New</span>
+                                                                        }
+                                                                    </span>
+
                                                                 </div>
                                                                 <div class="product-info">
                                                                     <h4 class="title">
-                                                                        <NavLink style="cursor:pointer; display:inline-block;max-height: 90px;overflow: hidden;text-overflow: ellipsis;" @onclick=@(() => NavigateToDetailProduk(dataProduk.No_Id))>
+                                                                        <NavLink style="cursor:pointer;max-height: 70px;overflow: hidden;" @onclick="@(e => NavigateToDetailProduk(dataProduk.No_Id))">
                                                                             <p class="line-clamp-2 underline-anim">
                                                                                 @dataProduk.Nama_Display
                                                                             </p>
                                                                         </NavLink>
                                                                     </h4>
-                                                                    @* <ul class="review">
-                                                                        <li><i class="lni lni-star-filled"></i></li>
-                                                                        <li><i class="lni lni-star-filled"></i></li>
-                                                                        <li><i class="lni lni-star-filled"></i></li>
-                                                                        <li><i class="lni lni-star-filled"></i></li>
-                                                                        <li><i class="lni lni-star"></i></li>
-                                                                        <li><span>4.0 Review(s)</span></li>
-                                                                    </ul> *@
                                                                     <div class="price">
                                                                         <span>
-                                                                            @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
+                                                                            @if (dataProduk.Diskon1 != null && dataProduk.Diskon1 >= 1)
                                                                             {
                                                                                 @string.Format("Rp. {0:N0}", (dataProduk.Harga - ((dataProduk.Diskon1 / 100) * dataProduk.Harga)))
-                                                                            } else
+                                                                            }
+                                                                            else
                                                                             {
                                                                                 @string.Format("Rp. {0:N0}", dataProduk.Harga)
                                                                             }
                                                                         </span>
-                                                                        @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
+                                                                        @if (dataProduk.Diskon1 != null && dataProduk.Diskon1 >= 1)
                                                                         {
                                                                             <span class="discount-price">@string.Format("Rp. {0:N0}", dataProduk.Harga)</span>
                                                                         }
@@ -268,7 +273,7 @@ else
                                         </button>
                                     </li> 
                                     <li style="cursor:pointer;">
-                                        <button class="dropdown-item dropdown-item-custom" @onclick="@(e => NavigateToHome("cart-page/histori"))">
+                                        <button class="dropdown-item dropdown-item-custom" @onclick="@(e => NavigateToHome("cart-page/selesai"))">
                                             <div class="d-flex flex-row justify-content-end gap-3">
                                                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="m787-145 28-28-75-75v-112h-40v128l87 87Zm-587 25q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v268q-19-9-39-15.5t-41-9.5v-243H200v560h242q3 22 9.5 42t15.5 38H200Zm0-120v40-560 243-3 280Zm80-40h163q3-21 9.5-41t14.5-39H280v80Zm0-160h244q32-30 71.5-50t84.5-27v-3H280v80Zm0-160h400v-80H280v80ZM720-40q-83 0-141.5-58.5T520-240q0-83 58.5-141.5T720-440q83 0 141.5 58.5T920-240q0 83-58.5 141.5T720-40Z"/></svg>
                                                 <span>Histori Pembelian</span>
@@ -320,11 +325,10 @@ else
                 </div>
             </div>
             
-        
         </div>
     </div>
 </header>
-}
+
 <!-- Start Header Area -->
 
 <div class="offcanvas offcanvas-end" style="width: 500px;" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
@@ -803,8 +807,8 @@ else
                             <i class="lni lni-cart-1 mt-0"></i>
                         </NavLink>
                     </div>
-                    <div class="button"  style="width:60%; @(ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart).FirstOrDefault( cart => cart.Qty < cart.Min_Order || cart.Qty > cart.Stock ) != null || ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart)?.Count() <= 0 ? "cursor:not-allowed" : "")">
-                        <button @onclick="@(e => CheckoutCart())" class="btn animate" disabled="@( ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart).FirstOrDefault( cart => cart.Qty < cart.Min_Order || cart.Qty > cart.Stock ) != null || ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart)?.Count() <= 0 ? true : false)"  style="border-radius:0px;" >Bayar Sekarang</button>
+                    <div class="button"  style="width:60%; @(ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart).FirstOrDefault( cart => cart.Qty < cart.Min_Order || cart.Qty > cart.Stock || cart.Status_Produk != "aktif" || cart.Status_Variant != "aktif") != null || ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart)?.Count() <= 0 ? "cursor:not-allowed" : "")">
+                        <button @onclick="@(e => CheckoutCart())" class="btn animate" disabled="@( ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart).FirstOrDefault( cart => cart.Qty < cart.Min_Order || cart.Qty > cart.Stock || cart.Status_Produk != "aktif" || cart.Status_Variant != "aktif") != null || ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart)?.Count() <= 0 ? true : false)"  style="border-radius:0px;" >Bayar Sekarang</button>
                     </div>
                 </div>
             </div>
@@ -820,13 +824,13 @@ else
 
                 <div class="otp-view" style="">
                     <div class="modal-header justify-content-center d-flex flex-column border-bottom-0 pb-0">
-                        <h5 class="modal-title w-100 text-xl-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">Verifikasi Nomer Telepon</h5>
+                        <h5 class="modal-title w-100 text-xl-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">Verifikasi Nomor Telepon</h5>
                         <button type="button" id="closeLoginRegis" style="position: absolute;top: 25px;right: 25px;" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body pb-3">
                         <div class="row">
                             <div class="col-12">
-                                <OtpPage IdInfo=@dataChange UId=@uid NoTlp=@ModelRegist.NoTlp Pass=@ModelRegist.Password/>
+                                <OtpPage IdInfo=@dataChange UId=@uid NoTlp=@Numberinfo Pass=@ModelRegist.Password/>
                             </div>
                         </div>
                     </div>
@@ -845,7 +849,7 @@ else
                         <div class="row">
                             <div class="col-12">
                                 <div class="input-group mb-3 style-grup px-1 border-1 pt-2 pb-2 form-style">
-                                    <InputText @bind-value=@ModelRegist.NoTlp @oninput=@(x => NumberOnlyInput(x, "regist")) id="phone" type="tel" name="phone" class="form-control search-form form-text input-otp" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" placeholder="Nomer Telepon (e.x 081234567899) *" required style="padding-left: 85px; font-size: 14px;" />
+                                    <InputText @bind-value=@ModelRegist.NoTlp @oninput=@(x => NumberOnlyInput(x, "phone")) id="phone" type="tel" name="phone" class="form-control search-form form-text input-otp" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" placeholder="Nomor Telepon *" required style="padding-left: 85px; font-size: 14px;" />
                                 </div>
 
                                 <div class="input-group mb-3 style-grup px-1 border-1 py-1 pb-2 form-style">
@@ -867,7 +871,7 @@ else
                         <div class="toast show showing align-items-center mt-1 mb-3 mx-auto border-0 shadow-none" style="opacity : 1 !important;" role="alert" aria-live="assertive" aria-atomic="true">
                             <div class="d-flex w-100">
                                 <div class="toast-body text-center w-100">
-                                    <strong class="me-auto text-danger text-center">Isi nomor telpon dan password !</strong>
+                                    <strong class="me-auto text-danger text-center">Isi Nomor telpon dan password !</strong>
                                 </div>
                             </div>
                         </div>
@@ -876,7 +880,7 @@ else
                         <div class="toast show showing align-items-center mt-1 mb-3 mx-auto border-0 shadow-none" style="opacity : 1 !important;" role="alert" aria-live="assertive" aria-atomic="true">
                             <div class="d-flex w-100">
                                 <div class="toast-body text-center w-100">
-                                    <strong class="me-auto text-danger text-center">Nomer yang didaftarkan tidak valid!</strong>
+                                    <strong class="me-auto text-danger text-center">Nomor yang didaftarkan tidak valid!</strong>
                                 </div>
                             </div>
                         </div>
@@ -885,15 +889,24 @@ else
                         <div class="toast show showing align-items-center mt-1 mb-3 mx-auto border-0 shadow-none" style="opacity : 1 !important;" role="alert" aria-live="assertive" aria-atomic="true">
                             <div class="d-flex w-100">
                                 <div class="toast-body text-center w-100">
-                                    <strong class="me-auto text-danger text-center">Nomer sudah terdaftar pada akun lain!</strong>
+                                    <strong class="me-auto text-danger text-center">Nomor sudah terdaftar pada akun lain!</strong>
                                 </div>
                             </div>
                         </div>
                     }
 
                     <div class="modal-footer justify-content-center button border-top-0 pt-0 pb-3 px-5 mt-1">
-                        <button type="button" class="btn-slide py-2 px-4" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;" @onclick="@(x => changeLogin("otp-view"))" >
-                            <span class="position-relative">Daftar</span>
+                        <button type="button" disabled=@loadLogin class="btn-slide py-2 px-4" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;" @onclick="@(x => changeLogin("otp-view"))" >
+                            @if(loadLogin) 
+                            {
+                                <div class="spinner-border spinner-border-sm p-2" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            } 
+                            else
+                            {
+                                <span class="position-relative">Daftar</span>
+                            }
                         </button>
                     </div>
                 </div>
@@ -914,7 +927,7 @@ else
                             <div class="row">
                                 <div class="col-12">
                                     <div class="input-group mb-3 style-grup px-1 border-1 pt-2 pb-2 form-style">
-                                        <InputText @bind-Value=@Model.NoTlp @oninput=@(x => NumberOnlyInput(x, "phone-login")) id="phone-login" type="tel" name="phone" class="form-control search-form form-text" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" placeholder="Nomer Telepon (e.x 081234567899) *" style="padding-left: 85px; font-size: 14px;" />
+                                        <InputText @bind-Value=@Model.NoTlp @oninput=@(x => NumberOnlyInput(x, "phone-login")) id="phone-login" type="tel" name="phone" class="form-control search-form form-text" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" placeholder="Nomor Telepon *" style="padding-left: 85px; font-size: 14px;" />
                                     </div>
                                     <div class="input-group mb-3 style-grup px-1 border-1 py-1 pb-2 form-style">
                                         <InputText type="password" @bind-Value="Model.Password" id="Password-Login" style="font-size: 14px;" class="form-control search-form form-text" placeholder="Kata Sandi *" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" />
@@ -945,7 +958,7 @@ else
                             <div class="toast show showing align-items-center mt-1 mb-3 mx-auto border-0 shadow-none" style="opacity : 1 !important;" role="alert" aria-live="assertive" aria-atomic="true">
                                 <div class="d-flex w-100">
                                     <div class="toast-body text-center w-100">
-                                        <strong class="me-auto text-danger text-center">Isi nomor telpon dan password !</strong>
+                                        <strong class="me-auto text-danger text-center">Isi Nomor telpon dan password !</strong>
                                     </div>
                                 </div>
                             </div>
@@ -980,7 +993,7 @@ else
                         <div class="row">
                             <div class="col-12">
                                 <div class="input-group mb-3 style-grup px-1 border-1 pt-2 pb-2 form-style">
-                                    <InputText id="phone-change" @bind-value=@ModelRegist.NoTlp @oninput=@(x => NumberOnlyInput(x, "regist")) type="tel" name="phone" class="form-control search-form form-text input-otp" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" placeholder="Nomer Telepon (e.x 081234567899) *" required style="padding-left: 85px; font-size: 14px;" />
+                                    <InputText id="phone-change" @bind-value=@ModelRegist.NoTlp @oninput=@(x => NumberOnlyInput(x, "phone-change")) type="tel" name="phone-change" class="form-control search-form form-text input-otp" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" placeholder="Nomor Telepon *" required style="padding-left: 85px; font-size: 14px;" />
                                 </div>
 
                                 <div class="input-group mb-3 style-grup px-1 border-1 py-1 pb-2 form-style">
@@ -1002,7 +1015,7 @@ else
                         <div class="toast show showing align-items-center mt-1 mb-3 mx-auto border-0 shadow-none" style="opacity : 1 !important;" role="alert" aria-live="assertive" aria-atomic="true">
                             <div class="d-flex w-100">
                                 <div class="toast-body text-center w-100">
-                                    <strong class="me-auto text-danger text-center">Isi nomer telepon dan kata sandi yang baru !</strong>
+                                    <strong class="me-auto text-danger text-center">Isi Nomor telepon dan kata sandi yang baru !</strong>
                                 </div>
                             </div>
                         </div>
@@ -1020,7 +1033,16 @@ else
 
                     <div class="modal-footer justify-content-center button border-top-0 pt-5 pb-3 px-5">
                         <button type="submit" @onclick="@(x => changeLogin("change-pw"))" class="btn-slide py-2 px-4" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;">
-                            <span class="position-relative">Perbarui Kata Sandi</span>
+                            @if(loadLogin) 
+                            {
+                                <div class="spinner-border spinner-border-sm p-2" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            } 
+                            else
+                            {
+                                <span class="position-relative">Perbarui Kata Sandi</span>
+                            }
                         </button>
                     </div>
 

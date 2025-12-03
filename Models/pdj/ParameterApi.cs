@@ -72,6 +72,7 @@ namespace Models
             public string refreshToken { get; set; } = "";
             public string lastRefresh { get; set; } = "";
             public bool transaksi { get; set; } = false;
+            public bool Updated { get; set; } = false;
             public bool refreshAll { get; set; } = false;
             public Type typeTarget { get; set; } = null;
             public ParameterUrl ParamUrl { get; set; }

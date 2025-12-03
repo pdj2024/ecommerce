@@ -96,7 +96,7 @@
 
         if (loginStatus)
         {
-            navigationManager.NavigateTo("/", forceLoad: true);
+            navigationManager.NavigateTo("/", forceLoad: false);
         } else
         {
             Console.WriteLine("gagal login");
@@ -129,6 +129,6 @@
     //     var principal = new ClaimsPrincipal(identity);
 
     //     await HttpContext?.SignInAsync(principal);
-    //     navigationManager.NavigateTo("/", forceLoad: true);
+    //     navigationManager.NavigateTo("/", forceLoad: false);
     // }
 }

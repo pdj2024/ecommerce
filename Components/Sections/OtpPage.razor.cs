@@ -50,6 +50,7 @@ namespace PacificWeb.Components.Sections
 
         public bool loadProses { get; set; } = false;
         public bool auth { get; set; } = false;
+        public bool succesretry { get; set; } = false;
 
         [Parameter]
         public string? UId { get; set; }
@@ -143,6 +144,22 @@ namespace PacificWeb.Components.Sections
             }
         }
 
+        public async Task reTryOtp()
+        {
+            var statusOtp = await JSRuntime.InvokeAsync<bool>("sendOTP", NoTlp);
+
+            if(statusOtp)
+            {
+                succesretry = true;
+                StateHasChanged();
+
+                await Task.Delay(10000);
+
+                succesretry = false;
+                StateHasChanged();
+            }
+        }
+
         public async Task sendOtp()
         {
             var verifyCode = await JSRuntime.InvokeAsync<string>("verifyCode");
@@ -159,6 +176,8 @@ namespace PacificWeb.Components.Sections
                         New_Token = TokenJwt,
                         Password = Pass
                     };
+
+                    NewPdjService.writeLog($"{ScopedDataServices.ScopedData.DataLogin.No_Id} - {TokenJwt} - {Pass}");
 
                     var info = await NewPdjService.ChangeAkunApi(new ParameterApi
                     {
@@ -178,7 +197,7 @@ namespace PacificWeb.Components.Sections
                         New_Password = Pass,
                     };
 
-                    pdjService.ShowConsoleData(dataobj);
+                    //pdjService.ShowConsoleData(dataobj);
 
                     var info = await NewPdjService.ChangeAkunApi(new ParameterApi
                     {

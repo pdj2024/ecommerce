@@ -70,12 +70,12 @@ namespace PacificWeb.Components.Sections
 
         public void NavigateToDetailProduk(string id)
         {
-            NavigationManager.NavigateTo($"/detail-produk/{id}", forceLoad: true);
+            NavigationManager.NavigateTo($"/detail-produk/{id}", forceLoad: false);
         }
 
         public void NavigateToHome(string route)
         {
-            NavigationManager.NavigateTo($"/{route}", forceLoad: true);
+            NavigationManager.NavigateTo($"/{route}", forceLoad: false);
         }
 
         private void OnSizeChanged(string value)

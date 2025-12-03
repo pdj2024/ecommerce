@@ -4,18 +4,20 @@
 
 
 @code {
-    [CascadingParameter]
-    public HttpContext? HttpContext { get; set; }
+    // [CascadingParameter]
+    // public HttpContext? HttpContext { get; set; }
 
-    protected override async Task OnInitializedAsync()
-    {
-        if (HttpContext.User.Identity.IsAuthenticated)
-        {
-            await HttpContext.SignOutAsync();
-            navigationManager.NavigateTo("/", true);
-        } else {
-            navigationManager.NavigateTo("/", true);
-        }
-    }
+    // protected override async Task OnInitializedAsync()
+    // {
+    //     if (HttpContext.User.Identity.IsAuthenticated)
+    //     {
+    //         await HttpContext.SignOutAsync();
+    //         navigationManager.NavigateTo("/", false);
+    //     } else {
+    //     else
+    //     {
+    //         navigationManager.NavigateTo("/", false);
+    //     }
+    // }
 
 }

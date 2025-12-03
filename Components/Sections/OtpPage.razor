@@ -55,7 +55,14 @@
         <p class="text-danger mt-3 mb-2 mx-auto" style="font-weight:300;">Terjadi kesalahan saat melakukan verifikasi. Coba Lagi Nanti!</p>
     }
 
-    <p class="mx-auto">Tidak menerima kode? <a class="underline-anim" @onclick=@(() => sendOtp())>Kirim Ulang !</a></p>
+    @if (succesretry)
+    {
+        <p class="mx-auto">Kode Berhasil Dikirim Kembali</p>
+    } 
+    else
+    {
+        <p class="mx-auto">Tidak menerima kode? <a class="underline-anim" @onclick=@(() => reTryOtp())>Kirim Ulang !</a></p>
+    }
 </div>
 
 <div class="result-otp" style="display: none;">
@@ -67,7 +74,7 @@
             {
                 @if (IdInfo == 1)
                 {
-                    <h4 class="text-center">Nomer Berhasil Diperbarui!</h4>
+                    <h4 class="text-center">Nomor Berhasil Diperbarui!</h4>
                 } 
                 else
                 {
@@ -78,7 +85,7 @@
             {
                 @if (IdInfo == 1)
                 {
-                    <h4 class="text-center">Nomer Gagal Diperbarui!</h4>
+                    <h4 class="text-center">Nomor Gagal Diperbarui!</h4>
                 } 
                 else if (IdInfo == 2)
                 {
@@ -86,7 +93,7 @@
                 } 
                 else
                 {
-                    <h4 class="text-center">Nomer Berhasil Verifikasi!</h4>
+                    <h4 class="text-center">Nomor Berhasil Verifikasi!</h4>
                 }
             }
 
@@ -126,7 +133,7 @@
 
             @if (IdInfo == 1)
             {
-                <h4 class="text-center">Nomer Gagal Diperbarui!</h4>
+                <h4 class="text-center">Nomor Gagal Diperbarui!</h4>
             }
             else if (IdInfo == 2)
             {
@@ -134,7 +141,7 @@
             }
             else
             {
-                <h4 class="text-center">Nomer Gagal Verifikasi!</h4>
+                <h4 class="text-center">Nomor Gagal Verifikasi!</h4>
             }
 
         </div>

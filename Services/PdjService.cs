@@ -301,6 +301,7 @@ namespace Services
 
         public async Task<(List<Brand> SearchBrand, List<Produk> SearchProduk, int TotalCount, bool hasMore)> GetSearchApi(ParameterApi urlParam)
         {
+            urlParam.ParamUrl.status = "aktif";
             var config = initConfigApi(urlParam);
             var tbListProduk = new List<Produk>();
             var tbListBrand = new List<Brand>();
@@ -469,7 +470,7 @@ namespace Services
             };
 
             var requestBody = new { Telepon = data.Telepon , Token = data.tokenJwt, Password = data.Password };
-
+            writeLog($"{data.Telepon} - {data.tokenJwt} - {data.Password}");
             var jsonContent = JsonConvert.SerializeObject(requestBody, jsonSettings);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 

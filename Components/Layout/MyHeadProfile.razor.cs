@@ -54,7 +54,7 @@ namespace PacificWeb.Components.Layout
 
         public void NavigateToHome(string route)
         {
-            NavigationManager.NavigateTo($"/{route}", forceLoad: true);
+            NavigationManager.NavigateTo($"/{route}", forceLoad: false);
         }
 
         protected override async Task OnInitializedAsync()
@@ -353,7 +353,7 @@ namespace PacificWeb.Components.Layout
         public async void NavigateToDetailProduk(string id)
         {
             List<string> stringData = await pdjService.DecodeEncode(true, new List<string> { id });
-            NavigationManager.NavigateTo($"/detail-produk/{stringData.FirstOrDefault()}", forceLoad: true);
+            NavigationManager.NavigateTo($"/detail-produk/{stringData.FirstOrDefault()}", forceLoad: false);
         }
 
         public async Task moveTabs (string tab)
@@ -448,7 +448,7 @@ namespace PacificWeb.Components.Layout
                         id_customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id,
                         show_media = "true",
                         orderDir = "desc",
-                        status_order_1 = "histori",
+                        status_order_1 = "selesai",
                         status = "aktif",
                         orderBy = "no_bukti",
                         pagesize = 5,
@@ -478,7 +478,7 @@ namespace PacificWeb.Components.Layout
         private void seeResult()
         {
             var keywordText = Convert.ToBase64String(Encoding.UTF8.GetBytes(SearchText));
-            NavigationManager.NavigateTo($"/search-page?keyword={Uri.EscapeDataString(keywordText)}", true);
+            NavigationManager.NavigateTo($"/search-page?keyword={Uri.EscapeDataString(keywordText)}", false);
         }
 
         private void searchCombo(Navbar Navbar = null, Brand brand = null, Kategori kategori = null)
@@ -490,7 +490,7 @@ namespace PacificWeb.Components.Layout
             if (Navbar == null)
             {
                 bra = Convert.ToBase64String(Encoding.UTF8.GetBytes((brand.No_Id == null || brand.No_Id == "" ? brand.Id : brand.No_Id)));
-                NavigationManager.NavigateTo($"/search-page?keyword=&produk=&kategori={Uri.EscapeDataString(kate)}&brand={Uri.EscapeDataString(bra)}", true);
+                NavigationManager.NavigateTo($"/search-page?keyword=&produk=&kategori={Uri.EscapeDataString(kate)}&brand={Uri.EscapeDataString(bra)}", false);
                 return;
             }
 
@@ -510,7 +510,7 @@ namespace PacificWeb.Components.Layout
 
             kate = Convert.ToBase64String(Encoding.UTF8.GetBytes(kate));
 
-            NavigationManager.NavigateTo($"/search-page?keyword=&produk=&kategori={Uri.EscapeDataString(kate)}&brand={Uri.EscapeDataString(bra)}", true);
+            NavigationManager.NavigateTo($"/search-page?keyword=&produk=&kategori={Uri.EscapeDataString(kate)}&brand={Uri.EscapeDataString(bra)}", false);
         }
 
         private void HandleKeyDown(KeyboardEventArgs e)
@@ -518,7 +518,7 @@ namespace PacificWeb.Components.Layout
             if (e.Key == "Enter" && !string.IsNullOrWhiteSpace(SearchText))
             {
                 var keywordText = Convert.ToBase64String(Encoding.UTF8.GetBytes(SearchText));
-                NavigationManager.NavigateTo($"/search-page?keyword={Uri.EscapeDataString(keywordText)}", true);
+                NavigationManager.NavigateTo($"/search-page?keyword={Uri.EscapeDataString(keywordText)}", false);
             }
         }
 
@@ -541,7 +541,7 @@ namespace PacificWeb.Components.Layout
             kate = Convert.ToBase64String(Encoding.UTF8.GetBytes(kate));
             var keywordText = Convert.ToBase64String(Encoding.UTF8.GetBytes(SearchText));
 
-            NavigationManager.NavigateTo($"/search-page?keyword={Uri.EscapeDataString(keywordText)}&produk={Uri.EscapeDataString(prod)}&kategori={Uri.EscapeDataString(kate)}", true);
+            NavigationManager.NavigateTo($"/search-page?keyword={Uri.EscapeDataString(keywordText)}&produk={Uri.EscapeDataString(prod)}&kategori={Uri.EscapeDataString(kate)}", false);
         }
 
         private async Task ShowNavbar(string classItem, bool status)

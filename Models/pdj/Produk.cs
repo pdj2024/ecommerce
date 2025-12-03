@@ -47,6 +47,7 @@ namespace Models
         public string Size_Default { get; set; } = "";
         public string Id_Size_Default { get; set; } = "";
         public bool Special_Price { get; set; } = false;
+        public bool ShowFlayer { get; set; } = false;
         public string Kode_Erp { get; set; } = "";
         public string Media { get; set; } = "";
         public string Option_Default { get; set; } = "";

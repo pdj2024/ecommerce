@@ -144,7 +144,7 @@ namespace PacificWeb.Components.Pages
             }
             else
             {
-                NavigationManager.NavigateTo("/", true);
+                NavigationManager.NavigateTo("/", false);
             }
 
             try 
@@ -160,7 +160,7 @@ namespace PacificWeb.Components.Pages
                 }
                 else
                 {
-                    NavigationManager.NavigateTo("/", true);
+                    NavigationManager.NavigateTo("/", false);
                 }
             } 
 
@@ -169,9 +169,9 @@ namespace PacificWeb.Components.Pages
                 contentCrash = false;
             }
 
-            Pesanan_Info.Header.Add(new Pesanan.Headers());
-            Pesanan_Info.Items.Add(new Pesanan.Item());
-            Pesanan_Info.Biaya.Add(new Pesanan.Biayas());
+            Pesanan_Info.Data.Header.Add(new Pesanan.Headers());
+            Pesanan_Info.Data.Items.Add(new Pesanan.Item());
+            Pesanan_Info.Data.Biaya.Add(new Pesanan.Biayas());
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -179,9 +179,7 @@ namespace PacificWeb.Components.Pages
             if (firstRender)
             {
                 try 
-                { 
-                
-                    var refreshTask = NewPdjService.RefreshDataMainKonten();
+                {
 
                     if (CartList == "cart")
                     {
@@ -199,11 +197,12 @@ namespace PacificWeb.Components.Pages
                             }
                         });
 
-                        if (dataCard.Data.Count() >= 1)
+                        if (dataCard != null && dataCard?.Data.Count() >= 1)
                         {
                             dataSourch.ListDataCart.AddRange(dataCard.Data);
-                        
-                        } else
+
+                        }
+                        else
                         {
                             await pdjService.ButtonCLick("modalPaymentStatus4");
                             await Task.Delay(5000);
@@ -213,7 +212,7 @@ namespace PacificWeb.Components.Pages
                     }
                     else
                     {
-                        if(listDirectItem.Count() <=2) 
+                        if (listDirectItem.Count() <= 2)
                         {
                             contentCrash = false;
                         }
@@ -236,10 +235,10 @@ namespace PacificWeb.Components.Pages
 
                         if (itemDirect != null && itemDirect.Stock >= int.Parse(listDirectItem[2]))
                         {
-                            dataSourch.ListDataCart.Add(new Cart 
-                            { 
-                                Id_Variant = itemDirect.No_Id, 
-                                Qty = int.Parse(listDirectItem[2] ?? "0"), 
+                            dataSourch.ListDataCart.Add(new Cart
+                            {
+                                Id_Variant = itemDirect.No_Id,
+                                Qty = int.Parse(listDirectItem[2] ?? "0"),
                                 Harga = itemDirect.Harga,
                                 Size_Id = itemDirect?.Size_Id,
                                 Size_Label = itemDirect?.Size_Label,
@@ -249,7 +248,8 @@ namespace PacificWeb.Components.Pages
                                 Diskon2 = itemProduct?.Diskon2,
                                 Nama_Display = itemProduct?.Nama_Display,
                                 Stock = itemDirect.Stock,
-                                Id_Media = dataDirect.Data.FirstOrDefault(x => x.No_Id == listDirectItem[0])?.Options.FirstOrDefault(x => x.Option_Id == itemDirect.Option_Id)?.MediaUrl.Id_Media}
+                                Id_Media = dataDirect.Data.FirstOrDefault(x => x.No_Id == listDirectItem[0])?.Options.FirstOrDefault(x => x.Option_Id == itemDirect.Option_Id)?.MediaUrl.Id_Media
+                            }
                             );
                         }
                         else if (itemDirect != null && itemDirect.Stock < int.Parse(listDirectItem[2]))
@@ -258,7 +258,8 @@ namespace PacificWeb.Components.Pages
                             await Task.Delay(3000);
                             await pdjService.GoBack();
                             return;
-                        } else
+                        }
+                        else
                         {
                             await pdjService.ButtonCLick("modalPaymentStatus4");
                             await Task.Delay(3000);
@@ -267,6 +268,12 @@ namespace PacificWeb.Components.Pages
                         }
 
                     }
+
+                    hitungTotal();
+
+                    var refresh = NewPdjService.RefreshDataMainKonten();
+                    var refreshTask = NewPdjService.RefreshDataAuthKonten();
+                    await Task.WhenAll(refreshTask, refresh);
 
                     var data = GlobalDataService?.GlobalData?.ListDataPengiriman.FirstOrDefault(x => x.selectShipping == true);
                     var dataZ = GlobalDataService?.GlobalData?.ListDataPembayaran.FirstOrDefault(x => x.selectPayment == true);
@@ -283,11 +290,9 @@ namespace PacificWeb.Components.Pages
 
                     StateHasChanged();
 
-                    Pesanan_Info.Header[0].Nama_Penerima = ScopedDataServices.ScopedData.DataLogin.DataUser.UserName;
-                    Pesanan_Info.Header[0].Telpon_Penerima = ScopedDataServices.ScopedData.DataLogin.DataUser.Telepon;
-                    Pesanan_Info.Header[0].Alamat_Kirim = ScopedDataServices.ScopedData.DataLogin.DataUser.Alamat;
-
-                    hitungTotal();
+                    Pesanan_Info.Data.Header[0].Nama_Penerima = ScopedDataServices.ScopedData.DataLogin.DataUser.UserName;
+                    Pesanan_Info.Data.Header[0].Telpon_Penerima = ScopedDataServices.ScopedData.DataLogin.DataUser.Telepon;
+                    Pesanan_Info.Data.Header[0].Alamat_Kirim = ScopedDataServices.ScopedData.DataLogin.DataUser.Alamat;
 
                     loadContent = false;
                     StateHasChanged();
@@ -381,7 +386,7 @@ namespace PacificWeb.Components.Pages
                 alertPayment = false;
             }
 
-            if (Pesanan_Info.Header[0].Nama_Penerima == "" || Pesanan_Info.Header[0].Telpon_Penerima == "" || Pesanan_Info.Header[0].Alamat_Kirim == "")
+            if (Pesanan_Info.Data.Header[0].Nama_Penerima == "" || Pesanan_Info.Data.Header[0].Telpon_Penerima == "" || Pesanan_Info.Data.Header[0].Alamat_Kirim == "")
             {
                 alertProfile = true;
             }
@@ -413,7 +418,7 @@ namespace PacificWeb.Components.Pages
         public async Task directStatus(Pesanan.Headers item)
         {
             var dataUrl = item.Status_Order_1 == "belum bayar" ? "belum-bayar" : item.Status_Order_1;
-            NavigationManager.NavigateTo($"/cart-page/{dataUrl}",  true);
+            NavigationManager.NavigateTo($"/cart-page/{dataUrl}", false);
         }
 
 
@@ -436,11 +441,11 @@ namespace PacificWeb.Components.Pages
                 }
             });
 
-            Pesanan_Create.Header.Clear();
+            Pesanan_Create.Data.Header.Clear();
             StateHasChanged();
 
 
-            foreach (var produk in dataOrder.Header)
+            foreach (var produk in dataOrder.Data.Header)
             {
                 if (produk.Metode_Bayar == "QRIS" && produk.Status_Order_1 == "belum bayar")
                 {
@@ -448,7 +453,7 @@ namespace PacificWeb.Components.Pages
                     produk.QrBase64 = base64Image;
                 }
 
-                Pesanan_Create.Header.Add(produk);
+                Pesanan_Create.Data.Header.Add(produk);
                 StateHasChanged();
             }
 
@@ -460,7 +465,7 @@ namespace PacificWeb.Components.Pages
             loadRefresh = false;
             StateHasChanged();
 
-            if (Pesanan_Create.Header.FirstOrDefault()?.Status_Order_1 != "belum bayar")
+            if (Pesanan_Create.Data.Header.FirstOrDefault()?.Status_Order_1 != "belum bayar")
             {
                 while (countRedirect != 0)
                 {
@@ -469,7 +474,7 @@ namespace PacificWeb.Components.Pages
                     StateHasChanged();
                 }
 
-                await directStatus(Pesanan_Create.Header.FirstOrDefault());
+                await directStatus(Pesanan_Create.Data.Header.FirstOrDefault());
             }
 
         }
@@ -562,8 +567,8 @@ namespace PacificWeb.Components.Pages
             {
                 new
                 {
-                    Jenis_Item = "ongkir",
-                    Id_Variant = "ONGKIR",
+                    Jenis_Item = "Ongkir",
+                    Id_Variant = "Ongkir",
                     Qty = 1,
                     Harga_Satuan = dataKirim.Fee
                 },
@@ -582,9 +587,9 @@ namespace PacificWeb.Components.Pages
                 Status_Bayar = "",
                 Id_Payment_Gateway = "",
                 Payment_Type = dataLayanan.Cara_Bayar,
-                Nama_Penerima = Pesanan_Info.Header[0].Nama_Penerima,
-                Telpon_Penerima = Pesanan_Info.Header[0].Telpon_Penerima,
-                Alamat_Kirim = Pesanan_Info.Header[0].Alamat_Kirim,
+                Nama_Penerima = Pesanan_Info.Data.Header[0].Nama_Penerima,
+                Telpon_Penerima = Pesanan_Info.Data.Header[0].Telpon_Penerima,
+                Alamat_Kirim = Pesanan_Info.Data.Header[0].Alamat_Kirim,
                 Id_Shipping_Option = dataKirim.No_Id,
                 Items = ListDataItem,
                 Biaya = Layanan,
@@ -622,10 +627,10 @@ namespace PacificWeb.Components.Pages
                     }
                 });
 
-                Pesanan_Create.Header.Clear();
+                Pesanan_Create.Data.Header.Clear();
                 StateHasChanged();
 
-                foreach (var produk in dataOrder.Header)
+                foreach (var produk in dataOrder.Data.Header)
                 {
                     if (produk.Metode_Bayar == "QRIS" && produk.Status_Order_1 == "belum bayar")
                     {
@@ -633,7 +638,7 @@ namespace PacificWeb.Components.Pages
                         produk.QrBase64 = base64Image;
                     }
 
-                    Pesanan_Create.Header.Add(produk);
+                    Pesanan_Create.Data.Header.Add(produk);
                     StateHasChanged();
                 }
 
@@ -642,9 +647,9 @@ namespace PacificWeb.Components.Pages
                 StateHasChanged();
                 await JSRuntime.InvokeVoidAsync("buttonClick", "#modalPaymentStatus2");
 
-                if (Pesanan_Create.Header.FirstOrDefault() == null) { 
+                if (Pesanan_Create.Data.Header.FirstOrDefault() == null) { 
                     loadRefresh = true;
-                    Pesanan_Create.Header.Add(new Headers { No_Bukti = dataSourch.DataResponsePesanan.BuatPesanan.NewId });
+                    Pesanan_Create.Data.Header.Add(new Headers { No_Bukti = dataSourch.DataResponsePesanan.BuatPesanan.NewId });
                 } 
                 else {
                     loadRefresh = false;
@@ -655,8 +660,8 @@ namespace PacificWeb.Components.Pages
             {
                 StateHasChanged();
                 await pdjService.ButtonCLick("modalPaymentStatus5");
-                await Task.Delay(5000);
-                NavigationManager.NavigateTo("/cart-page/belum-bayar", true);
+                await Task.Delay(3000);
+                NavigationManager.NavigateTo("/cart-page/belum-bayar", false);
                 return;
             }
             else

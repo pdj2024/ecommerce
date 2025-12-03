@@ -130,7 +130,7 @@
                             <div class="col-12 d-flex align-items-center gap-4 pe-3 mb-3" style="background-color: #f9f9f9ba;">
                                 <div class="input-group style-grup px-1 border-1 form-style position-relative pb-1 pt-3" style="@(readOnlyAkun! ? "background-color: #f9f9f9ba; border-color:transparent;" : "border-color:transparent;")">
                                     <input disabled=@readOnlyAkun style="background-color:transparent !important; font-weight: 700; font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Password" aria-label="Search" aria-describedby="basic-addon1" value="@ScopedDataServices?.ScopedData?.DataLogin?.DataUser?.Telepon" />
-                                    <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Nomer Telepon</label>
+                                    <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Nomor Telepon</label>
                                 </div>
                                 <button @onclick="@(x => changeLogin("sign-up", true))" data-bs-toggle="modal" data-bs-target="#exampleModalChangeNumber"  class="btn-slide p-2 border-0" style="width: fit-content; border-radius:100%; z-index:5" >
                                     @if(readOnlyAkun) 
@@ -450,8 +450,8 @@ else
 
                             @if(ScopedDataServices?.ScopedData?.ListDataCart.Count() >= 1 && !loadContent)
                             {
-                                <div class="w-100" style="@(ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart).FirstOrDefault( cart => cart.Qty < cart.Min_Order || cart.Qty > cart.Stock ) != null || ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart)?.Count() <= 0 ? "cursor:not-allowed" : "")">
-                                    <button class="btn btn-primary w-100"   @onclick=@(() => CheckoutCart()) style="border-radius:0px; @(ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart).FirstOrDefault( cart => cart.Qty < cart.Min_Order || cart.Qty > cart.Stock ) != null || ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart)?.Count() <= 0 ? "cursor:not-allowed" : "") " disabled="@( ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart).FirstOrDefault( cart => cart.Qty < cart.Min_Order || cart.Qty > cart.Stock ) != null || ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart)?.Count() <= 0 ? true : false)" >Checkout</button>
+                                <div class="w-100" style="@(ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart).FirstOrDefault( cart => cart.Qty < cart.Min_Order || cart.Qty > cart.Stock || cart.Status_Produk != "aktif" || cart.Status_Variant != "aktif") != null || ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart)?.Count() <= 0 ? "cursor:not-allowed" : "")">
+                                    <button class="btn btn-primary w-100"   @onclick=@(() => CheckoutCart()) style="border-radius:0px; @(ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart).FirstOrDefault( cart => cart.Qty < cart.Min_Order || cart.Qty > cart.Stock || cart.Status_Produk != "aktif" || cart.Status_Variant != "aktif") != null || ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart)?.Count() <= 0 ? "cursor:not-allowed" : "") " disabled="@( ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart).FirstOrDefault( cart => cart.Qty < cart.Min_Order || cart.Qty > cart.Stock || cart.Status_Produk != "aktif" || cart.Status_Variant != "aktif") != null || ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart)?.Count() <= 0 ? true : false)" >Checkout</button>
                                 </div>
                             }
                         </aside>
@@ -490,7 +490,7 @@ else
             } 
             else
             {
-                @if (dataSourch?.DataPesananBelum?.Header.Count(x => x.Status_Order_1.ToLower() == "belum bayar") >= 1) {
+                @if (dataSourch?.DataPesananBelum?.Data.Header.Count(x => x.Status_Order_1.ToLower() == "belum bayar") >= 1) {
                     <div class="cart-page" style="padding: 0px 20px 20px 20px; margin-top:20px;">
                         <div class="cart-container p-0 px-lg-5">
 
@@ -498,7 +498,7 @@ else
 
                                 <div class="accordion" style="gap: 15px;display: flex;flex-direction: column;" id="accordionPanelsStayOpenExample">
                       
-                                    @foreach (var item in dataSourch?.DataPesananBelum?.Header.Where(x => x.Status_Order_1.ToLower() == "belum bayar").ToList())
+                                    @foreach (var item in dataSourch?.DataPesananBelum?.Data.Header.Where(x => x.Status_Order_1.ToLower() == "belum bayar").ToList())
                                     {
                                         <div class="accordion-item rounded-0">
                                             <h2 class="accordion-header rounded-0" id="panelsStayOpen-headingOne">
@@ -516,9 +516,9 @@ else
                                                     <div class="d-flex flex-lg-row flex-column justify-content-between w-100 gap-3">
                                                         <div class="d-flex flex-col gap-3 w-100">
                                                         
-                                                            @if(@dataSourch?.DataPesananBelum?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media != null && @dataSourch?.DataPesananBelum?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media != "")
+                                                            @if(@dataSourch?.DataPesananBelum?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media != null && @dataSourch?.DataPesananBelum?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media != "")
                                                             {
-                                                                <img class="cart-img img-payment" src="@dataSourch?.DataPesananBelum?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media" style="" alt="#">
+                                                                <img class="cart-img img-payment" src="@dataSourch?.DataPesananBelum?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media" style="" alt="#">
                                                             } 
                                                         
                                                             else
@@ -529,39 +529,39 @@ else
                                                             <div class="d-flex flex-column gap-2 w-100 justify-content-between">
                                                                 <div class="d-flex flex-column gap-2">
                                                                     <h5 style="font-size:15px;" class="line-clamp-1">
-                                                                        @dataSourch?.DataPesananBelum?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Nama_Display
+                                                                        @dataSourch?.DataPesananBelum?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Nama_Display
                                                                     </h5>
                                                                     <p class="variant" style="background-color: #eee;width: fit-content;padding: 1px 5px;border-radius: 0px;">
-                                                                        @($"{@dataSourch?.DataPesananBelum?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Option}, {@dataSourch?.DataPesananBelum?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Size}")
+                                                                        @($"{@dataSourch?.DataPesananBelum?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Option_Label}, {@dataSourch?.DataPesananBelum?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Size_Label}")
                                                                     </p>
                                                                     <h5 style="font-size:15px;" class="">
-                                                                        @string.Format("Rp. {0:N0}", @dataSourch?.DataPesananBelum?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Satuan) 
-                                                                        @($" x {dataSourch?.DataPesananBelum?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Qty} = ")
+                                                                        @string.Format("Rp. {0:N0}", @dataSourch?.DataPesananBelum?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Satuan) 
+                                                                        @($" x {dataSourch?.DataPesananBelum?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Qty} = ")
                                                                         <span style="color:#1500b2; font-weight:700;" class="d-lg-inline d-none">
-                                                                            @string.Format("Rp. {0:N0}", dataSourch?.DataPesananBelum?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
+                                                                            @string.Format("Rp. {0:N0}", dataSourch?.DataPesananBelum?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
                                                                         </span>
                                                                     </h5>
                                                                     <h5 style="font-size:15px;" class="d-lg-none d-flex line-clamp-1">
                                                                         <span style="color:#1500b2; font-weight:700;">
-                                                                            @string.Format("Rp. {0:N0}", dataSourch?.DataPesananBelum?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
+                                                                            @string.Format("Rp. {0:N0}", dataSourch?.DataPesananBelum?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
                                                                         </span>
                                                                     </h5>
                                                                 </div>
                                                                 <div class="d-lg-flex d-none flex-row gap-2 w-100 justify-content-between align-items-center">
                                                                     <div class="d-flex none-accord-@item.No_Bukti flex-column gap-1">
                                                                         <h5 style="font-size:15px; " class="">
-                                                                            @($"Total {@dataSourch?.DataPesananBelum?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
+                                                                            @($"Total {@dataSourch?.DataPesananBelum?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
                                                                             <span style="color:#1500b2;">
                                                                                 @string.Format("Rp. {0:N0}", item.Grand_Total)
                                                                             </span>
                                                                         </h5>
-                                                                        @if(@dataSourch?.DataPesananBelum?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
+                                                                        @if(@dataSourch?.DataPesananBelum?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
                                                                         {
                                                                             <button @onclick="@( x => openDropdown(@item.No_Bukti))" class="accordion-button header-accord-@item.No_Bukti collapsed rounded-0 mt-1" style="padding: 0px;font-size: 13px;width: fit-content;display: flex;gap: 10px;" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-@item.No_Bukti" aria-expanded="true" aria-controls="panelsStayOpen-@item.No_Bukti"> Tampil Selangkapnya
                                                                             </button>
                                                                         }
                                                                     </div>
-                                                                    <button @onclick="@( x => openPayment(@item))" class="btn none-accord-@item.No_Bukti plus-btn-accord-@item.No_Bukti btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+                                                                    <button @onclick="@( x => openPayment(@item, dataSourch?.DataPesananBelum?.Data.Biaya.Where(x => x.No_Bukti == item.No_Bukti).ToList()))" class="btn none-accord-@item.No_Bukti plus-btn-accord-@item.No_Bukti btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
                                                                         Bayar Sekarang
                                                                     </button>
                                                                 </div>
@@ -571,18 +571,18 @@ else
                                                         <div class="d-flex d-lg-none flex-row gap-2 w-100 justify-content-between align-items-center">
                                                             <div class="d-flex none-accord-@item.No_Bukti total-bottom flex-column gap-1 mt-2">
                                                                 <h5 style="font-size:15px; " class="">
-                                                                    @($"Total {@dataSourch?.DataPesananBelum?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
+                                                                    @($"Total {@dataSourch?.DataPesananBelum?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
                                                                     <span style="color:#1500b2;">
                                                                         @string.Format("Rp. {0:N0}", item.Grand_Total)
                                                                     </span>
                                                                 </h5>
-                                                                @if(@dataSourch?.DataPesananBelum?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
+                                                                @if(@dataSourch?.DataPesananBelum?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
                                                                 {
                                                                     <button @onclick="@( x => openDropdown(@item.No_Bukti))" class="accordion-button header-accord-@item.No_Bukti collapsed rounded-0 mt-1" style="padding: 0px;font-size: 13px;width: fit-content;display: flex;gap: 10px;" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-@item.No_Bukti" aria-expanded="true" aria-controls="panelsStayOpen-@item.No_Bukti"> Tampil Selangkapnya
                                                                     </button>
                                                                 }
                                                             </div>
-                                                            <button @onclick="@( x => openPayment(@item))" class="btn none-accord-@item.No_Bukti btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+                                                            <button @onclick="@( x => openPayment(@item, dataSourch?.DataPesananBelum?.Data.Biaya.Where(x => x.No_Bukti == item.No_Bukti).ToList()))" class="btn none-accord-@item.No_Bukti btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
                                                                 Bayar Sekarang
                                                             </button>
                                                         </div>
@@ -595,9 +595,9 @@ else
 
                                             <div id="panelsStayOpen-@item.No_Bukti" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
                                                 <div class="accordion-body px-3 px-lg-4">
-                                                    @foreach(var produk in dataSourch?.DataPesananBelum?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList())
+                                                    @foreach(var produk in dataSourch?.DataPesananBelum?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList())
                                                     {
-                                                        @if(produk.Id_Detil == @dataSourch?.DataPesananBelum?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Id_Detil) { continue; }
+                                                        @if(produk.Id_Detil == @dataSourch?.DataPesananBelum?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Id_Detil) { continue; }
 
                                                         <div class="d-flex flex-col gap-3 w-100">
                                                             @if(@produk.Var_Id_Media != null && @produk.Var_Id_Media != "")
@@ -615,7 +615,7 @@ else
                                                                         @produk.Nama_Display
                                                                     </h5>
                                                                     <p class="variant" style="background-color: #eee;width: fit-content;padding: 1px 5px;border-radius: 0px;">
-                                                                        @($"{@produk.Var_Option}, {@produk.Var_Size}")
+                                                                        @($"{@produk.Var_Option_Label}, {@produk.Var_Size_Label}")
                                                                     </p>
                                                                     <h5 style="font-size:15px;" class="">
                                                                         @string.Format("Rp. {0:N0}", @produk.Harga_Satuan) 
@@ -637,18 +637,18 @@ else
                                                     <div class="d-flex flex-row gap-1 w-100 justify-content-between align-items-center">
                                                         <div class="d-flex flex-column gap-1 total-bottom">
                                                             <h5 style="font-size:15px; " class="">
-                                                                @($"Total {@dataSourch?.DataPesananBelum?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
+                                                                @($"Total {@dataSourch?.DataPesananBelum?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
                                                                 <span style="color:#1500b2;">
                                                                     @string.Format("Rp. {0:N0}", item.Grand_Total)
                                                                 </span>
                                                             </h5>
-                                                            @if(@dataSourch?.DataPesananBelum?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
+                                                            @if(@dataSourch?.DataPesananBelum?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
                                                             {
                                                                 <button @onclick="@( x => openDropdown(@item.No_Bukti))" class="accordion-button header-accord-@item.No_Bukti collapsed rounded-0 mt-1" style="padding: 0px;font-size: 13px;width: fit-content;display: flex;gap: 10px;" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-@item.No_Bukti" aria-expanded="true" aria-controls="panelsStayOpen-@item.No_Bukti"> Tampil Selangkapnya
                                                                 </button>
                                                             }
                                                         </div>
-                                                        <button @onclick="@( x => openPayment(@item))" class="btn btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+                                                        <button @onclick="@( x => openPayment(@item, dataSourch?.DataPesananBelum?.Data.Biaya.Where(x => x.No_Bukti == item.No_Bukti).ToList()))" class="btn btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
                                                             Bayar Sekarang
                                                         </button>
                                                     </div>
@@ -732,7 +732,7 @@ else
             else
             {
 
-                @if (dataSourch?.DataPesananDikemas?.Header.Count(x => x.Status_Order_1.ToLower() == "dikemas") >= 1) {
+                @if (dataSourch?.DataPesananDikemas?.Data.Header.Count(x => x.Status_Order_1.ToLower() == "dikemas") >= 1) {
             
                 <div class="cart-page" style="padding: 0px 20px 20px 20px; margin-top:20px;">
                     <div class="cart-container p-0 px-lg-5">
@@ -740,7 +740,7 @@ else
 
                             <div class="accordion" style="gap: 15px;display: flex;flex-direction: column;" id="accordionPanelsStayOpenExample">
                       
-                                @foreach (var item in dataSourch?.DataPesananDikemas?.Header.Where(x => x.Status_Order_1.ToLower() == "dikemas").ToList())
+                                @foreach (var item in dataSourch?.DataPesananDikemas?.Data.Header.Where(x => x.Status_Order_1.ToLower() == "dikemas").ToList())
                                 {
                                     <div class="accordion-item rounded-0">
                                         <h2 class="accordion-header rounded-0" id="panelsStayOpen-headingOne">
@@ -757,9 +757,9 @@ else
 
                                                 <div class="d-flex flex-lg-row flex-column justify-content-between w-100 gap-3">
                                                     <div class="d-flex flex-col gap-3 w-100">
-                                                        @if(@dataSourch?.DataPesananDikemas?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media != null && @dataSourch?.DataPesananDikemas?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media != "")
+                                                        @if(@dataSourch?.DataPesananDikemas?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media != null && @dataSourch?.DataPesananDikemas?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media != "")
                                                         {
-                                                            <img class="cart-img img-payment" src="@dataSourch?.DataPesananDikemas?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media" style="" alt="#">
+                                                            <img class="cart-img img-payment" src="@dataSourch?.DataPesananDikemas?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media" style="" alt="#">
                                                         } 
                                                         
                                                         else
@@ -770,39 +770,39 @@ else
                                                         <div class="d-flex flex-column gap-2 w-100 justify-content-between">
                                                             <div class="d-flex flex-column gap-2">
                                                                 <h5 style="font-size:15px;" class="line-clamp-1">
-                                                                    @dataSourch?.DataPesananDikemas?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Nama_Display
+                                                                    @dataSourch?.DataPesananDikemas?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Nama_Display
                                                                 </h5>
                                                                 <p class="variant" style="background-color: #eee;width: fit-content;padding: 1px 5px;border-radius: 0px;">
-                                                                    @($"{@dataSourch?.DataPesananDikemas?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Option}, {@dataSourch?.DataPesananDikemas?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Size}")
+                                                                    @($"{@dataSourch?.DataPesananDikemas?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Option_Label}, {@dataSourch?.DataPesananDikemas?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Size_Label}")
                                                                 </p>
                                                                 <h5 style="font-size:15px;" class="">
-                                                                    @string.Format("Rp. {0:N0}", @dataSourch?.DataPesananDikemas?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Satuan) 
-                                                                    @($" x {dataSourch?.DataPesananDikemas?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Qty} = ")
+                                                                    @string.Format("Rp. {0:N0}", @dataSourch?.DataPesananDikemas?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Satuan) 
+                                                                    @($" x {dataSourch?.DataPesananDikemas?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Qty} = ")
                                                                     <span style="color:#1500b2; font-weight:700;" class="d-lg-inline d-none">
-                                                                        @string.Format("Rp. {0:N0}", dataSourch?.DataPesananDikemas?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
+                                                                        @string.Format("Rp. {0:N0}", dataSourch?.DataPesananDikemas?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
                                                                     </span>
                                                                 </h5>
                                                                 <h5 style="font-size:15px;" class="d-lg-none d-flex line-clamp-1">
                                                                     <span style="color:#1500b2; font-weight:700;">
-                                                                        @string.Format("Rp. {0:N0}", dataSourch?.DataPesananDikemas?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
+                                                                        @string.Format("Rp. {0:N0}", dataSourch?.DataPesananDikemas?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
                                                                     </span>
                                                                 </h5>
                                                             </div>
                                                             <div class="d-lg-flex d-none flex-row gap-2 w-100 justify-content-between align-items-center">
                                                                 <div class="d-flex none-accord-@item.No_Bukti flex-column gap-1">
                                                                     <h5 style="font-size:15px; " class="">
-                                                                        @($"Total {@dataSourch?.DataPesananDikemas?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
+                                                                        @($"Total {@dataSourch?.DataPesananDikemas?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
                                                                         <span style="color:#1500b2;">
                                                                             @string.Format("Rp. {0:N0}", item.Grand_Total)
                                                                         </span>
                                                                     </h5>
-                                                                    @if(@dataSourch?.DataPesananDikemas?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
+                                                                    @if(@dataSourch?.DataPesananDikemas?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
                                                                     {
                                                                         <button @onclick="@( x => openDropdown(@item.No_Bukti))" class="accordion-button header-accord-@item.No_Bukti collapsed rounded-0 mt-1" style="padding: 0px;font-size: 13px;width: fit-content;display: flex;gap: 10px;" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-@item.No_Bukti" aria-expanded="true" aria-controls="panelsStayOpen-@item.No_Bukti"> Tampil Selangkapnya
                                                                         </button>
                                                                     }
                                                                 </div>
-                                                                <button @onclick="@( x => openPayment(@item))" class="btn none-accord-@item.No_Bukti btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+                                                                <button @onclick="@( x => openPayment(@item, dataSourch?.DataPesananDikemas?.Data.Biaya.Where(x => x.No_Bukti == item.No_Bukti).ToList()))" class="btn none-accord-@item.No_Bukti btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
                                                                     Lihat Status
                                                                 </button>
                                                             </div>
@@ -812,18 +812,18 @@ else
                                                     <div class="d-flex d-lg-none flex-row gap-2 w-100 justify-content-between align-items-center">
                                                         <div class="d-flex none-accord-@item.No_Bukti total-bottom flex-column gap-1 mt-2" style="width:60%;">
                                                             <h5 style="font-size:15px; " class="">
-                                                                @($"Total {@dataSourch?.DataPesananDikemas?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
+                                                                @($"Total {@dataSourch?.DataPesananDikemas?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
                                                                 <span style="color:#1500b2;">
                                                                     @string.Format("Rp. {0:N0}", item.Grand_Total)
                                                                 </span>
                                                             </h5>
-                                                            @if(@dataSourch?.DataPesananDikemas?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
+                                                            @if(@dataSourch?.DataPesananDikemas?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
                                                             {
                                                                 <button @onclick="@( x => openDropdown(@item.No_Bukti))" class="accordion-button header-accord-@item.No_Bukti collapsed rounded-0 mt-1" style="padding: 0px;font-size: 13px;width: fit-content;display: flex;gap: 10px;" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-@item.No_Bukti" aria-expanded="true" aria-controls="panelsStayOpen-@item.No_Bukti"> Tampil Selangkapnya
                                                                 </button>
                                                             }
                                                         </div>
-                                                        <button @onclick="@( x => openPayment(@item))" class="btn none-accord-@item.No_Bukti btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+                                                        <button @onclick="@( x => openPayment(@item, dataSourch?.DataPesananDikemas?.Data.Biaya.Where(x => x.No_Bukti == item.No_Bukti).ToList()))" class="btn none-accord-@item.No_Bukti btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
                                                             Lihat Status
                                                         </button>
                                                     </div>
@@ -836,9 +836,9 @@ else
 
                                         <div id="panelsStayOpen-@item.No_Bukti" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
                                             <div class="accordion-body px-3 px-lg-4">
-                                                @foreach(var produk in dataSourch?.DataPesananDikemas?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList())
+                                                @foreach(var produk in dataSourch?.DataPesananDikemas?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList())
                                                 {
-                                                    @if(produk.Id_Detil == @dataSourch?.DataPesananDikemas?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Id_Detil) { continue; }
+                                                    @if(produk.Id_Detil == @dataSourch?.DataPesananDikemas?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Id_Detil) { continue; }
 
                                                     <div class="d-flex flex-col gap-3 w-100">
                                                         @if(@produk.Var_Id_Media != null && @produk.Var_Id_Media != "")
@@ -856,7 +856,7 @@ else
                                                                     @produk.Nama_Display
                                                                 </h5>
                                                                 <p class="variant" style="background-color: #eee;width: fit-content;padding: 1px 5px;border-radius: 0px;">
-                                                                    @($"{@produk.Var_Option}, {@produk.Var_Size}")
+                                                                    @($"{@produk.Var_Option_Label}, {@produk.Var_Size_Label}")
                                                                 </p>
                                                                 <h5 style="font-size:15px;" class="">
                                                                     @string.Format("Rp. {0:N0}", @produk.Harga_Satuan) 
@@ -878,18 +878,18 @@ else
                                                 <div class="d-flex flex-row gap-1 w-100 justify-content-between align-items-center">
                                                     <div class="d-flex flex-column gap-1 total-bottom" style="width:60%;">
                                                         <h5 style="font-size:15px; " class="">
-                                                            @($"Total {@dataSourch?.DataPesananDikemas?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
+                                                            @($"Total {@dataSourch?.DataPesananDikemas?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
                                                             <span style="color:#1500b2;">
                                                                 @string.Format("Rp. {0:N0}", item.Grand_Total)
                                                             </span>
                                                         </h5>
-                                                        @if(@dataSourch?.DataPesananDikemas?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
+                                                        @if(@dataSourch?.DataPesananDikemas?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
                                                         {
                                                             <button @onclick="@( x => openDropdown(@item.No_Bukti))" class="accordion-button header-accord-@item.No_Bukti collapsed rounded-0 mt-1" style="padding: 0px;font-size: 13px;width: fit-content;display: flex;gap: 10px;" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-@item.No_Bukti" aria-expanded="true" aria-controls="panelsStayOpen-@item.No_Bukti"> Tampil Selangkapnya
                                                             </button>
                                                         }
                                                     </div>
-                                                    <button @onclick="@( x => openPayment(@item))" class="btn btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+                                                    <button @onclick="@( x => openPayment(@item, dataSourch?.DataPesananDikemas?.Data.Biaya.Where(x => x.No_Bukti == item.No_Bukti).ToList()))" class="btn btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
                                                         Lihat Status
                                                     </button>
                                                 </div>
@@ -972,14 +972,14 @@ else
             else
             {
 
-                @if (dataSourch?.DataPesananDikirim?.Header.Count(x => x.Status_Order_1.ToLower() == "dikirim") >= 1) {
+                @if (dataSourch?.DataPesananDikirim?.Data.Header.Count(x => x.Status_Order_1.ToLower() == "dikirim") >= 1) {
                     <div class="cart-page" style="padding: 0px 20px 20px 20px; margin-top:20px;">
                         <div class="cart-container p-0 px-lg-5">
                             <div class="cart-items">
 
                                 <div class="accordion" style="gap: 15px;display: flex;flex-direction: column;" id="accordionPanelsStayOpenExample">
                       
-                                    @foreach (var item in dataSourch?.DataPesananDikirim?.Header.Where(x => x.Status_Order_1.ToLower() == "dikirim").ToList())
+                                    @foreach (var item in dataSourch?.DataPesananDikirim?.Data.Header.Where(x => x.Status_Order_1.ToLower() == "dikirim").ToList())
                                     {
                                         <div class="accordion-item rounded-0">
                                             <h2 class="accordion-header rounded-0" id="panelsStayOpen-headingOne">
@@ -996,9 +996,9 @@ else
 
                                                     <div class="d-flex flex-lg-row flex-column justify-content-between w-100 gap-3">
                                                         <div class="d-flex flex-col gap-3 w-100">
-                                                            @if(@dataSourch?.DataPesananDikirim?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media != null && @dataSourch?.DataPesananDikirim?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media != "")
+                                                            @if(@dataSourch?.DataPesananDikirim?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media != null && @dataSourch?.DataPesananDikirim?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media != "")
                                                             {
-                                                                <img class="cart-img img-payment" src="@dataSourch?.DataPesananDikirim?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media" style="" alt="#">
+                                                                <img class="cart-img img-payment" src="@dataSourch?.DataPesananDikirim?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media" style="" alt="#">
                                                             } 
                                                         
                                                             else
@@ -1008,40 +1008,40 @@ else
                                                             <div class="d-flex flex-column gap-2 w-100 justify-content-between">
                                                                 <div class="d-flex flex-column gap-2">
                                                                     <h5 style="font-size:15px;" class="line-clamp-1">
-                                                                        @dataSourch?.DataPesananDikirim?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Nama_Display
+                                                                        @dataSourch?.DataPesananDikirim?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Nama_Display
                                                                     </h5>
                                                                     <p class="variant" style="background-color: #eee;width: fit-content;padding: 1px 5px;border-radius: 0px;">
-                                                                        @($"{@dataSourch?.DataPesananDikirim?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Option}, {@dataSourch?.DataPesananDikirim?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Size}")
+                                                                        @($"{@dataSourch?.DataPesananDikirim?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Option_Label}, {@dataSourch?.DataPesananDikirim?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Size_Label}")
                                                                     </p>
                                                                     <h5 style="font-size:15px;" class="">
-                                                                        @string.Format("Rp. {0:N0}", @dataSourch?.DataPesananDikirim?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Satuan) 
-                                                                        @($" x {dataSourch?.DataPesananDikirim?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Qty} = ")
+                                                                        @string.Format("Rp. {0:N0}", @dataSourch?.DataPesananDikirim?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Satuan) 
+                                                                        @($" x {dataSourch?.DataPesananDikirim?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Qty} = ")
                                                                         <span style="color:#1500b2; font-weight:700;" class="d-lg-inline d-none">
-                                                                            @string.Format("Rp. {0:N0}", dataSourch?.DataPesananDikirim?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
+                                                                            @string.Format("Rp. {0:N0}", dataSourch?.DataPesananDikirim?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
                                                                         </span>
                                                                     </h5>
                                                                     <h5 style="font-size:15px;" class="d-lg-none d-flex line-clamp-1">
                                                                         <span style="color:#1500b2; font-weight:700;">
-                                                                            @string.Format("Rp. {0:N0}", dataSourch?.DataPesananDikirim?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
+                                                                            @string.Format("Rp. {0:N0}", dataSourch?.DataPesananDikirim?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
                                                                         </span>
                                                                     </h5>
                                                                 </div>
                                                                 <div class="d-lg-flex d-none flex-row gap-2 w-100 justify-content-between align-items-center">
                                                                     <div class="d-flex none-accord-@item.No_Bukti flex-column gap-1">
                                                                         <h5 style="font-size:15px; " class="">
-                                                                            @($"Total {@dataSourch?.DataPesananDikirim?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
+                                                                            @($"Total {@dataSourch?.DataPesananDikirim?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
                                                                             <span style="color:#1500b2;">
                                                                                 @string.Format("Rp. {0:N0}", item.Grand_Total)
                                                                             </span>
                                                                         </h5>
-                                                                        @if(@dataSourch?.DataPesananDikirim?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
+                                                                        @if(@dataSourch?.DataPesananDikirim?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
                                                                         {
                                                                             <button @onclick="@( x => openDropdown(@item.No_Bukti))" class="accordion-button header-accord-@item.No_Bukti collapsed rounded-0 mt-1" style="padding: 0px;font-size: 13px;width: fit-content;display: flex;gap: 10px;" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-@item.No_Bukti" aria-expanded="true" aria-controls="panelsStayOpen-@item.No_Bukti"> Tampil Selangkapnya
                                                                             </button>
                                                                         }
                                                                     </div>
-                                                                    <button @onclick="@( x => openPayment(@item))" class="btn none-accord-@item.No_Bukti btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
-                                                                        Bayar Sekarang
+                                                                    <button @onclick="@( x => openPayment(@item, dataSourch?.DataPesananDikirim?.Data.Biaya.Where(x => x.No_Bukti == item.No_Bukti).ToList()))" class="btn none-accord-@item.No_Bukti btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+                                                                        Lihat Status
                                                                     </button>
                                                                 </div>
                                                             </div>
@@ -1050,19 +1050,19 @@ else
                                                         <div class="d-flex d-lg-none flex-row gap-2 w-100 justify-content-between align-items-center">
                                                             <div class="d-flex none-accord-@item.No_Bukti total-bottom flex-column gap-1 mt-2">
                                                                 <h5 style="font-size:15px; " class="">
-                                                                    @($"Total {@dataSourch?.DataPesananDikirim?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
+                                                                    @($"Total {@dataSourch?.DataPesananDikirim?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
                                                                     <span style="color:#1500b2;">
                                                                         @string.Format("Rp. {0:N0}", item.Grand_Total)
                                                                     </span>
                                                                 </h5>
-                                                                @if(@dataSourch?.DataPesananDikirim?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
+                                                                @if(@dataSourch?.DataPesananDikirim?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
                                                                 {
                                                                     <button @onclick="@( x => openDropdown(@item.No_Bukti))" class="accordion-button header-accord-@item.No_Bukti collapsed rounded-0 mt-1" style="padding: 0px;font-size: 13px;width: fit-content;display: flex;gap: 10px;" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-@item.No_Bukti" aria-expanded="true" aria-controls="panelsStayOpen-@item.No_Bukti"> Tampil Selangkapnya
                                                                     </button>
                                                                 }
                                                             </div>
-                                                            <button @onclick="@( x => openPayment(@item))" class="btn none-accord-@item.No_Bukti btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
-                                                                Bayar Sekarang
+                                                            <button @onclick="@( x => openPayment(@item, dataSourch?.DataPesananDikirim?.Data.Biaya.Where(x => x.No_Bukti == item.No_Bukti).ToList()))" class="btn none-accord-@item.No_Bukti btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+                                                                Lihat Status
                                                             </button>
                                                         </div>
                                                     </div>
@@ -1074,9 +1074,9 @@ else
 
                                             <div id="panelsStayOpen-@item.No_Bukti" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
                                                 <div class="accordion-body px-3 px-lg-4">
-                                                    @foreach(var produk in dataSourch?.DataPesananDikirim?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList())
+                                                    @foreach(var produk in dataSourch?.DataPesananDikirim?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList())
                                                     {
-                                                        @if(produk.Id_Detil == @dataSourch?.DataPesananDikirim?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Id_Detil) { continue; }
+                                                        @if(produk.Id_Detil == @dataSourch?.DataPesananDikirim?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Id_Detil) { continue; }
 
                                                         <div class="d-flex flex-col gap-3 w-100">
                                                             @if(@produk.Var_Id_Media != null && @produk.Var_Id_Media != "")
@@ -1094,7 +1094,7 @@ else
                                                                         @produk.Nama_Display
                                                                     </h5>
                                                                     <p class="variant" style="background-color: #eee;width: fit-content;padding: 1px 5px;border-radius: 0px;">
-                                                                        @($"{@produk.Var_Option}, {@produk.Var_Size}")
+                                                                        @($"{@produk.Var_Option_Label}, {@produk.Var_Size_Label}")
                                                                     </p>
                                                                     <h5 style="font-size:15px;" class="">
                                                                         @string.Format("Rp. {0:N0}", @produk.Harga_Satuan) 
@@ -1116,19 +1116,19 @@ else
                                                     <div class="d-flex flex-row gap-1 w-100 justify-content-between align-items-center">
                                                         <div class="d-flex flex-column gap-1 total-bottom">
                                                             <h5 style="font-size:15px; " class="">
-                                                                @($"Total {@dataSourch?.DataPesananDikirim?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
+                                                                @($"Total {@dataSourch?.DataPesananDikirim?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
                                                                 <span style="color:#1500b2;">
                                                                     @string.Format("Rp. {0:N0}", item.Grand_Total)
                                                                 </span>
                                                             </h5>
-                                                            @if(@dataSourch?.DataPesananDikirim?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
+                                                            @if(@dataSourch?.DataPesananDikirim?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
                                                             {
                                                                 <button @onclick="@( x => openDropdown(@item.No_Bukti))" class="accordion-button header-accord-@item.No_Bukti collapsed rounded-0 mt-1" style="padding: 0px;font-size: 13px;width: fit-content;display: flex;gap: 10px;" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-@item.No_Bukti" aria-expanded="true" aria-controls="panelsStayOpen-@item.No_Bukti"> Tampil Selangkapnya
                                                                 </button>
                                                             }
                                                         </div>
-                                                        <button @onclick="@( x => openPayment(@item))" class="btn btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
-                                                            Bayar Sekarang
+                                                        <button @onclick="@( x => openPayment(@item, dataSourch?.DataPesananDikirim?.Data.Biaya.Where(x => x.No_Bukti == item.No_Bukti).ToList()))" class="btn btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+                                                            Lihat Status
                                                         </button>
                                                     </div>
                                                 </div>
@@ -1175,7 +1175,7 @@ else
 
         </div>
 
-        <div class="tab-pane fade @(pageTabs == "histori" ? "show active" : "")" id="pills-histori" role="tabpanel" aria-labelledby="pills-histori-tab">
+        <div class="tab-pane fade @(pageTabs == "selesai" ? "show active" : "")" id="pills-selesai" role="tabpanel" aria-labelledby="pills-selesai-tab">
             <div class="row" style="justify-content: center; margin-top: 7rem;">
                 <div class="col-12">
                     <div class="section-title" style="margin-bottom:0px;">
@@ -1207,14 +1207,14 @@ else
             else
             {
 
-                @if (dataSourch?.DataPesananHistori?.Header.Count(x => x.Status_Order_1.ToLower() == "selesai") >= 1) {
+                @if (dataSourch?.DataPesananHistori?.Data.Header.Count(x => x.Status_Order_1.ToLower() == "selesai") >= 1) {
                     <div class="cart-page" style="padding: 0px 20px 20px 20px; margin-top:20px;">
                         <div class="cart-container p-0 px-lg-5">
                             <div class="cart-items">
 
                                 <div class="accordion" style="gap: 15px;display: flex;flex-direction: column;" id="accordionPanelsStayOpenExample">
                       
-                                    @foreach (var item in dataSourch?.DataPesananHistori?.Header.Where(x => x.Status_Order_1.ToLower() == "selesai").ToList())
+                                    @foreach (var item in dataSourch?.DataPesananHistori?.Data.Header.Where(x => x.Status_Order_1.ToLower() == "selesai").ToList())
                                     {
                                         <div class="accordion-item rounded-0">
                                             <h2 class="accordion-header rounded-0" id="panelsStayOpen-headingOne">
@@ -1231,9 +1231,9 @@ else
 
                                                     <div class="d-flex flex-lg-row flex-column justify-content-between w-100 gap-3">
                                                         <div class="d-flex flex-col gap-3 w-100">
-                                                            @if(@dataSourch?.DataPesananHistori?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media != null && @dataSourch?.DataPesananHistori?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media != "")
+                                                            @if(@dataSourch?.DataPesananHistori?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media != null && @dataSourch?.DataPesananHistori?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media != "")
                                                             {
-                                                                <img class="cart-img img-payment" src="@dataSourch?.DataPesananHistori?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media" style="" alt="#">
+                                                                <img class="cart-img img-payment" src="@dataSourch?.DataPesananHistori?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media" style="" alt="#">
                                                             } 
                                                         
                                                             else
@@ -1243,40 +1243,40 @@ else
                                                             <div class="d-flex flex-column gap-2 w-100 justify-content-between">
                                                                 <div class="d-flex flex-column gap-2">
                                                                     <h5 style="font-size:15px;" class="line-clamp-1">
-                                                                        @dataSourch?.DataPesananHistori?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Nama_Display
+                                                                        @dataSourch?.DataPesananHistori?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Nama_Display
                                                                     </h5>
                                                                     <p class="variant" style="background-color: #eee;width: fit-content;padding: 1px 5px;border-radius: 0px;">
-                                                                        @($"{@dataSourch?.DataPesananHistori?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Option}, {@dataSourch?.DataPesananHistori?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Size}")
+                                                                        @($"{@dataSourch?.DataPesananHistori?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Option_Label}, {@dataSourch?.DataPesananHistori?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Size_Label}")
                                                                     </p>
                                                                     <h5 style="font-size:15px;" class="">
-                                                                        @string.Format("Rp. {0:N0}", @dataSourch?.DataPesananHistori?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Satuan) 
-                                                                        @($" x {dataSourch?.DataPesananHistori?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Qty} = ")
+                                                                        @string.Format("Rp. {0:N0}", @dataSourch?.DataPesananHistori?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Satuan) 
+                                                                        @($" x {dataSourch?.DataPesananHistori?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Qty} = ")
                                                                         <span style="color:#1500b2; font-weight:700;" class="d-lg-inline d-none">
-                                                                            @string.Format("Rp. {0:N0}", dataSourch?.DataPesananHistori?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
+                                                                            @string.Format("Rp. {0:N0}", dataSourch?.DataPesananHistori?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
                                                                         </span>
                                                                     </h5>
                                                                     <h5 style="font-size:15px;" class="d-lg-none d-flex line-clamp-1">
                                                                         <span style="color:#1500b2; font-weight:700;">
-                                                                            @string.Format("Rp. {0:N0}", dataSourch?.DataPesananHistori?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
+                                                                            @string.Format("Rp. {0:N0}", dataSourch?.DataPesananHistori?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
                                                                         </span>
                                                                     </h5>
                                                                 </div>
                                                                 <div class="d-lg-flex d-none flex-row gap-2 w-100 justify-content-between align-items-center">
                                                                     <div class="d-flex none-accord-@item.No_Bukti flex-column gap-1">
                                                                         <h5 style="font-size:15px; " class="">
-                                                                            @($"Total {@dataSourch?.DataPesananHistori?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
+                                                                            @($"Total {@dataSourch?.DataPesananHistori?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
                                                                             <span style="color:#1500b2;">
                                                                                 @string.Format("Rp. {0:N0}", item.Grand_Total)
                                                                             </span>
                                                                         </h5>
-                                                                        @if(@dataSourch?.DataPesananHistori?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
+                                                                        @if(@dataSourch?.DataPesananHistori?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
                                                                         {
                                                                             <button @onclick="@( x => openDropdown(@item.No_Bukti))" class="accordion-button header-accord-@item.No_Bukti collapsed rounded-0 mt-1" style="padding: 0px;font-size: 13px;width: fit-content;display: flex;gap: 10px;" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-@item.No_Bukti" aria-expanded="true" aria-controls="panelsStayOpen-@item.No_Bukti"> Tampil Selangkapnya
                                                                             </button>
                                                                         }
                                                                     </div>
-                                                                    <button @onclick="@( x => openPayment(@item))" class="btn none-accord-@item.No_Bukti btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
-                                                                        Bayar Sekarang
+                                                                    <button @onclick="@( x => openPayment(@item, dataSourch?.DataPesananHistori?.Data.Biaya.Where(x => x.No_Bukti == item.No_Bukti).ToList()))" class="btn none-accord-@item.No_Bukti btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+                                                                        Lihat Status
                                                                     </button>
                                                                 </div>
                                                             </div>
@@ -1285,19 +1285,19 @@ else
                                                         <div class="d-flex d-lg-none flex-row gap-2 w-100 justify-content-between align-items-center">
                                                             <div class="d-flex none-accord-@item.No_Bukti total-bottom flex-column gap-1 mt-2">
                                                                 <h5 style="font-size:15px; " class="">
-                                                                    @($"Total {@dataSourch?.DataPesananHistori?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
+                                                                    @($"Total {@dataSourch?.DataPesananHistori?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
                                                                     <span style="color:#1500b2;">
                                                                         @string.Format("Rp. {0:N0}", item.Grand_Total)
                                                                     </span>
                                                                 </h5>
-                                                                @if(@dataSourch?.DataPesananHistori?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
+                                                                @if(@dataSourch?.DataPesananHistori?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
                                                                 {
                                                                     <button @onclick="@( x => openDropdown(@item.No_Bukti))" class="accordion-button header-accord-@item.No_Bukti collapsed rounded-0 mt-1" style="padding: 0px;font-size: 13px;width: fit-content;display: flex;gap: 10px;" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-@item.No_Bukti" aria-expanded="true" aria-controls="panelsStayOpen-@item.No_Bukti"> Tampil Selangkapnya
                                                                     </button>
                                                                 }
                                                             </div>
-                                                            <button @onclick="@( x => openPayment(@item))" class="btn none-accord-@item.No_Bukti btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
-                                                                Bayar Sekarang
+                                                            <button @onclick="@( x => openPayment(@item, dataSourch?.DataPesananHistori?.Data.Biaya.Where(x => x.No_Bukti == item.No_Bukti).ToList()))" class="btn none-accord-@item.No_Bukti btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+                                                                Lihat Status
                                                             </button>
                                                         </div>
                                                     </div>
@@ -1309,9 +1309,9 @@ else
 
                                             <div id="panelsStayOpen-@item.No_Bukti" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
                                                 <div class="accordion-body px-3 px-lg-4">
-                                                    @foreach(var produk in dataSourch?.DataPesananHistori?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList())
+                                                    @foreach(var produk in dataSourch?.DataPesananHistori?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList())
                                                     {
-                                                        @if(produk.Id_Detil == @dataSourch?.DataPesananHistori?.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Id_Detil) { continue; }
+                                                        @if(produk.Id_Detil == @dataSourch?.DataPesananHistori?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Id_Detil) { continue; }
 
                                                         <div class="d-flex flex-col gap-3 w-100">
                                                             @if(@produk.Var_Id_Media != null && @produk.Var_Id_Media != "")
@@ -1329,7 +1329,7 @@ else
                                                                         @produk.Nama_Display
                                                                     </h5>
                                                                     <p class="variant" style="background-color: #eee;width: fit-content;padding: 1px 5px;border-radius: 0px;">
-                                                                        @($"{@produk.Var_Option}, {@produk.Var_Size}")
+                                                                        @($"{@produk.Var_Option_Label}, {@produk.Var_Size_Label}")
                                                                     </p>
                                                                     <h5 style="font-size:15px;" class="">
                                                                         @string.Format("Rp. {0:N0}", @produk.Harga_Satuan) 
@@ -1351,19 +1351,19 @@ else
                                                     <div class="d-flex flex-row gap-1 w-100 justify-content-between align-items-center">
                                                         <div class="d-flex flex-column gap-1 total-bottom">
                                                             <h5 style="font-size:15px; " class="">
-                                                                @($"Total {@dataSourch?.DataPesananHistori?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
+                                                                @($"Total {@dataSourch?.DataPesananHistori?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
                                                                 <span style="color:#1500b2;">
                                                                     @string.Format("Rp. {0:N0}", item.Grand_Total)
                                                                 </span>
                                                             </h5>
-                                                            @if(@dataSourch?.DataPesananHistori?.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
+                                                            @if(@dataSourch?.DataPesananHistori?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
                                                             {
                                                                 <button @onclick="@( x => openDropdown(@item.No_Bukti))" class="accordion-button header-accord-@item.No_Bukti collapsed rounded-0 mt-1" style="padding: 0px;font-size: 13px;width: fit-content;display: flex;gap: 10px;" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-@item.No_Bukti" aria-expanded="true" aria-controls="panelsStayOpen-@item.No_Bukti"> Tampil Selangkapnya
                                                                 </button>
                                                             }
                                                         </div>
-                                                        <button @onclick="@( x => openPayment(@item))" class="btn btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
-                                                            Bayar Sekarang
+                                                        <button @onclick="@( x => openPayment(@item, dataSourch?.DataPesananHistori?.Data.Biaya.Where(x => x.No_Bukti == item.No_Bukti).ToList()))" class="btn btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+                                                            Lihat Status
                                                         </button>
                                                     </div>
                                                 </div>
@@ -1460,7 +1460,7 @@ else
 
             } else {
 
-                @foreach (var Head in Pesanan_Create.Header)
+                @foreach (var Head in Pesanan_Create.Data.Header)
                 {
                     <div class="modal-body">
                         <div class="row">
@@ -1478,7 +1478,7 @@ else
                             </div>
                             <div class="col-12">
                                 <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
-                                    <textarea rows="1" readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;"  class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.Alamat_Kirim"/>
+                                    <textarea rows="2" readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;"  class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.Alamat_Kirim"/>
                                     <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Alamat Kirim</label>
                                 </div>
                             </div>
@@ -1510,10 +1510,42 @@ else
                             }
                             <div class="col-12">
                                 <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
-                                    <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value="@string.Format("Rp. {0:N0}", @Head?.Grand_Total)" />
-                                    <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Total Pembayaran</label>
+                                    @* <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value="@string.Format("Rp. {0:N0}", @Head?.Grand_Total)" /> *@
+                                    <aside class="checkout-summary2 panel" style="background-color:transparent; padding:5px 10px; height:fit-content; margin-bottom:0px; margin-top:10px">
+                                        <div>
+                                            <div class="summary__line" style="border-top: unset;">
+                                                <span>Subtotal Barang</span>
+                                                <span style="font-weight:600;">@string.Format("Rp. {0:N0}", (Head.Subtotal - (Pesanan_Create.Data.Biaya.Sum(x => x.Harga_Total))))</span>
+                                            </div>
+                                            <div class="summary__line">
+                                                <span>Biaya Pengiriman</span>
+                                                <span style="font-weight:600;">@string.Format("Rp. {0:N0}", Pesanan_Create.Data.Biaya.FirstOrDefault(x => x.No_Bukti == Head.No_Bukti && x.Jenis_Item.ToLower() == "ongkir")?.Harga_Total ?? 0)</span>
+                                            </div>
+                                            <div class="summary__line">
+                                                <span>Biaya Layanan</span>
+                                                <span style="font-weight:600;">@string.Format("Rp. {0:N0}", Pesanan_Create.Data.Biaya.FirstOrDefault(x => x.No_Bukti == Head.No_Bukti && x.Jenis_Item.ToLower() == "layanan")?.Harga_Total ?? 0)</span>
+                                            </div>
+                                            @if (Head?.Incl_PPN == false)
+                                            {
+                                                <div class="summary__line">
+                                                    <span style="font-style:italic;">PPN (@Head.PPN) %</span>
+                                                    <span style="font-weight:600;">@string.Format("Rp. {0:N0}", Head.Tot_PPN)</span>
+                                                </div>
+                                            }
+                                            <div class="summary__line summary__line--bold">
+                                                <span>Total Pembayaran</span>
+                                                <span>@string.Format("Rp. {0:N0}", @Head.Grand_Total)</span>
+                                            </div>
+                                        </div>
+                                    </aside>
+                                    
+                                    <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Rincian Pembayaran</label>
                                 </div>
                             </div>
+
+                           @*  <div class="col-12">
+                            </div>   *@
+                        
 
                             <div class="col-12">
                                 @if (@Head?.Metode_Bayar == "QRIS" && @Head?.Status_Order_1 == "belum bayar") 
@@ -1584,6 +1616,11 @@ else
                                 @* <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M480-160q-134 0-227-93t-93-227q0-134 93-227t227-93q69 0 132 28.5T720-690v-110h80v280H520v-80h168q-32-56-87.5-88T480-720q-100 0-170 70t-70 170q0 100 70 170t170 70q77 0 139-44t87-116h84q-28 106-114 173t-196 67Z"/></svg> *@
                             }
                         </button>
+
+                        @if (@Head?.Status_Order_1 != "belum bayar" && @Head?.Status_Order_1 != "selesai") 
+                        {
+                            <button type="button" class="btn btn-primary px-2" style="border-radius:0px" @onclick="@( x => KirimPesan(Head))" >Hubungi Admin</button>
+                        }
 
                         @if (@Head?.Status_Order_1 == "belum bayar") 
                         {
@@ -1793,7 +1830,7 @@ else
                     <div class="modal-body pb-3">
                         <div class="row">
                             <div class="col-12">
-                                <OtpPage IdInfo=@dataChange NoTlp=@ModelRegist.NoTlp Pass=@ModelRegist.Password/>
+                                <OtpPage IdInfo=@dataChange NoTlp=@Numberinfo Pass=@ModelRegist.Password/>
                             </div>
                         </div>
                     </div>
@@ -1802,7 +1839,7 @@ else
                 <div class="signup-page" style="">
                     <div class="modal-header justify-content-center d-flex flex-column border-bottom-0 pb-0">
                         <h5 class="modal-title w-100 text-xl-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">
-                            Ganti Nomer Telepon
+                            Ganti Nomor Telepon
                         </h5>
                         <button type="button" style="position: absolute;top: 25px;right: 25px;" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -1811,7 +1848,7 @@ else
                         <div class="row">
                             <div class="col-12">
                                 <div class="input-group mb-3 style-grup px-1 border-1 pt-2 pb-2 form-style">
-                                    <InputText id="phone-change" @bind-value=@ModelRegist.NoTlp @oninput=@(x => NumberOnlyInput(x, "regist")) type="tel" name="phone" class="form-control search-form form-text input-otp" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" placeholder="Nomer Telepon Baru (e.x 081234567899) *" required style="padding-left: 85px; font-size: 14px;" />
+                                    <InputText id="phone-change" @bind-value=@ModelRegist.NoTlp @oninput=@(x => NumberOnlyInput(x, "phone-change")) type="tel" name="phone" class="form-control search-form form-text input-otp" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" placeholder="Nomor Telepon Baru *" required style="padding-left: 85px; font-size: 14px;" />
                                 </div>
 
                                 <div>
@@ -1825,6 +1862,16 @@ else
                         </div>
                     </div>
 
+                    @if (infoSubmit == 3) {
+                        <div class="toast show showing align-items-center mt-1 mb-3 mx-auto border-0 shadow-none" style="opacity : 1 !important;" role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="d-flex w-100">
+                                <div class="toast-body text-center w-100">
+                                    <strong class="me-auto text-danger text-center">Nomor sudah digunakan !</strong>
+                                </div>
+                            </div>
+                        </div>
+                    } 
+                    
                     @if (infoSubmit == 2) {
                         <div class="toast show showing align-items-center mt-1 mb-3 mx-auto border-0 shadow-none" style="opacity : 1 !important;" role="alert" aria-live="assertive" aria-atomic="true">
                             <div class="d-flex w-100">
@@ -1834,12 +1881,13 @@ else
                             </div>
                         </div>
                     } 
+                    
 
                     @if (infoSubmit == 1) {
                         <div class="toast show showing align-items-center mt-1 mb-3 mx-auto border-0 shadow-none" style="opacity : 1 !important;" role="alert" aria-live="assertive" aria-atomic="true">
                             <div class="d-flex w-100">
                                 <div class="toast-body text-center w-100">
-                                    <strong class="me-auto text-danger text-center">Isi nomer telepon yang baru !</strong>
+                                    <strong class="me-auto text-danger text-center">Isi Nomor telepon yang baru !</strong>
                                 </div>
                             </div>
                         </div>
@@ -1847,8 +1895,17 @@ else
 
             
                     <div class="modal-footer justify-content-center button border-top-0 pt-5 pb-3 px-5">
-                        <button type="submit" @onclick="@(x => changeLogin("otp-view", false, "nomer"))" class="btn-slide py-2 px-4" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;">
-                            <span class="position-relative">Perbarui Nomer</span>
+                        <button type="submit" disabled=@loadLogin @onclick="@(x => changeLogin("otp-view", false, "Nomor"))" class="btn-slide py-2 px-4" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;">
+                            @if(loadLogin) 
+                            {
+                                <div class="spinner-border spinner-border-sm p-2" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            } 
+                            else
+                            {
+                                <span class="position-relative">Perbarui Nomor</span>
+                            }
                         </button>
                     </div>
                 </div>
@@ -1884,8 +1941,17 @@ else
                     } 
 
                     <div class="modal-footer justify-content-center button border-top-0 pt-5 pb-3 px-5">
-                        <button type="submit" @onclick="@(x => changeLogin("otp-view", false, "password"))" class="btn-slide py-2 px-4" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;">
-                            <span class="position-relative">Perbarui Kata Sandi</span>
+                        <button type="submit" disabled=@loadLogin @onclick="@(x => changeLogin("otp-view", false, "password"))" class="btn-slide py-2 px-4" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;">
+                            @if(loadLogin) 
+                            {
+                                <div class="spinner-border spinner-border-sm p-2" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            } 
+                            else
+                            {
+                                <span class="position-relative">Perbarui Kata Sandi</span>
+                            }
                         </button>
                     </div>
                 </div>

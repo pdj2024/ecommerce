@@ -71,7 +71,9 @@ namespace PacificWeb.Components.Layout
         public LoginViewModel ModelRegist { get; set; } = new();
 
 
+        public bool loadLogin { get; set; } = false;
         public bool checkAll { get; set; } = true;
+        public string Numberinfo { get; set; } = "";
         public bool loadProses { get; set; } = false;
         public bool loadContent { get; set; } = true;
         public bool loadProsesNetto { get; set; } = false;
@@ -85,7 +87,7 @@ namespace PacificWeb.Components.Layout
 
         public void NavigateToHome(string route)
         {
-            NavigationManager.NavigateTo($"/{route}", forceLoad: true);
+            NavigationManager.NavigateTo($"/{route}", forceLoad: false);
         }
 
         protected override async Task OnInitializedAsync()
@@ -102,44 +104,12 @@ namespace PacificWeb.Components.Layout
         {
             if (firstRender)
             {
-                int count = 0;
-                while (ScopedDataServices.ScopedData.Finised == false)
-                {
-                    if (count >= 6)
-                    {
-                        await Task.Delay(1000);
-
-                        if (count >= 10)
-                        {
-                            await Task.Delay(1000);
-
-                            Console.WriteLine("Gagal memuat data header & footer");
-
-                            if (count >= 15)
-                            {
-                                ScopedDataServices.ScopedData.Finised = true;
-                            }
-                        }
-                    } 
-                    else
-                    {
-                        await Task.Delay(500);
-                    }
-
-                    count++;
-                }
-
-
-
-
-                loadContent = false;
-                StateHasChanged();
+                await JSRuntime.InvokeVoidAsync("initHeader");
                 await JSRuntime.InvokeVoidAsync("initMobileButton");
                 await JSRuntime.InvokeVoidAsync("initHeaderMega");
                 await JSRuntime.InvokeVoidAsync("colLoadOut");
 
                 StateHasChanged();
-
             }
         }
 
@@ -538,6 +508,9 @@ namespace PacificWeb.Components.Layout
 
         public async void changeLogin(string value, bool direct = false)
         {
+            loadLogin = true;
+            StateHasChanged();
+
             if (InfoInitFlag == false)
             {
                 await JSRuntime.InvokeVoidAsync("initButtonFlagChange");
@@ -551,13 +524,17 @@ namespace PacificWeb.Components.Layout
                 {
                     infoSubmit = 1;
                     StateHasChanged();
+                    loadLogin = false;
+                    StateHasChanged();
                     return;
                 }
 
-                var Numberinfo = await JSRuntime.InvokeAsync<string>("initKlikFlagChange");
+                Numberinfo = "";
+                Numberinfo = await JSRuntime.InvokeAsync<string>("initKlikFlagChange");
                 if (Numberinfo == "FALSE")
                 {
                     infoSubmit = 2;
+                    loadLogin = false;
                     StateHasChanged();
                     return;
                 }
@@ -568,12 +545,14 @@ namespace PacificWeb.Components.Layout
                 {
                     await JSRuntime.InvokeVoidAsync("initLoginEffect", "otp-view", direct);
                     dataChange = 2;
+                    loadLogin = false;
                     StateHasChanged();
                     return;
                 }
                 else
                 {
                     infoSubmit = 2;
+                    loadLogin = false;
                     StateHasChanged();
                     return;
                 }
@@ -585,13 +564,17 @@ namespace PacificWeb.Components.Layout
                 if (ModelRegist.NoTlp == "" || ModelRegist.NoTlp == null || ModelRegist.Password == "" || ModelRegist.Password == null)
                 {
                     infoSubmit = 1;
+                    loadLogin = false;
                     StateHasChanged();
                     return;
                 }
 
-                var Numberinfo = await JSRuntime.InvokeAsync<string>("initKlikFlag");
+                Numberinfo = "";
+                Numberinfo = await JSRuntime.InvokeAsync<string>("initKlikFlag");
+
                 if (Numberinfo == "FALSE") {
                     infoSubmit = 2;
+                    loadLogin = false;
                     StateHasChanged();
                     return;
                 } 
@@ -608,6 +591,7 @@ namespace PacificWeb.Components.Layout
                     if (!dataCek)
                     {
                         infoSubmit = 3;
+                        loadLogin = false;
                         StateHasChanged();
                         return;
                     }
@@ -617,11 +601,15 @@ namespace PacificWeb.Components.Layout
                     if (statusOtp)
                     {
                         await JSRuntime.InvokeVoidAsync("initLoginEffect", value, direct);
+                        loadLogin = false;
+                        StateHasChanged();
                         return;
                     }
                     else
                     {
                         infoSubmit = 2;
+                        StateHasChanged();
+                        loadLogin = false;
                         StateHasChanged();
                         return;
                     }
@@ -639,9 +627,14 @@ namespace PacificWeb.Components.Layout
                 noRegist = null;
                 noLogin = null;
 
+                loadLogin = false;
+                StateHasChanged();
                 await JSRuntime.InvokeVoidAsync("initLoginEffect", value, direct);
 
             }
+
+            loadLogin = false;
+            StateHasChanged();
         }
 
 
@@ -658,9 +651,10 @@ namespace PacificWeb.Components.Layout
                 return;
             }
 
-            pdjService.ShowConsoleData(Model);
+            //pdjService.ShowConsoleData(Model);
 
-            var Numberinfo = await JSRuntime.InvokeAsync<string>("initKlikFlagLogin");
+            Numberinfo = "";
+            Numberinfo = await JSRuntime.InvokeAsync<string>("initKlikFlagLogin");
             if (Numberinfo == "FALSE") return;
 
 
@@ -671,9 +665,9 @@ namespace PacificWeb.Components.Layout
                 ParamUrl = new ParameterApi.ParameterUrl { }
             };
 
-            Model.NoTlp = Numberinfo;
+            var modelLog = new LoginViewModel { NoTlp = Numberinfo, Password = Model.Password };
 
-            var loginStatus = await NewPdjService.CheckLoginApi(param, Model);
+            var loginStatus = await NewPdjService.CheckLoginApi(param, modelLog);
 
             if (loginStatus)
             {
@@ -691,7 +685,7 @@ namespace PacificWeb.Components.Layout
         public async void NavigateToDetailProduk(string id)
         {
             List<string> stringData = await pdjService.DecodeEncode(true, new List<string> { id });
-            NavigationManager.NavigateTo($"/detail-produk/{stringData.FirstOrDefault()}", forceLoad: true);
+            NavigationManager.NavigateTo($"/detail-produk/{stringData.FirstOrDefault()}", forceLoad: false);
         }
 
 
@@ -703,9 +697,16 @@ namespace PacificWeb.Components.Layout
         {
             var value = e.Value?.ToString() ?? "";
 
+            bool hasPlus = value.StartsWith("+");
+
             value = Regex.Replace(value, @"[^0-9]", "");
 
-            if(info == "phone-login")
+            if (hasPlus)
+            {
+                value = "+" + value;
+            }
+
+            if (info == "phone-login")
             {
                 Model.NoTlp = value;
             } 
@@ -718,7 +719,6 @@ namespace PacificWeb.Components.Layout
                 ModelRegist.NoTlp = value;
             }
 
-            Console.WriteLine(value);
             await JSRuntime.InvokeVoidAsync("setInputValue", info, value);
         }
 

@@ -327,38 +327,7 @@ namespace Services
 
 				var checking = await CheckResponseAPI(response, config.UrlApi, "BACA");
 
-				if (response.IsSuccessStatusCode)
-				{
-					var json = await response.Content.ReadAsStringAsync();
-					using var jsonDoc = JsonDocument.Parse(json);
-					var root = jsonDoc.RootElement;
-
-					if (root.TryGetProperty("Data", out var dataFromDbProduk))
-					{
-						tbListProduk = JsonConvert.DeserializeObject<Pesanan>(dataFromDbProduk.GetRawText());
-					}
-
-					if (root.TryGetProperty("TotalCount", out var dataFromDbTotalCount))
-					{
-						tbListProduk.TotalCount = JsonConvert.DeserializeObject<int>(dataFromDbTotalCount.GetRawText());
-					}
-
-					if (root.TryGetProperty("HasMore", out var dataFromDbHasMore))
-					{
-						tbListProduk.hasMore = JsonConvert.DeserializeObject<bool>(dataFromDbHasMore.GetRawText());
-					}
-
-					if (root.TryGetProperty("LastCursor", out var dataFromDbLastCursor))
-					{
-						tbListProduk.LastCursor = JsonConvert.DeserializeObject<string>(dataFromDbLastCursor.GetRawText());
-					}
-
-					if (tbListProduk.Header.Count() <= 0)
-					{
-						writeLog($"Data Kosong");
-					}
-				}
-				else if (checking.statusCode == 401)
+                if (checking.statusCode == 401)
 				{
 					var statusRefresh = await RefreshToken();
 
@@ -371,37 +340,10 @@ namespace Services
 
 						checking = await CheckResponseAPI(response, config.UrlApi, "BACA");
 
-						if (response.IsSuccessStatusCode)
+						if (!response.IsSuccessStatusCode)
 						{
-							var json = await response.Content.ReadAsStringAsync();
-							using var jsonDoc = JsonDocument.Parse(json);
-							var root = jsonDoc.RootElement;
-
-							if (root.TryGetProperty("Data", out var dataFromDbProduk))
-							{
-								tbListProduk = JsonConvert.DeserializeObject<Pesanan>(dataFromDbProduk.GetRawText());
-							}
-
-							if (root.TryGetProperty("TotalCount", out var dataFromDbTotalCount))
-							{
-								tbListProduk.TotalCount = JsonConvert.DeserializeObject<int>(dataFromDbTotalCount.GetRawText());
-							}
-
-							if (root.TryGetProperty("HasMore", out var dataFromDbHasMore))
-							{
-								tbListProduk.hasMore = JsonConvert.DeserializeObject<bool>(dataFromDbHasMore.GetRawText());
-							}
-
-							if (root.TryGetProperty("LastCursor", out var dataFromDbLastCursor))
-							{
-								tbListProduk.LastCursor = JsonConvert.DeserializeObject<string>(dataFromDbLastCursor.GetRawText());
-							}
-
-							if (tbListProduk.Header.Count() <= 0)
-							{
-								writeLog($"Data Kosong");
-							}
-						}
+                            return tbListProduk;
+                        }
 					}
 					else
 					{
@@ -409,7 +351,19 @@ namespace Services
                     }
 				}
 
-				return tbListProduk;
+                var json = await response.Content.ReadAsStringAsync();
+                using var jsonDoc = JsonDocument.Parse(json);
+                var root = jsonDoc.RootElement;
+
+                tbListProduk = JsonConvert.DeserializeObject<Pesanan>(root.GetRawText());
+
+                if (tbListProduk.Data.Header.Count() <= 0)
+                {
+                    writeLog($"Data Kosong");
+                }
+
+                ShowConsoleData(tbListProduk);
+                return tbListProduk;
 			}
 			catch (Exception ex)
 			{
@@ -442,22 +396,7 @@ namespace Services
 
                 var checking = await CheckResponseAPI(response, config.UrlApi, "BACA");
 
-                if (response.IsSuccessStatusCode)
-                {
-                    var json = await response.Content.ReadAsStringAsync();
-                    using var jsonDoc = JsonDocument.Parse(json);
-                    var root = jsonDoc.RootElement;
-
-                    if (root.TryGetProperty("Data", out var dataFromDb))
-                    {
-                        tbListHead = JsonConvert.DeserializeObject<Pesanan>(dataFromDb.GetRawText());
-                    }
-                    else
-                    {
-                        writeLog($"Data Kosong");
-                    }
-                }
-                else if (checking.statusCode == 401)
+                if (checking.statusCode == 401)
                 {
                     var statusRefresh = await RefreshToken();
 
@@ -470,20 +409,9 @@ namespace Services
 
                         checking = await CheckResponseAPI(response, config.UrlApi, "BACA");
 
-                        if (response.IsSuccessStatusCode)
+                        if (!response.IsSuccessStatusCode)
                         {
-                            var json = await response.Content.ReadAsStringAsync();
-                            using var jsonDoc = JsonDocument.Parse(json);
-                            var root = jsonDoc.RootElement;
-
-                            if (root.TryGetProperty("Data", out var dataFromDb))
-                            {
-                                tbListHead = JsonConvert.DeserializeObject<Pesanan>(dataFromDb.GetRawText());
-                            }
-                            else
-                            {
-                                writeLog($"Data Kosong");
-                            }
+                            return tbListHead;
                         }
                     }
                     else
@@ -492,6 +420,16 @@ namespace Services
                     }
                 }
 
+                var json = await response.Content.ReadAsStringAsync();
+                using var jsonDoc = JsonDocument.Parse(json);
+                var root = jsonDoc.RootElement;
+
+                tbListHead = JsonConvert.DeserializeObject<Pesanan>(root.GetRawText());
+                if (tbListHead.Data.Header.Count() <= 0)
+                {
+                    writeLog($"Data Kosong");
+                }
+                ShowConsoleData(tbListHead);
                 return tbListHead;
             }
             catch (Exception ex)
@@ -789,7 +727,7 @@ namespace Services
             {
                 routeApi = "produk",
                 prosesApi = "getAll",
-                ParamUrl = new ParameterApi.ParameterUrl { pagesize = 12, show_variant = true, max_media = 2, status = "aktif" }
+                ParamUrl = new ParameterApi.ParameterUrl { pagesize = 12, show_variant = true, max_media = 2, status = "aktif", orderBy = "tgl_created", orderDir = "desc" }
             });
 
             var bannerTask = GetListGlobalDataAsync<Banner>(new ParameterApi
@@ -843,7 +781,7 @@ namespace Services
                 }
             });
 
-            var TeksTask = GetListGlobalDataAsync<TexkSection>(new ParameterApi
+            var TeksTask = GetListGlobalDataAsync<TextSection>(new ParameterApi
             {
                 routeApi = "teks",
                 prosesApi = "getAll",
@@ -852,9 +790,11 @@ namespace Services
 
                         
             // Tunggu semua task selesai
-            await Task.WhenAll(produkTask, bannerTask, brandTask, kategoriTask, companyTask, NavbarTask, SosmedTask);
+            await Task.WhenAll(produkTask, brandTask, kategoriTask, companyTask, NavbarTask, SosmedTask);
+        }
 
-
+        public async Task RefreshDataAuthKonten()
+        {
             if (ScopedDataServices.ScopedData.DataLogin != null && ScopedDataServices?.ScopedData?.DataLogin?.No_Id != "")
             {
                 var CartTask = GetApi<Cart>(new ParameterApi
@@ -1023,7 +963,12 @@ namespace Services
 
                     var CurrentData = GlobalDataService.GlobalData.GetListData(typeof(T));
 
-                    if (CurrentData is IList list && list?.Count <= 0)
+                    if (parameterApi.Updated)
+                    { 
+                        var ListNewData = await GetApi<T>(parameterApi);
+                        GlobalDataService.GlobalData.SetListData(typeof(T), ListNewData?.Data ?? new());
+                    }
+                    else if (CurrentData is IList list && list?.Count <= 0)
                     {
                         var ListNewData = await GetApi<T>(parameterApi);
                         GlobalDataService.GlobalData.SetListData(typeof(T), ListNewData?.Data ?? new());
@@ -1311,6 +1256,7 @@ namespace Services
 
         public async Task<StatusResposeApi<T>> GetApi<T>(ParameterApi paramUrl)
         {
+            paramUrl.ParamUrl.status = "aktif";
             var config = await initConfigApi(paramUrl);
             string url = config.UrlApi;
             StatusResposeApi<T> deserApi = new StatusResposeApi<T>();

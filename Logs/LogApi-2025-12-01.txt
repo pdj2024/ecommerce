@@ -1,0 +1,848 @@
+
+                        [2025-12-01 07:18:42]
+                        URL: http://26.75.164.107:87/api/company/get-profile?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:18:44]
+                        URL: http://26.75.164.107:87/api/navbar/getAll?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Navbar
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:18:46]
+                        URL: http://26.75.164.107:87/api/company/get-social?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company Social
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:18:47]
+                        URL: http://26.75.164.107:87/api/teks/getAll?pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil menampilkan data teks
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:18:49]
+                        URL: http://26.75.164.107:87/api/banner/getAll?pagesize=3&max_media=2&orderBy=nama_banner&orderDir=desc&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:18:50]
+                        URL: http://26.75.164.107:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:18:53]
+                        URL: http://26.75.164.107:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:18:53]
+                        URL: http://26.75.164.107:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:18:55]
+                        URL: http://26.75.164.107:87/api/kategori/getAll?pagesize=3&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:18:55]
+                        URL: http://26.75.164.107:87/api/kategori/getAll?pagesize=3&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:19:16]
+                        URL: http://26.75.164.107:87/api/auth/login?pagesize=8&max_media=2&strict_kategori=True&show_variant=True
+                        Status: 401 Unauthorized
+                        Response: Client error: Check-Login - Nomor HP atau password salah / akun tidak aktif
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:19:25]
+                        URL: http://26.75.164.107:87/api/auth/login?pagesize=8&max_media=2&strict_kategori=True&show_variant=True
+                        Status: 200 OK
+                        Response: Success: Check-Login - Login berhasil
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:19:28]
+                        URL: http://26.75.164.107:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&show_variant=True&id_customer=cus_53&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:19:28]
+                        URL: http://26.75.164.107:87/api/nilaidefault/getAll?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Nilai Default
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:19:28]
+                        URL: http://26.75.164.107:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:19:28]
+                        URL: http://26.75.164.107:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:19:28]
+                        URL: http://26.75.164.107:87/api/customer/getAll?no_id=cus_53&pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:19:28]
+                        URL: http://26.75.164.107:87/api/customer/getAll?no_id=cus_53&pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:19:28]
+                        URL: http://26.75.164.107:87/api/nilaidefault/getAll?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Nilai Default
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:19:28]
+                        URL: http://26.75.164.107:87/api/payment/option?pagesize=8&max_media=2&orderBy=fee&orderDir=asc&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:19:29]
+                        URL: http://26.75.164.107:87/api/payment/option?pagesize=8&max_media=2&orderBy=fee&orderDir=asc&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:19:29]
+                        URL: http://26.75.164.107:87/api/shipping/getAll?pagesize=8&max_media=2&orderBy=fee&orderDir=asc&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Opsi Shipping
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:19:31]
+                        URL: http://26.75.164.107:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:19:31]
+                        URL: http://26.75.164.107:87/api/customer/getAll?no_id=cus_53&pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:19:31]
+                        URL: http://26.75.164.107:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&show_variant=True&id_customer=cus_53&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:19:42]
+                        URL: http://26.75.164.107:87/api/customer/getAll?no_id=cus_53&pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:19:42]
+                        URL: http://26.75.164.107:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&show_variant=True&id_customer=cus_53&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:19:42]
+                        URL: http://26.75.164.107:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:19:46]
+                        URL: http://26.75.164.107:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&show_variant=True&id_customer=cus_53&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:19:46]
+                        URL: http://26.75.164.107:87/api/customer/getAll?no_id=cus_53&pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:19:46]
+                        URL: http://26.75.164.107:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:20:32] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:20:38] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:20:38] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:20:38] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:20:38] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:20:38] - Error API Connection
+                        Message: User logout  01/12/2025 07:20:38
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:26:07] - Error API Connection
+                        Message: Regist error: A task was canceled.
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:26:07]
+                        URL: http://26.75.164.107:87/api/auth/login?pagesize=8&max_media=2&strict_kategori=True&show_variant=True
+                        Status: 200 OK
+                        Response: Success: Check-Login - Login berhasil
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:26:10]
+                        URL: http://26.75.164.107:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:26:10]
+                        URL: http://26.75.164.107:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&show_variant=True&id_customer=cus_53&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:26:10]
+                        URL: http://26.75.164.107:87/api/customer/getAll?no_id=cus_53&pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:26:10]
+                        URL: http://26.75.164.107:87/api/customer/getAll?no_id=cus_53&pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:26:10]
+                        URL: http://26.75.164.107:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&show_variant=True&id_customer=cus_53&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:26:10]
+                        URL: http://26.75.164.107:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:26:13]
+                        URL: http://26.75.164.107:87/api/customer/getAll?no_id=cus_53&pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:26:13]
+                        URL: http://26.75.164.107:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&show_variant=True&id_customer=cus_53&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:26:13]
+                        URL: http://26.75.164.107:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:26:18]
+                        URL: http://26.75.164.107:87/api/order/getAll?pagesize=5&max_media=2&orderBy=no_bukti&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status_order_1=dikirim&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:26:19]
+                        URL: http://26.75.164.107:87/api/customer/getAll?no_id=cus_53&pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:26:19]
+                        URL: http://26.75.164.107:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:26:19]
+                        URL: http://26.75.164.107:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&show_variant=True&id_customer=cus_53&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:26:19]
+                        URL: http://26.75.164.107:87/api/order/getAll?pagesize=5&max_media=2&orderBy=no_bukti&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status_order_1=dikirim&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:26:56]
+                        URL: http://26.75.164.107:87/api/order/getAll?pagesize=5&max_media=2&orderBy=no_bukti&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status_order_1=belum bayar&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:30:35]
+                        URL: http://26.75.164.107:87/api/order/getAll?pagesize=5&max_media=2&orderBy=no_bukti&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status_order_1=dikemas&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:32:02]
+                        URL: http://26.75.164.107:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:32:02]
+                        URL: http://26.75.164.107:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&show_variant=True&id_customer=cus_53&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:32:02]
+                        URL: http://26.75.164.107:87/api/company/get-profile?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:32:04]
+                        URL: http://26.75.164.107:87/api/navbar/getAll?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Navbar
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:32:04]
+                        URL: http://26.75.164.107:87/api/company/get-social?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company Social
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:32:04]
+                        URL: http://26.75.164.107:87/api/teks/getAll?pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil menampilkan data teks
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:32:05]
+                        URL: http://26.75.164.107:87/api/nilaidefault/getAll?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Nilai Default
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:32:05]
+                        URL: http://26.75.164.107:87/api/payment/option?pagesize=8&max_media=2&orderBy=fee&orderDir=asc&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:32:05]
+                        URL: http://26.75.164.107:87/api/shipping/getAll?pagesize=8&max_media=2&orderBy=fee&orderDir=asc&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Opsi Shipping
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:32:05]
+                        URL: http://26.75.164.107:87/api/banner/getAll?pagesize=3&max_media=2&orderBy=nama_banner&orderDir=desc&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:32:05]
+                        URL: http://26.75.164.107:87/api/customer/getAll?no_id=cus_53&pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:32:06]
+                        URL: http://26.75.164.107:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:32:07]
+                        URL: http://26.75.164.107:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:32:07]
+                        URL: http://26.75.164.107:87/api/customer/getAll?no_id=cus_53&pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:32:07]
+                        URL: http://26.75.164.107:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&show_variant=True&id_customer=cus_53&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:32:08]
+                        URL: http://26.75.164.107:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:32:08]
+                        URL: http://26.75.164.107:87/api/kategori/getAll?pagesize=3&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:32:09]
+                        URL: http://26.75.164.107:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:32:13]
+                        URL: http://26.75.164.107:87/api/produk/getAll?no_id=prod_89&pagesize=2&max_media=10&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:32:16]
+                        URL: http://26.75.164.107:87/api/produk/getAll?no_id=prod_88&pagesize=12&max_media=10&orderBy=tgl_created&orderDir=desc&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:32:18]
+                        URL: http://26.75.164.107:87/api/produk/getAll?no_id=prod_88&pagesize=12&max_media=10&orderBy=tgl_created&orderDir=desc&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:32:18]
+                        URL: http://26.75.164.107:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&show_variant=True&id_customer=cus_53&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:32:18]
+                        URL: http://26.75.164.107:87/api/customer/getAll?no_id=cus_53&pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:32:18]
+                        URL: http://26.75.164.107:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:32:29]
+                        URL: http://26.75.164.107:87/api/produk/getAll?no_id=prod_84&pagesize=2&max_media=10&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:32:32]
+                        URL: http://26.75.164.107:87/api/produk/getAll?no_id=prod_88&pagesize=2&max_media=10&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:32:38]
+                        URL: http://26.75.164.107:87/api/produk/getAll?no_id=prod_84&pagesize=2&max_media=10&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:32:41]
+                        URL: http://26.75.164.107:87/api/produk/getAll?no_id=prod_84&pagesize=8&max_media=2&strict_kategori=True&show_variant=True&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:32:42]
+                        URL: http://26.75.164.107:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&show_variant=True&id_customer=cus_53&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:32:42]
+                        URL: http://26.75.164.107:87/api/customer/getAll?no_id=cus_53&pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:32:42]
+                        URL: http://26.75.164.107:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:32:42]
+                        URL: http://26.75.164.107:87/api/produk/getAll?no_id=prod_84&pagesize=8&max_media=2&strict_kategori=True&show_variant=True&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:33:44]
+                        URL: http://26.75.164.107:87/api/order/create?pagesize=8&max_media=2&strict_kategori=True&show_variant=True
+                        Status: 200 OK
+                        Response: Success: TAMBAH - 
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:33:45]
+                        URL: http://26.75.164.107:87/api/order/getAll?pagesize=8&max_media=2&strict_kategori=True&show_variant=True&no_bukti=INV-251200002
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:33:51]
+                        URL: http://26.75.164.107:87/api/order/getAll?pagesize=5&max_media=2&orderBy=no_bukti&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status_order_1=belum bayar&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:33:52]
+                        URL: http://26.75.164.107:87/api/customer/getAll?no_id=cus_53&pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:33:52]
+                        URL: http://26.75.164.107:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&show_variant=True&id_customer=cus_53&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:33:52]
+                        URL: http://26.75.164.107:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:33:53]
+                        URL: http://26.75.164.107:87/api/order/getAll?pagesize=5&max_media=2&orderBy=no_bukti&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status_order_1=belum bayar&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:48:57]
+                        URL: http://26.75.164.107:87/api/order/getAll?pagesize=5&max_media=2&orderBy=no_bukti&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status_order_1=belum bayar&status=aktif
+                        Status: 401 Unauthorized
+                        Response: Client error: BACA - Permintaan Tidak Ditemukan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:48:57]
+                        URL: http://26.75.164.107:87/api/Auth/refresh
+                        Status: 200 OK
+                        Response: Success: RefreshToken - 
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:48:57] - Error API Connection
+                        Message: ✅ Refresh Token berhasil diperbarui.
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:48:58]
+                        URL: http://26.75.164.107:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:48:58]
+                        URL: http://26.75.164.107:87/api/banner/getAll?pagesize=3&max_media=2&orderBy=nama_banner&orderDir=desc&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:48:58]
+                        URL: http://26.75.164.107:87/api/order/getAll?pagesize=5&max_media=2&orderBy=no_bukti&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status_order_1=belum bayar&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:48:58]
+                        URL: http://26.75.164.107:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:48:59]
+                        URL: http://26.75.164.107:87/api/kategori/getAll?pagesize=3&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:48:59]
+                        URL: http://26.75.164.107:87/api/company/get-profile?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:49:00]
+                        URL: http://26.75.164.107:87/api/navbar/getAll?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Navbar
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:49:00]
+                        URL: http://26.75.164.107:87/api/company/get-social?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company Social
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:49:01]
+                        URL: http://26.75.164.107:87/api/teks/getAll?pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil menampilkan data teks
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:54:03]
+                        URL: http://26.75.164.107:87/api/order/getAll?pagesize=5&max_media=2&orderBy=no_bukti&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status_order_1=belum bayar&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 07:57:29]
+                        URL: http://26.75.164.107:87/api/order/getAll?pagesize=5&max_media=2&orderBy=no_bukti&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status_order_1=belum bayar&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:01:03]
+                        URL: http://26.75.164.107:87/api/order/getAll?pagesize=5&max_media=2&orderBy=no_bukti&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status_order_1=belum bayar&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:01:05]
+                        URL: http://26.75.164.107:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:01:06]
+                        URL: http://26.75.164.107:87/api/banner/getAll?pagesize=3&max_media=2&orderBy=nama_banner&orderDir=desc&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:01:07]
+                        URL: http://26.75.164.107:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:01:07]
+                        URL: http://26.75.164.107:87/api/kategori/getAll?pagesize=3&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:01:07]
+                        URL: http://26.75.164.107:87/api/company/get-profile?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:01:09]
+                        URL: http://26.75.164.107:87/api/navbar/getAll?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Navbar
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:01:09]
+                        URL: http://26.75.164.107:87/api/company/get-social?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company Social
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:01:09]
+                        URL: http://26.75.164.107:87/api/teks/getAll?pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil menampilkan data teks
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:01:56]
+                        URL: http://26.75.164.107:87/api/order/getAll?pagesize=5&max_media=2&orderBy=no_bukti&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status_order_1=belum bayar&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:03:29]
+                        URL: http://26.75.164.107:87/api/order/getAll?pagesize=5&max_media=2&orderBy=no_bukti&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status_order_1=belum bayar&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:03:35]
+                        URL: http://26.75.164.107:87/api/order/getAll?pagesize=5&max_media=2&orderBy=no_bukti&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status_order_1=belum bayar&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:03:35]
+                        URL: http://26.75.164.107:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&show_variant=True&id_customer=cus_53&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:03:35]
+                        URL: http://26.75.164.107:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:03:35]
+                        URL: http://26.75.164.107:87/api/nilaidefault/getAll?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Nilai Default
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:03:35]
+                        URL: http://26.75.164.107:87/api/customer/getAll?no_id=cus_53&pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:03:36]
+                        URL: http://26.75.164.107:87/api/payment/option?pagesize=8&max_media=2&orderBy=fee&orderDir=asc&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:03:37]
+                        URL: http://26.75.164.107:87/api/shipping/getAll?pagesize=8&max_media=2&orderBy=fee&orderDir=asc&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Opsi Shipping
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:05:35]
+                        URL: http://26.75.164.107:87/api/order/getAll?pagesize=5&max_media=2&orderBy=no_bukti&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status_order_1=belum bayar&status=aktif
+                        Status: 401 Unauthorized
+                        Response: Client error: BACA - Permintaan Tidak Ditemukan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:05:35]
+                        URL: http://26.75.164.107:87/api/Auth/refresh
+                        Status: 200 OK
+                        Response: Success: RefreshToken - 
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:05:35] - Error API Connection
+                        Message: ✅ Refresh Token berhasil diperbarui.
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:05:36]
+                        URL: http://26.75.164.107:87/api/order/getAll?pagesize=5&max_media=2&orderBy=no_bukti&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status_order_1=belum bayar&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:05:40]
+                        URL: http://26.75.164.107:87/api/order/getAll?pagesize=5&max_media=2&orderBy=no_bukti&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status_order_1=belum bayar&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:05:43]
+                        URL: http://26.75.164.107:87/api/customer/getAll?no_id=cus_53&pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:05:43]
+                        URL: http://26.75.164.107:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&show_variant=True&id_customer=cus_53&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:05:43]
+                        URL: http://26.75.164.107:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:05:44]
+                        URL: http://26.75.164.107:87/api/order/getAll?pagesize=5&max_media=2&orderBy=no_bukti&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status_order_1=belum bayar&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:10:15]
+                        URL: http://26.75.164.107:87/api/order/getAll?pagesize=5&max_media=2&orderBy=no_bukti&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status_order_1=belum bayar&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:10:38]
+                        URL: http://26.75.164.107:87/api/order/getAll?pagesize=5&max_media=2&orderBy=no_bukti&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status_order_1=belum bayar&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:10:41]
+                        URL: http://26.75.164.107:87/api/customer/getAll?no_id=cus_53&pagesize=8&max_media=2&strict_kategori=True&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:10:42]
+                        URL: http://26.75.164.107:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&show_variant=True&id_customer=cus_53&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:10:42]
+                        URL: http://26.75.164.107:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:10:42]
+                        URL: http://26.75.164.107:87/api/order/getAll?pagesize=5&max_media=2&orderBy=no_bukti&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status_order_1=belum bayar&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:10:59]
+                        URL: http://26.75.164.107:87/api/order/getAll?pagesize=5&max_media=2&orderBy=no_bukti&orderDir=desc&strict_kategori=True&show_variant=True&id_customer=cus_53&show_media=true&status_order_1=dikemas&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:11:19] - Error API Connection
+                        Message: User logout  01/12/2025 08:11:19
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:11:35] - Error API Connection
+                        Message: User logout  01/12/2025 08:11:35
+                        ---------------------------------------------------------
+
+                        [2025-12-01 08:11:51]
+                        URL: http://26.75.164.107:87/api/auth/login?pagesize=8&max_media=2&strict_kategori=True&show_variant=True
+                        Status: 401 Unauthorized
+                        Response: Client error: Login - Nomor HP atau password salah / akun tidak aktif
+                        ---------------------------------------------------------

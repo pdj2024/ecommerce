@@ -1,6 +1,7 @@
-﻿@rendermode InteractiveServer
+﻿@using PacificWeb.Components.Sections
 @page "/detail-produk/{id}"
 @inject AuthenticationStateProvider AuthenticationStateProvider
+@rendermode InteractiveServer
 
 
 <PageTitle>Detail - @(dataSourch?.DataProduk?.Nama_Display == "" ? "Not Found" : dataSourch?.DataProduk?.Nama_Display )</PageTitle>
@@ -173,7 +174,7 @@
                                 </div>
 
                                 <div>
-                                    @if (dataSourch?.DataProduk?.Diskon1 != null || dataSourch?.DataProduk?.Diskon1 >= 1)
+                                    @if (dataSourch?.DataProduk?.Diskon1 != null && dataSourch?.DataProduk?.Diskon1 >= 1)
                                     {
                                         <span class="badge bg-primary" style="padding: 8px 14px;font-size: 15px;display: flex;width: fit-content;align-items: center;gap: 8px;margin-bottom: 10px;font-weight: 700;border-radius: 0px;">
                                             Potongan @string.Format("Rp. {0:N0}", ((dataSourch?.DataProduk?.Diskon1 / 100) * dataSourch?.DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == dataSourch?.DataProduk?.Id_Option_Default && x.Size_Id == dataSourch?.DataProduk?.Id_Size_Default)?.Harga))
@@ -193,7 +194,7 @@
                                         }
                                     </div>
                                     <h3 class="price d-flex align-items-center">
-                                        @if (dataSourch?.DataProduk?.Diskon1 != null || dataSourch?.DataProduk?.Diskon1 >= 1)
+                                        @if (dataSourch?.DataProduk?.Diskon1 != null && dataSourch?.DataProduk?.Diskon1 >= 1)
                                         {
                                             @string.Format("Rp. {0:N0}", (dataSourch?.DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == dataSourch?.DataProduk?.Id_Option_Default && x.Size_Id == dataSourch?.DataProduk?.Id_Size_Default)?.Harga - ((dataSourch?.DataProduk?.Diskon1 / 100) * dataSourch?.DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == dataSourch?.DataProduk?.Id_Option_Default && x.Size_Id == dataSourch?.DataProduk?.Id_Size_Default)?.Harga)))
                                         }
@@ -201,7 +202,8 @@
                                         {
                                             @string.Format("Rp. {0:N0}", dataSourch?.DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == dataSourch?.DataProduk?.Id_Option_Default && x.Size_Id == dataSourch?.DataProduk?.Id_Size_Default)?.Harga)
                                         }
-                                        @if (dataSourch?.DataProduk?.Diskon1 != null || dataSourch?.DataProduk?.Diskon1 >= 1) 
+
+                                        @if (dataSourch?.DataProduk?.Diskon1 != null && dataSourch?.DataProduk?.Diskon1 >= 1) 
                                         {
                                             <span style="font-size:1.3rem" class="">@string.Format("Rp. {0:N0}", dataSourch?.DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == dataSourch?.DataProduk?.Id_Option_Default && x.Size_Id == dataSourch?.DataProduk?.Id_Size_Default)?.Harga)</span>
                                         }
@@ -360,8 +362,8 @@
                                             </div>
 
                                             <div class="col-lg-8 col-md-8 col-12 rowbox-style ps-md-2 ps-0">
-                                                <div class="wish-button">
-                                                    <button class="btn" @onclick=@(() => tambahKeranjang(dataSourch?.DataProduk, "detail")) style="border-radius:0px;">
+                                                <div class="wish-button" style="@(dataSourch.DataProduk.Id_Option_Default == "" || dataSourch.DataProduk.Id_Size_Default == "" ? "cursor:not-allowed;" : "")">
+                                                    <button disabled=@(dataSourch.DataProduk.Id_Option_Default == "" || dataSourch.DataProduk.Id_Size_Default == "") class="btn" @onclick=@(() => tambahKeranjang(dataSourch?.DataProduk, "detail")) style="border-radius:0px;">
                                                         Tambahkan <i class="lni lni-cart-2 ms-1"></i>
                                                     </button>
                                                 </div>
@@ -372,8 +374,8 @@
                                         <div class="row align-items-end mt-3 row-style">
 
                                             <div class="col-12 rowbox-style">
-                                                <div class="button cart-button" >
-                                                    <NavLink class="btn btn-primary" @onclick=@(() => NavigateToPayment(dataSourch?.DataProduk))  style="width: 100%;display: flex; border-radius:0px;">Beli Sekarang</NavLink>
+                                                <div class="button cart-button" style="@(dataSourch.DataProduk.Id_Option_Default == "" || dataSourch.DataProduk.Id_Size_Default == "" ? "cursor:not-allowed;" : "")">
+                                                    <button disabled=@(dataSourch.DataProduk.Id_Option_Default == "" || dataSourch.DataProduk.Id_Size_Default == "") class="btn btn-primary" @onclick=@(() => NavigateToPayment(dataSourch?.DataProduk))  style="width: 100%; display: flex; border-radius:0px;">Beli Sekarang</button>
                                                 </div>
                                             </div>
 
@@ -390,7 +392,7 @@
                                                 </span>
                                         </button>
 
-                                        <button class="d-flex justify-content-center align-items-center w-auto border-0 gap-2" style="background-color:transparent; font-size: 16px;font-weight: 500;" data-bs-toggle="modal" data-bs-target="#exampleModal3">
+                                        <button @onclick=@openAsk class="d-flex justify-content-center align-items-center w-auto border-0 gap-2" style="background-color:transparent; font-size: 16px;font-weight: 500;" data-bs-toggle="modal" data-bs-target="#exampleModal3">
                                             <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#1f1f1f"><path d="M480-312q20 0 32.5-13.27 12.5-13.28 12.5-32.5 0-19.23-13.07-31.73t-32-12.5Q461-402 448-389.5t-13 31.73q0 19.22 13.05 32.5Q461.1-312 480-312Zm-32-144h66q0-13.68 1-23.34t5-17.66q4-8 9.95-15.77Q535.9-520.55 547-532q20-20 38.5-40.5T604-631q0-53-36-83t-88-30q-48 0-80 27t-44 63l59 25q6-18 21-36t44-18q32 0 46 17t14 37q0 23-17 40t-36 35q-13 12-20 21t-11.5 20q-4.5 11-6 24t-1.5 33Zm32 408L336-192H216q-29 0-50.5-21.5T144-264v-528q0-29 21.5-50.5T216-864h528q29.7 0 50.85 21.5Q816-821 816-792v528q0 29-21.15 50.5T744-192H624L480-48ZM216-264h149l115 115 114-115h150v-528H216v528Zm264-264Z"/>
                                             </svg>
                                             <span class="underline-anim" style="padding-bottom: 0px;">
@@ -438,23 +440,19 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="input-group mb-3 style-grup px-1 border-1 form-style">
-                            <input type="text" class="form-control search-form form-text" placeholder="Your name*" aria-label="Search" aria-describedby="basic-addon1" required />
+                            <InputText type="text" class="form-control search-form form-text" @bind-value=@nama placeholder="Nama" aria-label="Search" aria-describedby="basic-addon1" required />
                         </div>
                         <div class="input-group mb-3 style-grup px-1 border-1 form-style">
-                            <input type="text" class="form-control search-form form-text" placeholder="Your email*" aria-label="Search" aria-describedby="basic-addon1" required />
-                        </div>
-                        <div class="input-group mb-3 style-grup px-1 border-1 form-style">
-                            <input type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required />
+                            <InputText type="text" class="form-control search-form form-text" @bind-value=@email placeholder="Telepon" aria-label="Search" aria-describedby="basic-addon1" required />
                         </div>
                         <div class="input-group mb-1 style-grup px-1 border-1 form-style">
-                            <textarea Rows="4" class="form-control search-form form-text" placeholder="Your massage*" aria-label="Search" aria-describedby="basic-addon1" required />
+                            <InputTextArea Rows="4" class="form-control search-form form-text" @bind-value=@pesan placeholder="Pesan" aria-label="Search" aria-describedby="basic-addon1" required />
                         </div>
-                        <p style="font-size:13px; font-weight:300; font-style:italic;">Kolom yang bertanda * wajib diisi.</p>
                     </div>
                 </div>
             </div>
             <div class="modal-footer justify-content-center button border-top-0 pt-2 px-5">
-                <button type="button" class="btn-slide border-0" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;">
+                <button @onclick=@KirimPesan type="button" class="btn-slide border-0" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;">
                     <span class="position-relative">Kirim Pertanyaan</span>
                 </button>
             </div>
@@ -542,10 +540,9 @@
 </section>
 <!-- End Trending Product Area -->
 
+<SelectProduk header_page="@header_page" DataProduk=@ScopedDataServices.ScopedData.DataProduk Quantity=@ScopedDataServices.ScopedData.DataProduk.Min_Order />
 
-<PacificWeb.Components.Sections.SelectProduk Quantity=DataProdukModal.Min_Order DataProduk="DataProdukModal" header_page="header_page" />
-
-@if (dataSourch?.DataProduk != null && dataSourch?.DataProduk?.No_Id != "")
+@if (dataSourch?.DataProduk != null)
 {
     <div id="flayer" class="d-flex flex-row px-2 py-1 px-xl-5">
         <div class="col-12 col-md-5 d-none d-md-flex gap-3">
@@ -613,7 +610,7 @@
                         <div class="btn-group w-100">
                             <button class="dropdown-toggle btn-slide px-0 justify-content-around" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span style="width: 54%;overflow: hidden;text-overflow: ellipsis;">
-                                    @(dataSourch?.DataProduk?.Size_Default == "" ? "Empty" : dataSourch?.DataProduk?.Size_Default)
+                                    @(dataSourch?.DataProduk?.Size_Default == "" ? "Kosong" : dataSourch?.DataProduk?.Size_Default)
                                 </span>
                                 <i class="lni lni-chevron-up" style="transform: rotateZ(180deg);font-size: 18px;font-weight: 500;" ></i>
                             </button>
@@ -626,7 +623,7 @@
                                             disabled="@(dataSourch?.DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == dataSourch?.DataProduk?.Id_Option_Default && x.Size_Id == size.Size_Id && x.Status == "aktif")?.Stock >= dataSourch?.DataProduk?.Min_Order ? false : true)"
                                             class="dropdown-item @(dataSourch?.DataProduk?.Id_Size_Default == size.Size_Id ? "active" : "")" 
                                             @onclick="() => OnSizeChanged(size.Size_Id)">
-                                            @(size.Size_Label == "" ? "Empty" : size.Size_Label)
+                                            @(size.Size_Label == "" ? "Kosong" : size.Size_Label)
                                         </button>
                                     </li>
                                 }
@@ -641,11 +638,13 @@
                         </div>
                     </div>
                     <div class="col-5 col-lg-3 px-1 px-lg-2">
-                        <div class="btn-group w-100">
-                            <button class="btn-slide" @onclick=@(() => tambahKeranjang(dataSourch?.DataProduk, "detail"))  type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Tambahkan <i class="lni lni-cart-2 ms-2"></i>
-                            </button>
-                        </div>
+                        @if(dataSourch.DataProduk.Id_Option_Default != "" || dataSourch.DataProduk.Id_Size_Default != "") {
+                            <div class="btn-group w-100" style="">
+                                <button disabled=@(dataSourch.DataProduk.Id_Option_Default == "" || dataSourch.DataProduk.Id_Size_Default == "") class="btn-slide" @onclick=@(() => tambahKeranjang(dataSourch?.DataProduk, "detail"))  type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Tambahkan <i class="lni lni-cart-2 ms-2"></i>
+                                </button>
+                            </div>
+                        }
                     </div>
 
                 </div>

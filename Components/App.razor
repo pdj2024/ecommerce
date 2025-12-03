@@ -129,8 +129,8 @@
             const number = phoneInput.getNumber(); // format E.164
             const isValid = phoneInput.isValidNumber();
 
-            const resultBox = document.querySelector("#result");
-            const e164Text = document.querySelector("#e164Number");
+            // const resultBox = document.querySelector("#result");
+            // const e164Text = document.querySelector("#e164Number");
 
             if (isValid) {
                 // e164Text.textContent = number;
@@ -147,6 +147,16 @@
                 return "FALSE";
             }
         }
+
+        window.goTopInstant = () => {
+            window.scrollTo(0, 0);
+        };
+
+        window.removeBackdrops = () => {
+            const backdrops = document.querySelectorAll(".modal-backdrop.show");
+            backdrops.forEach(b => b.remove());
+            document.body.classList.remove("modal-open");
+        };
 
         function initKlikFlagLogin() {
             // Saat tombol Verify diklik
@@ -246,11 +256,11 @@
             });
         }
 
-        window.sendOTP = async function (dataNomer) {
+        window.sendOTP = async function (dataNomor) {
             try {
                 // console.log("Send OTP started");
 
-                const number = dataNomer;
+                const number = dataNomor;
 
                 // Pastikan recaptcha sudah ada dan valid
                 if (!window.recaptchaVerifier) {
@@ -420,6 +430,55 @@
         }
 
 
+        function initKate() {
+            const heroShimer = document.querySelector(`.kate-shimer`);
+            heroShimer.style.display = "none";
+
+            const heroContent = document.querySelector(`.kate-content`);
+            heroContent.style.display = "flex";
+        }
+
+        function initFooter() {
+            const heroShimer = document.querySelector(`.footer-shimer`);
+            heroShimer.style.display = "none";
+
+            const heroContent = document.querySelector(`.footer-content`);
+            heroContent.style.display = "flex";
+        }
+
+        function initHeader() {
+            const heroShimer = document.querySelector(`.header-shimer`);
+            heroShimer.style.display = "none";
+
+            const heroContent = document.querySelector(`.header-content`);
+            heroContent.style.display = "flex";
+        }
+
+        function initslideHomeProduct() {
+
+            const heroShimer = document.querySelector(`.product-shimer`);
+            heroShimer.style.display = "none";
+
+            const heroContent = document.querySelector(`.product-content`);
+            heroContent.style.display = "flex";
+
+            const products = document.querySelectorAll(".product");
+
+
+            if (products.length === 0) return;
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("show");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            products.forEach(p => observer.observe(p));
+        }
+
         function initslideProduct() {
             const products = document.querySelectorAll(".product");
 
@@ -587,59 +646,70 @@
             }
         }
 
-        function initTinySlider() {
-            var slider = tns({
-                container: ".hero-slider",
-                items: 1,
-                slideBy: "page",
-                autoplay: true,
-                nav: false,
-                mouseDrag: true,
-                gutter: 0,
-                controls: true,
-                autoplayButtonOutput: false,
-                controlsText: ['<i class="lni lni-chevron-left"></i>', '<i class="lni lni-chevron-left" style="transform: scaleX(-1);"></i>'],
+        function initSliderFor(selector) {
+
+            const heroShimer = document.querySelector(`.hero-shimer`);
+            heroShimer.style.display = "none";
+
+            const heroContent = document.querySelector(`.hero-content`);
+            heroContent.style.display = "flex";
+
+
+            let index = 0;
+
+            const root = document.querySelector(selector);
+            if (!root) return;
+
+            const slides = root.querySelectorAll(".slide-new");
+            const dotsContainer = root.querySelector(".dots-new");
+
+            if (slides.length === 0) return;
+
+            // Create dots
+            slides.forEach((_, i) => {
+                const dot = document.createElement("span");
+                dot.addEventListener("click", () => goTo(i));
+                dotsContainer.appendChild(dot);
             });
 
-            var slider_laptop = tns({
-                container: ".hero-slider-laptop",
-                items: 1,
-                slideBy: "page",
-                autoplay: true,
-                nav: false,
-                mouseDrag: true,
-                gutter: 0,
-                controls: true,
-                autoplayButtonOutput: false,
-                controlsText: ['<i class="lni lni-chevron-left"></i>', '<i class="lni lni-chevron-left" style="transform: scaleX(-1);"></i>'],
-            });
+            function showSlide(i) {
+                slides.forEach(s => s.classList.remove("active-new"));
+                slides[i].classList.add("active-new");
 
-            var slider_tablet = tns({
-                container: ".hero-slider-tablet",
-                items: 1,
-                slideBy: "page",
-                autoplay: true,
-                nav: false,
-                mouseDrag: true,
-                gutter: 0,
-                controls: true,
-                autoplayButtonOutput: false,
-                controlsText: ['<i class="lni lni-chevron-left"></i>', '<i class="lni lni-chevron-left" style="transform: scaleX(-1);"></i>'],
-            });
+                const dots = dotsContainer.children;
+                [...dots].forEach(d => d.classList.remove("activeDot-new"));
+                dots[i].classList.add("activeDot-new");
+            }
 
-            var slider_phone = tns({
-                container: ".hero-slider-phone",
-                items: 1,
-                slideBy: "page",
-                autoplay: true,
-                nav: false,
-                mouseDrag: true,
-                gutter: 0,
-                controls: true,
-                autoplayButtonOutput: false,
-                controlsText: ['<i class="lni lni-chevron-left"></i>', '<i class="lni lni-chevron-left" style="transform: scaleX(-1);"></i>'],
-            });
+            function next() {
+                index = (index + 1) % slides.length;
+                showSlide(index);
+            }
+
+            function prev() {
+                index = (index - 1 + slides.length) % slides.length;
+                showSlide(index);
+            }
+
+            function goTo(i) {
+                index = i;
+                showSlide(index);
+            }
+
+            root.querySelector(".next-new").onclick = next;
+            root.querySelector(".prev-new").onclick = prev;
+
+            showSlide(index);
+            setInterval(next, 5000);
+
         };
+
+        // document.addEventListener("DOMContentLoaded", () => {
+        //     initSliderFor(".hero-slider-new-pc");
+        //     initSliderFor(".hero-slider-new-laptop");
+        //     initSliderFor(".hero-slider-new-tablet");
+        //     initSliderFor(".hero-slider-new-phone");
+        // });
 
         function initDetailProd() {
             var sliderdetailProd = tns({

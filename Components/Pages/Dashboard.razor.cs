@@ -55,7 +55,7 @@ namespace PacificWeb.Components.Pages
         
         public Produk DataProduk { get; set; } = new Produk();
 
-        public bool loadProses { get; set; } = false;
+        public bool loadProses { get; set; } = true;
 
         public bool loadContent { get; set; } = true;
 
@@ -108,6 +108,12 @@ namespace PacificWeb.Components.Pages
                 ScopedDataServices.ScopedData.DataLogin = null;
             }
 
+            var mainContent = NewPdjService.RefreshDataMainKonten();
+            await Task.WhenAll(mainContent);
+
+            loadContent = false;
+            //StateHasChanged();
+
         }
 
 
@@ -116,16 +122,13 @@ namespace PacificWeb.Components.Pages
         {
             if (firstRender)
             {
-
-                // Jalankan semua request paralel
-                var mainContent = NewPdjService.RefreshDataMainKonten();
-
-                await Task.WhenAll(mainContent);
+                var authContent = NewPdjService.RefreshDataAuthKonten();
+                await Task.WhenAll(authContent);
 
                 ScopedDataServices.ScopedData.Finised = true;
 
-                loadContent = false;
-                StateHasChanged();
+                loadProses = false;
+                //StateHasChanged();
 
                 if (!this.Disposed)
                 {
@@ -133,7 +136,7 @@ namespace PacificWeb.Components.Pages
                     await JSRuntime.InvokeVoidAsync("initTinySlider");
                 }
 
-                StateHasChanged();
+                //StateHasChanged();
 
                 await header_page.SelectItemCart(null);
             }
@@ -143,7 +146,7 @@ namespace PacificWeb.Components.Pages
 
         public void NavigateToDetailProduk(string id)
         {
-            NavigationManager.NavigateTo($"/detail-produk/{id}", forceLoad: true);
+            NavigationManager.NavigateTo($"/detail-produk/{id}", forceLoad: false);
         }
 
 
@@ -153,7 +156,7 @@ namespace PacificWeb.Components.Pages
             if (brand != null)
             {
                 bra = Convert.ToBase64String(Encoding.UTF8.GetBytes((brand.No_Id == null || brand.No_Id == "" ? brand.Id : brand.No_Id)));
-                NavigationManager.NavigateTo($"/search-page?keyword=&produk=&kategori=&brand={Uri.EscapeDataString(bra)}", true);
+                NavigationManager.NavigateTo($"/search-page?keyword=&produk=&kategori=&brand={Uri.EscapeDataString(bra)}", false);
                 return;
             }
         }
@@ -161,7 +164,7 @@ namespace PacificWeb.Components.Pages
 
         public void NavigateToHome(string route)
         {
-            NavigationManager.NavigateTo($"/{route}", forceLoad: true);
+            NavigationManager.NavigateTo($"/{route}", forceLoad: false);
         }
 
         public async Task selectProduk(string id_kode)

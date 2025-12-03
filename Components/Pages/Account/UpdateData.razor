@@ -1,0 +1,74 @@
+﻿@using Models
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Authentication.Cookies
+@using System.Text.Json;
+@inject NavigationManager navigationManager
+@using Services
+@using System.Text
+
+@inject LoginService AuthService
+@inject pdjService pdjService
+@inject NewPdjService NewPdjService
+@inject GlobalDataService GlobalDataService
+@inject IJSRuntime jsRuntime
+@page "/update"
+
+@rendermode InteractiveServer
+
+<div>Updating data, @caption</div>
+
+@code {
+    string caption = "please wait...";
+
+    protected override async Task OnInitializedAsync()
+    {
+        var t1 = NewPdjService.GetListGlobalDataAsync<Company>(new ParameterApi
+        {
+            routeApi = "company",
+            prosesApi = "get-profile",
+            Updated = true,
+            ParamUrl = new() { no_id = "comp_1" }
+        });
+
+        var t2 = NewPdjService.GetListGlobalDataAsync<Navbar>(new ParameterApi
+        {
+            routeApi = "navbar",
+            prosesApi = "getAll",
+            Updated = true,
+            ParamUrl = new() { no_id = "comp_1", status = "aktif" }
+        });
+
+        var t3 = NewPdjService.GetListGlobalDataAsync<CompanySosial>(new ParameterApi
+        {
+            routeApi = "company",
+            prosesApi = "get-social",
+            Updated = true,
+            ParamUrl = new() { no_id = "comp_1", status = "aktif" }
+        });
+
+        var t4 = NewPdjService.GetListGlobalDataAsync<TextSection>(new ParameterApi
+        {
+            routeApi = "teks",
+            prosesApi = "getAll",
+            Updated = true,
+            ParamUrl = new()
+        });
+
+        var t5 = NewPdjService.GetListGlobalDataAsync<Produk>(new ParameterApi
+        {
+            routeApi = "produk",
+            prosesApi = "getAll",
+            Updated = true,
+            ParamUrl = new() { pagesize = 12, show_variant = true, max_media = 2, status = "aktif", orderBy = "tgl_created", orderDir = "desc" }
+        });
+
+        // Jalankan semua paralel
+        await Task.WhenAll(t1, t2, t3, t4, t5);
+
+        caption = "Sukses";
+        StateHasChanged();
+
+        navigationManager.NavigateTo("/", false);
+    }
+}

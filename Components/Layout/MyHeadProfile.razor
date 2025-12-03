@@ -77,7 +77,7 @@ else
                                             <span class="total-items-profil">@(ScopedDataServices?.ScopedData?.ListDataSummaryPesanan.FirstOrDefault()?.summary.FirstOrDefault(x => x.status_order_1 == "dikirim")?.jumlah ?? 0)</span>
                                         </li>
                                         <li class="nav-item" style="position:relative" role="presentation">
-                                            <button class="nav-link @(pageRoute == "histori" ? "active" : "")" @onclick=@(x => moveTabs("histori"))  id="pills-histori-tab" data-bs-toggle="pill" data-bs-target="#pills-histori" type="button" role="tab" aria-controls="pills-histori" aria-selected="false">Histori Beli</button>
+                                            <button class="nav-link @(pageRoute == "selesai" ? "active" : "")" @onclick=@(x => moveTabs("selesai"))  id="pills-selesai-tab" data-bs-toggle="pill" data-bs-target="#pills-selesai" type="button" role="tab" aria-controls="pills-selesai" aria-selected="false">Histori Beli</button>
                                         </li>
                                     </ul>
                                 </div> <!-- navbar collapse -->
@@ -157,7 +157,7 @@ else
                                             </button>
                                         </li> 
                                         <li style="cursor:pointer;">
-                                            <button class="dropdown-item dropdown-item-custom" @onclick="@(e => NavigateToHome("cart-page/histori"))">
+                                            <button class="dropdown-item dropdown-item-custom" @onclick="@(e => NavigateToHome("cart-page/selesai"))">
                                                 <div class="d-flex flex-row justify-content-end gap-3">
                                                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="m787-145 28-28-75-75v-112h-40v128l87 87Zm-587 25q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v268q-19-9-39-15.5t-41-9.5v-243H200v560h242q3 22 9.5 42t15.5 38H200Zm0-120v40-560 243-3 280Zm80-40h163q3-21 9.5-41t14.5-39H280v80Zm0-160h244q32-30 71.5-50t84.5-27v-3H280v80Zm0-160h400v-80H280v80ZM720-40q-83 0-141.5-58.5T520-240q0-83 58.5-141.5T720-440q83 0 141.5 58.5T920-240q0 83-58.5 141.5T720-40Z"/></svg>
                                                     <span>Histori Pembelian</span>

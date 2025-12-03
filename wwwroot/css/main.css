@@ -809,7 +809,7 @@ body {
 }
 
 .filter-toggle:checked ~ .filter-content {
-    max-height: 300px; /* atur sesuai konten */
+    max-height: 100%; /* atur sesuai konten */
     padding: 0px 16px 12px 16px;
     top: 0px;
     opacity:1;
@@ -986,46 +986,63 @@ body {
     object-fit: cover;
 }
 
-.slider-container-brand {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-}
-
-.slider-brand {
-    overflow: hidden;
+.brand-slider-new {
     width: 100%;
+    overflow: hidden;
     padding: 20px 0;
 }
 
-.slide-track-brand {
+.track-brand-new {
     display: flex;
-    width: calc(250px * 14); /* jumlah item × 2 */
-    animation: scroll 50s linear infinite;
+    width: max-content;
+    animation: scroll-brand-new 60s linear infinite;
 }
 
-.slide-brand {
-    width: 250px;
-    height: 115px;
-    margin-right: 0px;
+.item-brand-new {
+    flex: 0 0 auto;
+    width: 150px; /* Responsif: ubah sesuai kebutuhan */
+    padding: 0 5px;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 }
 
-.slide-brand img {
+.nav-new.prev-new span:hover {
+    color:lightgray;
+}
+
+.item-brand-new img {
     width: 100%;
-    height: 100%;
+    height: 80px;
     object-fit: contain;
-    transition: transform 0.3s ease;
+    transition: transform .3s ease;
 }
 
-.slide-brand img:hover {
+.item-brand-new img:hover {
     transform: scale(1.1);
 }
 
-@keyframes scroll {
+@media (min-width: 768px) {
+    .item-brand-new {
+        width: 190px !important;
+    }
+
+    .item-brand-new img {
+        height: 90px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .item-brand-new {
+        width: 220px !important;
+    }
+
+    .item-brand-new img {
+        height: 110px;
+    }
+}
+
+@keyframes scroll-brand-new {
     0% {
         transform: translateX(0);
     }
@@ -1845,6 +1862,133 @@ h4.title a p {
     border-bottom: 1px solid #dee2e6;
     transition: padding-left ease 0.3s;
 }
+
+
+.hero-slider-new-pc,
+.hero-slider-new-laptop,
+.hero-slider-new-tablet,
+.hero-slider-new-phone {
+    height: 90vh; /* mengikuti tinggi layar */
+    width: 100%;
+    overflow: hidden;
+}
+
+/*.hero-slider-new {
+    position: relative;
+    min-height: 45rem;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 0px;
+}*/
+
+.hero-slider-new .slide-new {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.7s ease-in-out;
+}
+
+.hero-slider-new .slide-new.active-new {
+    opacity: 1;
+}
+
+.hero-slider-new img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.caption-new {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-50%);
+    color: white;
+}
+
+.caption-new h1 {
+    font-size: 60px;
+    font-weight: 800;
+}
+
+.nav-new {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 50px;
+    background: none;
+    border: none;
+    color: white;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.nav-new.prev-new {
+    left: 15px;
+}
+
+.nav-new.next-new {
+    right: 15px;
+}
+
+.dots-new {
+    position: absolute;
+    bottom: 15px;
+    width: 100%;
+    text-align: center;
+}
+
+.dots-new span {
+    display: inline-block;
+    width: 14px;
+    height: 6px;
+    margin: 0 4px;
+    background: #888;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.dots-new .activeDot-new {
+    background: black;
+    width: 30px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -4586,19 +4730,22 @@ top: 2px;
 }
 
 .header .navbar-brand img {
-  width: 200px;
+    height: 100%;
+    max-height: 70px;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
-  .header .navbar-brand img {
-    width: 190px;
-  }
+    .header .navbar-brand img {
+        height: 100%;
+        max-height: 70px;
+    }
 }
 
 @media (max-width: 767px) {
-  .header .navbar-brand img {
-    width: 180px;
-  }
+    .header .navbar-brand img {
+        height: 100%;
+        max-height: 70px;
+    }
 }
 
 .header.sticky .navbar-brand .white-logo {

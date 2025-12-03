@@ -3,9 +3,7 @@
 @using Services;
 @rendermode InteractiveServer
 
-
-@if(loadContent)
-{
+<div class="footer-shimer">
     <footer class="d-none d-xl-flex px-0 w-100 justify-content-center" style="background-color:white; border-top: 1px solid darkgray">
         <div class="row w-100">
             <div class="col-12 py-5 px-0 px-lg-3 px-xl-5 px-xxl-10">
@@ -37,7 +35,7 @@
             </div>
 
             <div class="col-12 d-flex align-items-center justify-content-center" style="background-color:#1500b2">
-                <div class="skeleton skeleton-subtitle mb-2 py-3" style="width:20%; height:2rem"></div>
+                <h5 style="width:fit-content; color:white; font-weight:400; font-size:15px;" class="py-4">Copyright by PT. Pacific Data Jaya ©2025</h5>
             </div>
         </div>
 
@@ -69,14 +67,14 @@
             </div>
 
             <div class="col-12 d-flex align-items-center justify-content-center" style="background-color:#1500b2">
-                <div class="skeleton skeleton-subtitle mb-2 py-3" style="width:20%; height:2rem"></div>
+                <h5 style="width:fit-content; color:white; font-weight:400; font-size:15px;" class="py-4">Copyright by PT. Pacific Data Jaya ©2025</h5>
             </div>
         </div>
 
     </footer>
-} 
-else
-{
+</div>
+
+<div class="footer-content">
     <!-- Start Footer Area -->
     <footer class="d-none d-xl-flex px-0 w-100 justify-content-center" style="background-color:white; border-top: 1px solid darkgray">
         <div class="row w-100">
@@ -84,14 +82,14 @@ else
             <div class="col-12 py-5 px-0 px-lg-3 px-xl-5 px-xxl-10">
                 <div class="row px-4 py-5">
 
-                    <div class="col-4 section-footer">
+                    <div class="col-5 section-footer">
                         <h5 class="mb-3 head-footer" >Tentang Kami</h5>
                         <p class="mb-3" style="white-space: pre-line;text-align: justify;">
                             @GlobalDataService?.GlobalData?.ListDataCompany?.FirstOrDefault()?.About
                         </p>
                     </div>
 
-                    <div class="col-4 section-footer ps-5">
+                    <div class="col-3 section-footer ps-5">
                         <h5 class="mb-3 head-footer" >Layanan Pelanggan</h5>
                         <ul>
                             <li>
@@ -125,7 +123,7 @@ else
                         </ul>
                     </div>
 
-                    <div class="col-3 section-footer ps-5">
+                    <div class="col-4 section-footer ps-5">
                         <h5 class="mb-3 head-footer" >Sosial Media</h5>
                         <ul>
                             <li>
@@ -150,7 +148,6 @@ else
         </div>
 
     </footer>
-
 
     <footer class="d-flex d-xl-none px-0 w-100 justify-content-center" style="background-color:white; border-top: 1px solid darkgray">
    
@@ -240,7 +237,8 @@ else
 
     </footer>
     <!--/ End Footer Area -->
-}
+</div>
+
 
 
 
@@ -302,40 +300,10 @@ else
     {
         if (firstRender)
         {
-            int count = 0;
-            while (ScopedDataServices.ScopedData.Finised == false)
-            {
-                if (count >= 6)
-                {
-                    await Task.Delay(1000);
-
-                    if (count >= 10)
-                    {
-                        await Task.Delay(1000);
-
-                        Console.WriteLine("Gagal memuat data header & footer");
-
-                        if (count >= 15)
-                        {
-                            ScopedDataServices.ScopedData.Finised = true;
-                        }
-                    }
-                } 
-
-                else
-                {
-                    await Task.Delay(500);
-                }
-
-                count++;
-            }
-
-            StateHasChanged();
-            loadContent = false;
+            await JSRuntime.InvokeVoidAsync("initFooter");
 
             MailUrl = $"https://mail.google.com/mail/?view=cm&fs=1&to={GlobalDataService?.GlobalData?.ListDataCompany?.FirstOrDefault()?.Email}&su=Permintaan%20Informasi%20Produk%20Terbaru%20%E2%80%93%20{GlobalDataService?.GlobalData?.ListDataCompany?.FirstOrDefault()?.Nama_Toko}&body=Halo%20Tim%20{GlobalDataService?.GlobalData?.ListDataCompany?.FirstOrDefault()?.Nama_Toko}%2C%0A%0ASaya%20tertarik%20dengan%20produk%20Anda%20dan%20ingin%20mendapatkan%20informasi%20lebih%20lanjut.%0A%0ABerikut%20detail%20permintaan%20saya%3A%0A-%20Nama%3A%20%5BNama%20Anda%5D%0A-%20Perusahaan%3A%20%5BNama%20Perusahaan%20Anda%5D%0A-%20Produk%20yang%20diminati%3A%20%5BNama%20Produk%5D%0A-%20Pertanyaan%20tambahan%3A%20%5BTuliskan%20pertanyaan%20Anda%5D%0A%0AMohon%20informasinya%20beserta%20katalog%2Fpenawaran%20harga%20jika%20memungkinkan.%0A%0ATerima%20kasih%2C%0A%5BNama%20Anda%5D%0A%5BNo.%20Telepon%5D";
 
-            StateHasChanged();
 
         }
     }

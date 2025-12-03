@@ -28,6 +28,8 @@ namespace Models
         public string Sku { get; set; } = "";
         public string Option_Id { get; set; } = "";
         public string Option_Label { get; set; } = "";
+        public string Status_Variant { get; set; } = "";
+        public string Status_Produk { get; set; } = "";
         public string Jenis_Item { get; set; } = "";
         public bool Show_Min_Order { get; set; } = false;
         public bool Show_Max_Order { get; set; } = false;

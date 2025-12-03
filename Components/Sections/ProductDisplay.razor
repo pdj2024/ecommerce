@@ -30,7 +30,7 @@
         }
 
         <span class="sale-tag d-flex flex-row gap-1 bg-transparent">
-            @if (DataProduk.Diskon1 != null || DataProduk.Diskon1 >= 1)
+            @if (DataProduk.Diskon1 != null && DataProduk.Diskon1 >= 1)
             {
                 <span class="bg-primary px-2 py-1">-@DataProduk.Diskon1.ToString()%</span>
             }
@@ -83,7 +83,7 @@
         </ul> *@
         <div class="price">
             <span>
-                @if (DataProduk.Diskon1 != null || DataProduk.Diskon1 >= 1)
+                @if (DataProduk.Diskon1 != null && DataProduk.Diskon1 >= 1)
                 {
                     @string.Format("Rp. {0:N0}", (DataProduk.Harga - ((DataProduk.Diskon1 / 100) * DataProduk.Harga)))
                 }
@@ -92,7 +92,7 @@
                     @string.Format("Rp. {0:N0}", DataProduk.Harga)
                 }
             </span>
-            @if (DataProduk.Diskon1 != null || DataProduk.Diskon1 >= 1)
+            @if (DataProduk.Diskon1 != null && DataProduk.Diskon1 >= 1)
             {
                 <span class="discount-price">@string.Format("Rp. {0:N0}", DataProduk.Harga)</span>
             }

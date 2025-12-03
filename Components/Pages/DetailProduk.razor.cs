@@ -1,15 +1,8 @@
-﻿using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Models;
-using Radzen.Blazor;
 using Radzen;
 using Services;
-using System.Reflection;
-
-using System.Configuration;
-
-using System.Drawing;
 using PacificWeb.Components.Layout;
 using System.Security.Claims;
 using System.Text;
@@ -66,11 +59,12 @@ namespace PacificWeb.Components.Pages
         MyFooter footer_page;
 
         public string ProductId = "";
+        public string nama = "";
+        public string email = "";
+        public string pesan = "";
         public bool auth = false;
 
         public SourchData dataSourch { get; set; } = new();
-
-        public Produk DataProdukModal { get; set; } = new Produk();
 
         public Produk DataProduk { get; set; } = new Produk();
 
@@ -125,76 +119,77 @@ namespace PacificWeb.Components.Pages
             if (id != null && id != "")
             {
                 ProductId = (await pdjService.DecodeEncode(false, new List<string> { id })).FirstOrDefault();
-            } 
+            }
 
+            var ProdukTask = NewPdjService.GetApi<Produk>(new ParameterApi
+            {
+                routeApi = "produk",
+                prosesApi = "getAll",
+                ParamUrl = new ParameterApi.ParameterUrl
+                {
+                    pagesize = 12,
+                    show_variant = true,
+                    max_media = 10,
+                    no_id = ProductId,
+                    status = "aktif",
+                    orderBy = "tgl_created",
+                    orderDir = "desc"
+                }
+            });
+
+            var mainContent = NewPdjService.RefreshDataMainKonten();
+
+            // Assign semua data sekaligus
+            await Task.WhenAll(ProdukTask, mainContent);
+
+            dataSourch.DataProduk = ProdukTask?.Result?.Data?.FirstOrDefault() ?? null;
+
+            if (dataSourch?.DataProduk != null && dataSourch?.DataProduk?.No_Id != "")
+            {
+                var dataProd = dataSourch.DataProduk.Variants.FirstOrDefault(x => x.Stock >= dataSourch.DataProduk.Min_Order && x.Status.ToLower() == "aktif");
+
+                Quantity = dataSourch.DataProduk.Min_Order;
+                var Opsi = dataSourch?.DataProduk.Options.FirstOrDefault(x => x.Option_Id == (dataProd?.Option_Id ?? ""));
+                dataSourch.DataProduk.Id_Option_Default = Opsi?.Option_Id ?? "";
+                dataSourch.DataProduk.Option_Default = Opsi?.Option_Label ?? "";
+
+                var Size = dataSourch?.DataProduk.Sizes.FirstOrDefault(x => x.Size_Id == dataProd?.Size_Id);
+                dataSourch.DataProduk.Id_Size_Default = Size?.Size_Id ?? "";
+                dataSourch.DataProduk.Size_Default = Size?.Size_Label ?? "";
+                dataSourch.DataProduk.ShowFlayer = true;
+            }
+
+
+            await header_page.SelectItemCart(null);
+            StateHasChanged();
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
             {
+                JSRuntime.InvokeVoidAsync("goTopInstant");
+                JSRuntime.InvokeVoidAsync("removeBackdrops");
 
-                var ProdukTask = NewPdjService.GetApi<Produk>(new ParameterApi
-                {
-                    routeApi = "produk",
-                    prosesApi = "getAll",
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        pagesize = 12,
-                        show_variant = true,
-                        max_media = 10,
-                        no_id = ProductId,
-                        status = "aktif"
-                    }
-                });
+                var authContent = NewPdjService.RefreshDataAuthKonten();
 
-                var mainContent = NewPdjService.RefreshDataMainKonten();
+                await Task.WhenAll(authContent);
 
-
-                // Assign semua data sekaligus
-                await Task.WhenAll(ProdukTask, mainContent);
-
-                dataSourch.DataProduk = ProdukTask?.Result?.Data?.FirstOrDefault() ?? null;
+                loadContent = false;
                 dataSourch.Finised = true;
                 ScopedDataServices.ScopedData.Finised = true;
-
                 StateHasChanged();
 
-                if (dataSourch?.DataProduk != null && dataSourch?.DataProduk?.No_Id != "")
+                if (dataSourch?.DataProduk != null)
                 {
-                    var dataProd = dataSourch.DataProduk.Variants.FirstOrDefault(x => x.Stock >= dataSourch.DataProduk.Min_Order && x.Status.ToLower() == "aktif");
-
-                    Quantity = dataSourch.DataProduk.Min_Order;
-                    var Opsi = dataSourch?.DataProduk.Options.FirstOrDefault( x => x.Option_Id == dataProd.Option_Id);
-                    dataSourch.DataProduk.Id_Option_Default = Opsi?.Option_Id ?? "";
-                    dataSourch.DataProduk.Option_Default = Opsi?.Option_Label ?? "";
-
-                    var Size = dataSourch?.DataProduk.Sizes.FirstOrDefault( x => x.Size_Id == dataProd.Size_Id);
-                    dataSourch.DataProduk.Id_Size_Default = Size?.Size_Id ?? "";
-                    dataSourch.DataProduk.Size_Default = Size?.Size_Label ?? "";
-                    
-                    loadContent = false;
-                    StateHasChanged();
                     await JSRuntime.InvokeVoidAsync("initFlayer");
-                } 
-                else
-                {
-                    loadContent = false;
-                    StateHasChanged();
                 }
-
-                StateHasChanged();
-
                 await JSRuntime.InvokeVoidAsync("initslideProduct");
                 await JSRuntime.InvokeVoidAsync("initBigDetailProdInfo");
 
                 StateHasChanged();
                 
-                await header_page.SelectItemCart(null);
             }
-
-
-
         }
 
         public async Task clickCopy(Pesanan.Headers item, string init = "")
@@ -212,7 +207,7 @@ namespace PacificWeb.Components.Pages
             if (data != -1)
             {
                 bra = Convert.ToBase64String(Encoding.UTF8.GetBytes(dataSourch?.DataProduk?.Id_Kategori[data]));
-                NavigationManager.NavigateTo($"/search-page?keyword=&produk=&kategori={Uri.EscapeDataString(bra)}&brand=", true);
+                NavigationManager.NavigateTo($"/search-page?keyword=&produk=&kategori={Uri.EscapeDataString(bra)}&brand=", false);
                 return;
             }
         }
@@ -226,7 +221,7 @@ namespace PacificWeb.Components.Pages
                 ParamUrl = new ParameterApi.ParameterUrl { pagesize = 2, show_variant = true, max_media = 10, no_id = id_kode }
             });
 
-            DataProduk = produkTask.Data.FirstOrDefault(x => x.No_Id == id_kode);
+            DataProduk = produkTask?.Data?.FirstOrDefault(x => x.No_Id == id_kode) ?? new();
 
             if (DataProduk == null)
             {
@@ -235,19 +230,19 @@ namespace PacificWeb.Components.Pages
                 return;
             }
 
-            DataProdukModal = GlobalDataService.GlobalData?.ListDataProduk.FirstOrDefault(x => x.No_Id == id_kode);
+            ScopedDataServices.ScopedData.DataProduk = GlobalDataService.GlobalData?.ListDataProduk.FirstOrDefault(x => x.No_Id == id_kode);
 
-            var dataProd = DataProdukModal?.Variants.FirstOrDefault(x => x.Stock >= DataProdukModal?.Min_Order && x.Status.ToLower() == "aktif");
+            var dataProd = ScopedDataServices.ScopedData.DataProduk?.Variants.FirstOrDefault(x => x.Stock >= ScopedDataServices.ScopedData.DataProduk?.Min_Order && x.Status.ToLower() == "aktif");
 
-            var Opsi = DataProdukModal?.Options.FirstOrDefault(x => x.Option_Id == dataProd.Option_Id);
-            DataProdukModal.Id_Option_Default = Opsi?.Option_Id ?? "";
-            DataProdukModal.Option_Default = Opsi?.Option_Label ?? "";
+            var Opsi = ScopedDataServices.ScopedData.DataProduk?.Options.FirstOrDefault(x => x.Option_Id == (dataProd?.Option_Id ?? ""));
+            ScopedDataServices.ScopedData.DataProduk.Id_Option_Default = Opsi?.Option_Id ?? "";
+            ScopedDataServices.ScopedData.DataProduk.Option_Default = Opsi?.Option_Label ?? "";
 
-            var Size = DataProdukModal?.Sizes.FirstOrDefault(x => x.Size_Id == dataProd.Size_Id);
-            DataProdukModal.Id_Size_Default = Size?.Size_Id ?? "";
-            DataProdukModal.Size_Default = Size?.Size_Label ?? "";
+            var Size = ScopedDataServices.ScopedData.DataProduk?.Sizes.FirstOrDefault(x => x.Size_Id == (dataProd?.Size_Id ?? ""));
+            ScopedDataServices.ScopedData.DataProduk.Id_Size_Default = Size?.Size_Id ?? "";
+            ScopedDataServices.ScopedData.DataProduk.Size_Default = Size?.Size_Label ?? "";
 
-            QuantityProd = DataProdukModal?.Min_Order ?? 0;
+            QuantityProd = ScopedDataServices.ScopedData.DataProduk?.Min_Order ?? 0;
             StateHasChanged();
             await JSRuntime.InvokeVoidAsync("initSearchButton");
 
@@ -256,7 +251,7 @@ namespace PacificWeb.Components.Pages
 
         public void NavigateToDetailProduk(string id)
         {
-            NavigationManager.NavigateTo($"/detail-produk/{id}", forceLoad: true);
+            NavigationManager.NavigateTo($"/detail-produk/{id}", forceLoad: false);
         }
 
 
@@ -354,31 +349,58 @@ namespace PacificWeb.Components.Pages
         {
             var Qty = QuantityProd + 1;
 
-            if (Qty <= DataProdukModal.Min_Order)
+            if (Qty <= ScopedDataServices.ScopedData.DataProduk.Min_Order)
             {
-                DataProdukModal.Show_Min_Order = true;
+                ScopedDataServices.ScopedData.DataProduk.Show_Min_Order = true;
             }
             else
             {
                 QuantityProd++;
-                DataProdukModal.Show_Min_Order = false;
+                ScopedDataServices.ScopedData.DataProduk.Show_Min_Order = false;
                 await QuantityProdChanged.InvokeAsync(QuantityProd);
             }
             StateHasChanged();
             return;
         }
 
+        private async Task openAsk()
+        {
+            nama = ScopedDataServices?.ScopedData?.DataLogin?.DataUser?.UserName ?? "";
+            email = ScopedDataServices?.ScopedData?.DataLogin?.DataUser?.Telepon ?? "";
+            pesan = $"Apakah {dataSourch?.DataProduk?.Nama_Display} Tersedia?";
+        }
+
+        private async Task KirimPesan()
+        {
+            var lines = new List<string>
+            {
+                $"*Nama*: {nama}",
+                $"*Telepon*: {ScopedDataServices?.ScopedData?.DataLogin?.DataUser?.Telepon}",
+                $"*Pesan*:",
+                $"{pesan}"
+            };
+
+            var message = string.Join("\n", lines);
+            var encoded = Uri.EscapeDataString(message);
+
+            var target = GlobalDataService?.GlobalData?.ListDataCompany?.FirstOrDefault()?.No_Wa_2;
+            var to = target.Replace("+", "");
+            var url = $"https://wa.me/{to}?text={encoded}";
+
+            await JSRuntime.InvokeVoidAsync("open", url, "_blank");
+        }
+
         private async Task DecreaseProd()
         {
             if (QuantityProd > 1)
             {
-                if (QuantityProd <= DataProdukModal.Min_Order)
+                if (QuantityProd <= ScopedDataServices.ScopedData.DataProduk.Min_Order)
                 {
-                    DataProdukModal.Show_Min_Order = true;
+                    ScopedDataServices.ScopedData.DataProduk.Show_Min_Order = true;
                 } else
                 {
                     QuantityProd--;
-                    DataProdukModal.Show_Min_Order = false;
+                    ScopedDataServices.ScopedData.DataProduk.Show_Min_Order = false;
                     await QuantityProdChanged.InvokeAsync(QuantityProd);
                 }
                 StateHasChanged();
@@ -388,7 +410,7 @@ namespace PacificWeb.Components.Pages
 
         public void NavigateToHome(string route)
         {
-            NavigationManager.NavigateTo($"/{route}", forceLoad: true);
+            NavigationManager.NavigateTo($"/{route}", forceLoad: false);
         }
 
         private async Task tambahKeranjang(Produk item, string via)

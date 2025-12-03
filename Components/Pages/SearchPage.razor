@@ -1,6 +1,7 @@
 ﻿@rendermode InteractiveServer
 @page "/search-page"
 using Microsoft.AspNetCore.Components.Authorization
+@using PacificWeb.Components.Sections
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
 <PageTitle>Search: @dataSourch.SearchList.TotalCount.ToString() result for @SearchText </PageTitle>
@@ -347,7 +348,7 @@ using Microsoft.AspNetCore.Components.Authorization
 
 <MyFooter @ref="footer_page" />
 
-<PacificWeb.Components.Sections.SelectProduk DataProduk="DataProduk" Quantity="DataProduk.Min_Order" header_page="header_page"/>
+<SelectProduk DataProduk="ScopedDataServices.ScopedData.DataProduk" Quantity="ScopedDataServices.ScopedData.DataProduk.Min_Order" header_page="@header_page"/>
 
 <div class="offcanvas offcanvas-start" style="width: 500px;" tabindex="-1" id="offcanvasFilter" aria-labelledby="offcanvasLeftLabel">
     <div class="offcanvas-header">
