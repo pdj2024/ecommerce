@@ -165,10 +165,16 @@ namespace PacificWeb.Components.Pages
                 // Tunggu semua task selesai
                 await Task.WhenAll(companyTask, NavbarTask, SosmedTask, TeksTask, authContent, bannerTask);
 
-
+                await header_page.SelectItemCart(null);
 
                 //await JSRuntime.InvokeVoidAsync("initTinySlider");
+                await JSRuntime.InvokeVoidAsync("colLoadOut");
+                await JSRuntime.InvokeVoidAsync("initProduk");
+                StateHasChanged();
+
                 await JSRuntime.InvokeVoidAsync("initslideHomeProduct");
+                StateHasChanged();
+                
             }
         }
 

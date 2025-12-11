@@ -362,7 +362,6 @@ namespace Services
                     writeLog($"Data Kosong");
                 }
 
-                ShowConsoleData(tbListProduk);
                 return tbListProduk;
 			}
 			catch (Exception ex)
@@ -1741,6 +1740,7 @@ namespace Services
             try
             {
                 var LoginUser = GlobalDataService.GlobalData.ListDataLogin.FirstOrDefault(x => x.No_Id == ScopedDataServices?.ScopedData?.DataLogin?.No_Id);
+                if (LoginUser == null) return false;
 
                 var cancelTimer = new CancellationTokenSource(TimeSpan.FromSeconds(5));
                 var httpReq = new HttpClient();
@@ -1788,7 +1788,7 @@ namespace Services
                         LoginUser = GlobalDataService.GlobalData.ListDataLogin.FirstOrDefault(x => x.No_Id == ScopedDataServices?.ScopedData?.DataLogin?.No_Id);
 
                         LoginUser.token = deserApi.token ?? LoginUser.token;
-                        LoginUser.refreshToken = deserApi.refreshToken ?? LoginUser.refreshToken;
+                        LoginUser.refreshToken = deserApi.refreshToken ?? LoginUser?.refreshToken;
                         LoginUser.TanggalRefresh = DateTime.UtcNow.ToString("O");
 
                         ScopedDataServices.ScopedData.DataLogin.token = LoginUser.token;

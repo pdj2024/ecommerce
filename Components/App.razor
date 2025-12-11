@@ -86,6 +86,104 @@
     
     <script>
 
+
+        function initRangeHarga(_dotNetRef) {
+            const _dotNet = _dotNetRef;
+            const minRange = document.getElementById("minRange");
+            const maxRange = document.getElementById("maxRange");
+            const minInput = document.getElementById("minInput");
+            const maxInput = document.getElementById("maxInput");
+            const fill = document.getElementById("rangeFill");
+
+            const MIN_GAP = 1; // Jarak minimal agar tidak silang
+            let debounceTimer;
+
+            // Update fill bar
+            function updateFill() {
+                let minVal = parseInt(minRange.value);
+                let maxVal = parseInt(maxRange.value);
+
+                fill.style.left = (minVal / maxRange.max) * 100 + "%";
+                fill.style.width = ((maxVal - minVal) / maxRange.max) * 100 + "%";
+
+                clearTimeout(debounceTimer);
+
+                debounceTimer = setTimeout(() => {
+                    triggerBlazor(minVal, maxVal);
+                }, 1500);
+            }
+
+            function triggerBlazor(minVal, maxVal) {
+                _dotNet.invokeMethodAsync("OnPriceChanged", minVal, maxVal);
+            }
+
+            // Range → Input
+            function syncRange() {
+                let minVal = parseInt(minRange.value);
+                let maxVal = parseInt(maxRange.value);
+
+                if (maxVal - minVal <= MIN_GAP) {
+                    if (event.target === minRange) {
+                        minRange.value = maxVal - MIN_GAP;
+                    } else {
+                        maxRange.value = minVal + MIN_GAP;
+                    }
+                }
+
+                minInput.value = minRange.value;
+                maxInput.value = maxRange.value;
+
+                updateFill();
+            }
+
+            // Input → Range
+            function syncInput() {
+                let minVal = parseInt(minInput.value);
+                let maxVal = parseInt(maxInput.value);
+
+                if (maxVal - minVal <= MIN_GAP) {
+                    if (event.target === minInput) {
+                        minInput.value = maxVal - MIN_GAP;
+                    } else {
+                        maxInput.value = minVal + MIN_GAP;
+                    }
+                }
+
+                minRange.value = minInput.value;
+                maxRange.value = maxInput.value;
+
+                updateFill();
+            }
+
+            minRange.addEventListener("input", syncRange);
+            maxRange.addEventListener("input", syncRange);
+
+            minInput.addEventListener("input", syncInput);
+            maxInput.addEventListener("input", syncInput);
+
+            updateFill();
+        }
+
+
+        function initResetFilter (maxNilai) {
+            const minRange = document.getElementById("minRange");
+            const maxRange = document.getElementById("maxRange");
+            const minInput = document.getElementById("minInput");
+            const maxInput = document.getElementById("maxInput");
+            const fill = document.getElementById("rangeFill");
+
+            fill.style.left = "0%";
+            fill.style.width = "100%";
+
+            minInput.value = 0;
+            maxInput.value = maxNilai;
+
+            minRange.value = 0;
+            maxRange.value = maxNilai;
+        }
+
+
+
         var phoneInput = null;
         var phoneInputLogin = null;
         var phoneInputChange = null;
@@ -432,38 +530,40 @@
 
         function initKate() {
             const heroShimer = document.querySelector(`.kate-shimer`);
-            heroShimer.style.display = "none";
-
             const heroContent = document.querySelector(`.kate-content`);
+            if(heroShimer == null || heroContent == null) return;
+
+            heroShimer.style.display = "none";
             heroContent.style.display = "flex";
         }
 
         function initFooter() {
             const heroShimer = document.querySelector(`.footer-shimer`);
-            heroShimer.style.display = "none";
-
             const heroContent = document.querySelector(`.footer-content`);
+            if(heroShimer == null || heroContent == null) return;
+            heroShimer.style.display = "none";
             heroContent.style.display = "flex";
         }
 
         function initHeader() {
             const heroShimer = document.querySelector(`.header-shimer`);
-            heroShimer.style.display = "none";
-
             const heroContent = document.querySelector(`.header-content`);
+            if(heroShimer == null || heroContent == null) return;
+            heroShimer.style.display = "none";
+            heroContent.style.display = "flex";
+        }
+
+        function initProduk() {
+            const heroShimer = document.querySelector(`.product-shimer`);
+            const heroContent = document.querySelector(`.product-content`);
+            if(heroShimer == null || heroContent == null) return;
+            heroShimer.style.display = "none";
             heroContent.style.display = "flex";
         }
 
         function initslideHomeProduct() {
 
-            const heroShimer = document.querySelector(`.product-shimer`);
-            heroShimer.style.display = "none";
-
-            const heroContent = document.querySelector(`.product-content`);
-            heroContent.style.display = "flex";
-
             const products = document.querySelectorAll(".product");
-
 
             if (products.length === 0) return;
 

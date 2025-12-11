@@ -184,8 +184,8 @@ namespace PacificWeb.Components.Pages
                 {
                     await JSRuntime.InvokeVoidAsync("initFlayer");
                 }
-                await JSRuntime.InvokeVoidAsync("initslideProduct");
-                await JSRuntime.InvokeVoidAsync("initBigDetailProdInfo");
+                JSRuntime.InvokeVoidAsync("initslideProduct");
+                JSRuntime.InvokeVoidAsync("initBigDetailProdInfo");
 
                 StateHasChanged();
                 

@@ -72,15 +72,18 @@ namespace PacificWeb.Components.Sections
                     prosesApi = "getAll",
                     ParamUrl = new ParameterApi.ParameterUrl { pagesize = 3, orderBy = "nama_banner", orderDir = "desc", status = "aktif" }
                 });
+
+                await Task.WhenAll(bannerTask);
             
                 if (GlobalDataService.GlobalData.ListDataBanner?.Count > 0)
                 {
                     await JSRuntime.InvokeVoidAsync("initSliderFor", ".hero-slider-new-pc");
-                    await JSRuntime.InvokeVoidAsync("initSliderFor", ".hero-slider-new-laptop");
+                    //await JSRuntime.InvokeVoidAsync("initSliderFor", ".hero-slider-new-laptop");
                     await JSRuntime.InvokeVoidAsync("initSliderFor", ".hero-slider-new-tablet");
                     await JSRuntime.InvokeVoidAsync("initSliderFor", ".hero-slider-new-phone");
                 }
 
+                StateHasChanged();
             }
         }
 

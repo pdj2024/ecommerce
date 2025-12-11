@@ -1,0 +1,455 @@
+﻿@rendermode InteractiveServer
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@using PacificWeb.Components.Sections
+
+
+<div class="col-12 p-0">
+    <div class="tab-content pb-5" id="pills-tabContent">
+
+        <div class="tab-pane fade show active" id="pills-belum-bayar" role="tabpanel" aria-labelledby="pills-belum-bayar-tab">
+
+            @if (loadContent)
+            {
+                @for(var i = 0; i <= 5; i++)
+                {
+                    <div class="" style="padding: 0px ; margin-top:0px;">
+                        <div class="card p-3 mb-5 border-0" style="border-radius:0px;" aria-busy="true">
+                            <div class="skeleton skeleton-rect mb-3"></div>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div style="flex:1">
+                                        <div class="skeleton skeleton-title mb-2"></div>
+                                        <div class="skeleton skeleton-subtitle mb-2" style="width:50%"></div>
+                                </div>
+                                <div class="ms-3">
+                                    <div class="skeleton skeleton-pill"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            } 
+            else
+            {
+                @if (ScopedDataServices?.ScopedData?.DataPesananDetail?.Data.Header.Count(x => x.No_Tracking == noBukti) >= 1) {
+                    <div class="cart-page" style="padding: 0px; margin:0px 0px 0px 0px; max-width:100%">
+                        <div class="cart-container p-0">
+
+                            <div class="cart-items">
+
+                                <div class="accordion" style="gap: 2rem;display: flex;flex-direction: column;" id="accordionPanelsStayOpenExample">
+
+                                    @foreach (var item in ScopedDataServices?.ScopedData?.DataPesananDetail?.Data.Header.Where(x => x.No_Tracking == noBukti).ToList())
+                                    {
+                                        <div class="accordion-item rounded-0 border-0" style="border: none !important;">
+                                            
+                                            <h2 class="accordion-itemer rounded-0 border-0" id="panelsStayOpen-itemingOne">
+                                                <div class="d-flex w-100 flex-column gap-3 px-3 py-2" style="background-color: #f7f6ff; border-radius:5px;"> 
+                                                    <div class="d-flex flex-row justify-content-between gap-3 py-1 ">
+
+                                                        <button class="bg-transparent border-0" @onclick=@(x => JSRuntime.InvokeVoidAsync("history.back")) style="font-size:15px; cursor:pointer; color:#1500b2; font-weight:600">
+                                                            <span class="me-1" style="font-size:18px">
+                                                                @("<")
+                                                            </span>
+                                                            @("KEMBALI")
+                                                        </button>
+
+                                                        <div class="d-flex flex-row justify-content-between align-items-center gap-3">
+                                                            <h5 style="font-size:1rem">
+                                                                @($"Order ID : {item.No_Tracking}")
+                                                            </h5>
+                                                            <h5 class="mx-2" style="font-size:0.7rem">
+                                                                |
+                                                            </h5>
+                                                            <p style="color:#1500b2">
+                                                                @( item != null ? item.Status_Order_1?.ToUpper() ?? "DIBATALKAN" : "DIBATALKAN")
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </h2>
+
+                                            <div class="d-flex flex-column w-100 py-4 px-3 my-4">
+                                                <div class="d-flex flex-row w-100" style="background-color: white;">
+                                                    <div class="col-1 d-flex align-items-center justify-content-center"/>
+                                                    <div class="col-2 d-flex flex-column align-items-center justify-content-center position-relative" >
+                                                        <div class="bg-primary text-white d-flex align-items-center justify-content-center" style="width:4rem; height:4rem; border-radius:100%; z-index:3;">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="currentColor">
+                                                                <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v268q-19-9-39-15.5t-41-9.5v-243H200v560h242q3 22 9.5 42t15.5 38H200Zm0-120v40-560 243-3 280Zm80-40h163q3-21 9.5-41t14.5-39H280v80Zm0-160h244q32-30 71.5-50t84.5-27v-3H280v80Zm0-160h400v-80H280v80ZM720-40q-83 0-141.5-58.5T520-240q0-83 58.5-141.5T720-440q83 0 141.5 58.5T920-240q0 83-58.5 141.5T720-40Zm-20-80h40v-100h100v-40H740v-100h-40v100H600v40h100v100Z"/>
+                                                            </svg>
+                                                        </div>
+                                                        <div class="w-100 d-flex flex-row position-absolute" style="height:5px;">
+                                                            <div class="col-6" style="height:5px;">
+
+                                                            </div>
+                                                            <div class="col-6 bg-primary" style="height:5px;">
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-2 d-flex flex-column align-items-center justify-content-center position-relative" >
+                                                        <div class="bg-primary text-white d-flex align-items-center justify-content-center" style="width:4rem; height:4rem; border-radius:100%; z-index:3;">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="currentColor">
+                                                                <path d="M560-440q-50 0-85-35t-35-85q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35ZM280-320q-33 0-56.5-23.5T200-400v-320q0-33 23.5-56.5T280-800h560q33 0 56.5 23.5T920-720v320q0 33-23.5 56.5T840-320H280Zm80-80h400q0-33 23.5-56.5T840-480v-160q-33 0-56.5-23.5T760-720H360q0 33-23.5 56.5T280-640v160q33 0 56.5 23.5T360-400Zm440 240H120q-33 0-56.5-23.5T40-240v-440h80v440h680v80ZM280-400v-320 320Z"/>
+                                                            </svg>
+                                                        </div>
+                                                        <div class="w-100 d-flex flex-row position-absolute" style="height:5px;">
+                                                            <div class="col-6 bg-primary" style="height:5px;">
+
+                                                            </div>
+                                                            <div class="col-6 bg-primary" style="height:5px;">
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-2 d-flex flex-column align-items-center justify-content-center position-relative" >
+                                                        <div class="bg-primary text-white d-flex align-items-center justify-content-center" style="width:4rem; height:4rem; border-radius:100%; z-index:3;">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="currentColor">
+                                                                <path d="M200-640v440h560v-440H640v320l-160-80-160 80v-320H200Zm0 520q-33 0-56.5-23.5T120-200v-499q0-14 4.5-27t13.5-24l50-61q11-14 27.5-21.5T250-840h460q18 0 34.5 7.5T772-811l50 61q9 11 13.5 24t4.5 27v499q0 33-23.5 56.5T760-120H200Zm16-600h528l-34-40H250l-34 40Zm184 80v190l80-40 80 40v-190H400Zm-200 0h560-560Z"/>
+                                                            </svg>
+                                                        </div>
+                                                        <div class="w-100 d-flex flex-row position-absolute" style="height:5px;">
+                                                            <div class="col-6 bg-primary" style="height:5px;">
+
+                                                            </div>
+                                                            <div class="col-6 bg-primary" style="height:5px;">
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-2 d-flex flex-column align-items-center justify-content-center position-relative" >
+                                                        <div class="bg-primary text-white d-flex align-items-center justify-content-center" style="width:4rem; height:4rem; border-radius:100%; z-index:3;">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="currentColor">
+                                                                <path d="M280-160q-50 0-85-35t-35-85H60l18-80h113q17-19 40-29.5t49-10.5q26 0 49 10.5t40 29.5h167l84-360H182l4-17q6-28 27.5-45.5T264-800h456l-37 160h117l120 160-40 200h-80q0 50-35 85t-85 35q-50 0-85-35t-35-85H400q0 50-35 85t-85 35Zm357-280h193l4-21-74-99h-95l-28 120Zm-19-273 2-7-84 360 2-7 34-146 46-200ZM20-427l20-80h220l-20 80H20Zm80-146 20-80h260l-20 80H100Zm180 333q17 0 28.5-11.5T320-280q0-17-11.5-28.5T280-320q-17 0-28.5 11.5T240-280q0 17 11.5 28.5T280-240Zm400 0q17 0 28.5-11.5T720-280q0-17-11.5-28.5T680-320q-17 0-28.5 11.5T640-280q0 17 11.5 28.5T680-240Z"/>
+                                                            </svg>
+                                                        </div>
+                                                        <div class="w-100 d-flex flex-row position-absolute" style="height:5px;">
+                                                            <div class="col-6 bg-primary" style="height:5px;">
+
+                                                            </div>
+                                                            <div class="col-6 bg-primary" style="height:5px;">
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-2 d-flex flex-column align-items-center justify-content-center position-relative" >
+                                                        <div class="bg-primary text-white d-flex align-items-center justify-content-center" style="width:4rem; height:4rem; border-radius:100%; z-index:3;">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="currentColor">
+                                                                <path d="M600-800H360v280h240v-280Zm200 0H680v280h120v-280ZM575-440H320v240h222q21 0 40.5-7t35.5-21l166-137q-8-8-18-12t-21-6q-17-3-33 1t-30 15l-108 87H400v-80h146l44-36q5-3 7.5-8t2.5-11q0-10-7.5-17.5T575-440Zm-335 0h-80v280h80v-280Zm40 0v-360q0-33 23.5-56.5T360-880h440q33 0 56.5 23.5T880-800v280q0 33-23.5 56.5T800-440H280ZM240-80h-80q-33 0-56.5-23.5T80-160v-280q0-33 23.5-56.5T160-520h415q85 0 164 29t127 98l27 41-223 186q-27 23-60 34.5T542-120H309q-11 18-29 29t-40 11Z"/>
+                                                            </svg>
+                                                        </div>
+                                                        <div class="w-100 d-flex flex-row position-absolute" style="height:5px;">
+                                                            <div class="col-6 bg-primary" style="height:5px;">
+
+                                                            </div>
+                                                            <div class="col-6" style="height:5px;">
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-1 d-flex align-items-center justify-content-center"/>
+                                                </div>
+                                                <div class="d-flex flex-row w-100 pt-2" style="background-color: white;">
+                                                    <div class="col-1 d-flex align-items-center justify-content-center"/>
+                                                    <div class="col-2 d-flex flex-column align-items-center justify-content-center position-relative" >
+                                                        <div class=" d-flex flex-column align-items-center justify-content-center">
+                                                            <p>
+                                                                Pesanan Dibuat
+                                                            </p>
+                                                            <p>
+                                                                @* @item.Created_At *@
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-2 d-flex flex-column align-items-center justify-content-center position-relative" >
+                                                        <div class="d-flex flex-column align-items-center justify-content-center">
+                                                            <p>
+                                                                Pesanan Dibayar
+                                                            </p>
+                                                            <p>
+                                                                @* @item.Created_At *@
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-2 d-flex flex-column align-items-center justify-content-center position-relative" >
+                                                        <div class="d-flex flex-column align-items-center justify-content-center">
+                                                            <p>
+                                                                Pesanan Dikemas
+                                                            </p>
+                                                            <p>
+                                                                @* @item.Created_At *@
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-2 d-flex flex-column align-items-center justify-content-center position-relative" >
+                                                        <div class="d-flex flex-column align-items-center justify-content-center">
+                                                            <p>
+                                                                Pesanan Dikirim
+                                                            </p>
+                                                            <p>
+                                                                @* @item.Created_At *@
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-2 d-flex flex-column align-items-center justify-content-center position-relative" >
+                                                        <div class="d-flex flex-column align-items-center justify-content-center">
+                                                            <p>
+                                                                Pesanan Diterima
+                                                            </p>
+                                                            <p>
+                                                                @* @item.Created_At *@
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-1 d-flex align-items-center justify-content-center"/>
+                                                </div> 
+                                            </div>
+                                            
+                                            <div class="mail-line"/>
+                                            
+                                            <div class="d-flex flex-column w-100 py-4" style="background-color: white;">
+                                                <div class="col-12 d-flex align-items-center justify-content-between px-3" >
+                                                    <h4 style="" class="">
+                                                        <span style="font-size:20px; font-weight:400;">
+                                                            Alamat Pengiriman
+                                                        </span>
+                                                    </h4>
+                                                    <h4 style="" class="">
+                                                        <span style="font-size:16px; color:#1500b2; font-weight:500;">
+                                                            @item.Nama_Shipping_Option
+                                                        </span>
+                                                    </h4>
+                                                </div>
+                                                <div class="col-12 d-flex flex-column align-items-start px-3 pt-3" >
+                                                    <p style="color:black;font-weight:500">
+                                                        @item.Nama_Penerima
+                                                    </p>
+                                                    <p style="color:gray;font-weight:400">
+                                                        @item.Telpon_Penerima
+                                                    </p>
+                                                    <p style="color:gray;font-weight:400">
+                                                        @item.Alamat_Kirim
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="mail-line mb-2"/>
+                                            
+                                            <h2 class="accordion-itemer rounded-0 border-0" id="panelsStayOpen-itemingOne">
+                                                <div class="d-flex w-100 flex-column gap-3 px-3" style="background-color: white; border-radius:5px;"> 
+                                                    @foreach (var produk in ScopedDataServices?.ScopedData?.DataPesananDetail?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList())
+                                                    {
+                                                        <div class="d-flex flex-row justify-content-between w-100 py-3" 
+                                                        style="@(ScopedDataServices?.ScopedData?.DataPesananDetail?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2 ? "border-bottom: 1px solid #e6e6e6;" : "")">
+                                                            <div class="col-1">
+                                                                @if(@produk.Var_Id_Media != null && @produk.Var_Id_Media != "")
+                                                                {
+                                                                    <img class="h-100" src="@produk.Var_Id_Media" style="" alt="#">
+                                                                } 
+                                                        
+                                                                else
+                                                                {
+                                                                    <img class="h-100" src="/images/products/placeholder1.png" style="" alt="#">
+                                                                }
+                                                            </div>
+                                                            <div class="col-9 d-flex align-items-start px-3" >
+                                                                <div class="d-flex w-100 flex-column gap-2">
+                                                                    <h5 style="font-size:15px;" class="line-clamp-1">
+                                                                        @produk.Nama_Display
+                                                                    </h5>
+                                                                    <p class="variant" style="background-color: #eee;width: fit-content;padding: 1px 5px;border-radius: 0px;">
+                                                                        @($"{@produk.Var_Option_Label}, {@produk.Var_Size_Label}")
+                                                                    </p>
+                                                                    <h5 style="font-size:15px;" class="">
+                                                                        @string.Format("Rp. {0:N0}", @produk.Harga_Satuan) 
+                                                                        @($" x {produk.Qty} ")
+                                                                    </h5>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-2 d-flex align-items-center justify-content-end">
+                                                                <h5 style="font-size:15px;" class="d-flex line-clamp-1">
+                                                                    <span style="color:#1500b2; font-weight:600;">
+                                                                        @string.Format("Rp. {0:N0}", produk.Harga_Total)
+                                                                    </span>
+                                                                </h5>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </h2>
+
+                                            <div class="d-flex flex-row w-100" style="background-color: #fbfbfb;">
+
+                                                <div class="col-6 h-100" style="border-top: 1px solid #e6e6e6; border-bottom: 1px solid #e6e6e6;">
+                                                    <div class="d-flex flex-row w-100" style="text-align: center">
+                                                        <div class="col-6 px-3 py-2" style="border-bottom: 1px solid #e6e6e6; color: black;">
+                                                            <span style="font-size:15px; font-weight:300;">
+                                                                Metode Pembayaran
+                                                            </span>
+                                                        </div>
+                                                        <div class="col-6 px-3 py-2" style="border-bottom: 1px solid #e6e6e6; color:#1500b2; font-weight:600;">
+                                                            @item.Metode_Bayar
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="d-flex flex-row w-100" style="min-height:170px;border-right: 1px solid #e6e6e6;">
+                                                        @if(@item?.Status_Order_1 == "belum bayar") 
+                                                        {
+
+                                                            <div class="col-12 px-3 py-2" style="">
+
+                                                                @if (@item?.Metode_Bayar == "QRIS" && @item?.Status_Order_1 == "belum bayar")
+                                                                {
+                                                                    <div class="d-flex align-items-center justify-content-center position-relative">
+                                                                        <img class="qr-payment" style="max-width:50%" src="@item?.QrBase64" alt="Alternate Text" />
+                                                                        @if (@item?.Metode_Bayar == "QRIS" && @item?.Status_Order_1 == "belum bayar")
+                                                                        {
+                                                                            <button type="button" class="btn btn-success bg-success position-absolute" style="border-radius: 100%;height: 40px;width: 40px;padding: 0px 0px;top: 30px;left: 70px;" @onclick="@(x => DownloadImage(item))">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" style="margin-top:-4px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z" /></svg>
+                                                                            </button>
+                                                                        }
+                                                                    </div>
+                                                                }
+                                                                else if (@item?.Metode_Bayar != "QRIS" && @item?.Status_Order_1 == "belum bayar")
+                                                                {
+                                                                    @if (@item?.Metode_Bayar == "VA MANDIRI" || @item?.Metode_Bayar == "COUNTER INDOMARET")
+                                                                    {
+                                                                        <div class="col-12 ">
+                                                                            <div class="input-group style-grup px-1 border-1 form-style position-relative pb-1 pt-3 va-box mb-0" style="border-radius:0px; max-width:100%" data-va="@item?.Payment_Number_1">
+                                                                                <div readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1">
+                                                                                    @item?.Payment_Number_1
+                                                                                </div>
+                                                                                <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">
+                                                                                    @(item?.Metode_Bayar == "VA MANDIRI" ? "Biller Code" : "Payment Code")
+                                                                                </label>
+                                                                                <button class="copy-btn copy-btn-@item?.Payment_Number_1-code border-0 w-auto" style="border-radius: 0px;position: absolute;top: 12px;right: 15px;" type="button" aria-label="Copy VA" @onclick=@(x => clickCopy(item, $"{item?.Payment_Number_1}-code"))>Copy</button>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-12 mt-2">
+                                                                            <div class="input-group style-grup px-1 border-1 form-style position-relative pb-1 pt-3 va-box mb-0" style="border-radius:0px; max-width:100%" data-va="@item?.Payment_Number_2">
+                                                                                <div readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1">
+                                                                                    @item?.Payment_Number_2
+                                                                                </div>
+                                                                                <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">
+                                                                                    @(item?.Metode_Bayar == "VA MANDIRI" ? "Bill Key" : "Merchant Id")
+                                                                                </label>
+
+                                                                                <button class="copy-btn copy-btn-@item?.Payment_Number_2-code border-0 w-auto" style="border-radius: 0px;position: absolute;top: 12px;right: 15px;" type="button" aria-label="Copy VA" @onclick=@(x => clickCopy(item, $"{item?.Payment_Number_2}-code"))>Copy</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <div class="col-12">
+                                                                            <div class="input-group style-grup px-1 border-1 form-style position-relative pb-1 pt-3 va-box mb-0" style="border-radius:0px; max-width:100%" data-va="@item?.Payment_Number_1">
+                                                                                <div readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1">
+                                                                                    @item?.Payment_Number_1
+                                                                                </div>
+                                                                                <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">
+                                                                                    Virtual Account
+                                                                                </label>
+                                                                                <button class="copy-btn copy-btn-@item?.Payment_Number_1-code border-0 w-auto" style="border-radius: 0px;position: absolute;top: 12px;right: 15px;" type="button" aria-label="Copy VA" @onclick=@(x => clickCopy(item, $"{item?.Payment_Number_1}-code"))>Copy</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                }
+
+                                                            
+                                                            </div>
+
+                                                        }
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-6" style="border-bottom: 1px solid #e6e6e6; text-align:right">
+                                                    <div class="d-flex flex-row w-100" style="">
+                                                        <div class="col-6 px-3 py-2" style="border: 1px solid #e6e6e6; border-right:0px; border-bottom:0px; color: black;">
+                                                            <span style="font-size:15px; font-weight:300;">
+                                                                Subtotal Barang
+                                                            </span>
+                                                        </div>
+                                                        <div class="col-6 px-3 py-2" style="border: 1px solid #e6e6e6; border-right:0px; border-bottom:0px;">
+                                                            @string.Format("Rp. {0:N0}", item.Subtotal - (ScopedDataServices?.ScopedData?.DataPesananDetail?.Data.Biaya.Where(x => x.No_Bukti == item.No_Bukti)?.ToList().Sum(x => x.Harga_Total) ?? 0))
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex flex-row w-100" style="">
+                                                        <div class="col-6 px-3 py-2" style="border-top: 1px solid #e6e6e6; color: black;">
+                                                            <span style="font-size:15px; font-weight:300;">
+                                                                Biaya Pengiriman
+                                                            </span>
+                                                        </div>
+                                                        <div class="col-6 px-3 py-2" style="border: 1px solid #e6e6e6; border-right:0px; border-bottom:0px;">
+                                                            @string.Format("Rp. {0:N0}", ScopedDataServices?.ScopedData?.DataPesananDetail?.Data.Biaya.FirstOrDefault(x => x.Jenis_Item.ToLower() == "ongkir")?.Harga_Total)
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex flex-row w-100" style="">
+                                                        <div class="col-6 px-3 py-2" style="border-top: 1px solid #e6e6e6; color: black;">
+                                                            <span style="font-size:15px; font-weight:300;">
+                                                                Biaya Layanan
+                                                            </span>
+                                                        </div>
+                                                        <div class="col-6 px-3 py-2" style="border: 1px solid #e6e6e6; border-right:0px; border-bottom:0px;">
+                                                            @string.Format("Rp. {0:N0}", ScopedDataServices?.ScopedData?.DataPesananDetail?.Data.Biaya.FirstOrDefault(x => x.Jenis_Item.ToLower() == "layanan")?.Harga_Total)
+                                                        </div>
+                                                    </div>
+                                                    @if (item?.Incl_PPN == false)
+                                                    {
+                                                        <div class="d-flex flex-row w-100" style="">
+                                                            <div class="col-6 px-3 py-2" style="border-top: 1px solid #e6e6e6; color: black;">
+                                                                <span style="font-size:15px; font-weight:300;">
+                                                                    PPN (@item.PPN%)
+                                                                </span>
+                                                            </div>
+                                                            <div class="col-6 px-3 py-2" style="border: 1px solid #e6e6e6; border-right:0px; border-bottom:0px;">
+                                                                item.Tot_PPN
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    <div class="d-flex flex-row w-100" style="">
+                                                        <div class="col-6 px-3 py-2" style="border-top: 1px solid #e6e6e6; color: black;">
+                                                            <span style="font-size:15px; font-weight:300;">
+                                                                Total Pesanan
+                                                            </span>
+                                                        </div>
+                                                        <div class="col-6 px-3 py-2" style="border: 1px solid #e6e6e6; border-right:0px; border-bottom:0px;">
+                                                            <span style="font-size:20px; color:#1500b2; font-weight:700;" class="d-lg-inline d-none">
+                                                                @string.Format("Rp. {0:N0}", item.Grand_Total)
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            
+                                            </div>
+                                                                            
+                                            <div class="d-flex flex-row justify-content-between w-100 pt-3 pb-4" style="background-color: white; border-bottom: 1px solid #e6e6e6;">
+                                                <div class="col-12 d-flex align-items-start px-3" >
+                                                    <div class="d-flex w-100 flex-row align-items-end justify-content-end gap-3">
+                                                        <button type="button" @onclick="@( x => BatalkanPesanan(item))" class="btn btn-danger bg-danger px-2" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;border-radius:0px;" data-bs-toggle="modal" data-bs-target="#staticBackdrop4">
+                                                            <span class="position-relative">Batalkan Pesanan</span>
+                                                        </button>
+                                                        <button @onclick="@( x => GantiMethod(item))" class="btn none-accord btn-primary bg-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" data-bs-toggle="modal" data-bs-target="#staticBackdrop3" type="button">
+                                                            Ganti Pembayaran
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        
+                                        </div>
+                                    }
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                } else
+                {
+                    <div class=" w-100 d-flex justify-content-center align-items-center" style="height: 30rem;margin-bottom: 10rem;background-color: #f5f5f5;margin-top: 10px" >
+                        <h5 style="font-size:1rem; color:lightgray; text-decoration:underline" >Tidak Ada Transaksi</h5>
+                    </div>
+                }
+            }
+
+        </div>
+    </div>
+</div>

@@ -75,7 +75,11 @@ namespace PacificWeb.Components.Sections
                 ParamUrl = new ParameterApi.ParameterUrl { pagesize = 3, status = "aktif" }
             });
 
+            await Task.WhenAll(kategoriTask);
+
             await JSRuntime.InvokeVoidAsync("initKate");
+
+            StateHasChanged();
         }
 
         public void searchCombo(Navbar Navbar = null, Brand brand = null, Kategori kategori = null)
@@ -89,13 +93,13 @@ namespace PacificWeb.Components.Sections
                 if (brand != null)
                 {
                     bra = Convert.ToBase64String(Encoding.UTF8.GetBytes((brand.No_Id == null || brand.No_Id == "" ? brand.Id : brand.No_Id)));
-                    NavigationManager.NavigateTo($"/search-page?keyword=&produk=&kategori={Uri.EscapeDataString(kate)}&brand={Uri.EscapeDataString(bra)}", false);
+                    NavigationManager.NavigateTo($"/search-page?keyword=&produk=&kategori={Uri.EscapeDataString(kate)}&brand={Uri.EscapeDataString(bra)}", true);
                     return;
                 }
                 else if (kategori != null)
                 {
                     kate = Convert.ToBase64String(Encoding.UTF8.GetBytes((kategori.No_Id == null || kategori.No_Id == "" ? kategori.Id : kategori.No_Id)));
-                    NavigationManager.NavigateTo($"/search-page?keyword=&produk=&kategori={Uri.EscapeDataString(kate)}&brand=", false);
+                    NavigationManager.NavigateTo($"/search-page?keyword=&produk=&kategori={Uri.EscapeDataString(kate)}&brand=", true);
                     return;
                 }
             }
@@ -116,7 +120,7 @@ namespace PacificWeb.Components.Sections
 
             kate = Convert.ToBase64String(Encoding.UTF8.GetBytes(kate));
 
-            NavigationManager.NavigateTo($"/search-page?keyword=&produk=&kategori={Uri.EscapeDataString(kate)}&brand={Uri.EscapeDataString(bra)}", false);
+            NavigationManager.NavigateTo($"/search-page?keyword=&produk=&kategori={Uri.EscapeDataString(kate)}&brand={Uri.EscapeDataString(bra)}", true);
         }
     }
 }

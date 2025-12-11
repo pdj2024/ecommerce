@@ -343,6 +343,14 @@ namespace Models
         public DataLogin DataLogin { get; set; } = new();
         public Produk DataProduk { get; set; } = new();
 
+        public Pesanan DataPesananBelum { get; set; } = new();
+        public List<Pembayaran> ListDataPembayaran { get; set; } = new();
+        public Pesanan DataPesananDikemas { get; set; } = new();
+        public Pesanan DataPesananDikirim { get; set; } = new();
+        public Pesanan DataPesananSelesai { get; set; } = new();
+        public Pesanan DataPesananBatal { get; set; } = new();
+        public Pesanan DataPesananDetail { get; set; } = new();
+
         public List<Cart> ListDataCart { get; set; } = new List<Cart>();
         public List<Pesanan.SummaryResponse> ListDataSummaryPesanan { get; set; } = new List<Pesanan.SummaryResponse>();
 

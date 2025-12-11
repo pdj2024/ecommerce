@@ -103,6 +103,7 @@ namespace Models
                 public string cursor_harga { get; set; }
                 public string cursor_no_bukti { get; set; }
                 public string id_customer { get; set; }
+                public string no_tracking_pesanan { get; set; }
                 public string id_cart { get; set; }
                 public string status_bayar { get; set; }
                 public string id_payment_gateway { get; set; }

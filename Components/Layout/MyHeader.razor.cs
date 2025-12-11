@@ -29,7 +29,7 @@ namespace PacificWeb.Components.Layout
         private DataUser loginModel = new();
         private string ErrorMessage;
 
-        [Parameter] public bool ShowModal { get; set; }
+        [Parameter] public bool ShowModal { get; set; } = false;
         [Parameter] public EventCallback<bool> ShowModalChanged { get; set; }
         [Parameter] public EventCallback<string> OnLoginSuccess { get; set; }
 
@@ -81,18 +81,20 @@ namespace PacificWeb.Components.Layout
         public int searchCount { get; set; } = 0;
         public int dataQty { get; set; } = 0;
         public bool InfoInitFlag { get; set; } = false;
+        public ClaimsPrincipal user { get; set; } = new();
 
         public int dataChange { get; set; } = 0;
 
 
         public void NavigateToHome(string route)
         {
-            NavigationManager.NavigateTo($"/{route}", forceLoad: false);
+            NavigationManager.NavigateTo($"/{route}", forceLoad: true);
         }
 
         protected override async Task OnInitializedAsync()
         {
-
+            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            user = authState.User;
         }
 
         private async Task Logout()
@@ -104,11 +106,20 @@ namespace PacificWeb.Components.Layout
         {
             if (firstRender)
             {
+                var companyTask = NewPdjService.GetListGlobalDataAsync<Company>(new ParameterApi
+                {
+                    routeApi = "company",
+                    prosesApi = "get-profile",
+                    ParamUrl = new ParameterApi.ParameterUrl { no_id = "comp_1" }
+                });
+
+                await Task.WhenAll(companyTask);
+
+                StateHasChanged();
                 await JSRuntime.InvokeVoidAsync("initHeader");
+                StateHasChanged();
                 await JSRuntime.InvokeVoidAsync("initMobileButton");
                 await JSRuntime.InvokeVoidAsync("initHeaderMega");
-                await JSRuntime.InvokeVoidAsync("colLoadOut");
-
                 StateHasChanged();
             }
         }
@@ -174,6 +185,7 @@ namespace PacificWeb.Components.Layout
             if (checkAll)
             {
                 nettoKeranjang = 0;
+                if (ScopedDataServices?.ScopedData?.ListDataCart == null) return; 
                 foreach (var dataCart in ScopedDataServices?.ScopedData?.ListDataCart)
                 {
                     if (!dataCart.SelectCart) 
@@ -186,6 +198,7 @@ namespace PacificWeb.Components.Layout
             } else
             {
                 nettoKeranjang = 0;
+                if (ScopedDataServices?.ScopedData?.ListDataCart == null) return;
                 foreach (var dataCart in ScopedDataServices?.ScopedData?.ListDataCart)
                 {
                     if (dataCart.SelectCart)
@@ -229,7 +242,7 @@ namespace PacificWeb.Components.Layout
 
             if(data_id == null)
             {
-                ScopedDataServices.ScopedData.ListDataCart = DataCartList.Data;
+                ScopedDataServices.ScopedData.ListDataCart = DataCartList?.Data;
             } 
             else
             {
@@ -237,7 +250,7 @@ namespace PacificWeb.Components.Layout
                 DataShow.Qty = DataCartList.Data.FirstOrDefault(x => x.Id_Cart == data_id).Qty;
             }
 
-            if (ListDataCartCheck.Count() >= 1)
+            if (ListDataCartCheck.Count() >= 1 && ScopedDataServices?.ScopedData?.ListDataCart != null)
             {
                 foreach (var item in ScopedDataServices?.ScopedData?.ListDataCart)
                 {
@@ -685,7 +698,7 @@ namespace PacificWeb.Components.Layout
         public async void NavigateToDetailProduk(string id)
         {
             List<string> stringData = await pdjService.DecodeEncode(true, new List<string> { id });
-            NavigationManager.NavigateTo($"/detail-produk/{stringData.FirstOrDefault()}", forceLoad: false);
+            NavigationManager.NavigateTo($"/detail-produk/{stringData.FirstOrDefault()}", forceLoad: true);
         }
 
 

@@ -59,22 +59,22 @@ namespace PacificWeb.Components.Layout
 
         protected override async Task OnInitializedAsync()
         {
-            if (pageRoute == "belum-bayar")
-            {
-                PesananLoad[0] = true;
-            }
-            else if (pageRoute == "dikemas")
-            {
-                PesananLoad[1] = true;
-            }
-            else if (pageRoute == "dikirim")
-            {
-                PesananLoad[2] = true;
-            }
-            else if (pageRoute == "selesai")
-            {
-                PesananLoad[3] = true;
-            }
+            //if (pageRoute == "belum-bayar")
+            //{
+            //    PesananLoad[0] = true;
+            //}
+            //else if (pageRoute == "dikemas")
+            //{
+            //    PesananLoad[1] = true;
+            //}
+            //else if (pageRoute == "dikirim")
+            //{
+            //    PesananLoad[2] = true;
+            //}
+            //else if (pageRoute == "selesai")
+            //{
+            //    PesananLoad[3] = true;
+            //}
         }
 
         private async Task Logout()
@@ -208,7 +208,7 @@ namespace PacificWeb.Components.Layout
             ListDataCartCheck.Clear();
             ListDataCartCheck.AddRange(dataSourch?.ListDataCart?.FindAll(x => x.SelectCart == true));
             var dataCart = await NewPdjService.GetApi<Cart>(paramApi);
-            dataSourch.ListDataCart = dataCart.Data;
+            ScopedDataServices.ScopedData.ListDataCart = dataCart.Data;
             if (ListDataCartCheck.Count() >= 1)
             {
                 foreach (var item in dataSourch?.ListDataCart)
@@ -358,109 +358,9 @@ namespace PacificWeb.Components.Layout
 
         public async Task moveTabs (string tab)
         {
-            var data = new Pesanan();
-
-            if (tab == "belum-bayar" && PesananLoad[0] == false)
-            {
-
-                dataSourch.DataPesananBelum = await NewPdjService.showMorePesanan(new ParameterApi
-                {
-                    routeApi = "order",
-                    prosesApi = "getAll",
-                    token = ScopedDataServices.ScopedData.DataLogin.token,
-                    refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        id_customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id,
-                        show_media = "true",
-                        orderDir = "desc",
-                        status_order_1 = "belum bayar",
-                        status = "aktif",
-                        orderBy = "no_bukti",
-                        pagesize = 5,
-
-                    }
-                });
-
-                PesananLoad[0] = true;
-
-            } 
-
-            else if (tab == "dikemas" && PesananLoad[1] == false) 
-            {
-
-                dataSourch.DataPesananDikemas = await NewPdjService.showMorePesanan(new ParameterApi
-                {
-                    routeApi = "order",
-                    prosesApi = "getAll",
-                    token = ScopedDataServices.ScopedData.DataLogin.token,
-                    refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        id_customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id,
-                        show_media = "true",
-                        orderDir = "desc",
-                        status_order_1 = "dikemas",
-                        status = "aktif",
-                        orderBy = "no_bukti",
-                        pagesize = 5,
-                    }
-                });
-                PesananLoad[1] = true;
-
-            }
-
-            else if (tab == "dikirim" && PesananLoad[2] == false) 
-            {
-
-                dataSourch.DataPesananDikirim = await NewPdjService.showMorePesanan(new ParameterApi
-                {
-                    routeApi = "order",
-                    prosesApi = "getAll",
-                    token = ScopedDataServices.ScopedData.DataLogin.token,
-                    refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        id_customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id,
-                        show_media = "true",
-                        orderDir = "desc",
-                        status_order_1 = "dikirim",
-                        status = "aktif",
-                        orderBy = "no_bukti",
-                        pagesize = 5,
-                    }
-                });
-                PesananLoad[2] = true;
-
-            } 
-
-            else if (tab == "selesai" && PesananLoad[3] == false) 
-            {
-
-                dataSourch.DataPesananHistori = await NewPdjService.showMorePesanan(new ParameterApi
-                {
-                    routeApi = "order",
-                    prosesApi = "getAll",
-                    token = ScopedDataServices.ScopedData.DataLogin.token,
-                    refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
-                    ParamUrl = new ParameterApi.ParameterUrl
-                    {
-                        id_customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id,
-                        show_media = "true",
-                        orderDir = "desc",
-                        status_order_1 = "selesai",
-                        status = "aktif",
-                        orderBy = "no_bukti",
-                        pagesize = 5,
-                    }
-                });
-                PesananLoad[3] = true;
-
-            }
-
-            refreshLoad?.Invoke();
 
         }
+        
         public async Task CheckoutCart()
         {
 

@@ -111,8 +111,9 @@ namespace PacificWeb.Components.Pages
             var mainContent = NewPdjService.RefreshDataMainKonten();
             await Task.WhenAll(mainContent);
 
+            await header_page.SelectItemCart(null);
             loadContent = false;
-            //StateHasChanged();
+            StateHasChanged();
 
         }
 

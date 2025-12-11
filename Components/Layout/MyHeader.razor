@@ -5,11 +5,11 @@
 @using PacificWeb.Components.Sections
 @using Microsoft.AspNetCore.Authentication
 @using Microsoft.AspNetCore.Authentication.Cookies
-@inject AuthenticationStateProvider AuthStateProvider
+@inject AuthenticationStateProvider AuthenticationStateProvider
 @inject IHttpContextAccessor HttpContextAccessor
 @inject LoginService AuthService
 
-<header class="header navbar navbar-area header-shimer">
+<header class="header navbar navbar-area header-shimer" style="@(ShowModal ? "display: none !important;" : "display: flex !important;")">
 <!-- Start Header Bottom -->
     <div class="container-fluid px-md-5 px-2" style="height:100%">
         <div class="row align-items-center vw-100" style="height:100%; width:100%; margin:0px">
@@ -19,8 +19,8 @@
         </div>
     </div>
 </header>
-
-<header class="header navbar navbar-area header-content" style="display: none;">
+ 
+<header class="header navbar navbar-area header-content" style="@(ShowModal ? "display: flex !important;" : "display: none !important;")">
     <!-- Start Header Bottom -->
     <div class="container-fluid px-md-5 px-2" style="height:100%">
         <div class="row align-items-center vw-100" style="height:100%; width:100%; margin:0px">
@@ -224,7 +224,7 @@
                             <div id="openCartProd" class="wishlist d-none d-md-none d-lg-flex" data-bs-toggle="offcanvas" data-bs-target="#offcanvascart" aria-controls="offcanvascart">
                                 <a href="javascript:void(0)" class="menu-logo">
                                     <i class="lni lni-cart-1" style="font-size:20px; font-weight:400;"></i>
-                                    <span class="total-items">@ScopedDataServices?.ScopedData?.ListDataCart.Count()</span>
+                                    <span class="total-items"> @(ScopedDataServices?.ScopedData?.ListDataCart != null ? ScopedDataServices?.ScopedData?.ListDataCart.Count() : 0)</span>
                                 </a>
                             </div>
 
@@ -232,7 +232,7 @@
                                 <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle item-head menu-logo" data-bs-toggle="dropdown" aria-expanded="false"> 
                                     <i class="lni lni-user-4" style="font-size:20px; font-weight:400;"></i>
                                     <span class="total-items">
-                                        @(ScopedDataServices?.ScopedData?.ListDataSummaryPesanan?.FirstOrDefault()?.summary.Sum(x => x.status_order_1 == "selesai" ? 0 : x.jumlah) ?? 0)
+                                        @(ScopedDataServices?.ScopedData?.ListDataSummaryPesanan?.FirstOrDefault()?.summary.Sum(x => x.status_order_1.ToLower() == "belum bayar" || x.status_order_1.ToLower() == "dikemas" || x.status_order_1.ToLower() == "dikirim" ? x.jumlah : 0) ?? 0)
                                     </span> 
                                 </a> 
                                 <ul class="dropdown-menu text-small" style=""> 
@@ -242,7 +242,7 @@
                                                 <i style="font-size:26px;" class="lni lni-cart-1"></i>
                                                 <span>Keranjang</span>
                                             </div>
-                                            <span class="qty-info">@ScopedDataServices?.ScopedData?.ListDataCart.Count()</span>
+                                            <span class="qty-info">@(ScopedDataServices?.ScopedData?.ListDataCart != null ? ScopedDataServices?.ScopedData?.ListDataCart.Count() : 0)</span>
                                         </button>
                                     </li> 
                                     <li style="cursor:pointer;">
@@ -333,7 +333,7 @@
 
 <div class="offcanvas offcanvas-end" style="width: 500px;" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
     <div class="offcanvas-header">
-        <h5 id="offcanvasRightLabel" style="font-size: 1.5rem;font-weight: 800;">
+        <h5 id="offcanvasRightLabel" style="font-size: 1.2rem;font-weight: 800;">
             Pencarian
         </h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -394,21 +394,34 @@
                                     <div class="product-image">
                                         @if (dataProduk.MediaUrls.Count() >= 1)
                                         {
-                                                <img src="@(dataProduk.MediaUrls[0]?.Id_Media == null || dataProduk.MediaUrls[0]?.Id_Media == "" ? "/images/products/placeholder1.png" : dataProduk.MediaUrls[0]?.Id_Media)" alt="@dataProduk.Nama_Display">
-                                            }
-                                            else
+                                            <img src="@(dataProduk.MediaUrls[0]?.Id_Media == null || dataProduk.MediaUrls[0]?.Id_Media == "" ? "/images/products/placeholder1.png" : dataProduk.MediaUrls[0]?.Id_Media)" alt="@dataProduk.Nama_Display" @onclick="@(e => NavigateToDetailProduk(dataProduk.No_Id))" style="cursor:pointer">
+                                        }
+                                        else
+                                        {
+                                            <img src="/images/products/placeholder1.png" alt="@dataProduk.Nama_Display" @onclick="@(e => NavigateToDetailProduk(dataProduk.No_Id))" style="cursor:pointer">
+                                        }
+
+
+                                        <span class="sale-tag d-flex flex-row gap-1 bg-transparent">
+                                            @if (dataProduk.Diskon1 != null && dataProduk.Diskon1 >= 1)
                                             {
-                                                <img src="/images/products/placeholder1.png" alt="@dataProduk.Nama_Display">
+                                                <span class="bg-primary px-2 py-1">-@dataProduk.Diskon1.ToString()%</span>
                                             }
 
-                                        @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
+                                            @if (dataProduk.Tgl_Created != null && (DateTime.Now - dataProduk.Tgl_Created).TotalDays <= 3)
+                                            {
+                                                <span class="px-2 py-1 bg-success">New</span>
+                                            }
+                                        </span>
+
+                                        @* @if (dataProduk.Diskon1 != null || dataProduk.Diskon1 >= 1)
                                         {
                                             <span class="sale-tag">-@dataProduk.Diskon1.ToString()%</span>
                                         }
                                         @if (dataProduk.Tgl_Created != null && (DateTime.Now - dataProduk.Tgl_Created).TotalDays <= 3)
                                         {
                                             <span class="new-tag">New</span>
-                                        }
+                                        } *@
                                     </div>
                                     <div class="product-info">
                                         <h4 class="title">
@@ -664,7 +677,7 @@
     <div class="offcanvas-header">
         <h5 id="offcanvascartLabel" style="font-size: 1.5rem;font-weight: 800; position:relative">
             Keranjang
-            <span class="total-items-cart">@ScopedDataServices?.ScopedData?.ListDataCart.Count()</span>
+            <span class="total-items-cart">@(ScopedDataServices?.ScopedData?.ListDataCart != null ? ScopedDataServices?.ScopedData?.ListDataCart.Count() : 0)</span>
         </h5>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
@@ -674,7 +687,7 @@
                             
                 <ul class="shopping-list p-0 gap-0" style="height:100%; max-height:unset;">
 
-                    @if(ScopedDataServices?.ScopedData?.ListDataCart.Count() >= 0)
+                    @if(ScopedDataServices?.ScopedData?.ListDataCart?.Count() >= 0 || ScopedDataServices?.ScopedData?.ListDataCart?.Count() == null)
                     {
                         <li class="flex-wrap pb-3 px-3" style="background-color:white; gap: 10px;align-items: center;justify-content: flex-start;">
                             <label class="custom-checkbox d-flex">
@@ -687,7 +700,7 @@
 
 
 
-                    @foreach(var cart in ScopedDataServices?.ScopedData?.ListDataCart)
+                    @foreach(var cart in ScopedDataServices?.ScopedData?.ListDataCart ?? new())
                     {
                         <li class="flex-wrap py-3 px-3" style=@(cart.Qty < cart.Min_Order || cart.Qty > cart.Stock ? "background-color:whitesmoke" : "background-color:white")>
                             <div class="cart-img-head d-flex flex-row gap-3" >
@@ -768,7 +781,8 @@
                         </li>
                     }
                             
-                    @if(ScopedDataServices?.ScopedData?.ListDataCart.Count() <= 0)
+                    
+                    @if(ScopedDataServices?.ScopedData?.ListDataCart?.Count() <= 0 || ScopedDataServices?.ScopedData?.ListDataCart?.Count() == null)
                     {
                         <div class="d-flex flex-column align-items-center mt-4 py-5" style="color:#6b7280">
                             <svg xmlns="http://www.w3.org/2000/svg" height="2rem" viewBox="0 -960 960 960" width="2rem" class="mb-3" fill="currentColor">
@@ -783,7 +797,7 @@
         </div>
     </div>
     <div class="offcanvas-header pb-3 pt-0" style="align-items:normal; width:100%;">
-        @if(ScopedDataServices?.ScopedData?.ListDataCart.Count() >= 1)
+        @if(ScopedDataServices?.ScopedData?.ListDataCart?.Count() >= 1)
         {
             <div class="bottom px-3 w-100 pt-3" style="border-top:1px solid #e6e6e6;height:15%;">
                 <div class="total" >
@@ -816,7 +830,8 @@
     </div>
 </div>
 
-<div class="modal fade review-modal" id="exampleModalLogin" tabindex="-1" aria-labelledby="exampleModalLabel"
+@if (!user.Identity?.IsAuthenticated ?? true) {
+    <div class="modal fade review-modal" id="exampleModalLogin" tabindex="-1" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" style="max-width:480px;height: 33rem;">
         <div class="modal-content" style="border-radius: 0px; border-radius: 0px; height: fit-content; overflow: hidden;" >
@@ -1051,6 +1066,8 @@
         </div>
     </div>
 </div>
+}
+
 
 <div class="modal fade review-modal" id="exampleModalLogout" tabindex="-1" aria-labelledby="exampleModalLabel"
      aria-hidden="true">

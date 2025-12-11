@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
 using Models;
 using PacificWeb.Components;
@@ -47,12 +48,21 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LoginPath = "/login";
         options.Cookie.Name = "auth_token";
         options.Cookie.MaxAge = TimeSpan.FromDays(30);
-        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-        options.Cookie.SameSite = SameSiteMode.None;
+        options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+        options.Cookie.SameSite = SameSiteMode.Lax;
         options.Cookie.HttpOnly = true;
         options.Cookie.Path = "/";
         options.SlidingExpiration = true;
     });
+
+//Production Setting
+//options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+//options.Cookie.SameSite = SameSiteMode.None;
+
+//Development Setting
+//options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+//options.Cookie.SameSite = SameSiteMode.Lax;
+
 
 builder.Services.AddCascadingAuthenticationState();
 

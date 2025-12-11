@@ -739,9 +739,16 @@ else
                                     <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Status</label>
                                 </div>
                             </div>
+                            <div class="col-12">
+                                <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
+                                    <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value="@string.Format("Rp. {0:N0}", @Head?.Grand_Total)" />
+                                    <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Total Pembayaran</label>
+                                </div>
+                            </div>
+
                             <div class="col-12 col-md-6">
                                 <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
-                                    <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.Metode_Bayar"/>
+                                    <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.Metode_Bayar" />
                                     <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Metode Pembayaran</label>
                                 </div>
                             </div>
@@ -751,12 +758,7 @@ else
                                     <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Expired</label>
                                 </div>
                             </div>
-                            <div class="col-12">
-                                <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
-                                    <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value="@string.Format("Rp. {0:N0}", @Head?.Grand_Total)" />
-                                    <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Total Pembayaran</label>
-                                </div>
-                            </div>
+
 
                             <div class="col-12">
                                 @if (@Head?.Metode_Bayar == "QRIS" && @Head?.Status_Order_1 == "belum bayar")

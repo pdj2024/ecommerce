@@ -88,7 +88,6 @@ namespace PacificWeb.Components.Sections
                 return;
             }
 
-            Console.WriteLine(data);
             pdjService.ShowConsoleData(ScopedDataServices?.ScopedData?.DataProduk);
         }
 

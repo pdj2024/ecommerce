@@ -72,6 +72,8 @@ namespace PacificWeb.Components.Sections
                 prosesApi = "getAll",
                 ParamUrl = new ParameterApi.ParameterUrl { orderBy = "nama_brand", orderDir = "desc", status = "aktif" }
             });
+
+            StateHasChanged();
         }
 
         public void SearchCombo(Brand brand)
