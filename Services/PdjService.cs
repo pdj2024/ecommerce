@@ -299,13 +299,14 @@ namespace Services
         }
       
 
-        public async Task<(List<Brand> SearchBrand, List<Produk> SearchProduk, int TotalCount, bool hasMore)> GetSearchApi(ParameterApi urlParam)
+        public async Task<(List<Brand> SearchBrand, List<Produk> SearchProduk, int TotalCount, bool hasMore, int priceMax)> GetSearchApi(ParameterApi urlParam)
         {
             urlParam.ParamUrl.status = "aktif";
             var config = initConfigApi(urlParam);
             var tbListProduk = new List<Produk>();
             var tbListBrand = new List<Brand>();
             int totalCount = 0;
+            int PriceMax = 0;
             bool hasMore = false;
 
             try
@@ -332,6 +333,10 @@ namespace Services
                     {
                         totalCount = JsonConvert.DeserializeObject<int>(dataFromDbTotalCount.GetRawText());
                     }
+                    if (root.TryGetProperty("Max_Harga_Semua_Produk_Aktif", out var dataFromDbPriceMax))
+                    {
+                        PriceMax = JsonConvert.DeserializeObject<int>(dataFromDbPriceMax.GetRawText());
+                    }
                     if (root.TryGetProperty("HasMore", out var dataFromDbHasMore))
                     {
                         hasMore = JsonConvert.DeserializeObject<bool>(dataFromDbHasMore.GetRawText());
@@ -341,7 +346,7 @@ namespace Services
                         writeLog($"Data Kosong");
                     }
                 }
-                return (tbListBrand, tbListProduk, totalCount, hasMore);
+                return (tbListBrand, tbListProduk, totalCount, hasMore, PriceMax);
             }
             catch (Exception ex)
             {
@@ -359,7 +364,7 @@ namespace Services
                 }
             }
 
-            return (tbListBrand, tbListProduk, totalCount, hasMore);
+            return (tbListBrand, tbListProduk, totalCount, hasMore, PriceMax);
         }
 
         public async Task<bool> LoginUserApi(ParameterApi urlParam, LoginViewModel data)

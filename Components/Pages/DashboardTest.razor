@@ -4,6 +4,8 @@
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @rendermode InteractiveServer
 
+
+
 <PageTitle>@GlobalDataService?.GlobalData?.ListDataCompany?.FirstOrDefault()?.Nama_Toko</PageTitle>
 
 <MyHeader @ref="header_page" />
@@ -11,9 +13,6 @@
 <HeroSection />
 
 <BrandSection />
-
-@* <ProductSection /> *@
-
 
 <section class="trending-product section px-0 px-lg-3 px-xl-5 px-xxl-10" style="margin-top: 0px;">
     <div class="container-fluid">
@@ -56,6 +55,12 @@
             }
         </div>
 
+
+        <div class="w-100 d-flex flex-column align-items-center justify-content-center mt-4">
+            <button class="btn-slide px-3 w-auto" style="z-index: 0;" @onclick=@(x => NavigateToHome("search-page?keyword="))>
+                Tampilkan lebih banyak
+            </button>
+        </div>
     </div>
 </section>
 

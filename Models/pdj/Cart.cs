@@ -34,7 +34,7 @@ namespace Models
         public bool Show_Min_Order { get; set; } = false;
         public bool Show_Max_Order { get; set; } = false;
         public bool Show_Add_Product { get; set; } = false;
-        public decimal Harga { get; set; } = 0;
+        public decimal? Harga { get; set; } = 0;
         public decimal Harga_Satuan { get; set; } = 0;
         public int Stock { get; set; } = 0;
         public int Min_Order { get; set; } = 0;

@@ -5,6 +5,7 @@ using Microsoft.JSInterop;
 using Models;
 using PacificWeb.Components.Layout;
 using Radzen;
+using Radzen.Blazor.Rendering;
 using Services;
 using SixLabors.Fonts;
 using SixLabors.ImageSharp;
@@ -17,6 +18,7 @@ using System.Reflection;
 using System.Security.Claims;
 using System.Text;
 using System.Text.RegularExpressions;
+using static Models.Pesanan;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
@@ -95,10 +97,12 @@ namespace PacificWeb.Components.Pages
         public bool checkAll { get; set; } = true;
         public bool loadProses { get; set; } = false;
         public bool? infoPembatalan { get; set; } = null;
+        public bool? infoSelesaikan { get; set; } = null;
         public bool loadRefresh { get; set; } = false;
         public bool loadContent { get; set; } = true;
         public string Numberinfo { get; set; } = "";
         public Pesanan Pesanan_Create { get; set; } = new Pesanan();
+        public Pesanan PesananList { get; set; } = new();
         public Pesanan.Headers Pesanan_Change { get; set; } = new();
 
         MyHeader header_page;
@@ -327,6 +331,12 @@ namespace PacificWeb.Components.Pages
             {
                 NavigationManager.NavigateTo("/", false);
             }
+
+            var RefreshDataMainKonten = NewPdjService.RefreshDataMainKonten();
+            var RefreshDataOuth = NewPdjService.RefreshDataAuthKonten();
+
+            await Task.WhenAll(RefreshDataMainKonten, RefreshDataOuth);
+
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -337,7 +347,6 @@ namespace PacificWeb.Components.Pages
                 JSRuntime.InvokeVoidAsync("goTopInstant");
 
                 ScopedDataServices.ScopedData.ListDataPembayaran = new();
-                var RefreshDataMainKonten = NewPdjService.RefreshDataMainKonten();
 
                 if (pageTabs == "belum-bayar")
                 {
@@ -358,8 +367,9 @@ namespace PacificWeb.Components.Pages
                             pagesize = 5,
                         }
                     });
-                }
 
+                    PesananList = ScopedDataServices.ScopedData.DataPesananBelum;
+                }
                 else if (pageTabs == "dikemas")
                 {
                     ScopedDataServices.ScopedData.DataPesananDikemas = await NewPdjService.showMorePesanan(new ParameterApi
@@ -379,8 +389,9 @@ namespace PacificWeb.Components.Pages
                             pagesize = 5,
                         }
                     });
-                }
 
+                    PesananList = ScopedDataServices.ScopedData.DataPesananDikemas;
+                }
                 else if (pageTabs == "dikirim")
                 {
                     ScopedDataServices.ScopedData.DataPesananDikirim = await NewPdjService.showMorePesanan(new ParameterApi
@@ -400,8 +411,9 @@ namespace PacificWeb.Components.Pages
                             pagesize = 5,
                         }
                     });
-                }
 
+                    PesananList = ScopedDataServices.ScopedData.DataPesananDikirim;
+                }
                 else if (pageTabs == "selesai")
                 {
                     ScopedDataServices.ScopedData.DataPesananSelesai = await NewPdjService.showMorePesanan(new ParameterApi
@@ -421,8 +433,9 @@ namespace PacificWeb.Components.Pages
                             pagesize = 5,
                         }
                     });
-                }
 
+                    PesananList = ScopedDataServices.ScopedData.DataPesananSelesai;
+                }
                 else if (pageTabs == "batal")
                 {
                     ScopedDataServices.ScopedData.DataPesananBatal = await NewPdjService.showMorePesanan(new ParameterApi
@@ -441,39 +454,19 @@ namespace PacificWeb.Components.Pages
                             pagesize = 5,
                         }
                     });
+
+                    PesananList = ScopedDataServices.ScopedData.DataPesananBatal;
                 }
-
                 else if (pageTabs == "keranjang") { }
-
                 else if (pageTabs == "setting") { }
-                
                 else if (pageTabs == "details")
                 {
-                    //ScopedDataServices.ScopedData.DataPesananDetail = await NewPdjService.showMorePesanan(new ParameterApi
-                    //{
-                    //    routeApi = "order",
-                    //    prosesApi = "getAll",
-                    //    token = ScopedDataServices.ScopedData.DataLogin.token,
-                    //    refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
-                    //    ParamUrl = new ParameterApi.ParameterUrl
-                    //    {
-                    //        id_customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id,
-                    //        no_tracking_pesanan = noBukti,
-                    //        show_media = "true",
-                    //        orderDir = "desc",
-                    //        orderBy = "no_bukti",
-                    //        pagesize = 5,
-                    //    }
-                    //});
+
                 }
                 else
                 {
                     NavigationManager.NavigateTo("/", false);
                 }
-
-                var RefreshDataOuth = NewPdjService.RefreshDataAuthKonten();
-
-                await Task.WhenAll(RefreshDataMainKonten, RefreshDataOuth);
 
                 if (pageTabs == "setting")
                 {
@@ -483,15 +476,10 @@ namespace PacificWeb.Components.Pages
                 loadContent = false;
                 StateHasChanged();
 
-                // Tunggu semua task selesai
-                await Task.WhenAll();
-
-                // Assign semua data sekaligus
                 ScopedDataServices.ScopedData.ListDataPembayaran.AddRange(GlobalDataService.GlobalData.ListDataPembayaran);
 
-                //ScopedDataServices.ScopedData.Finised = true;
-
                 StateHasChanged();
+                await header_page.SelectItemCart(null);
                 await SelectItemCart(null);
                 StateHasChanged();
             }
@@ -504,6 +492,81 @@ namespace PacificWeb.Components.Pages
             var message = "Halo, saya mau pesan produk Anda";
             var url = $"https://wa.me/${phone}?text={message}";
             //NavigationManager.NavigateTo(url, true, true);
+        }
+
+        public async Task pesananSelesai(Pesanan.Headers headItem, bool direct = false)
+        {
+            infoSelesaikan = null;
+            StateHasChanged();
+
+            if (direct)
+            {
+                if (Pesanan_Change?.No_Bukti == null) return;
+
+                object data = new { statusItem = "selesai" };
+
+                loadProses = true;
+                var PembatalanStatus = await NewPdjService.CudPesananApi("UPDATE", data, new ParameterApi
+                {
+                    routeApi = "order",
+                    prosesApi = "updateStatus",
+                    token = ScopedDataServices.ScopedData.DataLogin.token,
+                    refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        no_bukti = Pesanan_Change?.No_Bukti ?? "",
+                        all_item = true
+                    }
+                });
+
+                if (PembatalanStatus.statusResponse)
+                {
+                    infoSelesaikan = true;
+
+
+                    ScopedDataServices.ScopedData.DataPesananDetail = await NewPdjService.showMorePesanan(new ParameterApi
+                    {
+                        routeApi = "order",
+                        prosesApi = "getAll",
+                        token = ScopedDataServices.ScopedData.DataLogin.token,
+                        refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
+                        ParamUrl = new ParameterApi.ParameterUrl
+                        {
+                            id_customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id,
+                            no_bukti = Pesanan_Change?.No_Bukti,
+                            show_media = "true",
+                            orderDir = "desc",
+                            orderBy = "no_bukti",
+                            pagesize = 5,
+                        }
+                    });
+
+                    await refreshAllPesanan();
+
+                }
+                else
+                {
+                    infoSelesaikan = false;
+                }
+
+                loadProses = false;
+                StateHasChanged();
+                return;
+            }
+
+
+            Pesanan_Change = headItem;
+            StateHasChanged();
+        }
+
+        public async Task onPesananSelesai(Pesanan.Headers headItem)
+        {
+            infoSelesaikan = null;
+            StateHasChanged();
+            headItem.variabel_map_1 = true;
+
+            Pesanan_Change = headItem;
+            StateHasChanged();
         }
 
         public async Task editProfile(bool data, string ket)
@@ -798,7 +861,50 @@ namespace PacificWeb.Components.Pages
             
         }
 
-        private async Task BatalkanPesanan (Pesanan.Headers headItem, bool direct = false)
+        private async Task BatalkanPesanan (Pesanan.Headers headItem)
+        {
+            infoPembatalan = null;
+            StateHasChanged();
+
+            //if (direct)
+            //{
+            //    loadProses = true;
+            //    var PembatalanStatus = await NewPdjService.CudPesananApi("TAMBAH", null , new ParameterApi
+            //    {
+            //        routeApi = "order",
+            //        token = ScopedDataServices.ScopedData.DataLogin.token,
+            //        refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
+            //        prosesApi = $"batal/{Pesanan_Change.No_Bukti}",
+            //        ParamUrl = new ParameterApi.ParameterUrl()
+            //    });
+
+            //    if (PembatalanStatus.statusResponse)
+            //    {
+            //        infoPembatalan = true;
+
+            //        await refreshAllPesanan();
+
+
+            //    } else
+            //    {
+            //        infoPembatalan = false;
+            //    }
+
+            //    loadProses = false;
+            //    return;
+            //}
+
+
+            Pesanan_Change = headItem;
+            //await JSRuntime.InvokeVoidAsync("buttonClick", $"#closeModal");
+            //StateHasChanged();
+
+            
+            //await JSRuntime.InvokeVoidAsync("buttonClick", $"#buttonBatalMethod");
+            StateHasChanged();
+        }
+
+        private async Task AuthBatalkanPesanan(Pesanan.Headers headItem, bool direct = false)
         {
             infoPembatalan = null;
             StateHasChanged();
@@ -806,7 +912,7 @@ namespace PacificWeb.Components.Pages
             if (direct)
             {
                 loadProses = true;
-                var PembatalanStatus = await NewPdjService.CudPesananApi("TAMBAH", null , new ParameterApi
+                var PembatalanStatus = await NewPdjService.CudPesananApi("TAMBAH", null, new ParameterApi
                 {
                     routeApi = "order",
                     token = ScopedDataServices.ScopedData.DataLogin.token,
@@ -822,7 +928,8 @@ namespace PacificWeb.Components.Pages
                     await refreshAllPesanan();
 
 
-                } else
+                }
+                else
                 {
                     infoPembatalan = false;
                 }
@@ -836,7 +943,7 @@ namespace PacificWeb.Components.Pages
             //await JSRuntime.InvokeVoidAsync("buttonClick", $"#closeModal");
             //StateHasChanged();
 
-            
+
             //await JSRuntime.InvokeVoidAsync("buttonClick", $"#buttonBatalMethod");
             StateHasChanged();
         }
@@ -866,8 +973,43 @@ namespace PacificWeb.Components.Pages
             await JSRuntime.InvokeVoidAsync("initItemsOrder", id_kode);
         }
 
+        public async void NavigateToDetailProduk(string id)
+        {
+            List<string> stringData = await pdjService.DecodeEncode(true, new List<string> { id });
+            NavigationManager.NavigateTo($"/detail-produk/{stringData.FirstOrDefault()}", forceLoad: true);
+        }
+
         public async Task openPayment(Pesanan.Headers produk, List<Pesanan.Biayas> biaya = null)
         {
+            Pesanan_Create.Data.Header.Clear();
+            Pesanan_Create.Data.Biaya.Clear();
+            loadRefresh = true;
+            StateHasChanged();
+
+            if (produk.Metode_Bayar == "QRIS" && produk.Status_Order_1 == "belum bayar")
+            {
+                var base64Image = await GenerateImage(produk.Payment_Number_1, produk.Expiry_Time);
+                produk.QrBase64 = base64Image;
+            }
+
+            Pesanan_Create.Data.Header.Add(produk);
+            Pesanan_Create.Data.Biaya.AddRange(biaya);
+
+
+
+            if (Pesanan_Create.Data.Header.Count() >= 2) {
+                var data = Pesanan_Create.Data.Header.LastOrDefault();
+                Pesanan_Create.Data.Header.Remove(data);
+            }
+
+            loadRefresh = false;
+            StateHasChanged();
+        }
+
+        public async Task openPaymentSection(Pesanan.Headers produk)
+        {
+            List<Pesanan.Biayas> biaya = PesananList?.Data.Biaya.Where(x => x.No_Bukti == produk.No_Bukti).ToList();
+
             Pesanan_Create.Data.Header.Clear();
             Pesanan_Create.Data.Biaya.Clear();
             loadRefresh = true;
@@ -1348,6 +1490,8 @@ namespace PacificWeb.Components.Pages
                 ScopedDataServices.ScopedData.DataPesananBelum.TotalCount = data.TotalCount;
                 ScopedDataServices.ScopedData.DataPesananBelum.LastCursor = data.LastCursor;
 
+
+                PesananList = ScopedDataServices.ScopedData.DataPesananBelum;
             } 
 
             else if (pageTipe == "dikemas")
@@ -1376,6 +1520,8 @@ namespace PacificWeb.Components.Pages
                 ScopedDataServices.ScopedData.DataPesananDikemas.hasMore = data.hasMore;
                 ScopedDataServices.ScopedData.DataPesananDikemas.TotalCount = data.TotalCount;
                 ScopedDataServices.ScopedData.DataPesananDikemas.LastCursor = data.LastCursor;
+
+                PesananList = ScopedDataServices.ScopedData.DataPesananDikemas;
             } 
 
             else if (pageTipe == "dikirim")
@@ -1404,6 +1550,8 @@ namespace PacificWeb.Components.Pages
                 ScopedDataServices.ScopedData.DataPesananDikirim.hasMore = data.hasMore;
                 ScopedDataServices.ScopedData.DataPesananDikirim.TotalCount = data.TotalCount;
                 ScopedDataServices.ScopedData.DataPesananDikirim.LastCursor = data.LastCursor;
+
+                PesananList = ScopedDataServices.ScopedData.DataPesananDikirim;
             } 
 
             else if (pageTipe == "selesai")
@@ -1432,6 +1580,8 @@ namespace PacificWeb.Components.Pages
                 ScopedDataServices.ScopedData.DataPesananSelesai.hasMore = data.hasMore;
                 ScopedDataServices.ScopedData.DataPesananSelesai.TotalCount = data.TotalCount;
                 ScopedDataServices.ScopedData.DataPesananSelesai.LastCursor = data.LastCursor;
+
+                PesananList = ScopedDataServices.ScopedData.DataPesananSelesai;
             } 
 
             else if (pageTipe == "batal")
@@ -1460,6 +1610,8 @@ namespace PacificWeb.Components.Pages
                 ScopedDataServices.ScopedData.DataPesananBatal.hasMore = data.hasMore;
                 ScopedDataServices.ScopedData.DataPesananBatal.TotalCount = data.TotalCount;
                 ScopedDataServices.ScopedData.DataPesananBatal.LastCursor = data.LastCursor;
+
+                PesananList = ScopedDataServices.ScopedData.DataPesananBatal;
             } 
 
             

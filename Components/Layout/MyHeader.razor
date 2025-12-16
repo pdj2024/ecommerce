@@ -32,7 +32,7 @@
                 <!-- End Header Logo -->
             </div>
 
-            <div class="col-xxl-8 col-lg-8 col-md-4 col-4" style="height:100%">
+            <div class="col-xxl-7 col-lg-7 col-md-3 col-2" style="height:100%">
                 <div class="nav-inner" style="height:100%">
                     <!-- Start Navbar -->
                     <nav class="navbar-expand-lg" style="height:100%; display: flex;">
@@ -198,30 +198,44 @@
                 </div>
             </div>
             
-            <div class="col-4 d-lg-none d-flex justify-content-center">
+            <div class="col-4 col-md-4 d-lg-none d-flex justify-content-center">
                 <!-- Start Header Logo -->
-                <NavLink class="navbar-brand" style="cursor:pointer;" @onclick="@(e => NavigateToHome(""))" >
+                <NavLink class="navbar-brand d-none d-md-block d-lg-none" style="cursor:pointer;" @onclick="@(e => NavigateToHome(""))">
                     <img src="@(@GlobalDataService?.GlobalData?.ListDataCompany?.FirstOrDefault()?.Media?.FirstOrDefault( x => x.Media_Type == "landscape").Id_Media ?? "images/logo/logo-pdj.png")" alt="Logo">
                 </NavLink>
 
                 <!-- End Header Logo -->
             </div>
             
-            <div class="col-xxl-2 col-lg-2 col-md-4 col-4 p-0" >
+            <div class="col-xxl-3 col-lg-3 col-md-5 col-6 p-0 h-100 d-flex align-items-center justify-content-end" >
                 <div class="navbar-cart">
-                    <div class="wishlist" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                        <a href="javascript:void(0)" class="menu-logo">
+
+                    <div class="wishlist" @onclick="FocusSearch" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                        <a href="javascript:void(0)" class="menu-logo d-none d-xl-flex" style="gap: 9px;border-radius: 23px;width:145px;">
                             <svg xmlns="http://www.w3.org/2000/svg" class="" width="22" height="22" viewBox="0 0 24 24" fill="none">
                                 <path d="M10.875 18.75C15.2242 18.75 18.75 15.2242 18.75 10.875C18.75 6.52576 15.2242 3 10.875 3C6.52576 3 3 6.52576 3 10.875C3 15.2242 6.52576 18.75 10.875 18.75Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                                 <path d="M16.4434 16.4453L20.9997 21.0016" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
                             </svg>
+                            <span style="font-size:12px">
+                                Cari Produk
+                            </span>
+                        </a>
+                        <a href="javascript:void(0)" class="menu-logo d-flex d-xl-none" style="gap: 9px;border-radius: 23px;width:145px">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="" width="22" height="22" viewBox="0 0 24 24" fill="none">
+                                <path d="M10.875 18.75C15.2242 18.75 18.75 15.2242 18.75 10.875C18.75 6.52576 15.2242 3 10.875 3C6.52576 3 3 6.52576 3 10.875C3 15.2242 6.52576 18.75 10.875 18.75Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                <path d="M16.4434 16.4453L20.9997 21.0016" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                            </svg>
+                            <span style="font-size:12px">
+                                Cari Produk
+                            </span>
                         </a>
                     </div>
+
 
                     <AuthorizeView>
 
                         <Authorized>
-                            <div id="openCartProd" class="wishlist d-none d-md-none d-lg-flex" data-bs-toggle="offcanvas" data-bs-target="#offcanvascart" aria-controls="offcanvascart">
+                            <div id="openCartProd" class="wishlist d-none d-md-none d-lg-none d-xl-flex" data-bs-toggle="offcanvas" data-bs-target="#offcanvascart" aria-controls="offcanvascart">
                                 <a href="javascript:void(0)" class="menu-logo">
                                     <i class="lni lni-cart-1" style="font-size:20px; font-weight:400;"></i>
                                     <span class="total-items"> @(ScopedDataServices?.ScopedData?.ListDataCart != null ? ScopedDataServices?.ScopedData?.ListDataCart.Count() : 0)</span>
@@ -229,11 +243,18 @@
                             </div>
 
                             <div class="dropdown text-end wishlist-2"> 
-                                <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle item-head menu-logo" data-bs-toggle="dropdown" aria-expanded="false"> 
+                                <a href="#" class="d-block d-md-block d-lg-block d-xl-none link-body-emphasis text-decoration-none dropdown-toggle item-head menu-logo" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="lni lni-user-4" style="font-size:20px; font-weight:400;"></i>
-                                    <span class="total-items">
+                                    <span class="total-items ">
+                                        @((ScopedDataServices?.ScopedData?.ListDataSummaryPesanan?.FirstOrDefault()?.summary.Sum(x => x.status_order_1.ToLower() == "belum bayar" || x.status_order_1.ToLower() == "dikemas" || x.status_order_1.ToLower() == "dikirim" ? x.jumlah : 0) ?? 0) + (ScopedDataServices?.ScopedData?.ListDataCart != null ? ScopedDataServices?.ScopedData?.ListDataCart.Count() : 0))
+                                    </span> 
+                                </a> 
+                                <a href="#" class="d-none d-md-none d-lg-none d-xl-block link-body-emphasis text-decoration-none dropdown-toggle item-head menu-logo" data-bs-toggle="dropdown" aria-expanded="false"> 
+                                    <i class="lni lni-user-4" style="font-size:20px; font-weight:400;"></i>
+                                    <span class="total-items ">
                                         @(ScopedDataServices?.ScopedData?.ListDataSummaryPesanan?.FirstOrDefault()?.summary.Sum(x => x.status_order_1.ToLower() == "belum bayar" || x.status_order_1.ToLower() == "dikemas" || x.status_order_1.ToLower() == "dikirim" ? x.jumlah : 0) ?? 0)
                                     </span> 
+ 
                                 </a> 
                                 <ul class="dropdown-menu text-small" style=""> 
                                     <li style="cursor:pointer;" class="d-md-flex d-lg-none">
@@ -341,20 +362,33 @@
     <div class="offcanvas-body">
         <div class="row">
             <div class="col-12">
-                <div class="input-group mb-3 style-grup">
-                    <span class="input-group-text" id="basic-addon1" style="padding: 0px;"><i class="lni lni-search-1" style="font:normal normal normal 22px/1 'Lineicons';"></i></span>
-                    <InputText autocomplete="off" @onkeydown="HandleKeyDown" @bind-Value=@SearchText @oninput="@(e => OnSearchInput(e.Value?.ToString()))" type="text" class="form-control search-form" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1" />
-                    <button class="clear-search" @onclick="@(e => OnClearInput())" >
-                        @if(loadProses)
-                            {
-                                <div class="spinner-border spinner-border-sm" role="status">
-                                    <span class="visually-hidden">Loading...</span>
-                                </div>
-                            } else
-                            {
-                                <span>Hapus</span>
-                            }
-                    </button>
+                <div class="input-group mb-3 style-grup" style="padding: 0.5rem 1rem !important;">
+                    <span class="input-group-text" id="basic-addon1" style="padding: 0px 10px;">
+                        <i class="lni lni-search-1" style="font:normal normal normal 22px/1 'Lineicons';" />
+                    </span>
+                    <InputText autocomplete="off" @onkeydown="HandleKeyDown" @bind-Value=@SearchText @oninput="@(e => OnSearchInput(e.Value?.ToString()))" type="text" id="searchFieldSelect" class="form-control search-form" placeholder="Cari Produk..." aria-label="Search" aria-describedby="basic-addon1" />
+
+                    @if (SearchText != "") 
+                    {
+                        <button class="clear-search px-2" @onclick="@(e => OnClearInput())" >
+                            @if(loadProses)
+                                {
+                                    <div class="spinner-border spinner-border-sm" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                } else
+                                {
+                                    <span>Hapus</span>
+                                }
+                        </button>
+                        <span class="input-group-text" id="basic-addon1" style="padding: 0px;">
+                        |
+                        </span>
+                        <button class="clear-search px-2" @onclick="@(e => SearchCari())" >
+                            <span>Cari</span>
+                        </button>
+                    }
+
                 </div>
             </div>
 
@@ -443,8 +477,10 @@
                             
                 <div class="col-12 mt-3">
                     <div class="btn-group w-100">
-                        <button class="btn-slide justify-content-start border-0" type="button" @onclick="@(x => seeResult())" aria-expanded="false">
-                            Lihat semua hasil untuk “@SearchText”
+                        <button class="btn-slide justify-content-start border-0" style="border: 1px solid #ccc !important;" type="button" @onclick="@(x => seeResult())" aria-expanded="false">
+                            <span>
+                                Lihat semua hasil untuk “@SearchText”
+                            </span>
                         </button>
                     </div>
                 </div>
@@ -460,7 +496,7 @@
                         <path d="m634-440-81-80h69l110-200H353l-80-80h525q23 0 35.5 19.5t.5 42.5L692-482q-11 20-28 31t-30 11ZM280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm540 52L566-280H304q-44 0-67-37.5t-3-78.5l42-86-72-162L28-820l56-56L876-84l-56 56ZM486-360l-80-80h-62l-40 80h182Zm136-160h-69 69Zm58 440q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80Z"/>
                     </svg>
                     <h5 style="color:#6b7280">Tidak Ditemukan Hasil "@SearchText"</h5>
-                    <p style="color:#6b7280">Periksa ejaan atau gunakan kata berbeda.</p>
+                    <p style="color:#6b7280">Periksa ejaan atau gunakan kata yang berbeda.</p>
                 </div>
             }
 
@@ -473,8 +509,8 @@
 <div class="offcanvas offcanvas-start" style="width: 500px;" tabindex="-1" id="offcanvasLeft" aria-labelledby="offcanvasLeftLabel">
     <div class="offcanvas-header py-0">
         <div style="width:35%">
-            <NavLink class="navbar-brand" style="cursor:pointer;" @onclick="@(e => NavigateToHome(""))" >
-                <img src="@(@GlobalDataService?.GlobalData?.ListDataCompany?.FirstOrDefault()?.Media?.FirstOrDefault( x => x.Media_Type == "landscape").Id_Media ?? "images/logo/logo-pdj.png")" alt="Logo">
+            <NavLink class="navbar-brand" style="cursor:pointer;" @onclick="@(e => NavigateToHome("", true))" >
+                <img src="@(@GlobalDataService?.GlobalData?.ListDataCompany?.FirstOrDefault()?.Media?.FirstOrDefault( x => x.Media_Type == "landscape").Id_Media ?? "images/logo/logo-pdj.png")" style="height:60px" alt="Logo">
             </NavLink>
         </div>
         <button type="button" class="btn-close text-reset me-3" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -711,23 +747,38 @@
                                 {
                                     <img class="cart-img" src="/images/products/placeholder1.png" style="width:33%; margin-right:0px;" alt="#">
                                 }
-                                <div class="d-flex flex-column justify-content-center h-100" style="gap:5px; width:90%">
+                                <div class="d-flex flex-column justify-content-between h-100" style="gap:5px; width:90%">
                                     <h4>
                                         <a @onclick=@(() => NavigateToDetailProduk(cart.Id_Produk)) class="line-clamp-1" style="font-size:15px; cursor:pointer">
                                             @(cart.Nama_Display)
                                         </a>
                                     </h4>
-                                    <p class="variant" style="background-color: #eee;width: fit-content;padding: 1px 5px;border-radius: 0px;">
-                                        @($"{cart.Option_Label}, {cart.Size_Label}")
-                                    </p>
-                                    <p class="quantity">
-                                        <span class="amount" style="font-size:16px; font-weight:600;">@string.Format("Rp. {0:N0}", (cart?.Harga - (cart?.Harga * (cart?.Diskon1 / 100))))</span>
-                                    </p>
+                                    <div class="d-flex flex-row gap-2">
+
+                                        <div class="qty-box" style="width: 40%;height: 34px;padding: 21px 5px;gap: 8px;">
+                                            <button disabled=@(cart.Show_Min_Order || cart.Qty <= cart.Min_Order) style="font-size: 15px; @(cart.Show_Min_Order || cart.Qty <= cart.Min_Order ? "cursor:not-allowed" : "") " @onclick="() => Decrease(cart.Id_Cart)">–</button>
+                                            <span style="font-size: 15px;height: 100%;display: flex;align-items: center;">@cart.Qty</span>
+                                            <button disabled=@(cart.Show_Max_Order || cart.Qty >= cart.Stock) style="font-size: 20px; @(cart.Show_Max_Order || cart.Qty >= cart.Stock ? "cursor:not-allowed" : "") " @onclick="() => Increase(cart.Id_Cart)">+</button>
+                                        </div>
+
+                                        <div class="d-flex flex-column justify-content-center h-100">
+                                            <p class="variant" style="width: 116px;border-radius: 0px; font-size:13px; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                                <span style="background-color: #eee; padding: 1px 5px;">
+                                                    @($"{cart.Size_Label}, {cart.Option_Label}")
+                                                </span>
+                                            </p>
+                                            <p class="quantity">
+                                                <span class="amount" style="font-size:15px; font-weight:600;">@string.Format("Rp. {0:N0}", (cart?.Harga - (cart?.Harga * (cart?.Diskon1 / 100))))</span>
+                                            </p>
+                                        </div>
+
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="content content-qty">
-                                <div style="display: flex;justify-content:space-between;flex-direction: row-reverse;width:80%;">
+
+                                <div style="display: flex;justify-content:space-between;flex-direction: row;width:80%;">
                                     <a @onclick=@(() => deleteItemCart(cart)) class="hapus-card-item" style="cursor:pointer;" title="Remove this item">
                                         @if(loadProses)
                                         {
@@ -748,11 +799,13 @@
                                         <span></span>
                                     </label>
                                 </div>
-                                <div class="qty-box" style="width: 80%;height: 34px;padding: 21px 5px;gap: 8px;">
-                                    <button disabled=@(cart.Show_Min_Order || cart.Qty <= cart.Min_Order) style="font-size: 15px; @(cart.Show_Min_Order || cart.Qty <= cart.Min_Order ? "cursor:not-allowed" : "") " @onclick="() => Decrease(cart.Id_Cart)">–</button>
-                                    <span style="font-size: 15px;height: 100%;display: flex;align-items: center;">@cart.Qty</span>
-                                    <button disabled=@(cart.Show_Max_Order || cart.Qty >= cart.Stock) style="font-size: 20px; @(cart.Show_Max_Order || cart.Qty >= cart.Stock ? "cursor:not-allowed" : "") " @onclick="() => Increase(cart.Id_Cart)">+</button>
+                                
+                                <div class="d-flex flex-column justify-content-end h-100">
+                                    <p class="quantity text-primary">
+                                        <span class="amount" style="font-size:15px; font-weight:600;">@string.Format("Rp. {0:N0}", ((cart?.Harga - (cart?.Harga * (cart?.Diskon1 / 100)))) *  cart.Qty)</span>
+                                    </p>
                                 </div>
+
                             </div>
 
                             <div class="w-100">
@@ -809,7 +862,7 @@
                         </div>
                     } else
                     {
-                        <span class="total-amount">
+                        <span class="total-amount text-primary" style="font-size:18px; font-weight:600;">
                             @string.Format("Rp. {0:N0}", nettoKeranjang)
                         </span>
                     }
@@ -864,11 +917,13 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="input-group mb-3 style-grup px-1 border-1 pt-2 pb-2 form-style">
-                                    <InputText @bind-value=@ModelRegist.NoTlp @oninput=@(x => NumberOnlyInput(x, "phone")) id="phone" type="tel" name="phone" class="form-control search-form form-text input-otp" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" placeholder="Nomor Telepon *" required style="padding-left: 85px; font-size: 14px;" />
+                                    <InputText @bind-value=@ModelRegist.NoTlp @oninput=@(x => NumberOnlyInput(x, "phone")) id="phone" type="tel" name="phone" class="form-control search-form form-text input-otp" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" placeholder="Nomor Telepon *" required style="padding-left: 85px; font-size: 14px; font-weight:500" />
                                 </div>
 
-                                <div class="input-group mb-3 style-grup px-1 border-1 py-1 pb-2 form-style">
-                                    <InputText type="password" @bind-Value="ModelRegist.Password" id="Password-Regist" style="font-size: 14px;" class="form-control search-form form-text" placeholder="Kata Sandi *" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" required />
+                                <div class="input-group mb-3 d-flex align-items-center style-grup px-1 border-1 py-1 pb-2 form-style">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor" style="position: absolute;left: 16px; color: #a2a2a2;" >
+                                        <path d="M280-400q-33 0-56.5-23.5T200-480q0-33 23.5-56.5T280-560q33 0 56.5 23.5T360-480q0 33-23.5 56.5T280-400Zm0 160q-100 0-170-70T40-480q0-100 70-170t170-70q67 0 121.5 33t86.5 87h352l120 120-180 180-80-60-80 60-85-60h-47q-32 54-86.5 87T280-240Zm0-80q56 0 98.5-34t56.5-86h125l58 41 82-61 71 55 75-75-40-40H435q-14-52-56.5-86T280-640q-66 0-113 47t-47 113q0 66 47 113t113 47Z" /></svg>
+                                    <InputText type="password" @bind-Value="ModelRegist.Password" id="Password-Regist" style="padding-left: 57px; font-size: 14px;" class="form-control search-form form-text" placeholder="Kata Sandi *" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" required />
                                 </div>
 
                                 <div>
@@ -942,10 +997,13 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="input-group mb-3 style-grup px-1 border-1 pt-2 pb-2 form-style">
-                                        <InputText @bind-Value=@Model.NoTlp @oninput=@(x => NumberOnlyInput(x, "phone-login")) id="phone-login" type="tel" name="phone" class="form-control search-form form-text" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" placeholder="Nomor Telepon *" style="padding-left: 85px; font-size: 14px;" />
+                                        <InputText @bind-Value=@Model.NoTlp @oninput=@(x => NumberOnlyInput(x, "phone-login")) id="phone-login" type="tel" name="phone" class="form-control search-form form-text" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" placeholder="Nomor Telepon *" style="padding-left: 85px; font-size: 14px; font-weight:500" />
                                     </div>
-                                    <div class="input-group mb-3 style-grup px-1 border-1 py-1 pb-2 form-style">
-                                        <InputText type="password" @bind-Value="Model.Password" id="Password-Login" style="font-size: 14px;" class="form-control search-form form-text" placeholder="Kata Sandi *" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" />
+                                    <div class="input-group mb-3 d-flex align-items-center style-grup px-1 border-1 py-1 pb-2 form-style">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor" style="position: absolute;left: 16px; color: #a2a2a2;" >
+                                            <path d="M280-400q-33 0-56.5-23.5T200-480q0-33 23.5-56.5T280-560q33 0 56.5 23.5T360-480q0 33-23.5 56.5T280-400Zm0 160q-100 0-170-70T40-480q0-100 70-170t170-70q67 0 121.5 33t86.5 87h352l120 120-180 180-80-60-80 60-85-60h-47q-32 54-86.5 87T280-240Zm0-80q56 0 98.5-34t56.5-86h125l58 41 82-61 71 55 75-75-40-40H435q-14-52-56.5-86T280-640q-66 0-113 47t-47 113q0 66 47 113t113 47Z" />
+                                        </svg>
+                                        <InputText type="password" @bind-Value="Model.Password" id="Password-Login" style="padding-left: 57px; font-size: 14px;" class="form-control search-form form-text" placeholder="Kata Sandi *" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" />
                                     </div>
 
                                     <div>
@@ -1008,11 +1066,14 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="input-group mb-3 style-grup px-1 border-1 pt-2 pb-2 form-style">
-                                    <InputText id="phone-change" @bind-value=@ModelRegist.NoTlp @oninput=@(x => NumberOnlyInput(x, "phone-change")) type="tel" name="phone-change" class="form-control search-form form-text input-otp" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" placeholder="Nomor Telepon *" required style="padding-left: 85px; font-size: 14px;" />
+                                    <InputText id="phone-change" @bind-value=@ModelRegist.NoTlp @oninput=@(x => NumberOnlyInput(x, "phone-change")) type="tel" name="phone-change" class="form-control search-form form-text input-otp" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" placeholder="Nomor Telepon *" required style="padding-left: 85px; font-size: 14px; font-weight:500" />
                                 </div>
 
-                                <div class="input-group mb-3 style-grup px-1 border-1 py-1 pb-2 form-style">
-                                    <InputText type="password" @bind-value=@ModelRegist.Password id="Password" style="font-size: 14px;" class="form-control search-form form-text" placeholder="Masukkan Kata Sandi Baru *" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" required />
+                                <div class="input-group mb-3 d-flex align-items-center style-grup px-1 border-1 py-1 pb-2 form-style">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor" style="position: absolute;left: 16px; color: #a2a2a2;" >
+                                        <path d="M280-400q-33 0-56.5-23.5T200-480q0-33 23.5-56.5T280-560q33 0 56.5 23.5T360-480q0 33-23.5 56.5T280-400Zm0 160q-100 0-170-70T40-480q0-100 70-170t170-70q67 0 121.5 33t86.5 87h352l120 120-180 180-80-60-80 60-85-60h-47q-32 54-86.5 87T280-240Zm0-80q56 0 98.5-34t56.5-86h125l58 41 82-61 71 55 75-75-40-40H435q-14-52-56.5-86T280-640q-66 0-113 47t-47 113q0 66 47 113t113 47Z" />
+                                    </svg>
+                                    <InputText type="password" @bind-value=@ModelRegist.Password id="Password" style="font-size: 14px; padding-left: 57px;" class="form-control search-form form-text" placeholder="Masukkan Kata Sandi Baru *" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" required />
                                 </div>
 
                                 <div>

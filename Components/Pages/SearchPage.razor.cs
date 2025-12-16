@@ -67,6 +67,7 @@ namespace PacificWeb.Components.Pages
         {
             public string Nama_Display { get; set; }
             public string No_Id { get; set; }
+            public string Tipe { get; set; }
             public bool Checked { get; set; }
         }
         public class searchParam
@@ -75,6 +76,11 @@ namespace PacificWeb.Components.Pages
             public string Kategori { get; set; }
             public string Produk { get; set; }
             public string Brand { get; set; }
+            public int? minHarga { get; set; }
+            public int? maxHarga { get; set; }
+            public bool sort { get; set; }
+            public bool allowRange { get; set; }
+            public string sortBy { get; set; }
         }
 
         public List<FilterItem> ListFilter { get; set; } = new List<FilterItem>();
@@ -84,6 +90,7 @@ namespace PacificWeb.Components.Pages
         public searchParam SearchQuery { get; set; } = new searchParam();
 
         private string SearchText = "";
+        private string JudulPage = "Hasil Pencarian";
         private string ShortActive = "Nama, A - Z";
         private bool ShortDirect = true;
 
@@ -96,7 +103,8 @@ namespace PacificWeb.Components.Pages
         public int searchCount { get; set; } = 0;
         public int minHarga { get; set; } = 0;
         public int maxHarga { get; set; } = 0;
-        public int Termahal { get; set; } = 2000000;
+        public int Termahal { get; set; } = 0;
+        public int Termurah { get; set; } = 0;
         public bool loadProses { get; set; } = false;
         public bool loadContent { get; set; } = true;
         public bool firstInject { get; set; } = true;
@@ -159,7 +167,7 @@ namespace PacificWeb.Components.Pages
         {
             if (firstRender)
             {
-
+                await JSRuntime.InvokeVoidAsync("scrollToTop");
 
                 var uri = new Uri(NavigationManager.Uri);
                 var queryParams = QueryHelpers.ParseQuery(uri.Query);
@@ -169,9 +177,18 @@ namespace PacificWeb.Components.Pages
                     SearchQuery.Keyword = Encoding.UTF8.GetString(Convert.FromBase64String(dataKeyword));
                 }
 
-                if (queryParams.TryGetValue("produk", out var dataProduk))
+                if (queryParams.TryGetValue("promo", out var dataProduk))
                 {
                     SearchQuery.Produk = Encoding.UTF8.GetString(Convert.FromBase64String(dataProduk));
+
+                    if(SearchQuery.Produk != null || SearchQuery.Produk != "")
+                    {
+                        var Navbar = GlobalDataService.GlobalData.ListDataNavbar.FirstOrDefault(x => x.Nav_Type == SearchQuery.Produk);
+                        SearchQuery.Produk = string.Join(",", Navbar.Filter.Select(x => x));
+                        JudulPage = Navbar.Display_Text;
+                        StateHasChanged();
+                    } 
+
                 }
 
                 if (queryParams.TryGetValue("kategori", out var dataKategori))
@@ -182,6 +199,61 @@ namespace PacificWeb.Components.Pages
                 if (queryParams.TryGetValue("brand", out var dataBrand))
                 {
                     SearchQuery.Brand = Encoding.UTF8.GetString(Convert.FromBase64String(dataBrand));
+                }
+
+                try
+                {
+                    if (queryParams.TryGetValue("minharga", out var dataMin))
+                    {
+                        SearchQuery.minHarga = Convert.ToInt32(Encoding.UTF8.GetString(Convert.FromBase64String(dataMin)));
+                    }
+                }
+                catch
+                {
+                    SearchQuery.minHarga = null;
+                }
+
+                try
+                {
+                    if (queryParams.TryGetValue("maxharga", out var dataMax))
+                    {
+                        SearchQuery.maxHarga = Convert.ToInt32(Encoding.UTF8.GetString(Convert.FromBase64String(dataMax)));
+                    }
+                }
+                catch
+                {
+                    SearchQuery.maxHarga = null;
+                }
+
+
+                try
+                {
+                    if (queryParams.TryGetValue("sort", out var sort))
+                    {
+                        SearchQuery.sort = Convert.ToBoolean(Encoding.UTF8.GetString(Convert.FromBase64String(sort)));
+                    }
+                }
+                catch
+                {
+                    SearchQuery.sort = true;
+                }
+
+                try
+                { 
+                    if (queryParams.TryGetValue("allowRange", out var allowRange))
+                    {
+                        SearchQuery.allowRange = Convert.ToBoolean(Encoding.UTF8.GetString(Convert.FromBase64String(allowRange)));
+                    }
+                }
+                catch
+                {
+                    SearchQuery.allowRange = false;
+                }
+
+
+                if (queryParams.TryGetValue("sortBy", out var sortBy))
+                {
+                    SearchQuery.sortBy = Encoding.UTF8.GetString(Convert.FromBase64String(sortBy));
                 }
 
                 SearchText = SearchQuery.Keyword;
@@ -217,7 +289,7 @@ namespace PacificWeb.Components.Pages
 
                         if (kate != null)
                         {
-                            ListFilter.Add(new FilterItem { No_Id = kate.No_Id, Nama_Display = kate.Nama_Kategori, Checked = true });
+                            ListFilter.Add(new FilterItem { No_Id = kate.No_Id, Nama_Display = kate.Nama_Kategori, Tipe = "kategori", Checked = true });
                             kate.Checked_Filter = true;
                         }
                     }
@@ -231,12 +303,24 @@ namespace PacificWeb.Components.Pages
 
                         if (kate != null)
                         {
-                            ListFilter.Add(new FilterItem { No_Id = kate.No_Id, Nama_Display = kate.Nama_Brand, Checked = true });
+                            ListFilter.Add(new FilterItem { No_Id = kate.No_Id, Nama_Display = kate.Nama_Brand, Tipe = "brand", Checked = true });
                             kate.Checked_Filter = true;
                         }
                     }
                 }
 
+
+                if (SearchQuery.allowRange)
+                {
+                    if (SearchQuery?.maxHarga > 0)
+                    {
+                        ListFilter.Add(new FilterItem { Nama_Display = $"{string.Format("Rp. {0:N0}", SearchQuery.minHarga)} - {string.Format("Rp. {0:N0}", SearchQuery.maxHarga)}", No_Id = "FilterHarga", Tipe = "harga", Checked = true });
+                    }
+                }
+
+                ShortActive = SearchQuery?.sortBy != null ? SearchQuery?.sortBy : "Nama, A - Z";
+                ShortDirect = SearchQuery?.sort != null ? SearchQuery.sort : true;
+                allowHarga = SearchQuery.allowRange;
 
                 var searchTask = pdjService.GetSearchApi(new ParameterApi
                 {
@@ -255,8 +339,10 @@ namespace PacificWeb.Components.Pages
                         cursor_id = "",
                         cursor_nama = "",
                         cursor_harga = "",
-                        orderBy = ShortActive == "Nama, A - Z" || ShortActive == "Nama, Z - A" ? "nama_display" : "harga",
-                        orderDir = ShortDirect ? "asc" : "desc"
+                        min_harga = allowHarga ? SearchQuery.minHarga.ToString() : null,
+                        max_harga = allowHarga ? (SearchQuery.maxHarga <= 0 ? null : SearchQuery.maxHarga.ToString()) : null,
+                        orderBy = SearchQuery.sortBy == "Nama, A - Z" || ShortActive == "Nama, Z - A" ? "nama_display" : "harga",
+                        orderDir = SearchQuery.sort ? "asc" : "desc"
                     }
                 });
 
@@ -265,13 +351,18 @@ namespace PacificWeb.Components.Pages
                 await Task.WhenAll(react, searchTask);
                 dataSourch.SearchList = searchTask.Result;
 
+                Termahal = dataSourch.SearchList.priceMax;
+
+                minHarga = allowHarga ? (SearchQuery.minHarga ?? 0) : 0;
+                maxHarga = allowHarga ? (SearchQuery.maxHarga ?? dataSourch.SearchList.priceMax) : dataSourch.SearchList.priceMax;
+                searchCount = dataSourch.SearchList.TotalCount == 0 ? -1 : dataSourch.SearchList.TotalCount;
+
 
                 dataSourch.Finised = true;
                 ScopedDataServices.ScopedData.Finised = true;
                 loadContent = false;
                 StateHasChanged();
 
-                await JSRuntime.InvokeVoidAsync("scrollToTop");
                 await JSRuntime.InvokeVoidAsync("initslideProduct");
                 StateHasChanged();
 
@@ -281,6 +372,21 @@ namespace PacificWeb.Components.Pages
                 StateHasChanged();
             }
 
+        }
+
+        private void HandleKeyDown(KeyboardEventArgs e)
+        {
+            if (e.Key == "Enter" && !string.IsNullOrWhiteSpace(SearchText))
+            {
+                var keywordText = Convert.ToBase64String(Encoding.UTF8.GetBytes(SearchText));
+                NavigationManager.NavigateTo($"/search-page?keyword={Uri.EscapeDataString(keywordText)}", false);
+            }
+        }
+
+        private void SearchCari()
+        {
+            var keywordText = Convert.ToBase64String(Encoding.UTF8.GetBytes(SearchText));
+            NavigationManager.NavigateTo($"/search-page?keyword={Uri.EscapeDataString(keywordText)}", false);
         }
 
         [JSInvokable]
@@ -319,7 +425,6 @@ namespace PacificWeb.Components.Pages
             StateHasChanged();
         }
 
-
         private void OnShortChanged(string value, bool orderDir)
         {
             ShortActive = value;
@@ -353,19 +458,17 @@ namespace PacificWeb.Components.Pages
             StateHasChanged();
         }
 
-
         private async void OnClearInput()
         {
             SearchText = "";
 
-            dataSourch.SearchList = (new List<Brand>(), new List<Produk>(), 0, false);
+            dataSourch.SearchList = (new List<Brand>(), new List<Produk>(), 0, false,0);
 
             searchCount = 0;
 
             await SearchDataAsync(SearchText);
             StateHasChanged();
         }
-
 
         private async void OnChangeViewSm(bool value)
         {
@@ -450,7 +553,7 @@ namespace PacificWeb.Components.Pages
                 var Item = dataSourch.ListDataKategori.FirstOrDefault( x => x.No_Id == dataKategori.No_Id);
                 var Data = ListFilter.FirstOrDefault(x => x.No_Id == Item.No_Id && x.Nama_Display == Item.Nama_Kategori);
 
-                if (Data == null) ListFilter.Add(new FilterItem { No_Id = Item.No_Id, Nama_Display = Item.Nama_Kategori, Checked = true });
+                if (Data == null) ListFilter.Add(new FilterItem { No_Id = Item.No_Id, Tipe = "kategori", Nama_Display = Item.Nama_Kategori, Checked = true });
                 else ListFilter.Remove(Data);
 
 
@@ -470,7 +573,7 @@ namespace PacificWeb.Components.Pages
                 var Item = dataSourch.ListDataBrand.FirstOrDefault(x => x.No_Id == dataBrand.No_Id);
                 var Data = ListFilter.FirstOrDefault(x => x.No_Id == Item.No_Id && x.Nama_Display == Item.Nama_Brand);
 
-                if (Data == null) ListFilter.Add(new FilterItem { No_Id = Item.No_Id, Nama_Display = Item.Nama_Brand, Checked = true });
+                if (Data == null) ListFilter.Add(new FilterItem { No_Id = Item.No_Id, Tipe = "brand", Nama_Display = Item.Nama_Brand, Checked = true });
                 else ListFilter.Remove(Data);
 
 
@@ -543,7 +646,6 @@ namespace PacificWeb.Components.Pages
             NavigationManager.NavigateTo($"/detail-produk/{id}", forceLoad: false);
         }
 
-
         private void OnSearchInput(string? value)
         {
             SearchText = value;
@@ -575,9 +677,10 @@ namespace PacificWeb.Components.Pages
             _debounceTimer.Start();
         }
 
-
         private async Task SearchDataAsync(string? query)
         {
+            SearchCombo();
+
             dataSourch.SearchList = await pdjService.GetSearchApi(new ParameterApi
             {
                 routeApi = "produk",
@@ -587,6 +690,7 @@ namespace PacificWeb.Components.Pages
                     keyword = query,
                     kategoriid_list = string.Join(",", dataSourch.ListDataKategori.Where(x => x.Checked_Filter == true).Select(x => x.No_Id)),
                     brandid_list = string.Join(",", dataSourch.ListDataBrand.Where(x => x.Checked_Filter == true).Select(x => x.No_Id)),
+                    noid_list = SearchQuery.Produk != null && SearchQuery.Produk != "" ? SearchQuery.Produk : null,
                     strict_kategori = true,
                     pagesize = 12,
                     show_variant = true,
@@ -601,10 +705,15 @@ namespace PacificWeb.Components.Pages
                 }
             });
 
+
+
             searchCount = dataSourch.SearchList.TotalCount == 0 ? -1 : dataSourch.SearchList.TotalCount;
+            //Termahal = dataSourch.SearchList.priceMax;
+
 
             StateHasChanged();
             await JSRuntime.InvokeVoidAsync("initslideProduct");
+
         }
 
         private async Task showMore()
@@ -621,6 +730,7 @@ namespace PacificWeb.Components.Pages
                     keyword = SearchText,
                     kategoriid_list = string.Join(",", dataSourch.ListDataKategori.Where(x => x.Checked_Filter == true).Select(x => x.No_Id)),
                     brandid_list = string.Join(",", dataSourch.ListDataBrand.Where(x => x.Checked_Filter == true).Select(x => x.No_Id)),
+                    noid_list = SearchQuery.Produk != null && SearchQuery.Produk != "" ? SearchQuery.Produk : null,
                     strict_kategori = true,
                     pagesize = 12,
                     show_variant = true,
@@ -628,9 +738,9 @@ namespace PacificWeb.Components.Pages
                     min_harga = allowHarga ? minHarga.ToString() : null,
                     max_harga = allowHarga ? maxHarga.ToString() : null,
                     cursor_id = dataSourch.SearchList.SearchProduk.LastOrDefault()?.No_Id ?? "",
-                    cursor_nama = ShortActive == "Name, A - Z" || ShortActive == "Name, Z - A" ? dataSourch.SearchList.SearchProduk.LastOrDefault()?.Nama_Display ?? "" : "",
-                    cursor_harga = ShortActive == "Name, A - Z" || ShortActive == "Name, Z - A" ? "" : dataSourch.SearchList.SearchProduk.LastOrDefault()?.Harga.ToString() ?? "",
-                    orderBy = ShortActive == "Name, A - Z" || ShortActive == "Name, Z - A" ? "nama_display" : "harga",
+                    cursor_nama = ShortActive == "Nama, A - Z" || ShortActive == "Nama, Z - A" ? dataSourch.SearchList.SearchProduk.LastOrDefault()?.Nama_Display ?? "" : "",
+                    cursor_harga = ShortActive == "Nama, A - Z" || ShortActive == "Nama, Z - A" ? "" : dataSourch.SearchList.SearchProduk.LastOrDefault()?.Harga.ToString() ?? "",
+                    orderBy = ShortActive == "Nama, A - Z" || ShortActive == "Nama, Z - A" ? "nama_display" : "harga",
                     orderDir = ShortDirect ? "asc" : "desc"
                 }
             });
@@ -638,13 +748,41 @@ namespace PacificWeb.Components.Pages
             var data = dataSourch.SearchList.SearchProduk;
             data.AddRange(NewList.SearchProduk);
 
-            dataSourch.SearchList = (NewList.SearchBrand, data, NewList.TotalCount, NewList.hasMore);
+            //maxHarga = dataSourch.SearchList.priceMax;
+            dataSourch.SearchList = (NewList.SearchBrand, data, NewList.TotalCount, NewList.hasMore, NewList.priceMax);
+
 
             searchCount = dataSourch.SearchList.TotalCount == 0 ? -1 : dataSourch.SearchList.TotalCount;
 
             loadProses = false;
             StateHasChanged();
             await JSRuntime.InvokeVoidAsync("initslideProduct");
+        }
+
+        public void SearchCombo()
+        {
+            var bra = "";
+            var kate = "";
+            var keyword = "";
+            var sort = "";
+            var sortBy = "";
+            var minHrg = "";
+            var maxHrg = "";
+            var allowRange = "";
+
+            if (ListFilter != null)
+            {
+                bra = Convert.ToBase64String(Encoding.UTF8.GetBytes(string.Join(",", ListFilter.Where(x => x.Tipe == "brand").ToList().Select(x => x.No_Id))));
+                kate = Convert.ToBase64String(Encoding.UTF8.GetBytes(string.Join(",", ListFilter.Where(x => x.Tipe == "kategori").ToList().Select(x => x.No_Id))));
+                keyword = Convert.ToBase64String(Encoding.UTF8.GetBytes(SearchText));
+                sort = Convert.ToBase64String(Encoding.UTF8.GetBytes(ShortDirect.ToString()));
+                sortBy = Convert.ToBase64String(Encoding.UTF8.GetBytes(ShortActive));
+                minHrg = Convert.ToBase64String(Encoding.UTF8.GetBytes(minHarga.ToString()));
+                maxHrg = Convert.ToBase64String(Encoding.UTF8.GetBytes(maxHarga.ToString()));
+                allowRange = Convert.ToBase64String(Encoding.UTF8.GetBytes(allowHarga.ToString()));
+            }
+
+            NavigationManager.NavigateTo($"/search-page?keyword={Uri.EscapeDataString(keyword)}&kategori={Uri.EscapeDataString(kate)}&brand={Uri.EscapeDataString(bra)}&minHarga={Uri.EscapeDataString(minHrg)}&maxHarga={Uri.EscapeDataString(maxHrg)}&sort={Uri.EscapeDataString(sort)}&sortBy={Uri.EscapeDataString(sortBy)}&allowRange={Uri.EscapeDataString(allowRange)}", replace: true);
         }
     }
 }

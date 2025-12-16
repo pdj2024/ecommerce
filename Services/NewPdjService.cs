@@ -248,7 +248,9 @@ namespace Services
 						break;
 
 					default:
-						jsonContent = JsonConvert.SerializeObject(requestBody, jsonSettings);
+                        requestBody = order;
+
+                        jsonContent = JsonConvert.SerializeObject(requestBody, jsonSettings);
 						content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
 						response = await config.httpReq.PutAsync(config.UrlApi, content, config.cancelTimer.Token);

@@ -189,7 +189,7 @@
                         <div class="col-12">
                             <div class="input-group mb-3 style-grup">
                                 <span class="input-group-text" id="basic-addon1" style="padding: 0px;"><i class="lni lni-search-1" style="font:normal normal normal 22px/1 'Lineicons';"></i></span>
-                                <InputText autocomplete="off" @onkeydown="HandleKeyDown" @bind-Value=@SearchText @oninput="@(e => OnSearchInput(e.Value?.ToString()))" type="text" class="form-control search-form" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1" />
+                                <InputText autocomplete="off" @onkeydown="HandleKeyDown" @bind-Value=@SearchText @oninput="@(e => OnSearchInput(e.Value?.ToString()))" type="text" class="form-control search-form" placeholder="Cari Produk..." aria-label="Search" aria-describedby="basic-addon1" />
                                 <button class="clear-search" @onclick="@(e => OnClearInput())" >
                                     @if(loadProses)
                                         {

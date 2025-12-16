@@ -68,43 +68,79 @@
                             @ScopedDataServices?.ScopedData?.DataProduk?.Deskripsi
                         </p>
 
+
+
+
                         <div class="row" style="margin-bottom:20px;">
-                            <h5 class="tag-variasi" style="font-weight:400;"><span style="font-weight:800">Opsi:</span> @ScopedDataServices?.ScopedData?.DataProduk.Option_Default</h5>
-                            <div class="size-options d-flex flex-row flex-wrap" style="gap: 10px;">
+                            <h5 class="tag-variasi" style="font-weight:500">
+                                Opsi :
+                                <span style="font-weight:800" class="text-primary">
+                                    @(ScopedDataServices?.ScopedData?.DataProduk?.Option_Default == "" ? "Kosong" : ScopedDataServices?.ScopedData?.DataProduk?.Option_Default)
+                                </span>
+                            </h5>
+                            <div class="size-options d-flex flex-row flex-wrap h-100" style="gap: 10px;">
                                 @foreach (var Option in ScopedDataServices?.ScopedData?.DataProduk?.Options)
                                 {
-                                    <label style="gap: 15px; width:fit-content; justify-content:start;" class="size-box pe-3 @(ScopedDataServices?.ScopedData?.DataProduk.Id_Option_Default == Option.Option_Id ? "active" : "")">
-                                        <Image Style="width:50px; height:50px;" Src="@Option.MediaUrl?.Id_Media" />
-                                        <input type="radio" name="variant" value="@Option.Option_Id"
-                                                checked="@(ScopedDataServices?.ScopedData?.DataProduk.Id_Option_Default == Option.Option_Id)"
-                                                disabled="@(ScopedDataServices?.ScopedData?.DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == Option.Option_Id && x.Size_Id == ScopedDataServices?.ScopedData?.DataProduk?.Id_Size_Default && x.Status == "aktif")?.Stock >= ScopedDataServices?.ScopedData?.DataProduk?.Min_Order ? false : true)"
-                                                @onchange="() => OnVariantChanged(Option.Option_Id)" />
-                                        <span style="width: fit-content;overflow: hidden;text-overflow: ellipsis; text-align:center; z-index:1; position:relative;">@Option.Option_Label</span>
+                                    <label style="gap: 15px; width:fit-content; justify-content:start; height:100%" class="size-box size-box-img  @(ScopedDataServices?.ScopedData?.DataProduk?.Id_Option_Default == Option.Option_Id ? "active" : "")">
+                                        <Image Style="width:85px; height:85px; padding:5px;" Src="@Option.MediaUrl?.Id_Media" />
+                                        <input type="radio"
+                                               name="variant"
+                                               value="@Option.Option_Id"
+                                               disabled="@(ScopedDataServices?.ScopedData?.DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == Option.Option_Id && x.Size_Id == ScopedDataServices?.ScopedData?.DataProduk?.Id_Size_Default && x.Status == "aktif")?.Stock >= ScopedDataServices?.ScopedData?.DataProduk?.Min_Order ? false : true)"
+                                               checked="@(ScopedDataServices?.ScopedData?.DataProduk?.Id_Option_Default == Option.Option_Id)"
+                                               @onchange="() => OnVariantChanged(Option.Option_Id)" />
+                                        @* <span style="width: fit-content;overflow: hidden;text-overflow: ellipsis; text-align:center; z-index:1; position:relative;">@(Option.Option_Label == "" ? "Empty" : Option.Option_Label )</span> *@
                                     </label>
                                 }
                             </div>
                         </div>
 
                         <div class="row">
-                            <h5 class="tag-variasi" style="font-weight:400;"><span style="font-weight:800">Size:</span> @ScopedDataServices?.ScopedData?.DataProduk.Size_Default</h5>
+                            <h5 class="tag-variasi" style="font-weight:500">
+                                Size :
+                                <span style="font-weight:800" class="text-primary">
+                                    @(ScopedDataServices?.ScopedData?.DataProduk?.Size_Default == "" ? "Kosong" : ScopedDataServices?.ScopedData?.DataProduk?.Size_Default)
+                                </span>
+                            </h5>
                             <div class="size-options d-flex flex-row flex-wrap" style="gap: 10px;">
                                 @foreach (var size in ScopedDataServices?.ScopedData?.DataProduk?.Sizes)
                                 {
-                                    <label class="size-box @(ScopedDataServices?.ScopedData?.DataProduk.Id_Size_Default == size.Size_Id ? "active" : "")">
-                                        <input type="radio" name="size" value="@size.Size_Id"
-                                                checked="@(ScopedDataServices?.ScopedData?.DataProduk.Id_Size_Default == size.Size_Id)"
+                                    <label class="size-box @(ScopedDataServices?.ScopedData?.DataProduk?.Id_Size_Default == size.Size_Id ? "active" : "")">
+                                        <input type="radio"
+                                               name="size"
+                                               value="@size.Size_Id"
                                                disabled="@(ScopedDataServices?.ScopedData?.DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == ScopedDataServices?.ScopedData?.DataProduk?.Id_Option_Default && x.Size_Id == size.Size_Id && x.Status == "aktif")?.Stock >= ScopedDataServices?.ScopedData?.DataProduk?.Min_Order ? false : true)"
-                                                @onchange="() => OnSizeChanged(size.Size_Id)" />
-                                        <span style="z-index:1; position:relative;">@size.Size_Label</span>
+                                               checked="@(ScopedDataServices?.ScopedData?.DataProduk?.Id_Size_Default == size.Size_Id)"
+                                               @onchange="() => OnSizeChanged(size.Size_Id)" />
+                                        <span style="z-index:1; position:relative;">@(size.Size_Label == "" ? "Empty" : size.Size_Label)</span>
                                     </label>
                                 }
                             </div>
                         </div>
 
-                        @if (ScopedDataServices?.ScopedData?.DataProduk.Id_Option_Default != "" && ScopedDataServices?.ScopedData?.DataProduk.Id_Size_Default != "")
+                        @if (ScopedDataServices?.ScopedData?.DataProduk?.Id_Option_Default != "" && ScopedDataServices?.ScopedData?.DataProduk?.Id_Size_Default != "")
+                        {
+                            @if (ScopedDataServices.ScopedData.DataProduk.Show_Min_Order)
+                            {
+                                <span class="text-danger mt-3" style="font-size: 13px; font-weight: 700;">
+                                    *Minimal order @ScopedDataServices?.ScopedData?.DataProduk?.Min_Order item
+                                </span>
+                            }
+
+                            @if (ScopedDataServices.ScopedData.DataProduk.Show_Max_Order)
+                            {
+                                <span class="text-danger mt-3" style="font-size: 13px; font-weight: 700;">
+                                    *Maximal order @ScopedDataServices?.ScopedData?.DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == ScopedDataServices?.ScopedData?.DataProduk?.Id_Option_Default && x.Size_Id == ScopedDataServices?.ScopedData?.DataProduk?.Id_Size_Default).Stock item
+                                </span>
+                            }
+                        }
+
+
+                      @*   @if (ScopedDataServices?.ScopedData?.DataProduk.Id_Option_Default != "" && ScopedDataServices?.ScopedData?.DataProduk.Id_Size_Default != "")
                         {
                             if (ScopedDataServices?.ScopedData?.DataProduk.Variants.FirstOrDefault(x => x.Option_Id == ScopedDataServices?.ScopedData?.DataProduk.Id_Option_Default && x.Size_Id == ScopedDataServices?.ScopedData?.DataProduk.Id_Size_Default) != null)
                             {
+
                                 <div class="row mt-4">
 
                                     @if((ScopedDataServices?.ScopedData?.DataProduk.Variants.FirstOrDefault(x => x.Option_Id == ScopedDataServices?.ScopedData?.DataProduk.Id_Option_Default && x.Size_Id == ScopedDataServices?.ScopedData?.DataProduk.Id_Size_Default)?.Stock ?? 1) - (ScopedDataServices?.ScopedData?.DataProduk.Min_Order) <= 5) {
@@ -182,7 +218,9 @@
                                         </div>
                                     }
                                 </div>
-                            } else
+                                
+                            } 
+                            else
                             {
                                 <p class="text-danger">
                                     Stock tidak tersedia
@@ -202,6 +240,7 @@
                                 </p>
                             }
                         }
+ *@
 
 
                         <div class="bottom-content mt-3">

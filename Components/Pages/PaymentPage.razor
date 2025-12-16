@@ -501,7 +501,7 @@
                                     }
                                 </div>
 
-                                <div class="p-3 " style="height: auto;position: absolute;width: 100%;background-color: #f5f5f5;bottom: 0px;">
+                                <div class="py-3 ps-3" style="height: auto;position: absolute;width: 100%;background-color: #f5f5f5;bottom: 0px;">
 
                                     @if (loadContent)
                                     {
@@ -576,7 +576,7 @@ else
     <div class="modal-dialog modal-dialog-centered" style="max-width:600px;">
         <div class="modal-content" style="border-radius: 0px;" >
             <div class="modal-header justify-content-between d-flex border-bottom-0 pb-0">
-                <h5 class="modal-title w-100 text-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">Informasi Pesanan</h5>
+                <h5 class="modal-title w-100 text-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">Konfirmasi Pesanan</h5>
             </div>
 
             @foreach (var Head in Pesanan_Info.Data.Header)
@@ -682,7 +682,7 @@ else
     <div class="modal-dialog modal-dialog-centered" style="max-width:600px;">
         <div class="modal-content" style="border-radius: 0px;" >
             <div class="modal-header justify-content-between d-flex border-bottom-0 pb-0">
-                <h5 class="modal-title w-100 text-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">Informasi Pembayaran</h5>
+                <h5 class="modal-title w-100 text-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">Konfirmasi Pembayaran</h5>
             </div>
 
             @if(loadRefresh) 
@@ -721,12 +721,28 @@ else
                     </button>
                 </div>
 
-            } else {
+            } 
+            else 
+            {
 
                 @foreach (var Head in Pesanan_Create.Data.Header)
                 {
+
+
                     <div class="modal-body">
                         <div class="row">
+
+                            @if (@Head?.Status_Order_1 != "belum bayar")
+                            {
+                                <div class="col-12 mb-2">
+                                    <div class="bg-success text-white d-flex align-items-center justify-content-center px-2 py-3">
+                                        <p class="m-0" style="font-weight: 600;">
+                                            Pembayaran Berhasil! Terima kasih telah berbelanja di @GlobalDataService.GlobalData.DataCompany.Nama_Toko.
+                                        </p>
+                                    </div>
+                                </div>
+                            }
+
                             <div class="col-12 col-md-6">
                                 <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
                                     <input readonly style="background-color:transparent !important; font-weight: 700; font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your name*" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.No_Tracking" />
@@ -754,7 +770,7 @@ else
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
-                                    <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.Expiry_Time.ToString()" />
+                                    <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value=@((Head?.Expiry_Time as DateTime?)?.ToString("dd/MM/yyyy HH:mm") ?? "-") />
                                     <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Expired</label>
                                 </div>
                             </div>
@@ -838,10 +854,10 @@ else
                                     <div class="spinner-border spinner-border-sm" role="status">
                                         <span class="visually-hidden">Loading...</span>
                                     </div>
-                                } 
+                                }
                                 else
                                 {
-                                    @("Cek Status")
+                                    @("Refresh Status")
                                 }
                             </button>
                         }

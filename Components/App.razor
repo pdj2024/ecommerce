@@ -53,6 +53,33 @@
     </div>
 
 
+    <div class="preload-overlay-new" style="">
+        <div class="preloader-new">
+            <svg class="cart-new" role="img" aria-label="Shopping cart line animation" viewBox="0 0 128 128" width="128px" height="128px" xmlns="http://www.w3.org/2000/svg">
+                <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="8">
+                    <g class="cart__track" stroke="hsla(0,10%,10%,0.1)">
+                        <polyline points="4,4 21,4 26,22 124,22 112,64 35,64 39,80 106,80" />
+                        <circle cx="43" cy="111" r="13" />
+                        <circle cx="102" cy="111" r="13" />
+                    </g>
+                    <g class="cart__lines" stroke="currentColor">
+                        <polyline class="cart__top" points="4,4 21,4 26,22 124,22 112,64 35,64 39,80 106,80" stroke-dasharray="338 338" stroke-dashoffset="-338" />
+                        <g class="cart__wheel1" transform="rotate(-90,43,111)">
+                            <circle class="cart__wheel-stroke" cx="43" cy="111" r="13" stroke-dasharray="81.68 81.68" stroke-dashoffset="81.68" />
+                        </g>
+                        <g class="cart__wheel2" transform="rotate(90,102,111)">
+                            <circle class="cart__wheel-stroke" cx="102" cy="111" r="13" stroke-dasharray="81.68 81.68" stroke-dashoffset="81.68" />
+                        </g>
+                    </g>
+                </g>
+            </svg>
+            <div class="preloader-new__text">
+                <p class="preloader-new__msg">Tunggu sebentar, kami sedang menyiapkan produk.</p>
+            </div>
+        </div>
+    </div>
+
+
     <Routes  />
     <div id="recaptcha-container"></div>
     <div class="overlay" style="z-index:1002"></div>
@@ -86,6 +113,32 @@
     
     <script>
 
+        window.focusInput = (id) => {
+            const el = document.getElementById(id);
+            if (el) el.focus();
+        }
+
+        (function () {
+            const PRELOAD_DURATION = 2000; 
+
+            const preloader = document.querySelector(".preload-overlay-new");
+
+            document.body.classList.add("preloader-lock");
+
+            window.addEventListener("load", () => {
+                setTimeout(() => {
+                    console.log(preloader);
+                    preloader.classList.add("hide");
+
+                    document.body.classList.remove("preloader-lock");
+
+                    setTimeout(() => {
+                        preloader.remove();
+                    }, 1000);
+
+                }, PRELOAD_DURATION);
+            });
+        })();
 
         function initRangeHarga(_dotNetRef) {
             const _dotNet = _dotNetRef;
@@ -191,9 +244,9 @@
         function initButtonFlag() {
             const phoneInputField = document.querySelector("#phone");
             phoneInput = window.intlTelInput(phoneInputField, {
-                initialCountry: "id", // Indonesia default
                 preferredCountries: ["id", "sg", "my", "us"],
-                separateDialCode: true, // <== INI YANG TAMBAHAN UTAMA
+                initialCountry: "id",
+                separateDialCode: true,
                 nationalMode: false,
                 formatOnDisplay: true,
                 utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
@@ -201,9 +254,9 @@
 
             const phoneInputLoginField = document.querySelector("#phone-login");
             phoneInputLogin = window.intlTelInput(phoneInputLoginField, {
-                initialCountry: "id", // Indonesia default
                 preferredCountries: ["id", "sg", "my", "us"],
-                separateDialCode: true, // <== INI YANG TAMBAHAN UTAMA
+                initialCountry: "id",
+                separateDialCode: true,
                 nationalMode: false,
                 formatOnDisplay: true,
                 utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
@@ -213,9 +266,9 @@
         function initButtonFlagChange() {
             const phoneInputField = document.querySelector("#phone-change");
             phoneInputChange = window.intlTelInput(phoneInputField, {
-                initialCountry: "id", // Indonesia default
                 preferredCountries: ["id", "sg", "my", "us"],
-                separateDialCode: true, // <== INI YANG TAMBAHAN UTAMA
+                initialCountry: "id",
+                separateDialCode: true,
                 nationalMode: false,
                 formatOnDisplay: true,
                 utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"

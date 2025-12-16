@@ -62,7 +62,7 @@ namespace PacificWeb.Components.Layout
         private System.Timers.Timer? _debounceTimer;
 
         public List<Cart> ListDataCartCheck { get; set; } = new List<Cart>();
-        public (List<Brand> SearchBrand, List<Produk> SearchProduk, int TotalCount, bool hasMore) SearchList { get; set; } = (new(), new(), 0, false);
+        public (List<Brand> SearchBrand, List<Produk> SearchProduk, int TotalCount, bool hasMore, int maxPrice) SearchList { get; set; } = (new(), new(), 0, false,0);
 
         [SupplyParameterFromForm]
         public LoginViewModel Model { get; set; } = new();
@@ -86,9 +86,9 @@ namespace PacificWeb.Components.Layout
         public int dataChange { get; set; } = 0;
 
 
-        public void NavigateToHome(string route)
+        public void NavigateToHome(string route, bool force = false)
         {
-            NavigationManager.NavigateTo($"/{route}", forceLoad: true);
+            NavigationManager.NavigateTo($"/{route}", forceLoad: force);
         }
 
         protected override async Task OnInitializedAsync()
@@ -100,6 +100,12 @@ namespace PacificWeb.Components.Layout
         private async Task Logout()
         {
             NavigationManager.NavigateTo($"/auth-user-logout/logout", forceLoad: true);
+        }
+
+        async Task FocusSearch()
+        {
+            await Task.Delay(200);
+            await JSRuntime.InvokeVoidAsync("focusInput", "searchFieldSelect");
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -170,7 +176,9 @@ namespace PacificWeb.Components.Layout
                 ParamUrl = new ParameterApi.ParameterUrl
                 {
                     pagesize = 8,
-                    keyword = query
+                    keyword = query,
+                    orderDir = "asc",
+                    orderBy = "nama_display"
                 }
             });
 
@@ -213,7 +221,7 @@ namespace PacificWeb.Components.Layout
         {
             SearchText = "";
 
-            SearchList = (new List<Brand>(), new List<Produk>(), 0, false);
+            SearchList = (new List<Brand>(), new List<Produk>(), 0, false, 0);
 
             searchCount = 0;
 
@@ -247,7 +255,7 @@ namespace PacificWeb.Components.Layout
             else
             {
                 var DataShow = ScopedDataServices.ScopedData.ListDataCart.FirstOrDefault(x => x.Id_Cart == data_id);
-                DataShow.Qty = DataCartList.Data.FirstOrDefault(x => x.Id_Cart == data_id).Qty;
+                DataShow.Qty = DataCartList.Data.FirstOrDefault()?.Qty ?? 0;
             }
 
             if (ListDataCartCheck.Count() >= 1 && ScopedDataServices?.ScopedData?.ListDataCart != null)
@@ -492,6 +500,12 @@ namespace PacificWeb.Components.Layout
             }
         }
 
+        private void SearchCari()
+        {
+            var keywordText = Convert.ToBase64String(Encoding.UTF8.GetBytes(SearchText));
+            NavigationManager.NavigateTo($"/search-page?keyword={Uri.EscapeDataString(keywordText)}", true);
+        }
+
         private void seeResult()
         {
             var keywordText = Convert.ToBase64String(Encoding.UTF8.GetBytes(SearchText));
@@ -505,7 +519,7 @@ namespace PacificWeb.Components.Layout
 
             if (Navbar.Nav_Type.Split("_")[0] == "special")
             {
-                prod = string.Join(",", Navbar.Filter.Select(x => x));
+                prod = Navbar.Nav_Type;
             } 
             else
             {
@@ -516,7 +530,7 @@ namespace PacificWeb.Components.Layout
             kate = Convert.ToBase64String(Encoding.UTF8.GetBytes(kate));
             var keywordText = Convert.ToBase64String(Encoding.UTF8.GetBytes(SearchText));
 
-            NavigationManager.NavigateTo($"/search-page?keyword={Uri.EscapeDataString(keywordText)}&produk={Uri.EscapeDataString(prod)}&kategori={Uri.EscapeDataString(kate)}", true);
+            NavigationManager.NavigateTo($"/search-page?keyword={Uri.EscapeDataString(keywordText)}&promo={Uri.EscapeDataString(prod)}&kategori={Uri.EscapeDataString(kate)}", true);
         }
 
         public async void changeLogin(string value, bool direct = false)

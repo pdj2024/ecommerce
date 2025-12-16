@@ -93,7 +93,7 @@ namespace Models
         public Pesanan.PaymentResponse DataResponsePesanan { get; set; } = new Pesanan.PaymentResponse();
 
 
-        public (List<Brand> SearchBrand, List<Produk> SearchProduk, int TotalCount, bool hasMore) SearchList { get; set; } = (new(), new(), 0, false);
+        public (List<Brand> SearchBrand, List<Produk> SearchProduk, int TotalCount, bool hasMore, int priceMax) SearchList { get; set; } = (new(), new(), 0, false,0);
 
         public bool Finised { get; set; } = false;
 

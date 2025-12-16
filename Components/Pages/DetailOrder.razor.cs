@@ -65,6 +65,15 @@ namespace PacificWeb.Components.Pages
         public int? noLogin { get; set; } = null;
 
         [Parameter] public int Quantity { get; set; } = 1;
+
+        [Parameter] public EventCallback<Pesanan.Headers> OnBatalkanPesanan { get; set; }
+        [Parameter] public EventCallback<Pesanan.Headers> OnSelesaikanPesanan { get; set; }
+        [Parameter] public EventCallback<Pesanan.Headers> openPayment { get; set; }
+        [Parameter] public EventCallback<Pesanan.Headers> GantiMethod { get; set; }
+        [Parameter] public EventCallback<Pesanan.Headers> KirimPesan { get; set; }
+        [Parameter] public EventCallback<Pesanan.Headers> refreshStatus { get; set; }
+
+
         public decimal? nettoKeranjang { get; set; } = 0;
         public decimal? nettoKeranjangChange { get; set; } = 0;
         public decimal? totalDpp { get; set; } = 0;
@@ -136,6 +145,14 @@ namespace PacificWeb.Components.Pages
 
                 var data = ScopedDataServices.ScopedData.DataPesananDetail.Data.Header.FirstOrDefault() ?? null;
 
+
+                if (data?.Status_Order_1?.ToLower() == "belum bayar") infoSubmit = 1;
+                else if (data?.Status_Order_1?.ToLower() == "dikemas") infoSubmit = 3;
+                else if (data?.Status_Order_1?.ToLower() == "dikirim") infoSubmit = 4;
+                else if (data?.Status_Order_1?.ToLower() == "selesai") infoSubmit = 5;
+                else infoSubmit = 6;
+
+
                 if (data.Metode_Bayar == "QRIS" && data.Status_Order_1 == "belum bayar")
                 {
                     var base64Image = await GenerateImage(data.Payment_Number_1, data.Expiry_Time);
@@ -158,6 +175,47 @@ namespace PacificWeb.Components.Pages
                 var base64Data = GeneratedImageBase64.Replace("data:image/png;base64,", "");
                 await JSRuntime.InvokeVoidAsync("downloadFileFromBase64", $"QR-PDJ-{item.No_Tracking}-{DateTime.Now.ToLocalTime()}.png", base64Data);
             }
+        }
+
+
+        private async Task refreshStatusHead(Pesanan.Headers item)
+        {
+            loadContent = true;
+            StateHasChanged();
+
+            ScopedDataServices.ScopedData.DataPesananDetail = await NewPdjService.showMorePesanan(new ParameterApi
+            {
+                routeApi = "order",
+                prosesApi = "getAll",
+                token = ScopedDataServices.ScopedData.DataLogin.token,
+                refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
+                ParamUrl = new ParameterApi.ParameterUrl
+                {
+                    id_customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id,
+                    no_tracking_pesanan = noBukti,
+                    show_media = "true",
+                    orderDir = "desc",
+                    orderBy = "no_bukti",
+                    pagesize = 5,
+                }
+            });
+
+            var data = ScopedDataServices.ScopedData.DataPesananDetail.Data.Header.FirstOrDefault() ?? null;
+
+            if (data?.Status_Order_1?.ToLower() == "belum bayar") infoSubmit = 1;
+            else if (data?.Status_Order_1?.ToLower() == "dikemas") infoSubmit = 3;
+            else if (data?.Status_Order_1?.ToLower() == "dikirim") infoSubmit = 4;
+            else if (data?.Status_Order_1?.ToLower() == "selesai") infoSubmit = 5;
+            else infoSubmit = 6;
+
+            if (data.Metode_Bayar == "QRIS" && data.Status_Order_1 == "belum bayar")
+            {
+                var base64Image = await GenerateImage(data.Payment_Number_1, data.Expiry_Time);
+                data.QrBase64 = base64Image;
+            }
+
+            loadContent = false;
+            StateHasChanged();
         }
 
 
@@ -211,122 +269,6 @@ namespace PacificWeb.Components.Pages
             return $"data:image/png;base64,{base64}";
         }
 
-        private async Task GantiMethod(Pesanan.Headers headItem)
-        {
-            Pesanan_Change = headItem;
-            //await JSRuntime.InvokeVoidAsync("buttonClick", $"#closeModal");
-            StateHasChanged();
-
-            foreach(var listBayar in ScopedDataServices.ScopedData.ListDataPembayaran)
-            {
-                if(listBayar.Cara_Bayar == headItem.Metode_Bayar)
-                {
-                    listBayar.disabeldPayment = true;
-                    listBayar.selectPayment = false;
-                }
-                else
-                {
-                    listBayar.disabeldPayment = false;
-                    listBayar.selectPayment = false;
-                }
-            }
-
-            totalDpp  = ScopedDataServices?.ScopedData?.DataPesananBelum?.Data.Items.Where(x => x.No_Bukti == headItem.No_Bukti).Sum(x => x.Harga_Satuan * x.Qty);
-            shipingMethodFee  = ScopedDataServices?.ScopedData?.DataPesananBelum?.Data.Biaya.FirstOrDefault(x => x.No_Bukti == headItem.No_Bukti && x.Jenis_Item.ToLower() == "layanan")?.Harga_Satuan;
-            paymentMethodFee  = ScopedDataServices?.ScopedData?.DataPesananBelum?.Data.Biaya.FirstOrDefault(x => x.No_Bukti == headItem.No_Bukti && x.Jenis_Item.ToLower() == "ongkir")?.Harga_Satuan;
-
-            StateHasChanged();
-            hitungTotal();
-            StateHasChanged();
-            //await JSRuntime.InvokeVoidAsync("buttonClick", $"#buttonChangeMethod");
-            
-        }
-
-        private async Task BatalkanPesanan (Pesanan.Headers headItem, bool direct = false)
-        {
-            infoPembatalan = null;
-            StateHasChanged();
-
-            if (direct)
-            {
-                loadProses = true;
-                var PembatalanStatus = await NewPdjService.CudPesananApi("TAMBAH", null , new ParameterApi
-                {
-                    routeApi = "order",
-                    token = ScopedDataServices.ScopedData.DataLogin.token,
-                    refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
-                    prosesApi = $"batal/{Pesanan_Change.No_Bukti}",
-                    ParamUrl = new ParameterApi.ParameterUrl()
-                });
-
-                if (PembatalanStatus.statusResponse)
-                {
-                    infoPembatalan = true;
-
-                    await refreshAllPesanan();
-
-
-                } else
-                {
-                    infoPembatalan = false;
-                }
-
-                loadProses = false;
-                return;
-            }
-
-
-            Pesanan_Change = headItem;
-            //await JSRuntime.InvokeVoidAsync("buttonClick", $"#closeModal");
-            //StateHasChanged();
-
-            
-            //await JSRuntime.InvokeVoidAsync("buttonClick", $"#buttonBatalMethod");
-            StateHasChanged();
-        }
-
-        public void hitungTotal()
-        {
-            subTotal = totalDpp + paymentMethodFee + shipingMethodFee;
-            if (Pesanan_Change.Incl_PPN)
-            {
-                ppnValue = ((decimal)Pesanan_Change.PPN / ((decimal)100 + (decimal)Pesanan_Change.PPN)) * (decimal)subTotal;
-                nettoKeranjangChange = (subTotal / ((decimal)1 + (decimal)((decimal)Pesanan_Change.PPN / (decimal)100))) + ppnValue;
-            }
-            else
-            {
-                ppnValue = ((decimal)Pesanan_Change.PPN / (decimal)100) * (decimal)subTotal;
-                nettoKeranjangChange = subTotal + ppnValue;
-            }
-        }
-
-        public async Task openPayment(Pesanan.Headers produk, List<Pesanan.Biayas> biaya = null)
-        {
-            Pesanan_Create.Data.Header.Clear();
-            Pesanan_Create.Data.Biaya.Clear();
-            loadRefresh = true;
-            StateHasChanged();
-
-            if (produk.Metode_Bayar == "QRIS" && produk.Status_Order_1 == "belum bayar")
-            {
-                var base64Image = await GenerateImage(produk.Payment_Number_1, produk.Expiry_Time);
-                produk.QrBase64 = base64Image;
-            }
-
-            Pesanan_Create.Data.Header.Add(produk);
-            Pesanan_Create.Data.Biaya.AddRange(biaya);
-
-
-
-            if (Pesanan_Create.Data.Header.Count() >= 2) {
-                var data = Pesanan_Create.Data.Header.LastOrDefault();
-                Pesanan_Create.Data.Header.Remove(data);
-            }
-
-            loadRefresh = false;
-            StateHasChanged();
-        }
-
         public class SizeOption
         {
             public string Value { get; set; }
@@ -336,123 +278,6 @@ namespace PacificWeb.Components.Pages
                 Value = value;
                 Disabled = disabled;
             }
-        }
-
-        public async Task refreshAllPesanan()
-        {
-            var DataPesananBelum = NewPdjService.showMorePesanan(new ParameterApi
-            {
-                routeApi = "order",
-                prosesApi = "getAll",
-                token = ScopedDataServices.ScopedData.DataLogin.token,
-                refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
-                ParamUrl = new ParameterApi.ParameterUrl
-                {
-                    id_customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id,
-                    show_media = "true",
-                    orderDir = "desc",
-                    status_order_1 = "belum bayar",
-                    status = "aktif",
-                    orderBy = "no_bukti",
-                    pagesize = 5,
-                }
-            });
-
-            var DataPesananDikemas = NewPdjService.showMorePesanan(new ParameterApi
-            {
-                routeApi = "order",
-                prosesApi = "getAll",
-                token = ScopedDataServices.ScopedData.DataLogin.token,
-                refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
-                ParamUrl = new ParameterApi.ParameterUrl
-                {
-                    id_customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id,
-                    show_media = "true",
-                    orderDir = "desc",
-                    status_order_1 = "dikemas",
-                    status = "aktif",
-                    orderBy = "no_bukti",
-                    pagesize = 5,
-                }
-            });
-
-            var DataPesananDikirim = NewPdjService.showMorePesanan(new ParameterApi
-            {
-                routeApi = "order",
-                prosesApi = "getAll",
-                token = ScopedDataServices.ScopedData.DataLogin.token,
-                refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
-                ParamUrl = new ParameterApi.ParameterUrl
-                {
-                    id_customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id,
-                    show_media = "true",
-                    orderDir = "desc",
-                    status_order_1 = "dikirim",
-                    status = "aktif",
-                    orderBy = "no_bukti",
-                    pagesize = 5,
-                }
-            });
-
-            var DataPesananSelesai = NewPdjService.showMorePesanan(new ParameterApi
-            {
-                routeApi = "order",
-                prosesApi = "getAll",
-                token = ScopedDataServices.ScopedData.DataLogin.token,
-                refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
-                ParamUrl = new ParameterApi.ParameterUrl
-                {
-                    id_customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id,
-                    show_media = "true",
-                    orderDir = "desc",
-                    status_order_1 = "selesai",
-                    status = "aktif",
-                    orderBy = "no_bukti",
-                    pagesize = 5,
-                }
-            });
-
-            var DataPesananBatal = NewPdjService.showMorePesanan(new ParameterApi
-            {
-                routeApi = "order",
-                prosesApi = "getAll",
-                token = ScopedDataServices.ScopedData.DataLogin.token,
-                refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
-                ParamUrl = new ParameterApi.ParameterUrl
-                {
-                    id_customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id,
-                    show_media = "true",
-                    orderDir = "desc",
-                    status_order_1 = "batal",
-                    status = "aktif",
-                    orderBy = "no_bukti",
-                    pagesize = 5,
-                }
-            });
-
-            var SummaryPesananTask = NewPdjService.GetApi<Pesanan.SummaryResponse>(new ParameterApi
-            {
-                routeApi = "order",
-                prosesApi = "getSummary",
-                token = ScopedDataServices.ScopedData.DataLogin.token,
-                refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
-                ParamUrl = new ParameterApi.ParameterUrl
-                {
-                    id_customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id,
-                }
-            });
-
-            var dataSummary = NewPdjService.RefreshDataMainKonten();
-
-            await Task.WhenAll(DataPesananBelum, DataPesananDikemas, DataPesananDikirim, DataPesananSelesai, dataSummary, SummaryPesananTask, DataPesananBatal);
-
-
-            ScopedDataServices.ScopedData.ListDataSummaryPesanan = SummaryPesananTask.Result?.Data ?? new();
-            ScopedDataServices.ScopedData.DataPesananBelum = DataPesananBelum.Result;
-            ScopedDataServices.ScopedData.DataPesananDikemas = DataPesananDikemas.Result;
-            ScopedDataServices.ScopedData.DataPesananDikirim = DataPesananDikirim.Result;
-            ScopedDataServices.ScopedData.DataPesananSelesai = DataPesananSelesai.Result;
-            ScopedDataServices.ScopedData.DataPesananBatal = DataPesananBatal.Result;
         }
 
     }

@@ -96,6 +96,7 @@ namespace Models
                 public string brandid_list { get; set; }
                 public string noid_list { get; set; }
                 public bool strict_kategori { get; set; } = true;
+                public bool all_item { get; set; }
                 public string slug { get; set; }
                 public bool show_variant { get; set; } = true;
                 public string cursor_id { get; set; }

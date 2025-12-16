@@ -1,0 +1,252 @@
+﻿@rendermode InteractiveServer
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@using PacificWeb.Components.Sections
+
+
+@if (ListItem.Data.Header.Count() >= 1)
+{
+    <div class="cart-page" style="padding: 0px ; margin:20px 0px 0px 0px; max-width:100%">
+        <div class="cart-container p-0">
+            <div class="cart-items">
+
+                <div class="accordion" style="gap: 2rem;display: flex;flex-direction: column;" id="accordionPanelsStayOpenExample">
+
+                    @foreach (var item in ListItem.Data.Header)
+                    {
+                        <div class="accordion-item rounded-0 border-0" style="border: none !important;">
+                            <h2 class="accordion-header rounded-0 border-0" id="panelsStayOpen-headingOne">
+                                <div class="d-flex w-100 flex-column gap-3 p-3 p-lg-4">
+                                    <div class="d-flex flex-row justify-content-between gap-3 py-3 ">
+                                        <h5 style="font-size:15px">
+                                            @($"Order ID : {item.No_Tracking}")
+                                        </h5>
+                                        <p style="color:#1500b2">
+                                            @ti.ToTitleCase(item.Status_Order_2 == "sebagian" ? $"{item.Status_Order_1} {item.Status_Order_2}" : item.Status_Order_1 ?? "DIBATALKAN")
+                                        </p>
+                                    </div>
+
+
+                                    <div class="d-flex flex-lg-row flex-column justify-content-between w-100 gap-3">
+                                        <div class="d-flex flex-col gap-3 w-100">
+                                            @if (@ListItem.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media != null && @ListItem.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media != "")
+                                            {
+                                                <img class="cart-img img-payment" src="@ListItem.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media" style="width:4rem;height:4rem" alt="#">
+                                            }
+
+                                            else
+                                            {
+                                                <img class="cart-img img-payment" style="width:4rem;height:4rem" src="/images/products/placeholder1.png" alt="#">
+                                            }
+
+                                            <div class="d-flex flex-column gap-2 w-100 justify-content-between">
+                                                <div class="d-flex flex-column gap-2">
+                                                    <h5 style="font-size:15px;" class="line-clamp-1">
+                                                        @ListItem.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Nama_Display
+                                                    </h5>
+                                                    <p class="variant" style="background-color: #eee;width: fit-content;padding: 1px 5px;border-radius: 0px;">
+                                                        @($"{@ListItem.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Option_Label}, {@ListItem.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Size_Label}")
+                                                    </p>
+                                                    @if (@item.Status_Order_2 == "sebagian")
+                                                    {
+                                                        <span class="text-success" style="font-size:16px; font-weight:600">
+                                                            @ListItem.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Status_Item.ToUpper()
+                                                        </span>
+                                                    }
+                                                    <h5 style="font-size:15px;" class="">
+                                                        @string.Format("Rp. {0:N0}", @ListItem.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Satuan)
+                                                        @($" x {ListItem.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Qty} ")
+                                                        <span style="color:#1500b2; font-weight:700;" class="d-lg-inline d-none">
+                                                            @string.Format("Rp. {0:N0}", ListItem.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
+                                                        </span>
+                                                    </h5>
+                                                    <h5 style="font-size:15px;" class="d-lg-none d-flex line-clamp-1">
+                                                        <span style="color:#1500b2; font-weight:700;">
+                                                            @string.Format("Rp. {0:N0}", ListItem.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
+                                                        </span>
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    
+                                    </div>
+
+                                </div>
+                            </h2>
+
+
+
+                            <div id="panelsStayOpen-@item.No_Bukti" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
+                                <div class="accordion-body px-3 px-lg-4 gap-0">
+                                    @foreach (var produk in ListItem.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList())
+                                    {
+                                        @if (produk.Id_Detil == @ListItem.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Id_Detil) { continue; }
+
+                                        <div class="d-flex flex-col gap-3 w-100 py-3" style="border-top: 1px solid #dee2e6">
+                                            @if (@produk.Var_Id_Media != null && @produk.Var_Id_Media != "")
+                                            {
+                                                <img class="cart-img img-payment" src="@produk.Var_Id_Media" style="width:4rem;height:4rem" alt="#">
+                                            }
+
+                                            else
+                                            {
+                                                <img class="cart-img img-payment" src="/images/products/placeholder1.png" style="width:4rem;height:4rem" alt="#">
+                                            }
+                                            <div class="d-flex flex-column gap-2 w-100 justify-content-between">
+                                                <div class="d-flex flex-column gap-2">
+                                                    <h5 style="font-size:15px;" class="line-clamp-1">
+                                                        @produk.Nama_Display
+                                                    </h5>
+                                                    <p class="variant" style="background-color: #eee;width: fit-content;padding: 1px 5px;border-radius: 0px;">
+
+                                                        @($"{@produk.Var_Option_Label}, {@produk.Var_Size_Label}")
+                                                    </p>
+
+                                                    @if (@item.Status_Order_2 == "sebagian")
+                                                    {
+                                                        <span class="text-success" style="font-size:16px; font-weight:600">
+                                                            @produk.Status_Item.ToUpper()
+                                                        </span>
+                                                    }
+
+                                                    <h5 style="font-size:15px;" class="">
+                                                        @string.Format("Rp. {0:N0}", @produk.Harga_Satuan)
+                                                        @($" x {produk.Qty}")
+                                                        <span style="color:#1500b2; font-weight:700;" class="d-lg-inline d-none">
+                                                            @string.Format("Rp. {0:N0}", produk.Harga_Total)
+                                                        </span>
+                                                    </h5>
+                                                    <h5 style="font-size:15px;" class="d-lg-none d-flex line-clamp-1">
+                                                        <span style="color:#1500b2; font-weight:700;">
+                                                            @string.Format("Rp. {0:N0}", produk.Harga_Total)
+                                                        </span>
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+
+
+                                </div>
+                            </div>
+
+
+                            <div id="" class="" aria-labelledby="panelsStayOpen-headingOne">
+                                <div class="accordion-body gap-2 px-3 px-lg-4">
+
+                                    <div class="d-flex d-lg-none flex-row gap-2 mb-1 w-100 justify-content-end align-items-center">
+                                        @if (@ListItem.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2)
+                                        {
+                                            <button @onclick="@(x => openDropdown.InvokeAsync(@item.No_Bukti))" class="accordion-button header-accord-@item.No_Bukti collapsed rounded-0 mt-1" style="padding: 0px;font-size: 13px;width: fit-content;display: flex;gap: 10px;" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-@item.No_Bukti" aria-expanded="true" aria-controls="panelsStayOpen-@item.No_Bukti">
+                                                Tampil Selangkapnya
+                                            </button>
+                                        }
+                                    </div>
+
+                                    <div class="d-flex flex-row gap-1 mb-1 w-100 justify-content-between align-items-center">
+                                        <h5 style="font-size:15px; " class="">
+                                            @($"Total {@ListItem.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ")
+                                        </h5>
+                                        <h5 style="font-size:15px; " class="">
+                                            <span style="color:#1500b2;">
+                                                @string.Format("Rp. {0:N0}", item.Grand_Total)
+                                            </span>
+                                        </h5>
+                                    </div>
+                                    <div class="d-flex flex-row gap-1 w-100 justify-content-end align-items-center">
+                                        @if (item.Status_Order_1 == "belum bayar")
+                                        {
+                                            <button @onclick="@(x => OnBatalkanPesanan.InvokeAsync(item))" class="btn btn-danger" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" data-bs-toggle="modal" data-bs-target="#staticBackdrop4" type="button">
+                                                Batalkan
+                                            </button>
+                                            <button @onclick="@(x => GantiMethod.InvokeAsync(item))" class="btn btn-primary" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop3">
+                                                Ganti Pembayaran
+                                            </button>
+                                            <button @onclick="@(x => openPayment.InvokeAsync(item))" class="btn btn-success" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+                                                Bayar Pesanan
+                                            </button>
+                                        }
+                                        else if (item.Status_Order_1 == "dikirim")
+                                        {
+                                            <button @onclick="@(x => KirimPesan.InvokeAsync(item))" class="btn none-accord btn-success bg-success" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" type="button">
+                                                Hubungi Admin
+                                            </button>
+                                            <button @onclick="@(x => openPayment.InvokeAsync(item))" class="btn bg-white border-primary text-primary" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+                                                Lihat Pesanan
+                                            </button>
+                                            <button @onclick="@(x => OnSelesaikanPesanan.InvokeAsync(item))" class="btn none-accord btn-primary bg-primary" style="height: 35px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop5">
+                                                Pesanan Selesai
+                                            </button>
+                                        }
+                                        else if (item.Status_Order_1 == "selesai")
+                                        {
+                                            <button @onclick="@(x => KirimPesan.InvokeAsync(item))" class="btn none-accord btn-success bg-success" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" type="button">
+                                                Hubungi Admin
+                                            </button>
+                                            <button @onclick="@(x => openPayment.InvokeAsync(item))" class="btn bg-white border-primary text-primary" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+                                                Lihat Pesanan
+                                            </button>
+                                            <button class="btn btn-primary" style="height: 35px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button">
+                                                Pesan Kembali
+                                            </button>
+                                        }
+                                        else if (item.Status_Order_1 == "dikemas")
+                                        {
+                                            <button @onclick="@(x => KirimPesan.InvokeAsync(item))" class="btn none-accord btn-success bg-success" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" type="button">
+                                                Hubungi Admin
+                                            </button>
+                                            <button @onclick="@(x => openPayment.InvokeAsync(item))" class="btn btn-primary" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+                                                Lihat Pesanan
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <button @onclick="@(x => KirimPesan.InvokeAsync(item))" class="btn none-accord btn-success bg-success" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" type="button">
+                                                Hubungi Admin
+                                            </button>
+                                            <button @onclick="@(x => openPayment.InvokeAsync(item))" class="btn btn-primary" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+                                                Lihat Pesanan
+                                            </button>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+
+
+                </div>
+            </div>
+
+            @if (ListItem.hasMore)
+            {
+                <div class="row">
+                    <div class="col-12 w-100 d-flex align-items-center justify-content-center mt-4">
+                        <button @onclick="@(x => showMore.InvokeAsync(pageTabs))" class="btn-slide px-5" style="width:fit-content;z-index:0;">
+                            @if (loadProses)
+
+                            {
+                                <div class="spinner-border spinner-border-sm position-relative" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            }
+                            else
+                            {
+                                <span class="position-relative">
+                                    Lebih Banyak
+                                </span>
+                            }
+                        </button>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+} 
+else
+{
+    <div class=" w-100 d-flex justify-content-center align-items-center" style="height: 30rem;margin-bottom: 10rem;background-color: #f5f5f5;margin-top: 10px">
+        <h5 style="font-size:1rem; color:lightgray; text-decoration:underline">Tidak Ada Transaksi</h5>
+    </div>
+}

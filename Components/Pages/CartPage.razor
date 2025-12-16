@@ -21,7 +21,7 @@
 
 
 @* <div style="background-color:#f7f7f7" class="d-block d-md-none"> *@
-<div style="background-color:white" class="d-block d-lg-none">
+<div style="background-color:white" class="d-block d-xl-none">
     @if(pageTabs == "setting"){
         <div class="tab-content pb-5 pt-3" id="pills-tabContent">
     
@@ -340,7 +340,7 @@
 
                                         @foreach (var cart in ScopedDataServices?.ScopedData?.ListDataCart)
                                         {
-                                            <li class="flex-wrap py-3 px-3" style=@(cart.Qty < cart.Min_Order || cart.Qty > cart.Stock ? "background-color:whitesmoke" : "background-color:white")>
+                                            <li class="flex-wrap py-3 px-0" style=@(cart.Qty < cart.Min_Order || cart.Qty > cart.Stock ? "background-color:whitesmoke" : "background-color:white")>
                                                 <div class="cart-img-head d-flex flex-row gap-3" >
                                                     @if(cart.Id_Media != null && cart.Id_Media != "")
                                                     {
@@ -349,31 +349,45 @@
                                                     {
                                                         <img class="cart-img" src="/images/products/placeholder1.png" style="min-width:80px; max-width:80px; height: 80px; margin-right:0px;" alt="#">
                                                     }
-                                                    <div class="d-flex flex-column justify-content-center h-100" style="gap:5px;">
+                                                    <div class="d-flex flex-column justify-content-between h-100" style="gap:5px; width:90%">
                                                         <h4>
-                                                            <a href="javascript:void(0)" class="line-clamp-1" style="font-size:15px">
+                                                            <a @onclick=@(() => NavigateToDetailProduk(cart.Id_Produk)) class="line-clamp-1" style="font-size:15px; cursor:pointer">
                                                                 @(cart.Nama_Display)
                                                             </a>
                                                         </h4>
-                                                        <p class="variant fst-italic" style="background-color: #eee;width: fit-content;padding: 1px 5px;border-radius: 0px;">
-                                                            @($"{cart.Option_Label}, {cart.Size_Label}")
-                                                        </p>
-                                                        <p class="quantity">
-                                                            <span class="amount" style="font-size:16px; font-weight:600;">@string.Format("Rp. {0:N0}", (cart?.Harga - (cart?.Harga * (cart?.Diskon1 / 100))))</span>
-                                                        </p>
+                                                        <div class="d-flex flex-row gap-2">
+
+                                                            <div class="qty-box" style="width: 40%;height: 34px;padding: 21px 5px;gap: 8px;">
+                                                                <button disabled=@(cart.Show_Min_Order || cart.Qty <= cart.Min_Order) style="font-size: 15px; @(cart.Show_Min_Order || cart.Qty <= cart.Min_Order ? "cursor:not-allowed" : "") " @onclick="() => Decrease(cart.Id_Cart)">–</button>
+                                                                <span style="font-size: 15px;height: 100%;display: flex;align-items: center;">@cart.Qty</span>
+                                                                <button disabled=@(cart.Show_Max_Order || cart.Qty >= cart.Stock) style="font-size: 20px; @(cart.Show_Max_Order || cart.Qty >= cart.Stock ? "cursor:not-allowed" : "") " @onclick="() => Increase(cart.Id_Cart)">+</button>
+                                                            </div>
+
+                                                            <div class="d-flex flex-column justify-content-center h-100">
+                                                                <p class="variant" style="width: 116px;border-radius: 0px; font-size:13px; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                                                    <span style="background-color: #eee; padding: 1px 5px;">
+                                                                        @($"{cart.Size_Label}, {cart.Option_Label}")
+                                                                    </span>
+                                                                </p>
+                                                                <p class="quantity">
+                                                                    <span class="amount" style="font-size:15px; font-weight:600;">@string.Format("Rp. {0:N0}", (cart?.Harga - (cart?.Harga * (cart?.Diskon1 / 100))))</span>
+                                                                </p>
+                                                            </div>
+
+                                                        </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="content content-qty">
-                                                    <div style="display: flex;justify-content:space-between;flex-direction: row-reverse;width:80%;">
-                                                        <a @onclick=@(() => deleteItemCart(cart)) class="hapus-card-item" style="cursor:pointer;" title="Remove this item">
-                                                            @if (loadProses)
+
+                                                    <div class="d-flex justify-content-end justify-content-md-between flex-column flex-md-row" style="width:80%;">
+                                                        <a @onclick=@(() => deleteItemCart(cart)) class="hapus-card-item d-none d-md-block" style="cursor:pointer;" title="Remove this item">
+                                                            @if(loadProses)
                                                             {
                                                                 <div class="spinner-border spinner-border-sm" role="status">
                                                                     <span class="visually-hidden">Loading...</span>
                                                                 </div>
-                                                            }
-                                                            else
+                                                            } else
                                                             {
                                                                 <span>
                                                                     <svg xmlns="http://www.w3.org/2000/svg" height="25px" viewBox="0 -960 960 960" width="25px" fill="currentColor">
@@ -387,11 +401,31 @@
                                                             <span></span>
                                                         </label>
                                                     </div>
-                                                    <div class="qty-box" style="width: 80%;height: 34px;padding: 21px 5px;gap: 8px;">
-                                                        <button disabled=@(cart.Show_Min_Order || cart.Qty <= cart.Min_Order) style="font-size: 15px; @(cart.Show_Min_Order || cart.Qty <= cart.Min_Order ? "cursor:not-allowed" : "") " @onclick="() => Decrease(cart.Id_Cart)">–</button>
-                                                        <span style="font-size: 15px;height: 100%;display: flex;align-items: center;">@cart.Qty</span>
-                                                        <button disabled=@(cart.Show_Max_Order || cart.Qty >= cart.Stock) style="font-size: 20px; @(cart.Show_Max_Order || cart.Qty >= cart.Stock ? "cursor:not-allowed" : "") " @onclick="() => Increase(cart.Id_Cart)">+</button>
+                                
+                                                    <div class="d-none d-md-flex flex-column justify-content-end h-100">
+                                                        <p class="quantity text-primary">
+                                                            <span class="amount" style="font-size:15px; font-weight:600;">@string.Format("Rp. {0:N0}", ((cart?.Harga - (cart?.Harga * (cart?.Diskon1 / 100)))) *  cart.Qty)</span>
+                                                        </p>
                                                     </div>
+
+                                                    <div class="d-flex d-md-none flex-column justify-content-end h-100">
+                                                        <a @onclick=@(() => deleteItemCart(cart)) class="hapus-card-item" style="cursor:pointer;" title="Remove this item">
+                                                            @if(loadProses)
+                                                            {
+                                                                <div class="spinner-border spinner-border-sm" role="status">
+                                                                    <span class="visually-hidden">Loading...</span>
+                                                                </div>
+                                                            } else
+                                                            {
+                                                                <span>
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" height="25px" viewBox="0 -960 960 960" width="25px" fill="currentColor">
+                                                                        <path d="M312-144q-29.7 0-50.85-21.15Q240-186.3 240-216v-480h-48v-72h192v-48h192v48h192v72h-48v479.57Q720-186 698.85-165T648-144H312Zm336-552H312v480h336v-480ZM384-288h72v-336h-72v336Zm120 0h72v-336h-72v336ZM312-696v480-480Z" />
+                                                                    </svg>
+                                                                </span>
+                                                            }
+                                                        </a>
+                                                    </div>
+
                                                 </div>
                                         
                                                 <div class="w-100">
@@ -428,7 +462,7 @@
                                         <svg xmlns="http://www.w3.org/2000/svg" height="2rem" viewBox="0 -960 960 960" width="2rem" class="mb-3" fill="currentColor">
                                             <path d="m634-440-81-80h69l110-200H353l-80-80h525q23 0 35.5 19.5t.5 42.5L692-482q-11 20-28 31t-30 11ZM280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm540 52L566-280H304q-44 0-67-37.5t-3-78.5l42-86-72-162L28-820l56-56L876-84l-56 56ZM486-360l-80-80h-62l-40 80h182Zm136-160h-69 69Zm58 440q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80Z"/>
                                         </svg>
-                                        <h5 style="color:#6b7280">Your cart is currently empty.</h5>
+                                        <h5 style="color:#6b7280">Keranjang Kamu Kosong.</h5>
                                     </div>
                                 }
                             }
@@ -457,7 +491,7 @@
                                 @if(ScopedDataServices?.ScopedData?.ListDataCart?.Count() >= 1 && !loadContent)
                                 {
                                     <div class="w-100" style="@(ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart).FirstOrDefault( cart => cart.Qty < cart.Min_Order || cart.Qty > cart.Stock || cart.Status_Produk != "aktif" || cart.Status_Variant != "aktif") != null || ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart)?.Count() <= 0 ? "cursor:not-allowed" : "")">
-                                        <button class="btn btn-primary w-100"   @onclick=@(() => CheckoutCart()) style="border-radius:0px; @(ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart).FirstOrDefault( cart => cart.Qty < cart.Min_Order || cart.Qty > cart.Stock || cart.Status_Produk != "aktif" || cart.Status_Variant != "aktif") != null || ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart)?.Count() <= 0 ? "cursor:not-allowed" : "") " disabled="@( ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart).FirstOrDefault( cart => cart.Qty < cart.Min_Order || cart.Qty > cart.Stock || cart.Status_Produk != "aktif" || cart.Status_Variant != "aktif") != null || ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart)?.Count() <= 0 ? true : false)" >Checkout</button>
+                                        <button class="btn btn-primary w-100"   @onclick=@(() => CheckoutCart()) style="border-radius:0px; @(ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart).FirstOrDefault( cart => cart.Qty < cart.Min_Order || cart.Qty > cart.Stock || cart.Status_Produk != "aktif" || cart.Status_Variant != "aktif") != null || ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart)?.Count() <= 0 ? "cursor:not-allowed" : "") " disabled="@( ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart).FirstOrDefault( cart => cart.Qty < cart.Min_Order || cart.Qty > cart.Stock || cart.Status_Produk != "aktif" || cart.Status_Variant != "aktif") != null || ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart)?.Count() <= 0 ? true : false)" >Bayar Sekarang</button>
                                     </div>
                                 }
                             </aside>
@@ -465,16 +499,16 @@
                 </div>
             </div>
 
-            <div class="tab-pane fade @(pageTabs == "belum-bayar" ? "show active" : "")" id="pills-belum-bayar" role="tabpanel" aria-labelledby="pills-belum-bayar-tab">
+            <div class="tab-pane fade @(pageTabs != "keranjang" ? "show active" : "")" id="pills-belum-bayar" role="tabpanel" aria-labelledby="pills-belum-bayar-tab">
                 <div class="row" style="justify-content: center; margin-top: 7rem;">
                     <div class="col-12">
                         <div class="section-title" style="margin-bottom:0px;">
-                            <h2>Belum Bayar</h2>
+                            <h2>@ti.ToTitleCase(pageTabs)</h2>
                         </div>
                     </div>
                 </div>
 
-                @if (loadContent && PesananLoad[0])
+                @if (loadContent)
                 {
                     @for(var i = 0; i <= 5; i++)
                     {
@@ -496,933 +530,17 @@
                 } 
                 else
                 {
-                    @if (ScopedDataServices?.ScopedData?.DataPesananBelum?.Data.Header.Count(x => x.Status_Order_1.ToLower() == "belum bayar") >= 1) {
-                        <div class="cart-page" style="padding: 0px ; margin:20px 0px 0px 0px; max-width:100%">
-                            <div class="cart-container p-0">
-
-                                <div class="cart-items">
-
-                                    <div class="accordion" style="gap: 2rem;display: flex;flex-direction: column;" id="accordionPanelsStayOpenExample">
-                      
-                                        @foreach (var item in ScopedDataServices?.ScopedData?.DataPesananBelum?.Data.Header.Where(x => x.Status_Order_1.ToLower() == "belum bayar").ToList())
-                                        {
-                                            <div class="accordion-item rounded-0 border-0" style="border: none !important;">
-                                                <h2 class="accordion-header rounded-0 border-0" id="panelsStayOpen-headingOne">
-                                                    <div class="d-flex w-100 flex-column gap-3 p-3 p-lg-4">
-                                                        <div class="d-flex flex-row justify-content-between gap-3 py-3 ">
-                                                            <h5>
-                                                                @($"Order ID : {item.No_Tracking}")
-                                                            </h5>
-                                                            <p style="color:#1500b2">
-                                                                @ti.ToTitleCase(item.Status_Order_1)
-                                                            </p>
-                                                        </div>
-
-
-                                                        <div class="d-flex flex-lg-row flex-column justify-content-between w-100 gap-3">
-                                                            <div class="d-flex flex-col gap-3 w-100">
-                                                        
-                                                                @if(@ScopedDataServices?.ScopedData?.DataPesananBelum?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media != null && @ScopedDataServices?.ScopedData?.DataPesananBelum?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media != "")
-                                                                {
-                                                                    <img class="cart-img img-payment" src="@ScopedDataServices?.ScopedData?.DataPesananBelum?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media" style="" alt="#">
-                                                                } 
-                                                        
-                                                                else
-                                                                {
-                                                                    <img class="cart-img img-payment" src="/images/products/placeholder1.png" style="" alt="#">
-                                                                }
-
-                                                                <div class="d-flex flex-column gap-2 w-100 justify-content-between">
-                                                                    <div class="d-flex flex-column gap-2">
-                                                                        <h5 style="font-size:15px;" class="line-clamp-1">
-                                                                            @ScopedDataServices?.ScopedData?.DataPesananBelum?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Nama_Display
-                                                                        </h5>
-                                                                        <p class="variant" style="background-color: #eee;width: fit-content;padding: 1px 5px;border-radius: 0px;">
-                                                                            @($"{@ScopedDataServices?.ScopedData?.DataPesananBelum?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Option_Label}, {@ScopedDataServices?.ScopedData?.DataPesananBelum?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Size_Label}")
-                                                                        </p>
-                                                                        <h5 style="font-size:15px;" class="">
-                                                                            @string.Format("Rp. {0:N0}", @ScopedDataServices?.ScopedData?.DataPesananBelum?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Satuan) 
-                                                                            @($" x {ScopedDataServices?.ScopedData?.DataPesananBelum?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Qty} = ")
-                                                                            <span style="color:#1500b2; font-weight:700;" class="d-lg-inline d-none">
-                                                                                @string.Format("Rp. {0:N0}", ScopedDataServices?.ScopedData?.DataPesananBelum?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
-                                                                            </span>
-                                                                        </h5>
-                                                                        <h5 style="font-size:15px;" class="d-lg-none d-flex line-clamp-1">
-                                                                            <span style="color:#1500b2; font-weight:700;">
-                                                                                @string.Format("Rp. {0:N0}", ScopedDataServices?.ScopedData?.DataPesananBelum?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
-                                                                            </span>
-                                                                        </h5>
-                                                                    </div>
-                                                                    <div class="d-lg-flex d-none flex-row gap-2 w-100 justify-content-between align-items-center">
-                                                                        <div class="d-flex none-accord-@item.No_Bukti flex-column gap-1">
-                                                                            <h5 style="font-size:15px; " class="">
-                                                                                @($"Total {@ScopedDataServices?.ScopedData?.DataPesananBelum?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
-                                                                                <span style="color:#1500b2;">
-                                                                                    @string.Format("Rp. {0:N0}", item.Grand_Total)
-                                                                                </span>
-                                                                            </h5>
-                                                                            @if(@ScopedDataServices?.ScopedData?.DataPesananBelum?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
-                                                                            {
-                                                                                <button @onclick="@( x => openDropdown(@item.No_Bukti))" class="accordion-button header-accord-@item.No_Bukti collapsed rounded-0 mt-1" style="padding: 0px;font-size: 13px;width: fit-content;display: flex;gap: 10px;" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-@item.No_Bukti" aria-expanded="true" aria-controls="panelsStayOpen-@item.No_Bukti"> Tampil Selangkapnya
-                                                                                </button>
-                                                                            }
-                                                                        </div>
-                                                                        <button @onclick="@( x => openPayment(@item, ScopedDataServices?.ScopedData?.DataPesananBelum?.Data.Biaya.Where(x => x.No_Bukti == item.No_Bukti).ToList()))" class="btn none-accord-@item.No_Bukti plus-btn-accord-@item.No_Bukti btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
-                                                                            Bayar Sekarang
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                            
-                                                            <div class="d-flex d-lg-none flex-row gap-2 w-100 justify-content-between align-items-center">
-                                                                <div class="d-flex none-accord-@item.No_Bukti total-bottom flex-column gap-1 mt-2">
-                                                                    <h5 style="font-size:15px; " class="">
-                                                                        @($"Total {@ScopedDataServices?.ScopedData?.DataPesananBelum?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
-                                                                        <span style="color:#1500b2;">
-                                                                            @string.Format("Rp. {0:N0}", item.Grand_Total)
-                                                                        </span>
-                                                                    </h5>
-                                                                    @if(@ScopedDataServices?.ScopedData?.DataPesananBelum?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
-                                                                    {
-                                                                        <button @onclick="@( x => openDropdown(@item.No_Bukti))" class="accordion-button header-accord-@item.No_Bukti collapsed rounded-0 mt-1" style="padding: 0px;font-size: 13px;width: fit-content;display: flex;gap: 10px;" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-@item.No_Bukti" aria-expanded="true" aria-controls="panelsStayOpen-@item.No_Bukti"> Tampil Selangkapnya
-                                                                        </button>
-                                                                    }
-                                                                </div>
-                                                                <button @onclick="@( x => openPayment(@item, ScopedDataServices?.ScopedData?.DataPesananBelum?.Data.Biaya.Where(x => x.No_Bukti == item.No_Bukti).ToList()))" class="btn none-accord-@item.No_Bukti btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
-                                                                    Bayar Sekarang
-                                                                </button>
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-                                                </h2>
-
-
-
-                                                <div id="panelsStayOpen-@item.No_Bukti" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
-                                                    <div class="accordion-body px-3 px-lg-4">
-                                                        @foreach(var produk in ScopedDataServices?.ScopedData?.DataPesananBelum?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList())
-                                                        {
-                                                            @if(produk.Id_Detil == @ScopedDataServices?.ScopedData?.DataPesananBelum?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Id_Detil) { continue; }
-
-                                                            <div class="d-flex flex-col gap-3 w-100">
-                                                                @if(@produk.Var_Id_Media != null && @produk.Var_Id_Media != "")
-                                                                {
-                                                                    <img class="cart-img img-payment" src="@produk.Var_Id_Media" style="" alt="#">
-                                                                } 
-                                                        
-                                                                else
-                                                                {
-                                                                    <img class="cart-img img-payment" src="/images/products/placeholder1.png" style="" alt="#">
-                                                                }
-                                                                <div class="d-flex flex-column gap-2 w-100 justify-content-between">
-                                                                    <div class="d-flex flex-column gap-2">
-                                                                        <h5 style="font-size:15px;" class="line-clamp-1">
-                                                                            @produk.Nama_Display
-                                                                        </h5>
-                                                                        <p class="variant" style="background-color: #eee;width: fit-content;padding: 1px 5px;border-radius: 0px;">
-                                                                            @($"{@produk.Var_Option_Label}, {@produk.Var_Size_Label}")
-                                                                        </p>
-                                                                        <h5 style="font-size:15px;" class="">
-                                                                            @string.Format("Rp. {0:N0}", @produk.Harga_Satuan) 
-                                                                            @($" x {produk.Qty} = ")
-                                                                            <span style="color:#1500b2; font-weight:700;" class="d-lg-inline d-none">
-                                                                                @string.Format("Rp. {0:N0}", produk.Harga_Total)
-                                                                            </span>
-                                                                        </h5>
-                                                                        <h5 style="font-size:15px;" class="d-lg-none d-flex line-clamp-1">
-                                                                            <span style="color:#1500b2; font-weight:700;">
-                                                                                @string.Format("Rp. {0:N0}", produk.Harga_Total)
-                                                                            </span>
-                                                                        </h5>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        }
-
-                                                        <div class="d-flex flex-row gap-1 w-100 justify-content-between align-items-center">
-                                                            <div class="d-flex flex-column gap-1 total-bottom">
-                                                                <h5 style="font-size:15px; " class="">
-                                                                    @($"Total {@ScopedDataServices?.ScopedData?.DataPesananBelum?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
-                                                                    <span style="color:#1500b2;">
-                                                                        @string.Format("Rp. {0:N0}", item.Grand_Total)
-                                                                    </span>
-                                                                </h5>
-                                                                @if(@ScopedDataServices?.ScopedData?.DataPesananBelum?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
-                                                                {
-                                                                    <button @onclick="@( x => openDropdown(@item.No_Bukti))" class="accordion-button header-accord-@item.No_Bukti collapsed rounded-0 mt-1" style="padding: 0px;font-size: 13px;width: fit-content;display: flex;gap: 10px;" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-@item.No_Bukti" aria-expanded="true" aria-controls="panelsStayOpen-@item.No_Bukti"> Tampil Selangkapnya
-                                                                    </button>
-                                                                }
-                                                            </div>
-                                                            <button @onclick="@( x => openPayment(@item, ScopedDataServices?.ScopedData?.DataPesananBelum?.Data.Biaya.Where(x => x.No_Bukti == item.No_Bukti).ToList()))" class="btn btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
-                                                                Bayar Sekarang
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        }
-                        
-                    
-                                    </div>
-
-                                </div>
-
-                                @if(ScopedDataServices.ScopedData.DataPesananBelum.hasMore) {
-
-                                    <div class="row">
-                                        <div class="col-12 w-100 d-flex align-items-center justify-content-center mt-4">
-                                            <button @onclick="@(x => showMore("belum bayar"))" class="btn-slide px-5" style="width:fit-content;z-index:0;">
-                                                @if (loadProses)
-
-                                                {
-                                                    <div class="spinner-border spinner-border-sm position-relative" role="status">
-                                                        <span class="visually-hidden">Loading...</span>
-                                                    </div>
-                                                }
-                                                else
-                                                {
-                                                    <span class="position-relative">
-                                                        Lebih Banyak
-                                                    </span>
-                                                }
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                }
-
-
-                            </div>
-                        </div>
-                    } else
-                    {
-                        <div class=" w-100 d-flex justify-content-center align-items-center" style="height: 30rem;margin-bottom: 10rem;background-color: #f5f5f5;margin-top: 10px" >
-                            <h5 style="font-size:1rem; color:lightgray; text-decoration:underline" >Tidak Ada Transaksi</h5>
-                        </div>
-                    }
+                   <ItemPesanan refreshStatus=@refreshStatus OnBatalkanPesanan=@BatalkanPesanan GantiMethod=@GantiMethod KirimPesan=@KirimPesan pageTabs=@pageTabs showMore=@showMore openPayment=@openPaymentSection openDropdown=@openDropdown OnSelesaikanPesanan=@onPesananSelesai ListItem=@PesananList />
                 }
 
 
             </div>
-
-            <div class="tab-pane fade @(pageTabs == "dikemas" ? "show active" : "")" id="pills-dikemas" role="tabpanel" aria-labelledby="pills-dikemas-tab">
-                <div class="row" style="justify-content: center; margin-top: 7rem;">
-                    <div class="col-12">
-                        <div class="section-title" style="margin-bottom:0px;">
-                            <h2>Dikemas</h2>
-                        </div>
-                    </div>
-                </div>
-
-                @if (loadContent && PesananLoad[1])
-                {
-                    @for(var i = 0; i <= 5; i++)
-                    {
-                        <div class="" style="padding: 0px ; margin-top:20px;">
-                            <div class="card p-3 mb-5 border-0" style="border-radius:0px;" aria-busy="true">
-                                <div class="skeleton skeleton-rect mb-3"></div>
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <div style="flex:1">
-                                            <div class="skeleton skeleton-title mb-2"></div>
-                                            <div class="skeleton skeleton-subtitle mb-2" style="width:50%"></div>
-                                    </div>
-                                    <div class="ms-3">
-                                        <div class="skeleton skeleton-pill"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                } 
-                else
-                {
-
-                    @if (ScopedDataServices?.ScopedData?.DataPesananDikemas?.Data.Header.Count(x => x.Status_Order_1.ToLower() == "dikemas") >= 1) {
-            
-                    <div class="cart-page" style="padding: 0px ; margin:20px 0px 0px 0px; max-width:100%">
-                        <div class="cart-container p-0">
-                            <div class="cart-items">
-
-                                <div class="accordion" style="gap: 2rem;display: flex;flex-direction: column;" id="accordionPanelsStayOpenExample">
-                      
-                                    @foreach (var item in ScopedDataServices?.ScopedData?.DataPesananDikemas?.Data.Header.Where(x => x.Status_Order_1.ToLower() == "dikemas").ToList())
-                                    {
-                                        <div class="accordion-item rounded-0 border-0" style="border: none !important;">
-                                            <h2 class="accordion-header rounded-0 border-0" id="panelsStayOpen-headingOne">
-                                                <div class="d-flex w-100 flex-column gap-3 p-3 p-lg-4">
-                                                    <div class="d-flex flex-row justify-content-between gap-3 py-3 ">
-                                                        <h5>
-                                                            @($"Order ID : {item.No_Tracking}")
-                                                        </h5>
-                                                        <p style="color:#1500b2">
-                                                            @ti.ToTitleCase(item.Status_Order_1)
-                                                        </p>
-                                                    </div>
-
-
-                                                    <div class="d-flex flex-lg-row flex-column justify-content-between w-100 gap-3">
-                                                        <div class="d-flex flex-col gap-3 w-100">
-                                                            @if(@ScopedDataServices?.ScopedData?.DataPesananDikemas?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media != null && @ScopedDataServices?.ScopedData?.DataPesananDikemas?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media != "")
-                                                            {
-                                                                <img class="cart-img img-payment" src="@ScopedDataServices?.ScopedData?.DataPesananDikemas?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media" style="" alt="#">
-                                                            } 
-                                                        
-                                                            else
-                                                            {
-                                                                <img class="cart-img img-payment" src="/images/products/placeholder1.png" style="" alt="#">
-                                                            }
-
-                                                            <div class="d-flex flex-column gap-2 w-100 justify-content-between">
-                                                                <div class="d-flex flex-column gap-2">
-                                                                    <h5 style="font-size:15px;" class="line-clamp-1">
-                                                                        @ScopedDataServices?.ScopedData?.DataPesananDikemas?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Nama_Display
-                                                                    </h5>
-                                                                    <p class="variant" style="background-color: #eee;width: fit-content;padding: 1px 5px;border-radius: 0px;">
-                                                                        @($"{@ScopedDataServices?.ScopedData?.DataPesananDikemas?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Option_Label}, {@ScopedDataServices?.ScopedData?.DataPesananDikemas?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Size_Label}")
-                                                                    </p>
-                                                                    <h5 style="font-size:15px;" class="">
-                                                                        @string.Format("Rp. {0:N0}", @ScopedDataServices?.ScopedData?.DataPesananDikemas?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Satuan) 
-                                                                        @($" x {ScopedDataServices?.ScopedData?.DataPesananDikemas?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Qty} = ")
-                                                                        <span style="color:#1500b2; font-weight:700;" class="d-lg-inline d-none">
-                                                                            @string.Format("Rp. {0:N0}", ScopedDataServices?.ScopedData?.DataPesananDikemas?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
-                                                                        </span>
-                                                                    </h5>
-                                                                    <h5 style="font-size:15px;" class="d-lg-none d-flex line-clamp-1">
-                                                                        <span style="color:#1500b2; font-weight:700;">
-                                                                            @string.Format("Rp. {0:N0}", ScopedDataServices?.ScopedData?.DataPesananDikemas?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
-                                                                        </span>
-                                                                    </h5>
-                                                                </div>
-                                                                <div class="d-lg-flex d-none flex-row gap-2 w-100 justify-content-between align-items-center">
-                                                                    <div class="d-flex none-accord-@item.No_Bukti flex-column gap-1">
-                                                                        <h5 style="font-size:15px; " class="">
-                                                                            @($"Total {@ScopedDataServices?.ScopedData?.DataPesananDikemas?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
-                                                                            <span style="color:#1500b2;">
-                                                                                @string.Format("Rp. {0:N0}", item.Grand_Total)
-                                                                            </span>
-                                                                        </h5>
-                                                                        @if(@ScopedDataServices?.ScopedData?.DataPesananDikemas?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
-                                                                        {
-                                                                            <button @onclick="@( x => openDropdown(@item.No_Bukti))" class="accordion-button header-accord-@item.No_Bukti collapsed rounded-0 mt-1" style="padding: 0px;font-size: 13px;width: fit-content;display: flex;gap: 10px;" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-@item.No_Bukti" aria-expanded="true" aria-controls="panelsStayOpen-@item.No_Bukti"> Tampil Selangkapnya
-                                                                            </button>
-                                                                        }
-                                                                    </div>
-                                                                    <button @onclick="@( x => openPayment(@item, ScopedDataServices?.ScopedData?.DataPesananDikemas?.Data.Biaya.Where(x => x.No_Bukti == item.No_Bukti).ToList()))" class="btn none-accord-@item.No_Bukti btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
-                                                                        Lihat Status
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                            
-                                                        <div class="d-flex d-lg-none flex-row gap-2 w-100 justify-content-between align-items-center">
-                                                            <div class="d-flex none-accord-@item.No_Bukti total-bottom flex-column gap-1 mt-2" style="width:60%;">
-                                                                <h5 style="font-size:15px; " class="">
-                                                                    @($"Total {@ScopedDataServices?.ScopedData?.DataPesananDikemas?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
-                                                                    <span style="color:#1500b2;">
-                                                                        @string.Format("Rp. {0:N0}", item.Grand_Total)
-                                                                    </span>
-                                                                </h5>
-                                                                @if(@ScopedDataServices?.ScopedData?.DataPesananDikemas?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
-                                                                {
-                                                                    <button @onclick="@( x => openDropdown(@item.No_Bukti))" class="accordion-button header-accord-@item.No_Bukti collapsed rounded-0 mt-1" style="padding: 0px;font-size: 13px;width: fit-content;display: flex;gap: 10px;" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-@item.No_Bukti" aria-expanded="true" aria-controls="panelsStayOpen-@item.No_Bukti"> Tampil Selangkapnya
-                                                                    </button>
-                                                                }
-                                                            </div>
-                                                            <button @onclick="@( x => openPayment(@item, ScopedDataServices?.ScopedData?.DataPesananDikemas?.Data.Biaya.Where(x => x.No_Bukti == item.No_Bukti).ToList()))" class="btn none-accord-@item.No_Bukti btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
-                                                                Lihat Status
-                                                            </button>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                            </h2>
-
-
-
-                                            <div id="panelsStayOpen-@item.No_Bukti" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
-                                                <div class="accordion-body px-3 px-lg-4">
-                                                    @foreach(var produk in ScopedDataServices?.ScopedData?.DataPesananDikemas?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList())
-                                                    {
-                                                        @if(produk.Id_Detil == @ScopedDataServices?.ScopedData?.DataPesananDikemas?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Id_Detil) { continue; }
-
-                                                        <div class="d-flex flex-col gap-3 w-100">
-                                                            @if(@produk.Var_Id_Media != null && @produk.Var_Id_Media != "")
-                                                                {
-                                                                    <img class="cart-img img-payment" src="@produk.Var_Id_Media" style="" alt="#">
-                                                                } 
-                                                        
-                                                                else
-                                                                {
-                                                                    <img class="cart-img img-payment" src="/images/products/placeholder1.png" style="" alt="#">
-                                                                }
-                                                            <div class="d-flex flex-column gap-2 w-100 justify-content-between">
-                                                                <div class="d-flex flex-column gap-2">
-                                                                    <h5 style="font-size:15px;" class="line-clamp-1">
-                                                                        @produk.Nama_Display
-                                                                    </h5>
-                                                                    <p class="variant" style="background-color: #eee;width: fit-content;padding: 1px 5px;border-radius: 0px;">
-                                                                        @($"{@produk.Var_Option_Label}, {@produk.Var_Size_Label}")
-                                                                    </p>
-                                                                    <h5 style="font-size:15px;" class="">
-                                                                        @string.Format("Rp. {0:N0}", @produk.Harga_Satuan) 
-                                                                        @($" x {produk.Qty} = ")
-                                                                        <span style="color:#1500b2; font-weight:700;" class="d-lg-inline d-none">
-                                                                            @string.Format("Rp. {0:N0}", produk.Harga_Total)
-                                                                        </span>
-                                                                    </h5>
-                                                                    <h5 style="font-size:15px;" class="d-lg-none d-flex line-clamp-1">
-                                                                        <span style="color:#1500b2; font-weight:700;">
-                                                                            @string.Format("Rp. {0:N0}", produk.Harga_Total)
-                                                                        </span>
-                                                                    </h5>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    }
-
-                                                    <div class="d-flex flex-row gap-1 w-100 justify-content-between align-items-center">
-                                                        <div class="d-flex flex-column gap-1 total-bottom" style="width:60%;">
-                                                            <h5 style="font-size:15px; " class="">
-                                                                @($"Total {@ScopedDataServices?.ScopedData?.DataPesananDikemas?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
-                                                                <span style="color:#1500b2;">
-                                                                    @string.Format("Rp. {0:N0}", item.Grand_Total)
-                                                                </span>
-                                                            </h5>
-                                                            @if(@ScopedDataServices?.ScopedData?.DataPesananDikemas?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
-                                                            {
-                                                                <button @onclick="@( x => openDropdown(@item.No_Bukti))" class="accordion-button header-accord-@item.No_Bukti collapsed rounded-0 mt-1" style="padding: 0px;font-size: 13px;width: fit-content;display: flex;gap: 10px;" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-@item.No_Bukti" aria-expanded="true" aria-controls="panelsStayOpen-@item.No_Bukti"> Tampil Selangkapnya
-                                                                </button>
-                                                            }
-                                                        </div>
-                                                        <button @onclick="@( x => openPayment(@item, ScopedDataServices?.ScopedData?.DataPesananDikemas?.Data.Biaya.Where(x => x.No_Bukti == item.No_Bukti).ToList()))" class="btn btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
-                                                            Lihat Status
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }
-                    
-                    
-                                </div>
-                            </div>
-
-                            @if(ScopedDataServices.ScopedData.DataPesananDikemas.hasMore) {
-                                <div class="row">
-                                    <div class="col-12 w-100 d-flex align-items-center justify-content-center mt-4">
-                                        <button @onclick="@(x => showMore("dikemas"))" class="btn-slide px-5" style="width:fit-content;z-index:0;">
-                                            @if (loadProses)
-
-                                            {
-                                                <div class="spinner-border spinner-border-sm position-relative" role="status">
-                                                    <span class="visually-hidden">Loading...</span>
-                                                </div>
-                                            }
-                                            else
-                                            {
-                                                <span class="position-relative">
-                                                    Lebih Banyak
-                                                </span>
-                                            }
-                                        </button>
-                                    </div>
-                                </div>
-                            }
-
-                        </div>
-                    </div>
-            
-                    } 
-            
-                    else
-                    {
-                        <div class=" w-100 d-flex justify-content-center align-items-center" style="height: 30rem;margin-bottom: 10rem;background-color: #f5f5f5;margin-top: 10px" >
-                            <h5 style="font-size:1rem; color:lightgray; text-decoration:underline" >Tidak Ada Transaksi</h5>
-                        </div>
-                    }
-    
-                }
-
-            </div>
-
-            <div class="tab-pane fade @(pageTabs == "dikirim" ? "show active" : "")" id="pills-dikirim" role="tabpanel" aria-labelledby="pills-dikirim-tab">
-                <div class="row" style="justify-content: center; margin-top: 7rem;">
-                    <div class="col-12">
-                        <div class="section-title" style="margin-bottom:0px;">
-                            <h2>Dikirim</h2>
-                        </div>
-                    </div>
-                </div>
-
-                @if (loadContent && PesananLoad[2])
-                {
-                    @for(var i = 0; i <= 5; i++)
-                    {
-                        <div class="" style="padding: 0px ; margin-top:20px;">
-                            <div class="card p-3 mb-5 border-0" style="border-radius:0px;" aria-busy="true">
-                                <div class="skeleton skeleton-rect mb-3"></div>
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <div style="flex:1">
-                                            <div class="skeleton skeleton-title mb-2"></div>
-                                            <div class="skeleton skeleton-subtitle mb-2" style="width:50%"></div>
-                                    </div>
-                                    <div class="ms-3">
-                                        <div class="skeleton skeleton-pill"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                } 
-                else
-                {
-
-                    @if (ScopedDataServices?.ScopedData?.DataPesananDikirim?.Data.Header.Count(x => x.Status_Order_1.ToLower() == "dikirim") >= 1) {
-                        <div class="cart-page" style="padding: 0px ; margin:20px 0px 0px 0px; max-width:100%">
-                            <div class="cart-container p-0">
-                                <div class="cart-items">
-
-                                    <div class="accordion" style="gap: 2rem;display: flex;flex-direction: column;" id="accordionPanelsStayOpenExample">
-                      
-                                        @foreach (var item in ScopedDataServices?.ScopedData?.DataPesananDikirim?.Data.Header.Where(x => x.Status_Order_1.ToLower() == "dikirim").ToList())
-                                        {
-                                            <div class="accordion-item rounded-0 border-0" style="border: none !important;">
-                                                <h2 class="accordion-header rounded-0 border-0" id="panelsStayOpen-headingOne">
-                                                    <div class="d-flex w-100 flex-column gap-3 p-3 p-lg-4">
-                                                        <div class="d-flex flex-row justify-content-between gap-3 py-3 ">
-                                                            <h5>
-                                                                @($"Order ID : {item.No_Tracking}")
-                                                            </h5>
-                                                            <p style="color:#1500b2">
-                                                                @ti.ToTitleCase(item.Status_Order_1)
-                                                            </p>
-                                                        </div>
-
-
-                                                        <div class="d-flex flex-lg-row flex-column justify-content-between w-100 gap-3">
-                                                            <div class="d-flex flex-col gap-3 w-100">
-                                                                @if(@ScopedDataServices?.ScopedData?.DataPesananDikirim?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media != null && @ScopedDataServices?.ScopedData?.DataPesananDikirim?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media != "")
-                                                                {
-                                                                    <img class="cart-img img-payment" src="@ScopedDataServices?.ScopedData?.DataPesananDikirim?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media" style="" alt="#">
-                                                                } 
-                                                        
-                                                                else
-                                                                {
-                                                                    <img class="cart-img img-payment" src="/images/products/placeholder1.png" style="" alt="#">
-                                                                }
-                                                                <div class="d-flex flex-column gap-2 w-100 justify-content-between">
-                                                                    <div class="d-flex flex-column gap-2">
-                                                                        <h5 style="font-size:15px;" class="line-clamp-1">
-                                                                            @ScopedDataServices?.ScopedData?.DataPesananDikirim?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Nama_Display
-                                                                        </h5>
-                                                                        <p class="variant" style="background-color: #eee;width: fit-content;padding: 1px 5px;border-radius: 0px;">
-                                                                            @($"{@ScopedDataServices?.ScopedData?.DataPesananDikirim?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Option_Label}, {@ScopedDataServices?.ScopedData?.DataPesananDikirim?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Size_Label}")
-                                                                        </p>
-                                                                        <h5 style="font-size:15px;" class="">
-                                                                            @string.Format("Rp. {0:N0}", @ScopedDataServices?.ScopedData?.DataPesananDikirim?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Satuan) 
-                                                                            @($" x {ScopedDataServices?.ScopedData?.DataPesananDikirim?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Qty} = ")
-                                                                            <span style="color:#1500b2; font-weight:700;" class="d-lg-inline d-none">
-                                                                                @string.Format("Rp. {0:N0}", ScopedDataServices?.ScopedData?.DataPesananDikirim?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
-                                                                            </span>
-                                                                        </h5>
-                                                                        <h5 style="font-size:15px;" class="d-lg-none d-flex line-clamp-1">
-                                                                            <span style="color:#1500b2; font-weight:700;">
-                                                                                @string.Format("Rp. {0:N0}", ScopedDataServices?.ScopedData?.DataPesananDikirim?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
-                                                                            </span>
-                                                                        </h5>
-                                                                    </div>
-                                                                    <div class="d-lg-flex d-none flex-row gap-2 w-100 justify-content-between align-items-center">
-                                                                        <div class="d-flex none-accord-@item.No_Bukti flex-column gap-1">
-                                                                            <h5 style="font-size:15px; " class="">
-                                                                                @($"Total {@ScopedDataServices?.ScopedData?.DataPesananDikirim?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
-                                                                                <span style="color:#1500b2;">
-                                                                                    @string.Format("Rp. {0:N0}", item.Grand_Total)
-                                                                                </span>
-                                                                            </h5>
-                                                                            @if(@ScopedDataServices?.ScopedData?.DataPesananDikirim?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
-                                                                            {
-                                                                                <button @onclick="@( x => openDropdown(@item.No_Bukti))" class="accordion-button header-accord-@item.No_Bukti collapsed rounded-0 mt-1" style="padding: 0px;font-size: 13px;width: fit-content;display: flex;gap: 10px;" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-@item.No_Bukti" aria-expanded="true" aria-controls="panelsStayOpen-@item.No_Bukti"> Tampil Selangkapnya
-                                                                                </button>
-                                                                            }
-                                                                        </div>
-                                                                        <button @onclick="@( x => openPayment(@item, ScopedDataServices?.ScopedData?.DataPesananDikirim?.Data.Biaya.Where(x => x.No_Bukti == item.No_Bukti).ToList()))" class="btn none-accord-@item.No_Bukti btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
-                                                                            Lihat Status
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                            
-                                                            <div class="d-flex d-lg-none flex-row gap-2 w-100 justify-content-between align-items-center">
-                                                                <div class="d-flex none-accord-@item.No_Bukti total-bottom flex-column gap-1 mt-2">
-                                                                    <h5 style="font-size:15px; " class="">
-                                                                        @($"Total {@ScopedDataServices?.ScopedData?.DataPesananDikirim?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
-                                                                        <span style="color:#1500b2;">
-                                                                            @string.Format("Rp. {0:N0}", item.Grand_Total)
-                                                                        </span>
-                                                                    </h5>
-                                                                    @if(@ScopedDataServices?.ScopedData?.DataPesananDikirim?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
-                                                                    {
-                                                                        <button @onclick="@( x => openDropdown(@item.No_Bukti))" class="accordion-button header-accord-@item.No_Bukti collapsed rounded-0 mt-1" style="padding: 0px;font-size: 13px;width: fit-content;display: flex;gap: 10px;" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-@item.No_Bukti" aria-expanded="true" aria-controls="panelsStayOpen-@item.No_Bukti"> Tampil Selangkapnya
-                                                                        </button>
-                                                                    }
-                                                                </div>
-                                                                <button @onclick="@( x => openPayment(@item, ScopedDataServices?.ScopedData?.DataPesananDikirim?.Data.Biaya.Where(x => x.No_Bukti == item.No_Bukti).ToList()))" class="btn none-accord-@item.No_Bukti btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
-                                                                    Lihat Status
-                                                                </button>
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-                                                </h2>
-
-
-
-                                                <div id="panelsStayOpen-@item.No_Bukti" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
-                                                    <div class="accordion-body px-3 px-lg-4">
-                                                        @foreach(var produk in ScopedDataServices?.ScopedData?.DataPesananDikirim?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList())
-                                                        {
-                                                            @if(produk.Id_Detil == @ScopedDataServices?.ScopedData?.DataPesananDikirim?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Id_Detil) { continue; }
-
-                                                            <div class="d-flex flex-col gap-3 w-100">
-                                                                @if(@produk.Var_Id_Media != null && @produk.Var_Id_Media != "")
-                                                                {
-                                                                    <img class="cart-img img-payment" src="@produk.Var_Id_Media" style="" alt="#">
-                                                                } 
-                                                        
-                                                                else
-                                                                {
-                                                                    <img class="cart-img img-payment" src="/images/products/placeholder1.png" style="" alt="#">
-                                                                }
-                                                                <div class="d-flex flex-column gap-2 w-100 justify-content-between">
-                                                                    <div class="d-flex flex-column gap-2">
-                                                                        <h5 style="font-size:15px;" class="line-clamp-1">
-                                                                            @produk.Nama_Display
-                                                                        </h5>
-                                                                        <p class="variant" style="background-color: #eee;width: fit-content;padding: 1px 5px;border-radius: 0px;">
-                                                                            @($"{@produk.Var_Option_Label}, {@produk.Var_Size_Label}")
-                                                                        </p>
-                                                                        <h5 style="font-size:15px;" class="">
-                                                                            @string.Format("Rp. {0:N0}", @produk.Harga_Satuan) 
-                                                                            @($" x {produk.Qty} = ")
-                                                                            <span style="color:#1500b2; font-weight:700;" class="d-lg-inline d-none">
-                                                                                @string.Format("Rp. {0:N0}", produk.Harga_Total)
-                                                                            </span>
-                                                                        </h5>
-                                                                        <h5 style="font-size:15px;" class="d-lg-none d-flex line-clamp-1">
-                                                                            <span style="color:#1500b2; font-weight:700;">
-                                                                                @string.Format("Rp. {0:N0}", produk.Harga_Total)
-                                                                            </span>
-                                                                        </h5>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        }
-
-                                                        <div class="d-flex flex-row gap-1 w-100 justify-content-between align-items-center">
-                                                            <div class="d-flex flex-column gap-1 total-bottom">
-                                                                <h5 style="font-size:15px; " class="">
-                                                                    @($"Total {@ScopedDataServices?.ScopedData?.DataPesananDikirim?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
-                                                                    <span style="color:#1500b2;">
-                                                                        @string.Format("Rp. {0:N0}", item.Grand_Total)
-                                                                    </span>
-                                                                </h5>
-                                                                @if(@ScopedDataServices?.ScopedData?.DataPesananDikirim?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
-                                                                {
-                                                                    <button @onclick="@( x => openDropdown(@item.No_Bukti))" class="accordion-button header-accord-@item.No_Bukti collapsed rounded-0 mt-1" style="padding: 0px;font-size: 13px;width: fit-content;display: flex;gap: 10px;" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-@item.No_Bukti" aria-expanded="true" aria-controls="panelsStayOpen-@item.No_Bukti"> Tampil Selangkapnya
-                                                                    </button>
-                                                                }
-                                                            </div>
-                                                            <button @onclick="@( x => openPayment(@item, ScopedDataServices?.ScopedData?.DataPesananDikirim?.Data.Biaya.Where(x => x.No_Bukti == item.No_Bukti).ToList()))" class="btn btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
-                                                                Lihat Status
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        }
-                    
-                    
-                                    </div>
-                                </div>
-
-                                @if(ScopedDataServices.ScopedData.DataPesananDikirim.hasMore) {
-                                    <div class="row">
-                                        <div class="col-12 w-100 d-flex align-items-center justify-content-center mt-4">
-                                            <button @onclick="@(x => showMore("dikirim"))" class="btn-slide px-5" style="width:fit-content;z-index:0;">
-                                                @if (loadProses)
-
-                                                {
-                                                    <div class="spinner-border spinner-border-sm position-relative" role="status">
-                                                        <span class="visually-hidden">Loading...</span>
-                                                    </div>
-                                                }
-                                                else
-                                                {
-                                                    <span class="position-relative">
-                                                        Lebih Banyak
-                                                    </span>
-                                                }
-                                            </button>
-                                        </div>
-                                    </div>
-                                }
-
-                            </div>
-                        </div>
-                    } else
-                    {
-                        <div class=" w-100 d-flex justify-content-center align-items-center" style="height: 30rem;margin-bottom: 10rem;background-color: #f5f5f5;margin-top: 10px" >
-                            <h5 style="font-size:1rem; color:lightgray; text-decoration:underline" >Tidak Ada Transaksi</h5>
-                        </div>
-                    }
-    
-                }
-
-            </div>
-
-            <div class="tab-pane fade @(pageTabs == "selesai" ? "show active" : "")" id="pills-selesai" role="tabpanel" aria-labelledby="pills-selesai-tab">
-                <div class="row" style="justify-content: center; margin-top: 7rem;">
-                    <div class="col-12">
-                        <div class="section-title" style="margin-bottom:0px;">
-                            <h2>Histori Beli</h2>
-                        </div>
-                    </div>
-                </div>
-
-                @if (loadContent && PesananLoad[3])
-                {
-                    @for(var i = 0; i <= 5; i++)
-                    {
-                        <div class="" style="padding: 0px ; margin-top:20px;">
-                            <div class="card p-3 mb-5 border-0" style="border-radius:0px;" aria-busy="true">
-                                <div class="skeleton skeleton-rect mb-3"></div>
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <div style="flex:1">
-                                            <div class="skeleton skeleton-title mb-2"></div>
-                                            <div class="skeleton skeleton-subtitle mb-2" style="width:50%"></div>
-                                    </div>
-                                    <div class="ms-3">
-                                        <div class="skeleton skeleton-pill"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                } 
-                else
-                {
-
-                    @if (ScopedDataServices?.ScopedData?.DataPesananSelesai?.Data.Header.Count(x => x.Status_Order_1.ToLower() == "selesai") >= 1) {
-                        <div class="cart-page" style="padding: 0px ; margin:20px 0px 0px 0px; max-width:100%">
-                            <div class="cart-container p-0">
-                                <div class="cart-items">
-
-                                    <div class="accordion" style="gap: 2rem;display: flex;flex-direction: column;" id="accordionPanelsStayOpenExample">
-                      
-                                        @foreach (var item in ScopedDataServices?.ScopedData?.DataPesananSelesai?.Data.Header.Where(x => x.Status_Order_1.ToLower() == "selesai").ToList())
-                                        {
-                                            <div class="accordion-item rounded-0 border-0" style="border: none !important;">
-                                                <h2 class="accordion-header rounded-0 border-0" id="panelsStayOpen-headingOne">
-                                                    <div class="d-flex w-100 flex-column gap-3 p-3 p-lg-4">
-                                                        <div class="d-flex flex-row justify-content-between gap-3 py-3 ">
-                                                            <h5>
-                                                                @($"Order ID : {item.No_Tracking}")
-                                                            </h5>
-                                                            <p style="color:#1500b2">
-                                                                @ti.ToTitleCase(item.Status_Order_1)
-                                                            </p>
-                                                        </div>
-
-
-                                                        <div class="d-flex flex-lg-row flex-column justify-content-between w-100 gap-3">
-                                                            <div class="d-flex flex-col gap-3 w-100">
-                                                                @if(@ScopedDataServices?.ScopedData?.DataPesananSelesai?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media != null && @ScopedDataServices?.ScopedData?.DataPesananSelesai?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media != "")
-                                                                {
-                                                                    <img class="cart-img img-payment" src="@ScopedDataServices?.ScopedData?.DataPesananSelesai?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Id_Media" style="" alt="#">
-                                                                } 
-                                                        
-                                                                else
-                                                                {
-                                                                    <img class="cart-img img-payment" src="/images/products/placeholder1.png" style="" alt="#">
-                                                                }
-                                                                <div class="d-flex flex-column gap-2 w-100 justify-content-between">
-                                                                    <div class="d-flex flex-column gap-2">
-                                                                        <h5 style="font-size:15px;" class="line-clamp-1">
-                                                                            @ScopedDataServices?.ScopedData?.DataPesananSelesai?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Nama_Display
-                                                                        </h5>
-                                                                        <p class="variant" style="background-color: #eee;width: fit-content;padding: 1px 5px;border-radius: 0px;">
-                                                                            @($"{@ScopedDataServices?.ScopedData?.DataPesananSelesai?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Option_Label}, {@ScopedDataServices?.ScopedData?.DataPesananSelesai?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Var_Size_Label}")
-                                                                        </p>
-                                                                        <h5 style="font-size:15px;" class="">
-                                                                            @string.Format("Rp. {0:N0}", @ScopedDataServices?.ScopedData?.DataPesananSelesai?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Satuan) 
-                                                                            @($" x {ScopedDataServices?.ScopedData?.DataPesananSelesai?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Qty} = ")
-                                                                            <span style="color:#1500b2; font-weight:700;" class="d-lg-inline d-none">
-                                                                                @string.Format("Rp. {0:N0}", ScopedDataServices?.ScopedData?.DataPesananSelesai?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
-                                                                            </span>
-                                                                        </h5>
-                                                                        <h5 style="font-size:15px;" class="d-lg-none d-flex line-clamp-1">
-                                                                            <span style="color:#1500b2; font-weight:700;">
-                                                                                @string.Format("Rp. {0:N0}", ScopedDataServices?.ScopedData?.DataPesananSelesai?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Harga_Total)
-                                                                            </span>
-                                                                        </h5>
-                                                                    </div>
-                                                                    <div class="d-lg-flex d-none flex-row gap-2 w-100 justify-content-between align-items-center">
-                                                                        <div class="d-flex none-accord-@item.No_Bukti flex-column gap-1">
-                                                                            <h5 style="font-size:15px; " class="">
-                                                                                @($"Total {@ScopedDataServices?.ScopedData?.DataPesananSelesai?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
-                                                                                <span style="color:#1500b2;">
-                                                                                    @string.Format("Rp. {0:N0}", item.Grand_Total)
-                                                                                </span>
-                                                                            </h5>
-                                                                            @if(@ScopedDataServices?.ScopedData?.DataPesananSelesai?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
-                                                                            {
-                                                                                <button @onclick="@( x => openDropdown(@item.No_Bukti))" class="accordion-button header-accord-@item.No_Bukti collapsed rounded-0 mt-1" style="padding: 0px;font-size: 13px;width: fit-content;display: flex;gap: 10px;" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-@item.No_Bukti" aria-expanded="true" aria-controls="panelsStayOpen-@item.No_Bukti"> Tampil Selangkapnya
-                                                                                </button>
-                                                                            }
-                                                                        </div>
-                                                                        <button @onclick="@( x => openPayment(@item, ScopedDataServices?.ScopedData?.DataPesananSelesai?.Data.Biaya.Where(x => x.No_Bukti == item.No_Bukti).ToList()))" class="btn none-accord-@item.No_Bukti btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
-                                                                            Lihat Status
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                            
-                                                            <div class="d-flex d-lg-none flex-row gap-2 w-100 justify-content-between align-items-center">
-                                                                <div class="d-flex none-accord-@item.No_Bukti total-bottom flex-column gap-1 mt-2">
-                                                                    <h5 style="font-size:15px; " class="">
-                                                                        @($"Total {@ScopedDataServices?.ScopedData?.DataPesananSelesai?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
-                                                                        <span style="color:#1500b2;">
-                                                                            @string.Format("Rp. {0:N0}", item.Grand_Total)
-                                                                        </span>
-                                                                    </h5>
-                                                                    @if(@ScopedDataServices?.ScopedData?.DataPesananSelesai?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
-                                                                    {
-                                                                        <button @onclick="@( x => openDropdown(@item.No_Bukti))" class="accordion-button header-accord-@item.No_Bukti collapsed rounded-0 mt-1" style="padding: 0px;font-size: 13px;width: fit-content;display: flex;gap: 10px;" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-@item.No_Bukti" aria-expanded="true" aria-controls="panelsStayOpen-@item.No_Bukti"> Tampil Selangkapnya
-                                                                        </button>
-                                                                    }
-                                                                </div>
-                                                                <button @onclick="@( x => openPayment(@item, ScopedDataServices?.ScopedData?.DataPesananSelesai?.Data.Biaya.Where(x => x.No_Bukti == item.No_Bukti).ToList()))" class="btn none-accord-@item.No_Bukti btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
-                                                                    Lihat Status
-                                                                </button>
-                                                            </div>
-                                                        </div>
-
-                                                    </div>
-                                                </h2>
-
-
-
-                                                <div id="panelsStayOpen-@item.No_Bukti" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
-                                                    <div class="accordion-body px-3 px-lg-4">
-                                                        @foreach(var produk in ScopedDataServices?.ScopedData?.DataPesananSelesai?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList())
-                                                        {
-                                                            @if(produk.Id_Detil == @ScopedDataServices?.ScopedData?.DataPesananSelesai?.Data.Items.FirstOrDefault(x => x.No_Bukti == item.No_Bukti).Id_Detil) { continue; }
-
-                                                            <div class="d-flex flex-col gap-3 w-100">
-                                                                @if(@produk.Var_Id_Media != null && @produk.Var_Id_Media != "")
-                                                                {
-                                                                    <img class="cart-img img-payment" src="@produk.Var_Id_Media" style="" alt="#">
-                                                                } 
-                                                        
-                                                                else
-                                                                {
-                                                                    <img class="cart-img img-payment" src="/images/products/placeholder1.png" style="" alt="#">
-                                                                }
-                                                                <div class="d-flex flex-column gap-2 w-100 justify-content-between">
-                                                                    <div class="d-flex flex-column gap-2">
-                                                                        <h5 style="font-size:15px;" class="line-clamp-1">
-                                                                            @produk.Nama_Display
-                                                                        </h5>
-                                                                        <p class="variant" style="background-color: #eee;width: fit-content;padding: 1px 5px;border-radius: 0px;">
-                                                                            @($"{@produk.Var_Option_Label}, {@produk.Var_Size_Label}")
-                                                                        </p>
-                                                                        <h5 style="font-size:15px;" class="">
-                                                                            @string.Format("Rp. {0:N0}", @produk.Harga_Satuan) 
-                                                                            @($" x {produk.Qty} = ")
-                                                                            <span style="color:#1500b2; font-weight:700;" class="d-lg-inline d-none">
-                                                                                @string.Format("Rp. {0:N0}", produk.Harga_Total)
-                                                                            </span>
-                                                                        </h5>
-                                                                        <h5 style="font-size:15px;" class="d-lg-none d-flex line-clamp-1">
-                                                                            <span style="color:#1500b2; font-weight:700;">
-                                                                                @string.Format("Rp. {0:N0}", produk.Harga_Total)
-                                                                            </span>
-                                                                        </h5>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        }
-
-                                                        <div class="d-flex flex-row gap-1 w-100 justify-content-between align-items-center">
-                                                            <div class="d-flex flex-column gap-1 total-bottom">
-                                                                <h5 style="font-size:15px; " class="">
-                                                                    @($"Total {@ScopedDataServices?.ScopedData?.DataPesananSelesai?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count()} produk: ") 
-                                                                    <span style="color:#1500b2;">
-                                                                        @string.Format("Rp. {0:N0}", item.Grand_Total)
-                                                                    </span>
-                                                                </h5>
-                                                                @if(@ScopedDataServices?.ScopedData?.DataPesananSelesai?.Data.Items.Where(x => x.No_Bukti == item.No_Bukti).ToList().Count() >= 2) 
-                                                                {
-                                                                    <button @onclick="@( x => openDropdown(@item.No_Bukti))" class="accordion-button header-accord-@item.No_Bukti collapsed rounded-0 mt-1" style="padding: 0px;font-size: 13px;width: fit-content;display: flex;gap: 10px;" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-@item.No_Bukti" aria-expanded="true" aria-controls="panelsStayOpen-@item.No_Bukti"> Tampil Selangkapnya
-                                                                    </button>
-                                                                }
-                                                            </div>
-                                                            <button @onclick="@( x => openPayment(@item, ScopedDataServices?.ScopedData?.DataPesananSelesai?.Data.Biaya.Where(x => x.No_Bukti == item.No_Bukti).ToList()))" class="btn btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
-                                                                Lihat Status
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        }
-                    
-                    
-                                    </div>
-                                </div>
-
-                                @if(ScopedDataServices.ScopedData.DataPesananSelesai.hasMore) {
-                                    <div class="row">
-                                        <div class="col-12 w-100 d-flex align-items-center justify-content-center mt-4">
-                                            <button @onclick="@(x => showMore("selesai"))" class="btn-slide px-5" style="width:fit-content;z-index:0;">
-                                                @if (loadProses)
-
-                                                {
-                                                    <div class="spinner-border spinner-border-sm position-relative" role="status">
-                                                        <span class="visually-hidden">Loading...</span>
-                                                    </div>
-                                                }
-                                                else
-                                                {
-                                                    <span class="position-relative">
-                                                        Lebih Banyak
-                                                    </span>
-                                                }
-                                            </button>
-                                        </div>
-                                    </div>
-                                }
-                            </div>
-                        </div>
-                    } else
-                    {
-                        <div class=" w-100 d-flex justify-content-center align-items-center" style="height: 30rem;margin-bottom: 10rem;background-color: #f5f5f5;margin-top: 10px" >
-                            <h5 style="font-size:1rem; color:lightgray; text-decoration:underline" >Tidak Ada Transaksi</h5>
-                        </div>
-                    }
-    
-                }
-
-    
-    
-            </div>
-
         </div>
     }
 </div>
 
 
-<div class="container-fluid d-none d-lg-block" style="background-color:white; padding-top:110px;min-height: 56rem;">
+<div class="container-fluid d-none d-xl-block" style="background-color:white; padding-top:110px;min-height: 56rem;">
     <div class="col-12 col-md-10 m-auto" >
         <div class="row">
             <div class="col-2 px-0">
@@ -1589,8 +707,8 @@
                         <div class="row pe-2 ps-3">
 
                             @if(pageTabs == "details")
-                            {
-                                <DetailOrder  noBukti=@noBukti />
+                            { 
+                                <DetailOrder OnSelesaikanPesanan=@onPesananSelesai refreshStatus=@refreshStatus OnBatalkanPesanan=@BatalkanPesanan GantiMethod=@GantiMethod KirimPesan=@KirimPesan pageTabs=@pageTabs  noBukti=@noBukti />
                             } 
                             else {
 
@@ -1994,7 +1112,7 @@
                                                                                             @($"Order ID : {item.No_Tracking}")
                                                                                         </h5>
                                                                                         <p style="color:#1500b2">
-                                                                                            @item.Status_Order_1.ToUpper()
+                                                                                            @($"{item.Status_Order_1.ToUpper()} {(item.Status_Order_2 == "sebagian" ? item.Status_Order_2.ToUpper() : "" )}")
                                                                                         </p>
                                                                                     </div>
 
@@ -2027,7 +1145,17 @@
                                                                                                     </h5>
                                                                                                 </div>
                                                                                             </div>
-                                                                                            <div class="col-2 d-flex align-items-center justify-content-end">
+                                                                                            <div class="col-2 d-flex flex-column align-items-end justify-content-center">
+                                                                                                <h5 style="font-size:15px;" class="d-flex line-clamp-1 mb-2">
+                                                                                                    <span class="text-success" style="font-weight:600;">
+                                                                                                        @if (@item.Status_Order_2 == "sebagian")
+                                                                                                        {
+                                                                                                            <span>
+                                                                                                                @produk.Status_Item.ToUpper()
+                                                                                                            </span>
+                                                                                                        }
+                                                                                                    </span>
+                                                                                                </h5>
                                                                                                 <h5 style="font-size:15px;" class="d-flex line-clamp-1">
                                                                                                     <span style="color:#1500b2; font-weight:600;">
                                                                                                         @string.Format("Rp. {0:N0}", produk.Harga_Total)
@@ -2055,15 +1183,16 @@
                                                                             <div class="d-flex flex-row justify-content-between w-100 pt-3 pb-4" style="background-color: #f2f1ff;">
                                                                                 <div class="col-12 d-flex align-items-start px-3" >
                                                                                     <div class="d-flex w-100 flex-row align-items-end justify-content-end gap-3">
-                                                                                        @* <button class="btn none-accord bg-danger btn-danger" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
-                                                                                            Batalkan
-                                                                                        </button> *@
-                                                                                        @* <button @onclick="@( x => openPayment(@item, ScopedDataServices?.ScopedData?.DataPesananBelum?.Data.Biaya.Where(x => x.No_Bukti == item.No_Bukti).ToList()))" class="btn btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
-                                                                                            Lihat Pesanan
-                                                                                        </button> *@
                                                                                         <button @onclick="@( x => KirimPesan(item))" class="btn none-accord btn-success bg-success" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button">
                                                                                             Hubungi Admin
                                                                                         </button>
+
+                                                                                        @if(item.Status_Order_2 != "sebagian") 
+                                                                                        {
+                                                                                            <button @onclick="@( x => pesananSelesai(item, false))" class="btn none-accord btn-primary bg-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop5">
+                                                                                                Pesanan Selesai
+                                                                                            </button>
+                                                                                        }
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -2212,14 +1341,11 @@
                                                                             <div class="d-flex flex-row justify-content-between w-100 pt-3 pb-4" style="background-color: #f2f1ff;">
                                                                                 <div class="col-12 d-flex align-items-start px-3" >
                                                                                     <div class="d-flex w-100 flex-row align-items-end justify-content-end gap-3">
-                                                                                        @* <button class="btn none-accord bg-danger btn-danger" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
-                                                                                            Batalkan
-                                                                                        </button> *@
-                                                                                        @* <button @onclick="@( x => openPayment(@item, ScopedDataServices?.ScopedData?.DataPesananBelum?.Data.Biaya.Where(x => x.No_Bukti == item.No_Bukti).ToList()))" class="btn btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
-                                                                                            Lihat Pesanan
-                                                                                        </button> *@
                                                                                         <button class="btn none-accord btn-success bg-success" @onclick="@( x => KirimPesan(item))" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button">
                                                                                             Hubungi Admin
+                                                                                        </button>
+                                                                                        <button class="btn btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button">
+                                                                                            Pesan Kembali
                                                                                         </button>
                                                                                     </div>
                                                                                 </div>
@@ -2370,15 +1496,9 @@
                                                                             <div class="d-flex flex-row justify-content-between w-100 pt-3 pb-4" style="background-color: #f2f1ff;">
                                                                                 <div class="col-12 d-flex align-items-start px-3" >
                                                                                     <div class="d-flex w-100 flex-row align-items-end justify-content-end gap-3">
-                                                                                        @* <button class="btn none-accord bg-danger btn-danger" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
-                                                                                            Batalkan
-                                                                                        </button> *@
                                                                                         <button class="btn btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button">
                                                                                             Pesan Kembali
                                                                                         </button>
-                                                                                        @* <button class="btn none-accord btn-success bg-success" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
-                                                                                            Bayar Pesanan
-                                                                                        </button> *@
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -2491,6 +1611,16 @@
                 {
                     <div class="modal-body">
                         <div class="row">
+                            @if (@Head?.Status_Order_1 != "belum bayar")
+                            {
+                                <div class="col-12 mb-2">
+                                    <div class="bg-success text-white d-flex align-items-center justify-content-center px-2 py-3">
+                                        <p class="m-0" style="font-weight: 600;">
+                                            Pesanan Telah Dibayar
+                                        </p>
+                                    </div>
+                                </div>
+                            }
                             <div class="col-12 col-md-6">
                                 <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
                                     <input readonly style="background-color:transparent !important; font-weight: 700; font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your name*" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.Nama_Penerima" />
@@ -2524,7 +1654,6 @@
                             
                             <div class="col-12">
                                 <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
-                                    @* <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value="@string.Format("Rp. {0:N0}", @Head?.Grand_Total)" /> *@
                                     <aside class="checkout-summary2 panel" style="background-color:transparent; padding:5px 10px; height:fit-content; margin-bottom:0px; margin-top:10px">
                                         <div>
                                             <div class="summary__line" style="border-top: unset;">
@@ -2555,11 +1684,7 @@
                                     
                                     <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Rincian Pembayaran</label>
                                 </div>
-                            </div>
-
-                           @*  <div class="col-12">
-                            </div>   *@
-                            
+                            </div>                            
 
                             <div class="col-12 col-md-6">
                                 <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
@@ -2570,7 +1695,7 @@
                             @if (@Head?.Status_Order_1 == "belum bayar") {
                                 <div class="col-12 col-md-6">
                                     <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
-                                        <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.Expiry_Time.ToString()" />
+                                        <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value=@((Head?.Expiry_Time as DateTime?)?.ToString("dd/MM/yyyy HH:mm") ?? "-")/>
                                         <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Expired</label>
                                     </div>
                                 </div>
@@ -2635,7 +1760,7 @@
                     </div>
             
                     <div class="modal-footer justify-content-center button border-top-0 pt-2 px-5">
-                        <button type="button" style="border-radius:0px;width: auto;margin: 0px 3px;" disabled=@loadProses class="btn btn-success bg-success px-2" @onclick="@( x => refreshStatus(Head))" >
+                        <button type="button" style="border-radius:0px;width: auto;margin: 0px 3px; border:solid;" disabled=@loadProses class="btn btn-primary bg-white border-success text-success px-2 border-2" @onclick="@( x => refreshStatus(Head))" >
                             @if(loadProses) 
                             {
                                 <div class="spinner-border spinner-border-sm" role="status">
@@ -2644,20 +1769,20 @@
                             } 
                             else
                             {
-                                @("Cek Pembayaran")
+                                @("Refresh Status")
 
                                 @* <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M480-160q-134 0-227-93t-93-227q0-134 93-227t227-93q69 0 132 28.5T720-690v-110h80v280H520v-80h168q-32-56-87.5-88T480-720q-100 0-170 70t-70 170q0 100 70 170t170 70q77 0 139-44t87-116h84q-28 106-114 173t-196 67Z"/></svg> *@
                             }
                         </button>
 
-                        @* @if (@Head?.Status_Order_1 != "belum bayar" && @Head?.Status_Order_1 != "selesai") 
+                        @if (@Head?.Status_Order_1 != "belum bayar" && @Head?.Status_Order_1 != "selesai") 
                         {
-                            <button type="button" class="btn btn-primary px-2" style="border-radius:0px" @onclick="@( x => KirimPesan(Head))" >Hubungi Admin</button>
+                            <button type="button" class="btn btn-primary px-2 d-flex d-xl-none" style="border-radius:0px" @onclick="@( x => KirimPesan(Head))" >Hubungi Admin</button>
                         }
 
                         @if (@Head?.Status_Order_1 == "belum bayar") 
                         {
-                            <button type="button" class="btn btn-primary px-2" style="border-radius:0px" @onclick="@( x => GantiMethod(Head))" >Ganti Metode</button>
+                            <button type="button" class="btn btn-primary px-2 d-none" style="border-radius:0px" @onclick="@( x => GantiMethod(Head))" >Ganti Metode</button>
                         }
 
                         <button class="d-none px-2" id="buttonChangeMethod" style="width:0px; height:0px;" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop3"></button>
@@ -2668,10 +1793,10 @@
                         
                         @if (@Head?.Status_Order_1 == "belum bayar") 
                         {
-                            <button type="button" @onclick="@( x => BatalkanPesanan(Head))" class="btn btn-danger bg-danger px-2" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;border-radius:0px;">
+                            <button type="button" @onclick="@( x => BatalkanPesanan(Head))" class="btn btn-danger bg-danger px-2 d-none" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;border-radius:0px;">
                                 <span class="position-relative">Batalkan Pesanan</span>
                             </button>
-                        } *@
+                        }
                     </div>
                 }
 
@@ -2823,7 +1948,7 @@
             <div class="modal-footer justify-content-center button border-top-0 pt-2 px-5">
                 @if(infoPembatalan == null)
                 {
-                        <button type="button" @onclick="@( x => BatalkanPesanan(null, true))" class="btn btn-danger bg-danger" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content; border-radius:0px;">
+                        <button type="button" @onclick="@( x => AuthBatalkanPesanan(null, true))" class="btn btn-danger bg-danger" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content; border-radius:0px;">
                             <span class="position-relative">
                                 @if(loadProses) 
                                 {
@@ -2833,6 +1958,72 @@
                                 } 
                                 else {
                                     @("Batalkan Pesanan")
+                                }
+                                </span>
+                        </button>
+            
+                } else {
+                    <button type="button" id="closeModal" data-bs-dismiss="modal" class="btn btn-danger bg-danger" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;border-radius:0px;">
+                        <span class="position-relative">Tutup</span>
+                    </button>
+                }
+            </div>
+                
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade review-modal overflow-auto" id="staticBackdrop5" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width:600px;">
+        <div class="modal-content" style="border-radius: 0px;" >
+            <div class="modal-header justify-content-between d-flex border-bottom-0 pb-0">
+                <h5 class="modal-title w-100 text-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">Konfirmasi Pesanan?</h5>
+                <button type="button" class="btn-close m-0" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            @if(infoSelesaikan == null) {
+                <div class="modal-body">
+                    <div class="row">
+                        <p style="font-size:17px; font-weight:500;" class="text-primary text-center">
+                           Yakin selesaikan pesanan @Pesanan_Change.No_Tracking?
+                        </p>
+                    </div>
+                </div>
+            } else if(infoSelesaikan == true) {
+                <div class="modal-body">
+                    <div class="row">
+                        <p style="font-size:17px; font-weight:500;" class="text-success text-center">
+                            Pesanan @Pesanan_Change.No_Tracking telah diselesaikan.
+                        </p>
+                    </div>
+                </div>
+
+            } else {
+                <div class="modal-body">
+                    <div class="row">
+                        <p style="font-size:17px; font-weight:500;" class="text-danger text-center">
+                            Pesanan @Pesanan_Change.No_Tracking gagal diperbarui, coba lagi nanti
+                        </p>
+                    </div>
+                </div>
+            }
+
+            
+            <div class="modal-footer justify-content-center button border-top-0 pt-2 px-5">
+                @if(infoSelesaikan == null)
+                {
+                        <button type="button" @onclick="@( x => pesananSelesai(null, true))" class="btn btn-primary bg-primary" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content; border-radius:0px;">
+                            <span class="position-relative">
+                                @if(loadProses) 
+                                {
+                                    <div class="spinner-border spinner-border-sm" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                } 
+                                else {
+                                    @("Selesaikan Pesanan")
                                 }
                                 </span>
                         </button>

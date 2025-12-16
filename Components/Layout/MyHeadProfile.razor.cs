@@ -40,7 +40,7 @@ namespace PacificWeb.Components.Layout
         [Parameter] public SourchData dataSourch { get; set; }
 
 
-        public (List<Brand> SearchBrand, List<Produk> SearchProduk, int TotalCount, bool hasMore) SearchList { get; set; } = (new(), new(), 0, false);
+        public (List<Brand> SearchBrand, List<Produk> SearchProduk, int TotalCount, bool hasMore, int maxPrice) SearchList { get; set; } = (new(), new(), 0, false, 0);
 
         public List<Cart> ListDataCartCheck { get; set; } = new List<Cart>();
         public bool loadProses { get; set; } = false;
@@ -184,7 +184,7 @@ namespace PacificWeb.Components.Layout
         {
             SearchText = "";
 
-            SearchList = (new List<Brand>(), new List<Produk>(), 0, false);
+            SearchList = (new List<Brand>(), new List<Produk>(), 0, false, 0);
 
             searchCount = 0;
 
@@ -237,7 +237,7 @@ namespace PacificWeb.Components.Layout
                 foreach (var dataCart in dataSourch?.ListDataCart)
                 {
                     if (!dataCart.SelectCart) continue;
-                    nettoKeranjang += dataCart.Qty * dataCart.Harga;
+                    nettoKeranjang += dataCart.Qty * (dataCart.Harga ?? 0);
                 }
             } 
             else
@@ -246,7 +246,7 @@ namespace PacificWeb.Components.Layout
                 foreach (var dataCart in dataSourch?.ListDataCart)
                 {
                     if (!dataCart.SelectCart) continue;
-                    nettoKeranjang += dataCart.Qty * dataCart.Harga;
+                    nettoKeranjang += dataCart.Qty * (dataCart.Harga ?? 0);
                 }
             }
 
@@ -306,7 +306,7 @@ namespace PacificWeb.Components.Layout
             foreach (var dataCart in dataSourch?.ListDataCart)
             {
                 if (!dataCart.SelectCart) continue;
-                nettoKeranjang += dataCart.Qty * dataCart.Harga;
+                nettoKeranjang += dataCart.Qty * (dataCart.Harga ?? 0 );
             }
 
             loadProsesNetto = false;
@@ -342,7 +342,7 @@ namespace PacificWeb.Components.Layout
                 foreach (var dataCart in dataSourch?.ListDataCart)
                 {
                     if (!dataCart.SelectCart) continue;
-                    nettoKeranjang += dataCart.Qty * dataCart.Harga;
+                    nettoKeranjang += dataCart.Qty * ( dataCart.Harga ?? 0 );
                 }
 
             }

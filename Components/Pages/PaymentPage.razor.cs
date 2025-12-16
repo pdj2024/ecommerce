@@ -550,7 +550,7 @@ namespace PacificWeb.Components.Pages
             foreach (var item in dataSourch.ListDataCart)
             {
                 item.Jenis_Item = "stock";
-                item.Harga_Satuan = item.Harga;
+                item.Harga_Satuan = item.Harga ?? 0;
 
                 var data_item = new
                 {

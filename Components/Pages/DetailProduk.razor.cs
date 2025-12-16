@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using Models;
+using PacificWeb.Components.Layout;
 using Radzen;
 using Services;
-using PacificWeb.Components.Layout;
 using System.Security.Claims;
 using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 
@@ -168,8 +169,8 @@ namespace PacificWeb.Components.Pages
         {
             if (firstRender)
             {
-                JSRuntime.InvokeVoidAsync("goTopInstant");
                 JSRuntime.InvokeVoidAsync("removeBackdrops");
+                JSRuntime.InvokeVoidAsync("goTopInstant");
 
                 var authContent = NewPdjService.RefreshDataAuthKonten();
 

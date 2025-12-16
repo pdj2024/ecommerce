@@ -36,6 +36,8 @@ namespace Models
             public decimal Tot_PPN { get; set; } = 0;
             public decimal Grand_Total { get; set; } = 0;
             public string QrBase64 { get; set; } = "";
+            public bool variabel_map_1 { get; set; } = false;
+            public bool variabel_map_2 { get; set; } = false;
         }
         
         public class Item

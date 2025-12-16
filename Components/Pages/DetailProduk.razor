@@ -130,7 +130,7 @@
                                         <div class="row align-items-center">
                                             <div class="col-12 px-0 pb-2">
                                                 <ul class="breadcrumb-nav">
-                                                    <li><a>Produk</a></li>
+                                                    <li><a>@dataSourch?.DataProduk?.Nama_Brand</a></li>
                                                     <li><a>@dataSourch?.DataProduk?.Nama_Display</a></li>
                                                 </ul>
                                             </div>
@@ -215,12 +215,17 @@
 
                                 <div class="pt-3">
                                     <div class="row" style="margin-bottom:20px;">
-                                        <h5 class="tag-variasi" style="font-weight:400;"><span style="font-weight:800">Opsi:</span> @(dataSourch?.DataProduk?.Option_Default == "" ? "Empty" : dataSourch?.DataProduk?.Option_Default) </h5>
-                                        <div class="size-options d-flex flex-row flex-wrap" style="gap: 10px;">
+                                        <h5 class="tag-variasi" style="font-weight:500">
+                                            Opsi :
+                                            <span style="font-weight:800" class="text-primary"> 
+                                                @(dataSourch?.DataProduk?.Option_Default == "" ? "Kosong" : dataSourch?.DataProduk?.Option_Default) 
+                                            </span> 
+                                        </h5>
+                                        <div class="size-options d-flex flex-row flex-wrap h-100" style="gap: 10px;">
                                             @foreach (var Option in dataSourch?.DataProduk?.Options)
                                             {
-                                                <label style="gap: 15px; width:fit-content; justify-content:start;" class="size-box pe-3 @(dataSourch?.DataProduk?.Id_Option_Default == Option.Option_Id ? "active" : "")">
-                                                    <Image Style="width:50px; height:50px;" Src="@Option.MediaUrl?.Id_Media" />
+                                                <label style="gap: 15px; width:fit-content; justify-content:start; height:100%" class="size-box size-box-img  @(dataSourch?.DataProduk?.Id_Option_Default == Option.Option_Id ? "active" : "")">
+                                                    <Image Style="width:85px; height:85px; padding:5px;" Src="@Option.MediaUrl?.Id_Media" />
                                                     <input 
                                                         type="radio" 
                                                         name="variant" 
@@ -229,14 +234,19 @@
                                                         checked="@(dataSourch?.DataProduk?.Id_Option_Default == Option.Option_Id)"
                                                         @onchange="() => OnVariantChanged(Option.Option_Id)" 
                                                     />
-                                                    <span style="width: fit-content;overflow: hidden;text-overflow: ellipsis; text-align:center; z-index:1; position:relative;">@(Option.Option_Label == "" ? "Empty" : Option.Option_Label )</span>
+                                                    @* <span style="width: fit-content;overflow: hidden;text-overflow: ellipsis; text-align:center; z-index:1; position:relative;">@(Option.Option_Label == "" ? "Empty" : Option.Option_Label )</span> *@
                                                 </label>
                                             }
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <h5 class="tag-variasi" style="font-weight:400;"><span style="font-weight:800">Size:</span> @(dataSourch?.DataProduk?.Size_Default == "" ? "Empty" : dataSourch?.DataProduk?.Size_Default)</h5>
+                                        <h5 class="tag-variasi" style="font-weight:500">
+                                            Size :
+                                            <span style="font-weight:800" class="text-primary"> 
+                                                @(dataSourch?.DataProduk?.Size_Default == "" ? "Kosong" : dataSourch?.DataProduk?.Size_Default)
+                                            </span> 
+                                        </h5>
                                         <div class="size-options d-flex flex-row flex-wrap" style="gap: 10px;">
                                             @foreach (var size in dataSourch?.DataProduk?.Sizes)
                                             {
@@ -257,8 +267,27 @@
 
                                     @if (dataSourch?.DataProduk?.Id_Option_Default != "" && dataSourch?.DataProduk?.Id_Size_Default != "")
                                     {
+                                        @if(dataSourch.DataProduk.Show_Min_Order)
+                                        {
+                                            <span class="text-danger mt-3" style="font-size: 13px; font-weight: 700;" >
+                                                *Minimal order @dataSourch?.DataProduk?.Min_Order item
+                                            </span>
+                                        }
+
+                                        @if(dataSourch.DataProduk.Show_Max_Order)
+                                        {
+                                            <span class="text-danger mt-3" style="font-size: 13px; font-weight: 700;" >
+                                                *Maximal order @dataSourch?.DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == dataSourch?.DataProduk?.Id_Option_Default && x.Size_Id == dataSourch?.DataProduk?.Id_Size_Default).Stock item
+                                            </span>
+                                        }                                        
+                                    }
+
+
+                                  @*   @if (dataSourch?.DataProduk?.Id_Option_Default != "" && dataSourch?.DataProduk?.Id_Size_Default != "")
+                                    {
                                         if (dataSourch?.DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == dataSourch?.DataProduk?.Id_Option_Default && x.Size_Id == dataSourch?.DataProduk?.Id_Size_Default) != null)
                                         {
+
                                             <div class="row mt-4">
 
                                                 @if(dataSourch?.DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == dataSourch?.DataProduk?.Id_Option_Default && x.Size_Id == dataSourch?.DataProduk?.Id_Size_Default)?.Stock <= 5) {
@@ -327,6 +356,7 @@
                                                     </div>
                                                 }
                                             </div>
+                                        
                                         } else
                                         {
                                             <p class="text-danger">
@@ -349,7 +379,8 @@
                                         }
                                     }
 
-                                    
+                                     *@
+
                                     <div id="hidden-flayer" class="bottom-content mt-3">
                                         <div class="row align-items-start row-style" style="">
 
@@ -506,6 +537,7 @@
 <!-- Start Trending Product Area -->
 <section class="trending-product section pt-3">
     <div class="container-fluid">
+
         <div class="row px-0 px-lg-3 px-xl-4 px-xxl-10"> 
 
             @if (loadContent)
@@ -535,6 +567,12 @@
                 </div>
             }    
         
+        </div>
+    
+        <div class="w-100 d-flex flex-column align-items-center justify-content-center">
+            <button class="btn-slide px-3 w-auto" style="z-index: 0;" @onclick=@(x => NavigateToHome("search-page?keyword=")) >
+                Tampilkan lebih banyak
+            </button>
         </div>
     </div>
 </section>

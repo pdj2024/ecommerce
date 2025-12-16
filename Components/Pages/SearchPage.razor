@@ -7,31 +7,44 @@ using Microsoft.AspNetCore.Components.Authorization
 <PageTitle>Search: @dataSourch.SearchList.TotalCount.ToString() result for @SearchText </PageTitle>
 
 <MyHeader  @ref="header_page" />
+
 <!-- Start Trending Product Area -->
-<section class="trending-product section px-0 px-lg-3 px-xl-2 px-xxl-10" style="margin-top: 70px;">
+<section class="trending-product section px-0 px-lg-3 px-xl-2 px-xxl-10" style="margin-top: 70px">
     <div class="container-fluid" style="position:relative;" >
         <div class="row" style="justify-content: center;width: 100%;position: absolute;z-index: 100; left:1.7%;">
             <div class="col-12">
                 <div class="section-title">
-                    <h2>Hasil Pencarian</h2>
+                    <h2>@JudulPage</h2>
                 </div>
             </div>
             <div class="col-12 col-md-12 col-lg-6 ps-3 pe-2 pe-md-3 px-xl-0">
-                <div class="input-group mb-3 style-grup">
-                    <span class="input-group-text" id="basic-addon1" style="padding: 0px;"><i class="lni lni-search-1" style="font:normal normal normal 22px/1 'Lineicons';"></i></span>
-                    <InputText autocomplete="off" @bind-Value=@SearchText @oninput="@(e => OnSearchInput(e.Value?.ToString()))" type="text" class="form-control search-form" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1" />
-                    <button class="clear-search" @onclick="@(e => OnClearInput())" >
-                        @if (loadProses)
-                        {
-                            <div class="spinner-border spinner-border-sm" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                        }
-                        else
-                        {
-                            <span>Clear</span>
-                        }
-                    </button>
+                <div class="input-group mb-3 style-grup px-3">
+                    <span class="input-group-text" id="basic-addon1" style="padding: 0px 10px;">
+                        <i class="lni lni-search-1" style="font:normal normal normal 22px/1 'Lineicons';" />
+                    </span>
+                    <InputText autocomplete="off" @onkeydown="HandleKeyDown" @bind-Value=@SearchText @oninput="@(e => OnSearchInput(e.Value?.ToString()))" type="text" class="form-control search-form" placeholder="Cari Produk..." aria-label="Search" aria-describedby="basic-addon1" />
+
+                    @if (SearchText != "")
+                    {
+                        <button class="clear-search px-3" @onclick="@(e => OnClearInput())">
+                            @if (loadProses)
+                            {
+                                <div class="spinner-border spinner-border-sm" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            }
+                            else
+                            {
+                                <span>Hapus</span>
+                            }
+                        </button>
+                        <span class="input-group-text" id="basic-addon1" style="padding: 0px;">
+                            |
+                        </span>
+                        <button class="clear-search px-3" @onclick="@(e => SearchCari())">
+                            <span>Cari</span>
+                        </button>
+                    }
                 </div>
             </div>
         </div>
@@ -91,21 +104,21 @@ using Microsoft.AspNetCore.Components.Authorization
                                     <div class="slider-track"></div>
                                     <div class="slider-range" id="rangeFill"></div>
 
-                                    <input type="range" id="minRange" min="0" max="@Termahal" value="0">
-                                    <input type="range" id="maxRange" min="0" max="@Termahal" value="@Termahal">
+                                    <input type="range" id="minRange" min="0" max="@Termahal" value="@minHarga">
+                                    <input type="range" id="maxRange" min="0" max="@Termahal" value="@maxHarga">
                                 </div>
 
                                 <div class="price-input">
                                     <div class="box">
                                         <span>Rp</span>
-                                        <input type="number" id="minInput" min="0" max="@Termahal" value="0">
+                                        <input type="number" id="minInput" min="0" max="@Termahal" value="@minHarga">
                                     </div>
 
                                     <span class="divider">To</span>
 
                                     <div class="box">
                                         <span>Rp</span>
-                                        <input type="number" id="maxInput" min="0" max="@Termahal" value="@Termahal">
+                                        <input type="number" id="maxInput" min="0" max="@Termahal" value="@maxHarga">
                                     </div>
                                 </div>
 
@@ -125,7 +138,7 @@ using Microsoft.AspNetCore.Components.Authorization
                                 aria-expanded="false" aria-label="Toggle navigation">
                             <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor"><path d="M528-600v-72h108v-144h72v144h108v72H528Zm108 456v-384h72v384h-72Zm-384 0v-144H144v-72h288v72H324v144h-72Zm0-288v-384h72v384h-72Z" /></svg>
                             <span style="position:relative; z-index:1" class="ms-3">
-                                Filter
+                                Filter (@ListFilter.Count(x => x.Checked == true))
                             </span>
                         </button>
 
@@ -138,7 +151,13 @@ using Microsoft.AspNetCore.Components.Authorization
                             </button>
                         </div>
 
-
+                        <button class="btn-slide px-3 py-2 justify-content-around d-none d-sm-none d-md-flex d-xl-none w-auto" type="button" style="z-index:0;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasFilter" aria-controls="offcanvasLeft"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor"><path d="M528-600v-72h108v-144h72v144h108v72H528Zm108 456v-384h72v384h-72Zm-384 0v-144H144v-72h288v72H324v144h-72Zm0-288v-384h72v384h-72Z" /></svg>
+                            <span style="position:relative; z-index:1" class="ms-3">
+                                Filter (@ListFilter.Count(x => x.Checked == true))
+                            </span>
+                        </button>
 
                         @if (loadProses)
                         {
@@ -148,7 +167,7 @@ using Microsoft.AspNetCore.Components.Authorization
                         }
                         else
                         {
-                            <p class="d-none d-sm-none d-md-flex ps-md-2 ps-xl-0">@dataSourch?.SearchList.TotalCount Hasil</p>
+                            <p class="d-none d-sm-none d-xl-flex ps-md-2 ps-xl-0">@dataSourch?.SearchList.TotalCount Hasil</p>
                         }
 
                         <div class="d-none d-sm-none d-md-flex  gap-4 align-items-center">
@@ -164,8 +183,8 @@ using Microsoft.AspNetCore.Components.Authorization
                                 <p class="d-flex d-lg-flex d-xl-none">@dataSourch?.SearchList.TotalCount Hasil</p>
                             }
 
-                            <div class="btn-group w-auto">
-                                <button class="dropdown-toggle btn-slide py-2 px-3 justify-content-around border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="z-index:0;">
+                            <div class="btn-group w-auto" style="">
+                                <button class="dropdown-toggle py-2 px-3 justify-content-around border-0 d-flex" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="z-index:0; background-color:#f5f5f5 !important;">
                                     <span style="position:relative; z-index:1; position: relative;z-index: 1;max-width: 150px;overflow: hidden;text-overflow: ellipsis;">
                                         Urutkan : @ShortActive
                                     </span>
@@ -220,7 +239,13 @@ using Microsoft.AspNetCore.Components.Authorization
                 @if (ListFilter.Count() >= 1)
                 {
                     <div class="row pb-2 pt-3 pt-md-3 pt-lg-3 pt-xl-0">
-                        <div class="d-flex flex-row flex-wrap gap-2 px-0 px-md-0 px-lg-0 px-xl-2 mt-2">
+                        <div class="d-flex flex-row flex-wrap align-items-center gap-2 px-0 px-md-0 px-lg-0 px-xl-2 mt-2">
+                            @if (ListFilter.Count() >= 1)
+                            {
+                                <span style="position:relative; z-index:1" class="ms-0 d-none d-sm-none d-md-flex">
+                                    Filter (@ListFilter.Count(x => x.Checked == true)) :
+                                </span>
+                            }
                             @foreach (var Filter in ListFilter)
                             {
                                 @if (!Filter.Checked) { continue; }
@@ -236,7 +261,7 @@ using Microsoft.AspNetCore.Components.Authorization
                             {
                                 <button class="border-0 bg-transparent ps-2 pe-0 py-0" @onclick=@(x => removeAllFilter()) >
                                     <span class="underline-anim">
-                                        Remove All
+                                        Hapus Semua
                                     </span>
                                 </button>
                             }
@@ -367,7 +392,6 @@ using Microsoft.AspNetCore.Components.Authorization
 <!-- End Trending Product Area -->
 
 
-
 <MyFooter @ref="footer_page" />
 
 <SelectProduk DataProduk="ScopedDataServices.ScopedData.DataProduk" Quantity="ScopedDataServices.ScopedData.DataProduk.Min_Order" header_page="@header_page"/>
@@ -383,7 +407,7 @@ using Microsoft.AspNetCore.Components.Authorization
         <div class="row">
             <div class="col-12">
                 <div class="filters" style="">
-                    <div class="py-3 w-100" style="border-bottom: 1px solid darkgray;">
+                    <div class="py-3 w-100 d-flex flex-column" style="border-bottom: 1px solid darkgray;">
                         <div class="btn-group w-100 pb-2" style="display: flex;justify-content: center;">
                             <button class="dropdown-toggle btn-slide py-3 px-5 justify-content-between w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="z-index:0;">
                                 <span style="position:relative; z-index:1; position: relative;z-index: 1;max-width: 150px;overflow: hidden;text-overflow: ellipsis;">
@@ -429,6 +453,11 @@ using Microsoft.AspNetCore.Components.Authorization
                                     </button>
                                 </li>
                             </ul>
+                        </div>
+                        <div class="w-100 pb-2 mt-2" >
+                            <button class="btn-primary border-0 px-3 py-2 w-100" data-bs-dismiss="offcanvas" aria-label="Close">
+                                Cari
+                            </button>
                         </div>
                     </div>
                     <div class="filter-accordion" style="border-bottom: 1px solid darkgray;">

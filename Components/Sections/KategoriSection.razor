@@ -15,14 +15,34 @@
 </section>
 
 <section class="banner section px-0 px-lg-3 px-xl-5 px-xxl-10 kate-content" style="display:none">
-    <div class="container-fluid">
+    <div class="container-fluid d-none d-md-block">
         <div class="row">
-            @foreach (var kategori in GlobalDataService?.GlobalData?.ListDataKategori)
+            @foreach (var kategori in GlobalDataService?.GlobalData?.ListDataKategori.Where(x => x.Muncul_Section_Kategori == true).ToList())
             {
                 @if (kategori.Nama_Group_Kategori.ToLower() != "gender") { continue; }
                 <div class="col-lg-4 col-md-4 col-12" style="margin-bottom: 20px;">
                     <div class="single-banner">
                         <div @onclick=@(x => searchCombo(null, null, kategori)) class="content" style="overflow: hidden; height:40vw;cursor:pointer;">
+                            <Image Style="" Src="@kategori.Id_Media" Class="image-content" />
+                            <div class="content-single">
+                                <div class="button">
+                                    <button @onclick=@(x => searchCombo(null, null, kategori)) class="btn content-btn">Katalog @kategori.Nama_Kategori</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="container-fluid d-block d-md-none">
+        <div class="row">
+            @foreach (var kategori in GlobalDataService?.GlobalData?.ListDataKategori.Where(x => x.Muncul_Section_Kategori == true).ToList())
+            {
+                @if (kategori.Nama_Group_Kategori.ToLower() != "gender") { continue; }
+                <div class="col-lg-4 col-md-4 col-12" style="margin-bottom: 20px;">
+                    <div class="single-banner">
+                        <div @onclick=@(x => searchCombo(null, null, kategori)) class="content" style="overflow: hidden; height:60vw;cursor:pointer;">
                             <Image Style="" Src="@kategori.Id_Media" Class="image-content" />
                             <div class="content-single">
                                 <div class="button">
