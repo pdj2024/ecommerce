@@ -25,6 +25,7 @@ namespace Models
         public List<string> Id_Kategori { get; set; } = new();
         public List<string> Nama_Kategori { get; set; } = new();
         public string Id_Brand { get; set; } = "";
+        public string Status { get; set; } = "";
         public string Id_Variant { get; set; } = "";
         public string Nama_Brand { get; set; } = "";
         public string Slug { get; set; } = "";

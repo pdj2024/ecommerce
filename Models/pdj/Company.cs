@@ -363,7 +363,7 @@ namespace Models
      public partial class Company
     {
         public string No_Id { get; set; } = "";
-        public string Nama_Toko { get; set; } = "Hallow All";
+        public string Nama_Toko { get; set; } = "";
         public string Email { get; set; } = "";
         public string No_Telp { get; set; } = "";
         public string No_Wa_1 { get; set; } = "";

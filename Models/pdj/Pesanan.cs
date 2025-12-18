@@ -15,6 +15,7 @@ namespace Models
             public string Status_Order_2 { get; set; } = "";
             public string Id_Customer { get; set; } = "";
             public string Status_Bayar { get; set; } = "";
+            public string Status { get; set; } = "";
             public string Id_Payment_Gateway { get; set; } = "";
             public string Alamat_Kirim { get; set; } = "";
             public string Metode_Bayar { get; set; } = "";
@@ -56,6 +57,10 @@ namespace Models
             public string Var_Size_Label { get; set; } = "";
             public decimal Var_Harga { get; set; } = 0;
             public int Var_Stock { get; set; } = 0;
+            public int Diskon1 { get; set; } = 0;
+            public int Diskon2 { get; set; } = 0;
+            public int Diskon3 { get; set; } = 0;
+            public int Diskon4 { get; set; } = 0;
             public string Var_Sku { get; set; } = "";
             public string Var_Id_Media { get; set; } = "";
             public string Var_Status { get; set; } = "";

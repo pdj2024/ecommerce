@@ -104,6 +104,7 @@ namespace PacificWeb.Components.Sections
                 }
             }
 
+
             kate = string.Join(",", Navbar.Filter.Select(x => x));
 
 

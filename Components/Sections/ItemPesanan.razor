@@ -21,7 +21,7 @@
                                             @($"Order ID : {item.No_Tracking}")
                                         </h5>
                                         <p style="color:#1500b2">
-                                            @ti.ToTitleCase(item.Status_Order_2 == "sebagian" ? $"{item.Status_Order_1} {item.Status_Order_2}" : item.Status_Order_1 ?? "DIBATALKAN")
+                                            @ti.ToTitleCase(item.Status_Order_2 == "sebagian" ? $"{item.Status_Order_1} {item.Status_Order_2}" : item?.Status == "batal" ? "DIBATALKAN" : item.Status_Order_1)
                                         </p>
                                     </div>
 
@@ -153,7 +153,7 @@
                                         </h5>
                                     </div>
                                     <div class="d-flex flex-row gap-1 w-100 justify-content-end align-items-center">
-                                        @if (item.Status_Order_1 == "belum bayar")
+                                        @if (item.Status_Order_1 == "belum bayar" && item.Status != "batal")
                                         {
                                             <button @onclick="@(x => OnBatalkanPesanan.InvokeAsync(item))" class="btn btn-danger" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" data-bs-toggle="modal" data-bs-target="#staticBackdrop4" type="button">
                                                 Batalkan
@@ -165,7 +165,7 @@
                                                 Bayar Pesanan
                                             </button>
                                         }
-                                        else if (item.Status_Order_1 == "dikirim")
+                                        else if (item.Status_Order_1 == "dikirim" && item.Status != "batal")
                                         {
                                             <button @onclick="@(x => KirimPesan.InvokeAsync(item))" class="btn none-accord btn-success bg-success" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" type="button">
                                                 Hubungi Admin
@@ -173,11 +173,11 @@
                                             <button @onclick="@(x => openPayment.InvokeAsync(item))" class="btn bg-white border-primary text-primary" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
                                                 Lihat Pesanan
                                             </button>
-                                            <button @onclick="@(x => OnSelesaikanPesanan.InvokeAsync(item))" class="btn none-accord btn-primary bg-primary" style="height: 35px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop5">
+                                            <button @onclick="@(x => OnSelesaikanPesanan.InvokeAsync(item))" class="btn none-accord btn-primary bg-primary" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop5">
                                                 Pesanan Selesai
                                             </button>
                                         }
-                                        else if (item.Status_Order_1 == "selesai")
+                                        else if (item.Status_Order_1 == "selesai" && item.Status != "batal")
                                         {
                                             <button @onclick="@(x => KirimPesan.InvokeAsync(item))" class="btn none-accord btn-success bg-success" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" type="button">
                                                 Hubungi Admin
@@ -185,11 +185,11 @@
                                             <button @onclick="@(x => openPayment.InvokeAsync(item))" class="btn bg-white border-primary text-primary" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
                                                 Lihat Pesanan
                                             </button>
-                                            <button class="btn btn-primary" style="height: 35px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button">
+                                            <button class="btn btn-primary" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button">
                                                 Pesan Kembali
                                             </button>
                                         }
-                                        else if (item.Status_Order_1 == "dikemas")
+                                        else if (item.Status_Order_1 == "dikemas" && item.Status != "batal")
                                         {
                                             <button @onclick="@(x => KirimPesan.InvokeAsync(item))" class="btn none-accord btn-success bg-success" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" type="button">
                                                 Hubungi Admin

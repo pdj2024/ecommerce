@@ -245,7 +245,7 @@ namespace PacificWeb.Components.Layout
                 }
             };
             ListDataCartCheck.Clear();
-            ListDataCartCheck.AddRange(ScopedDataServices?.ScopedData?.ListDataCart?.FindAll(x => x.SelectCart == true));
+            ListDataCartCheck.AddRange(ScopedDataServices?.ScopedData?.ListDataCart?.FindAll(x => x.SelectCart == true) ?? new());
             var DataCartList = await NewPdjService.GetApi<Cart>(paramApi);
 
             if(data_id == null)

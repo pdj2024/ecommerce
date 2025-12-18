@@ -154,6 +154,11 @@ namespace PacificWeb.Components.Pages
                     string decoded = Encoding.UTF8.GetString(Convert.FromBase64String(itemVariant));
                     listCard = decoded.Replace("%section%", ",");
                 }
+                if (CartList == "repurchase")
+                {
+                    string decoded = Encoding.UTF8.GetString(Convert.FromBase64String(itemVariant));
+                    listCard = decoded;
+                }
                 else if (CartList == "direct") {
                     string decoded = Encoding.UTF8.GetString(Convert.FromBase64String(itemVariant));
                     listDirectItem = decoded.Split("%section%");
@@ -180,7 +185,7 @@ namespace PacificWeb.Components.Pages
             {
                 try 
                 {
-
+                    JSRuntime.InvokeVoidAsync("goTopInstant");
                     if (CartList == "cart")
                     {
                         var dataCard = await NewPdjService.GetApi<Cart>(new ParameterApi
@@ -197,6 +202,14 @@ namespace PacificWeb.Components.Pages
                             }
                         });
 
+                        if(dataCard?.Data?.FirstOrDefault(x => x.Stock < x.Qty) != null)
+                        {
+                            await pdjService.ButtonCLick("modalPaymentStatus3");
+                            await Task.Delay(5000);
+                            await pdjService.GoBack();
+                            return;
+                        }
+
                         if (dataCard != null && dataCard?.Data.Count() >= 1)
                         {
                             dataSourch.ListDataCart.AddRange(dataCard.Data);
@@ -207,6 +220,70 @@ namespace PacificWeb.Components.Pages
                             await pdjService.ButtonCLick("modalPaymentStatus4");
                             await Task.Delay(5000);
                             await pdjService.GoBack();
+                        }
+
+                    }
+                    if (CartList == "repurchase")
+                    {
+                        var dataPesanan = await NewPdjService.showMorePesanan(new ParameterApi
+                        {
+                            routeApi = "order",
+                            prosesApi = "getAll",
+                            token = ScopedDataServices.ScopedData.DataLogin.token,
+                            refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
+                            ParamUrl = new ParameterApi.ParameterUrl
+                            {
+                                id_customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id,
+                                show_media = "true",
+                                orderDir = "desc",
+                                orderBy = "no_bukti",
+                                pagesize = 5,
+                                no_tracking_pesanan = listCard,
+                            }
+                        });
+
+                        if (dataPesanan?.Data?.Header?.FirstOrDefault( x => x.No_Tracking == listCard) == null)
+                        {
+                            await pdjService.ButtonCLick("modalPaymentStatus6");
+                            await Task.Delay(5000);
+                            await pdjService.GoBack();
+                            return;
+                        }
+
+                        if (dataPesanan?.Data?.Items?.Count(x => x.Var_Stock < x.Qty || x.Var_Status != "aktif") == dataPesanan?.Data?.Items?.Count())
+                        {
+                            await pdjService.ButtonCLick("modalPaymentStatus3");
+                            await Task.Delay(5000);
+                            await pdjService.GoBack();
+                            return;
+                        }
+
+
+                        foreach (var itemDirect in dataPesanan.Data.Items)
+                        {
+
+                            if (itemDirect.Var_Stock < itemDirect.Qty || itemDirect.Var_Status != "aktif") continue;
+
+                            dataSourch.ListDataCart.Add(new Cart
+                            {
+                                Id_Variant = itemDirect.Id_Variant,
+                                Qty = itemDirect.Qty,
+                                Harga = itemDirect.Var_Harga,
+                                Size_Id = itemDirect?.Var_Size,
+                                Size_Label = itemDirect?.Var_Size_Label,
+                                Option_Id = itemDirect?.Var_Option,
+                                Option_Label = itemDirect?.Var_Option_Label,
+                                Diskon1 = itemDirect.Diskon1,
+                                Diskon2 = itemDirect.Diskon2,
+                                Nama_Display = itemDirect?.Nama_Display,
+                                Stock = itemDirect.Var_Stock,
+                                Id_Media = itemDirect.Var_Id_Media,
+                            });
+                        }
+
+                        if (dataPesanan?.Data?.Items?.FirstOrDefault(x => x.Var_Stock < x.Qty || x.Var_Status != "aktif") != null)
+                        {
+                            await pdjService.ButtonCLick("modalPaymentStatus7");
                         }
 
                     }
@@ -230,8 +307,16 @@ namespace PacificWeb.Components.Pages
                             }
                         });
 
-                        var itemDirect = dataDirect.Data.FirstOrDefault(x => x.No_Id == listDirectItem[0])?.Variants.FirstOrDefault(x => x.No_Id == listDirectItem[1]);
                         var itemProduct = dataDirect.Data.FirstOrDefault(x => x.No_Id == listDirectItem[0]);
+                        var itemDirect = dataDirect.Data.FirstOrDefault(x => x.No_Id == listDirectItem[0])?.Variants.FirstOrDefault(x => x.No_Id == listDirectItem[1]);
+
+                        if (itemProduct == null || itemDirect.Stock < int.Parse(listDirectItem[2]) || itemDirect.Status != "aktif" || itemProduct.Status != "aktif")
+                        {
+                            await pdjService.ButtonCLick("modalPaymentStatus8");
+                            await Task.Delay(5000);
+                            await pdjService.GoBack();
+                            return;
+                        }
 
                         if (itemDirect != null && itemDirect.Stock >= int.Parse(listDirectItem[2]))
                         {
@@ -255,14 +340,14 @@ namespace PacificWeb.Components.Pages
                         else if (itemDirect != null && itemDirect.Stock < int.Parse(listDirectItem[2]))
                         {
                             await pdjService.ButtonCLick("modalPaymentStatus3");
-                            await Task.Delay(3000);
+                            await Task.Delay(5000);
                             await pdjService.GoBack();
                             return;
                         }
                         else
                         {
                             await pdjService.ButtonCLick("modalPaymentStatus4");
-                            await Task.Delay(3000);
+                            await Task.Delay(5000);
                             await pdjService.GoBack();
                             return;
                         }

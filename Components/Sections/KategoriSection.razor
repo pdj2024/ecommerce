@@ -19,7 +19,6 @@
         <div class="row">
             @foreach (var kategori in GlobalDataService?.GlobalData?.ListDataKategori.Where(x => x.Muncul_Section_Kategori == true).ToList())
             {
-                @if (kategori.Nama_Group_Kategori.ToLower() != "gender") { continue; }
                 <div class="col-lg-4 col-md-4 col-12" style="margin-bottom: 20px;">
                     <div class="single-banner">
                         <div @onclick=@(x => searchCombo(null, null, kategori)) class="content" style="overflow: hidden; height:40vw;cursor:pointer;">
@@ -39,7 +38,6 @@
         <div class="row">
             @foreach (var kategori in GlobalDataService?.GlobalData?.ListDataKategori.Where(x => x.Muncul_Section_Kategori == true).ToList())
             {
-                @if (kategori.Nama_Group_Kategori.ToLower() != "gender") { continue; }
                 <div class="col-lg-4 col-md-4 col-12" style="margin-bottom: 20px;">
                     <div class="single-banner">
                         <div @onclick=@(x => searchCombo(null, null, kategori)) class="content" style="overflow: hidden; height:60vw;cursor:pointer;">

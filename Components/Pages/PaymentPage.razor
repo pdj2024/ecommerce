@@ -8,6 +8,10 @@
 <PageTitle>Payment</PageTitle>
 <!-- Start Content Area -->
 
+<div style="padding: 0px 0px;">
+    <button style="opacity: 1;position: absolute;width: 0;height: 0;padding: 0;" id="modalPaymentStatus7" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPenyesuain" />
+</div>
+
 @if (contentCrash)
 {
     <div class="w-100 p-0">
@@ -418,7 +422,14 @@
                             </div>
 
                             <div style="padding: 0px 0px;">
+                                <button style="opacity: 1;position: absolute;width: 0;height: 0;padding: 0;" id="modalPaymentStatus6" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPesanNotFound" />
+                            </div>
+
+                            <div style="padding: 0px 0px;">
                                 <button style="opacity: 1;position: absolute;width: 0;height: 0;padding: 0;" id="modalPaymentStatus5" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPaymentLost" />
+                            </div>
+                            <div style="padding: 0px 0px;">
+                                <button style="opacity: 1;position: absolute;width: 0;height: 0;padding: 0;" id="modalPaymentStatus8" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalProductLost" />
                             </div>
 
                         
@@ -737,7 +748,7 @@ else
                                 <div class="col-12 mb-2">
                                     <div class="bg-success text-white d-flex align-items-center justify-content-center px-2 py-3">
                                         <p class="m-0" style="font-weight: 600;">
-                                            Pembayaran Berhasil! Terima kasih telah berbelanja di @GlobalDataService.GlobalData.DataCompany.Nama_Toko.
+                                            Pembayaran Berhasil! Terima kasih telah berbelanja di @(GlobalDataService?.GlobalData?.ListDataCompany?.FirstOrDefault()?.Nama_Toko).
                                         </p>
                                     </div>
                                 </div>
@@ -878,20 +889,41 @@ else
             <div class="modal-header justify-content-between d-flex border-bottom-0 pb-0">
                 <h5 class="modal-title w-100 text-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">Informasi Pesanan</h5>
             </div>
-
-            @foreach (var Head in Pesanan_Create.Data.Header)
-            {
-                <div class="modal-body">
-                    <div class="row">
-                        <p style="font-size:13px; font-weight:500; font-style:italic;" class="text-danger">
-                            Jumlah pembelian melebihi stock, periksa kembali pesanan anda.
-                        </p>
-                        <p style="font-size:13px; font-weight:500; font-style:italic;">
-                            Anda akan diarahkan kembali ke halamana sebelumnya.
-                        </p>
-                    </div>
+            <div class="modal-body">
+                <div class="row">
+                    <p style="font-size:13px; font-weight:500; font-style:italic;" class="text-danger">
+                        Jumlah pembelian melebihi stock, periksa kembali pesanan anda.
+                    </p>
+                    <p style="font-size:13px; font-weight:500; font-style:italic;">
+                        Anda akan diarahkan kembali ke halamana sebelumnya.
+                    </p>
                 </div>
-            }
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade review-modal" id="modalPenyesuain" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
+    <div class="modal-dialog modal-dialog-centered" style="max-width:600px; overflow:auto !important;">
+        <div class="modal-content" style="border-radius: 0px;" >
+            <div class="modal-header justify-content-between d-flex border-bottom-0 pb-0">
+                <h5 class="modal-title w-100 text-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">Informasi Pesanan</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <p style="font-size:15px; font-weight:500;" class="text-center">
+                        Beberapa produk sudah di sesuaikan karna sudah tidak tersedia.
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-center button border-top-0 pt-2 px-5">
+                <button type="button" style="border-radius:0px" class="btn btn-secondary bg-secondary border-0" @onclick=@(x => pdjService.GoBack())>Kembali</button>
+                <button type="button" data-bs-dismiss="modal"
+                        style="border-radius:0px"
+                        class="btn btn-success bg-success border-0">
+                        Lanjutkan
+                </button>
+            </div>
         </div>
     </div>
 </div>
@@ -916,6 +948,26 @@ else
     </div>
 </div>
 
+<div class="modal fade review-modal" id="modalPesanNotFound" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
+    <div class="modal-dialog modal-dialog-centered" style="max-width:600px; overflow:auto !important;">
+        <div class="modal-content" style="border-radius: 0px;" >
+            <div class="modal-header justify-content-between d-flex border-bottom-0 pb-0">
+                <h5 class="modal-title w-100 text-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">Informasi Pesanan</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <p style="font-size:17px; font-weight:500; font-style:italic;" class="text-danger text-center">
+                        Pesanan tidak ditemukan
+                    </p>
+                    <p style="font-size:13px; font-weight:500; font-style:italic;" class="text-center">
+                        Anda akan diarahkan kembali ke halamana sebelumnya.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade review-modal" id="modalPaymentLost" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
     <div class="modal-dialog modal-dialog-centered" style="max-width:600px; overflow:auto !important;">
         <div class="modal-content" style="border-radius: 0px;" >
@@ -929,6 +981,26 @@ else
                     </p>
                     <p style="font-size:13px; font-weight:500; font-style:italic;" class="text-center">
                         Anda akan diarahkan ke halaman order untuk melanjutkan pembayaran.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade review-modal" id="modalProductLost" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
+    <div class="modal-dialog modal-dialog-centered" style="max-width:600px; overflow:auto !important;">
+        <div class="modal-content" style="border-radius: 0px;">
+            <div class="modal-header justify-content-between d-flex border-bottom-0 pb-0">
+                <h5 class="modal-title w-100 text-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">Informasi Pesanan</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <p style="font-size:17px; font-weight:500;" class="text-center">
+                        Barang yang dipesan saat ini tidak tersedia, harap periksa kembali.
+                    </p>
+                    <p style="font-size:13px; font-weight:500; font-style:italic;" class="text-center">
+                        Anda akan otomatis diarahkan ke halaman sebelumnya.
                     </p>
                 </div>
             </div>

@@ -380,7 +380,7 @@
 
                                                 <div class="content content-qty">
 
-                                                    <div class="d-flex justify-content-end justify-content-md-between flex-column flex-md-row" style="width:80%;">
+                                                    <div class="d-flex align-items-end justify-content-end justify-content-md-between flex-column flex-md-row" style="width:80%;">
                                                         <a @onclick=@(() => deleteItemCart(cart)) class="hapus-card-item d-none d-md-block" style="cursor:pointer;" title="Remove this item">
                                                             @if(loadProses)
                                                             {
@@ -551,7 +551,11 @@
                         </svg>
                         Akun Saya
                     </button>
-                    <button class="nav-link-master @(pageTabs != "setting" ? "active" : "")" @onclick=@(x => moveTabs("belum-bayar")) id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                    <button class="nav-link-master @(pageTabs == "keranjang" ? "active" : "")" @onclick=@(x => moveTabs("keranjang")) id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                        <i class="lni lni-cart-1 me-1" style="font-size:22px; font-weight:400;"></i>
+                        Keranjang
+                    </button>
+                    <button class="nav-link-master @(pageTabs != "setting" && pageTabs != "keranjang" ? "active" : "")" @onclick=@(x => moveTabs("belum-bayar")) id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">
                         <svg xmlns="http://www.w3.org/2000/svg" height="22px" viewBox="0 -960 960 960" class="me-1" width="22px" fill="currentcolor">
                             <path d="M240-80q-33 0-56.5-23.5T160-160v-480q0-33 23.5-56.5T240-720h80q0-66 47-113t113-47q66 0 113 47t47 113h80q33 0 56.5 23.5T800-640v480q0 33-23.5 56.5T720-80H240Zm0-80h480v-480h-80v80q0 17-11.5 28.5T600-520q-17 0-28.5-11.5T560-560v-80H400v80q0 17-11.5 28.5T360-520q-17 0-28.5-11.5T320-560v-80h-80v480Zm160-560h160q0-33-23.5-56.5T480-800q-33 0-56.5 23.5T400-720ZM240-160v-480 480Z"/>
                         </svg>
@@ -703,7 +707,309 @@
                         }
                     </div>
 
-                    <div class="tab-pane fade @(pageTabs != "setting" ? " show active" : "")" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                    
+                    <div class="tab-pane fade @(pageTabs == "keranjang" ? "show active" : "")" id="pills-keranjang" role="tabpanel" aria-labelledby="pills-keranjang-tab">
+                        <div class="cart-page" style="padding: 0px 0px 0rem 0px; margin-top:0px;">
+                            <div class="cart-container d-flex flex-xl-row flex-column">
+
+                                <div class="cart-items col-12 col-xl-8">
+                                    <!-- Contoh looping item -->
+                                    <div class="cart-item d-none d-lg-flex" style="padding: 0px 16px;">
+                                        <div class="img-harga" style="width:5%">
+                                            <p class="item-price"></p>
+                                        </div>
+                                        <div class="img-item" style="width:45%">
+                                            <p class="item-price">Produk</p>
+                                        </div>
+                                        <div class="img-nama" style="width:20%">
+                                            <p class="item-price">Harga</p>
+                                        </div>
+                                        <div class="img-qty" style="width:25%">
+                                            <p class="item-price">Qty</p>
+                                        </div>
+                                        <div class="img-harga" style="width:5%">
+                                            <p class="item-price"></p>
+                                        </div>
+                                    </div>
+
+                                    @if (loadContent)
+                                    {
+                                        @for(var i = 0; i <= 5; i++)
+                                        {
+                                            <div class="" style="padding: 0px ; margin-top:20px;">
+                                                <div class="card p-3 mb-5 border-0" style="border-radius:0px;" aria-busy="true">
+                                                    <div class="skeleton skeleton-rect mb-3"></div>
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <div style="flex:1">
+                                                            <div class="skeleton skeleton-title mb-2"></div>
+                                                            <div class="skeleton skeleton-subtitle mb-2" style="width:50%"></div>
+                                                        </div>
+                                                        <div class="ms-3">
+                                                            <div class="skeleton skeleton-pill"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    } else
+                                    {
+                                        @foreach (var item in ScopedDataServices?.ScopedData?.ListDataCart)
+                                        {
+                                            <div class="cart-item d-none d-lg-flex border-bottom-0 pb-0" style="@(item.Qty < item.Min_Order || item.Qty > item.Stock ? "background-color:whitesmoke" : "background-color:white")">
+                                                <div class="img-harga d-flex align-items-center gap-3" style="width:5%">
+                                                    <label class="custom-checkbox d-flex">
+                                                        <input type="checkbox" checked="@item.SelectCart" @onchange="(e) => SelectItemCart(item)">
+                                                        <span></span>
+                                                    </label>
+                                                </div>
+                                
+                                                <div class="img-item" style="width:45%">
+                                                    @if(item.Id_Media != null && item.Id_Media != "")
+                                                    {
+                                                        <img class="cart-img" src="@item.Id_Media" style="min-width:80px; max-width:80px; height: 80px; margin-right:0px;" alt="#">
+                                                    } else
+                                                    {
+                                                        <img class="cart-img" src="/images/products/placeholder1.png" style="min-width:80px; max-width:80px; height: 80px; margin-right:0px;" alt="#">
+                                                    }
+                                                    <div class="item-produk d-flex flex-column justify-content-center gap-2">
+                                                        <h2 class="item-name">@item.Nama_Display</h2>
+                                                        <p class="variant fst-italic" style="background-color: #eee;width: fit-content;padding: 1px 5px;border-radius: 0px;">
+                                                            @($"{item.Option_Label}, {item.Size_Label}")
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="img-nama" style="width:20%">
+                                                    <h2 class="item-name">@string.Format("Rp {0:N0}", (item?.Harga - (item?.Harga * (item?.Diskon1 / 100))))</h2>
+                                                </div>
+                                                <div class="img-qty" style="width:25%">
+                                                    <div class="item-qty">
+                                                        <button style="@(item.Show_Min_Order || item.Qty <= item.Min_Order ? "cursor:not-allowed" : "")" disabled=@(item.Show_Min_Order || item.Qty <= item.Min_Order) @onclick="() => Decrease(item.Id_Cart)">–</button>
+                                                        <span>@item.Qty</span>
+                                                        <button style="@(item.Show_Max_Order || item.Qty >= item.Stock ? "cursor:not-allowed" : "")" disabled=@(item.Show_Max_Order || item.Qty >= item.Stock) @onclick="() => Increase(item.Id_Cart)">+</button>
+                                                    </div>
+                                                </div>
+                                                <div class="img-harga d-flex align-items-center gap-3" style="width:5%">
+                                                    <a @onclick=@(() => deleteItemCart(item)) class="hapus-card-item" style="cursor:pointer;" title="Remove this item">
+                                                        @if (loadProses)
+                                                        {
+                                                            <div class="spinner-border spinner-border-sm" role="status">
+                                                                <span class="visually-hidden">Loading...</span>
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>
+                                                                <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="currentColor">
+                                                                    <path d="M312-144q-29.7 0-50.85-21.15Q240-186.3 240-216v-480h-48v-72h192v-48h192v48h192v72h-48v479.57Q720-186 698.85-165T648-144H312Zm336-552H312v480h336v-480ZM384-288h72v-336h-72v336Zm120 0h72v-336h-72v336ZM312-696v480-480Z"/>
+                                                                </svg>
+                                                            </span>
+                                                        }
+                                                    </a>
+                                                </div>
+                                
+                                            </div>
+                                            <div class="w-100 d-none d-lg-flex ps-5 pt-3 " style="border-bottom: 1px solid #e5e7eb; @(item.Qty < item.Min_Order || item.Qty > item.Stock ? "background-color:whitesmoke" : "background-color:white")">
+                                                @if (item.Show_Min_Order || item.Qty < item.Min_Order)
+                                                {
+                                                    <span class="text-danger pb-2" style="font-size: 13px; font-weight: 700;">
+                                                        *Minimal order @item?.Min_Order item
+                                                    </span>
+                                                }
+
+                                                @if (item.Show_Max_Order || item.Qty > item.Stock)
+                                                {
+                                                    <span class="text-danger pb-2" style="font-size: 13px; font-weight: 700;">
+                                                        *Maximal order @item?.Stock item
+                                                    </span>
+                                                }
+
+                                                @if (item.Show_Add_Product)
+                                                {
+                                                    <span class="text-danger pb-2" style="font-size: 13px; font-weight: 700;">
+                                                        *Produk gagal ditambahkan
+                                                    </span>
+                                                }
+
+                                            </div>
+                                        }
+                    
+                    
+                                        <div class="cart-item d-flex d-lg-none flex-column" style="padding: 0px 0px;">
+                                            <ul class="shopping-list w-100 pe-0 gap-0" style="overflow:unset; max-height: unset">
+
+                                                @if(ScopedDataServices?.ScopedData?.ListDataCart.Count() >= 0)
+                                                {
+                                                    <li class="flex-wrap pb-3 px-3" style="background-color:white; gap: 10px;align-items: center;justify-content: flex-start;">
+                                                        <label class="custom-checkbox d-flex">
+                                                            <input type="checkbox" checked=@checkAll @onchange=@( e => checkAllItem(e) ) >
+                                                            <span></span>
+                                                        </label>
+                                                        <h5 style="font-size: 14px">Pilih Semua</h5>
+                                                    </li>
+                                                }
+
+
+                                                @foreach (var cart in ScopedDataServices?.ScopedData?.ListDataCart)
+                                                {
+                                                    <li class="flex-wrap py-3 px-0" style=@(cart.Qty < cart.Min_Order || cart.Qty > cart.Stock ? "background-color:whitesmoke" : "background-color:white")>
+                                                        <div class="cart-img-head d-flex flex-row gap-3" >
+                                                            @if(cart.Id_Media != null && cart.Id_Media != "")
+                                                            {
+                                                                <img class="cart-img" src="@cart.Id_Media" style="min-width:80px; max-width:80px; height: 80px; margin-right:0px;" alt="#">
+                                                            } else
+                                                            {
+                                                                <img class="cart-img" src="/images/products/placeholder1.png" style="min-width:80px; max-width:80px; height: 80px; margin-right:0px;" alt="#">
+                                                            }
+                                                            <div class="d-flex flex-column justify-content-between h-100" style="gap:5px; width:90%">
+                                                                <h4>
+                                                                    <a @onclick=@(() => NavigateToDetailProduk(cart.Id_Produk)) class="line-clamp-1" style="font-size:15px; cursor:pointer">
+                                                                        @(cart.Nama_Display)
+                                                                    </a>
+                                                                </h4>
+                                                                <div class="d-flex flex-row gap-2">
+
+                                                                    <div class="qty-box" style="width: 40%;height: 34px;padding: 21px 5px;gap: 8px;">
+                                                                        <button disabled=@(cart.Show_Min_Order || cart.Qty <= cart.Min_Order) style="font-size: 15px; @(cart.Show_Min_Order || cart.Qty <= cart.Min_Order ? "cursor:not-allowed" : "") " @onclick="() => Decrease(cart.Id_Cart)">–</button>
+                                                                        <span style="font-size: 15px;height: 100%;display: flex;align-items: center;">@cart.Qty</span>
+                                                                        <button disabled=@(cart.Show_Max_Order || cart.Qty >= cart.Stock) style="font-size: 20px; @(cart.Show_Max_Order || cart.Qty >= cart.Stock ? "cursor:not-allowed" : "") " @onclick="() => Increase(cart.Id_Cart)">+</button>
+                                                                    </div>
+
+                                                                    <div class="d-flex flex-column justify-content-center h-100">
+                                                                        <p class="variant" style="width: 116px;border-radius: 0px; font-size:13px; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                                                            <span style="background-color: #eee; padding: 1px 5px;">
+                                                                                @($"{cart.Size_Label}, {cart.Option_Label}")
+                                                                            </span>
+                                                                        </p>
+                                                                        <p class="quantity">
+                                                                            <span class="amount" style="font-size:15px; font-weight:600;">@string.Format("Rp. {0:N0}", (cart?.Harga - (cart?.Harga * (cart?.Diskon1 / 100))))</span>
+                                                                        </p>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="content content-qty">
+
+                                                            <div class="d-flex align-items-end justify-content-end justify-content-md-between flex-column flex-md-row" style="width:80%;">
+                                                                <a @onclick=@(() => deleteItemCart(cart)) class="hapus-card-item d-none d-md-block" style="cursor:pointer;" title="Remove this item">
+                                                                    @if(loadProses)
+                                                                    {
+                                                                        <div class="spinner-border spinner-border-sm" role="status">
+                                                                            <span class="visually-hidden">Loading...</span>
+                                                                        </div>
+                                                                    } else
+                                                                    {
+                                                                        <span>
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" height="25px" viewBox="0 -960 960 960" width="25px" fill="currentColor">
+                                                                                <path d="M312-144q-29.7 0-50.85-21.15Q240-186.3 240-216v-480h-48v-72h192v-48h192v48h192v72h-48v479.57Q720-186 698.85-165T648-144H312Zm336-552H312v480h336v-480ZM384-288h72v-336h-72v336Zm120 0h72v-336h-72v336ZM312-696v480-480Z" />
+                                                                            </svg>
+                                                                        </span>
+                                                                    }
+                                                                </a>
+                                                                <label class="custom-checkbox">
+                                                                    <input type="checkbox" checked="@cart.SelectCart" @onchange="(e) => SelectItemCart(cart)">
+                                                                    <span></span>
+                                                                </label>
+                                                            </div>
+                                
+                                                            <div class="d-none d-md-flex flex-column justify-content-end h-100">
+                                                                <p class="quantity text-primary">
+                                                                    <span class="amount" style="font-size:15px; font-weight:600;">@string.Format("Rp. {0:N0}", ((cart?.Harga - (cart?.Harga * (cart?.Diskon1 / 100)))) *  cart.Qty)</span>
+                                                                </p>
+                                                            </div>
+
+                                                            <div class="d-flex d-md-none flex-column justify-content-end h-100">
+                                                                <a @onclick=@(() => deleteItemCart(cart)) class="hapus-card-item" style="cursor:pointer;" title="Remove this item">
+                                                                    @if(loadProses)
+                                                                    {
+                                                                        <div class="spinner-border spinner-border-sm" role="status">
+                                                                            <span class="visually-hidden">Loading...</span>
+                                                                        </div>
+                                                                    } else
+                                                                    {
+                                                                        <span>
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" height="25px" viewBox="0 -960 960 960" width="25px" fill="currentColor">
+                                                                                <path d="M312-144q-29.7 0-50.85-21.15Q240-186.3 240-216v-480h-48v-72h192v-48h192v48h192v72h-48v479.57Q720-186 698.85-165T648-144H312Zm336-552H312v480h336v-480ZM384-288h72v-336h-72v336Zm120 0h72v-336h-72v336ZM312-696v480-480Z" />
+                                                                            </svg>
+                                                                        </span>
+                                                                    }
+                                                                </a>
+                                                            </div>
+
+                                                        </div>
+                                        
+                                                        <div class="w-100">
+                                                            @if (cart.Show_Min_Order || cart.Qty < cart.Min_Order)
+                                                            {
+                                                                <span class="text-danger pt-2 pb-0" style="font-size: 13px; font-weight: 700;">
+                                                                    *Minimal order @cart?.Min_Order item
+                                                                </span>
+                                                            }
+
+                                                            @if (cart.Show_Max_Order || cart.Qty > cart.Stock)
+                                                            {
+                                                                <span class="text-danger pt-2 pb-0" style="font-size: 13px; font-weight: 700;">
+                                                                    *Maximal order @cart?.Stock item
+                                                                </span>
+                                                            }
+
+                                                            @if (cart.Show_Add_Product)
+                                                            {
+                                                                <span class="text-danger pt-2 pb-0" style="font-size: 13px; font-weight: 700;">
+                                                                    *Produk gagal ditambahkan
+                                                                </span>
+                                                            }
+
+                                                        </div>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        </div>
+                    
+                                        @if(ScopedDataServices?.ScopedData?.ListDataCart.Count() <= 0 && !loadContent)
+                                        {
+                                            <div class="d-flex flex-column align-items-center mt-4 py-5" style="color:#6b7280">
+                                                <svg xmlns="http://www.w3.org/2000/svg" height="2rem" viewBox="0 -960 960 960" width="2rem" class="mb-3" fill="currentColor">
+                                                    <path d="m634-440-81-80h69l110-200H353l-80-80h525q23 0 35.5 19.5t.5 42.5L692-482q-11 20-28 31t-30 11ZM280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm540 52L566-280H304q-44 0-67-37.5t-3-78.5l42-86-72-162L28-820l56-56L876-84l-56 56ZM486-360l-80-80h-62l-40 80h182Zm136-160h-69 69Zm58 440q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80Z"/>
+                                                </svg>
+                                                <h5 style="color:#6b7280">Keranjang Kamu Kosong.</h5>
+                                            </div>
+                                        }
+                                    }
+
+                                </div>
+
+                                    <aside class="order-summary col-12 col-xl-4 border-0 sticky-xl-top py-0" style="border-radius:0px;">
+                                        @if(ScopedDataServices?.ScopedData?.ListDataCart?.Count() >= 0)
+                                        {
+                                            <div class="flex-wrap pb-3 px-3" style="background-color: white;gap: 10px;align-items: center;display: flex;padding: 0px !important;justify-content: flex-start;">
+                                                <label class="custom-checkbox d-flex">
+                                                    <input type="checkbox" checked=@checkAll @onchange=@( e => checkAllItem(e) ) >
+                                                    <span></span>
+                                                </label>
+                                                <h5 style="font-size: 14px">Pilih Semua</h5>
+                                            </div>
+                                        }
+
+                                        <div class="summary-line total">
+                                            <span>Total</span>
+                                            <span>@string.Format("Rp {0:N0}", nettoKeranjang)</span>
+                                        </div>
+
+                                        @if(ScopedDataServices?.ScopedData?.ListDataCart?.Count() >= 1 && !loadContent)
+                                        {
+                                            <div class="w-100" style="@(ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart).FirstOrDefault( cart => cart.Qty < cart.Min_Order || cart.Qty > cart.Stock || cart.Status_Produk != "aktif" || cart.Status_Variant != "aktif") != null || ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart)?.Count() <= 0 ? "cursor:not-allowed" : "")">
+                                                <button class="btn btn-primary w-100"   @onclick=@(() => CheckoutCart()) style="border-radius:0px; @(ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart).FirstOrDefault( cart => cart.Qty < cart.Min_Order || cart.Qty > cart.Stock || cart.Status_Produk != "aktif" || cart.Status_Variant != "aktif") != null || ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart)?.Count() <= 0 ? "cursor:not-allowed" : "") " disabled="@( ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart).FirstOrDefault( cart => cart.Qty < cart.Min_Order || cart.Qty > cart.Stock || cart.Status_Produk != "aktif" || cart.Status_Variant != "aktif") != null || ScopedDataServices?.ScopedData?.ListDataCart.Where(x => x.SelectCart)?.Count() <= 0 ? true : false)" >Bayar Sekarang</button>
+                                            </div>
+                                        }
+                                    </aside>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="tab-pane fade @(pageTabs != "setting" && pageTabs != "keranjang" && pageTabs != ""  ? " show active" : "")" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                         <div class="row pe-2 ps-3">
 
                             @if(pageTabs == "details")
@@ -1344,7 +1650,7 @@
                                                                                         <button class="btn none-accord btn-success bg-success" @onclick="@( x => KirimPesan(item))" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button">
                                                                                             Hubungi Admin
                                                                                         </button>
-                                                                                        <button class="btn btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button">
+                                                                                        <button class="btn btn-primary" @onclick="@( x => pesanKembali(item))" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button">
                                                                                             Pesan Kembali
                                                                                         </button>
                                                                                     </div>
@@ -1496,7 +1802,7 @@
                                                                             <div class="d-flex flex-row justify-content-between w-100 pt-3 pb-4" style="background-color: #f2f1ff;">
                                                                                 <div class="col-12 d-flex align-items-start px-3" >
                                                                                     <div class="d-flex w-100 flex-row align-items-end justify-content-end gap-3">
-                                                                                        <button class="btn btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button">
+                                                                                        <button class="btn btn-primary" @onclick="@( x => pesanKembali(item))" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button">
                                                                                             Pesan Kembali
                                                                                         </button>
                                                                                     </div>
@@ -1512,7 +1818,7 @@
                                                             @if(ScopedDataServices.ScopedData.DataPesananBatal.hasMore) {
                                                                 <div class="row">
                                                                     <div class="col-12 w-100 d-flex align-items-center justify-content-center mt-4">
-                                                                        <button @onclick="@(x => showMore("selesai"))" class="btn-slide px-5" style="width:fit-content;z-index:0;">
+                                                                        <button @onclick="@(x => showMore("batal"))" class="btn-slide px-5" style="width:fit-content;z-index:0;">
                                                                             @if (loadProses)
 
                                                                             {
@@ -1562,8 +1868,6 @@
 </div>
 
 
-
-
 <!-- Review Modal -->
 
 <div class="modal fade review-modal" id="staticBackdrop2" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -1611,7 +1915,7 @@
                 {
                     <div class="modal-body">
                         <div class="row">
-                            @if (@Head?.Status_Order_1 != "belum bayar")
+                            @if (Head?.Status_Order_1 != null && Head?.Status_Order_1 != "belum bayar")
                             {
                                 <div class="col-12 mb-2">
                                     <div class="bg-success text-white d-flex align-items-center justify-content-center px-2 py-3">

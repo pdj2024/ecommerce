@@ -92,6 +92,7 @@ namespace PacificWeb.Components.Pages
         public bool[] PesananLoad { get; set; } = [false, false, false, false];
 
         public int infoSubmit { get; set; } = 0;
+        public bool infoBatal { get; set; } = false;
         public bool readOnlyProfile { get; set; } = true;
         public bool loadLogin { get; set; } = false;
         public bool updateProfil { get; set; } = false;
@@ -145,12 +146,17 @@ namespace PacificWeb.Components.Pages
 
                 var data = ScopedDataServices.ScopedData.DataPesananDetail.Data.Header.FirstOrDefault() ?? null;
 
-
-                if (data?.Status_Order_1?.ToLower() == "belum bayar") infoSubmit = 1;
+                if (data?.Status_Order_1 == null) infoSubmit = 1;
+                else if (data?.Status_Order_1?.ToLower() == "belum bayar") infoSubmit = 1;
                 else if (data?.Status_Order_1?.ToLower() == "dikemas") infoSubmit = 3;
                 else if (data?.Status_Order_1?.ToLower() == "dikirim") infoSubmit = 4;
                 else if (data?.Status_Order_1?.ToLower() == "selesai") infoSubmit = 5;
                 else infoSubmit = 6;
+
+                if (data?.Status.ToLower() == "batal")
+                {
+                    infoBatal = true;
+                }
 
 
                 if (data.Metode_Bayar == "QRIS" && data.Status_Order_1 == "belum bayar")

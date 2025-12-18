@@ -127,7 +127,6 @@
 
             window.addEventListener("load", () => {
                 setTimeout(() => {
-                    console.log(preloader);
                     preloader.classList.add("hide");
 
                     document.body.classList.remove("preloader-lock");
@@ -388,7 +387,6 @@
         function render() {
             const el = document.getElementById('recaptcha-container');
             if (!el) {
-                // console.error("recaptcha-container element not found");
                 return;
             }
 
@@ -401,24 +399,17 @@
             });
 
             recaptchaVerifier.render().then(function(widgetId) {
-                // console.log('reCAPTCHA rendered, widgetId =', widgetId);
             }).catch(function(err){
-                // console.error('reCAPTCHA render error:', err);
             });
         }
 
         window.sendOTP = async function (dataNomor) {
             try {
-                // console.log("Send OTP started");
-
                 const number = dataNomor;
 
-                // Pastikan recaptcha sudah ada dan valid
                 if (!window.recaptchaVerifier) {
-                    // console.error("ReCAPTCHA belum diinisialisasi.");
                     return false;
                 } else {
-                    // console.log("ReCAPTCHA Sudah diinisialisasi.");
                 }
 
                 // Tunggu hasil Firebase sign-in
@@ -426,12 +417,9 @@
 
                 // Simpan hasil ke global
                 window.confirmationResult = confirmationResult;
-                // console.log("OTP berhasil dikirim");
 
                 return true;
             } catch (error) {
-                // console.error('signInWithPhoneNumber error:', error);
-                // console.error('Gagal mengirim OTP:\n' + (error.message || JSON.stringify(error)));
                 return false;
             }
         };
@@ -465,12 +453,9 @@
                 if (resultDiv) resultDiv.style.display = '';
                 if (correctDiv) correctDiv.style.display = '';
 
-                // console.log("Verifikasi OTP berhasil, idToken:");
                 return idToken;
 
             } catch (error) {
-                // console.error('verifyCode error:', error);
-                // console.error('Verifikasi gagal:\n' + (error.message || JSON.stringify(error)));
                 return null;
             }
         };
@@ -492,7 +477,7 @@
         }
 
         function buttonClick(selectorName) {
-            document.querySelector(selectorName).click();
+            document.querySelector(selectorName)?.click();
         }
 
         function initFlayer() {
@@ -687,7 +672,7 @@
             document.getElementById(id).value = value;
         };
 
-        async function copyVa(kode) {
+        window.copyVa = async function (kode)  {
 
             // Cari tombol target spesifik berdasarkan kode
             const btn = document.querySelector(`.copy-btn-${kode}`);
@@ -1101,6 +1086,17 @@
         function scrollToTop() {
             window.scrollTo(0, 0);
         }
+
+        (function exposeAllFunctionsToWindow() {
+            const fnNames = Object.getOwnPropertyNames(window)
+                .filter(n => typeof window[n] === 'function');
+
+            for (const key in this) {
+                if (typeof this[key] === 'function' && !window[key]) {
+                    window[key] = this[key];
+                }
+            }
+        }).call(this);
 
     </script>
 

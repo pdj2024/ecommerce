@@ -321,7 +321,7 @@ namespace Services
 		public async Task<Pesanan> showMorePesanan(ParameterApi urlParam)
 		{
 			var config = await initConfigApi(urlParam);
-			var tbListProduk = new Pesanan();
+            Pesanan tbListProduk = new Pesanan();
 
 			try
 			{

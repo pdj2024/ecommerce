@@ -115,7 +115,7 @@ namespace PacificWeb.Components.Pages
 
         public async Task moveTabs(string tab, Pesanan.Headers item = null)
         {
-            loadContent = tab == "setting";
+            loadContent = (tab == "setting" || tab == "keranjang") && pageTabs != tab;
 
             if (tab == "details")
             {
@@ -492,6 +492,11 @@ namespace PacificWeb.Components.Pages
             var message = "Halo, saya mau pesan produk Anda";
             var url = $"https://wa.me/${phone}?text={message}";
             //NavigationManager.NavigateTo(url, true, true);
+        }
+
+        public async Task pesanKembali(Pesanan.Headers item)
+        {
+            NavigationManager.NavigateTo($"payment-page/repurchase/{Convert.ToBase64String(Encoding.UTF8.GetBytes(item.No_Tracking))}");
         }
 
         public async Task pesananSelesai(Pesanan.Headers headItem, bool direct = false)
@@ -985,6 +990,30 @@ namespace PacificWeb.Components.Pages
             Pesanan_Create.Data.Biaya.Clear();
             loadRefresh = true;
             StateHasChanged();
+
+            if (produk.Status_Order_1 == "belum bayar")
+            {
+                var DataPesananBelum = await NewPdjService.showMorePesanan(new ParameterApi
+                {
+                    routeApi = "order",
+                    prosesApi = "getAll",
+                    token = ScopedDataServices.ScopedData.DataLogin.token,
+                    refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        id_customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id,
+                        no_bukti = produk.No_Bukti,
+                        show_media = "true",
+                        pagesize = 5,
+                    }
+                });
+                var NewData = DataPesananBelum.Data.Header.FirstOrDefault();
+                var OldData = ScopedDataServices.ScopedData.DataPesananBelum.Data.Header.FirstOrDefault(x => x.No_Bukti == NewData.No_Bukti);
+
+                OldData = NewData;
+                produk = NewData;
+                StateHasChanged();
+            } 
 
             if (produk.Metode_Bayar == "QRIS" && produk.Status_Order_1 == "belum bayar")
             {
@@ -1596,8 +1625,7 @@ namespace PacificWeb.Components.Pages
                         id_customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id,
                         show_media = "true",
                         orderDir = "desc",
-                        status_order_1 = pageTipe,
-                        status = "aktif",
+                        status = pageTipe,
                         orderBy = "no_bukti",
                         cursor_no_bukti = lastCursor,
                         pagesize = 5,
