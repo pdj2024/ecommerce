@@ -1,81 +1,44 @@
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.JSInterop;
-using Models;
-using Radzen;
 using Services;
-using System;
-using System.Security.Claims;
-using System.Text.Json;
-using System.Xml.Linq;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+
 
 namespace PacificWeb.Controllers
 {
+    [ApiController]
+    [Route("api")]
     public partial class LoginController : Controller
     {
 
+        private readonly GlobalDataService GlobalDataService;
 
-        public HttpContext? HttpContext => _httpContextAccessor.HttpContext;
-
-        private readonly IJSRuntime _jsRuntime;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly AuthenticationStateProvider _authProvider;
-
-
-        [Inject]
-        private NavigationManager _navigationManager { get; set; }
-
-
-        public LoginController(NavigationManager navigationManager, IJSRuntime jsRuntime, AuthenticationStateProvider authProvider, IHttpContextAccessor httpContextAccessor)
+        public LoginController(GlobalDataService _GlobalDataService)
         {
-            _navigationManager = navigationManager;
-            _jsRuntime = jsRuntime;
-            _authProvider = authProvider;
-            _httpContextAccessor = httpContextAccessor;
-
+            GlobalDataService = _GlobalDataService;
         }
 
-
-
-        [HttpPost("/account/login")]
-        public async Task<IActionResult> Login([FromBody] DataUser Model)
+        [HttpPost("update")]
+        public async Task<IActionResult> update()
         {
-            Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(Model, new JsonSerializerOptions { WriteIndented = true }));
-            Model.Email = "brandonhonanta1@gmail.com";
-            Model.Password = "123";
-            if (Model.Email == "brandonhonanta1@gmail.com" && Model.Password == "123")
+
+            GlobalDataService.GlobalData.ListDataBanner.Clear();
+            GlobalDataService.GlobalData.ListDataBrand.Clear();
+            GlobalDataService.GlobalData.ListDataCompany.Clear();
+            GlobalDataService.GlobalData.ListDataCompanySocial.Clear();
+            GlobalDataService.GlobalData.ListDataKategori.Clear();
+            GlobalDataService.GlobalData.ListDataGrupKategori.Clear();
+            GlobalDataService.GlobalData.ListDataProduk.Clear();
+            GlobalDataService.GlobalData.ListDataNavbar.Clear();
+            GlobalDataService.GlobalData.ListDataNilaiDefault.Clear();
+            GlobalDataService.GlobalData.ListDataPembayaran.Clear();
+            GlobalDataService.GlobalData.ListDataPengiriman.Clear();
+            GlobalDataService.GlobalData.ListDataSummaryPesanan.Clear();
+            GlobalDataService.GlobalData.ListDataTexkSection.Clear();
+
+            return Ok(new
             {
-                Dictionary<string, List<string>> masUserMenu = new Dictionary<string, List<string>>();
-
-                masUserMenu.Add(Model.Email, new List<string> { "Akses" });
-
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Email, Model.Email),
-                    new Claim(ClaimTypes.Name, Model.No_Id),
-                };
-
-                var thisUsersAccountPolicies = masUserMenu[Model.Email];
-
-                foreach (var userAccountPolicy in thisUsersAccountPolicies)
-                {
-                    claims.Add(new Claim(userAccountPolicy, "true"));
-                }
-
-
-                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                var principal = new ClaimsPrincipal(identity);
-
-                await HttpContext?.SignInAsync(principal);
-
-                return Ok(new { Status = true });
-            }
-
-            return Unauthorized(new { Status = false });
+                success = true,
+                message = "GlobalState berhasil dikosongkan"
+            });
         }
 
     }

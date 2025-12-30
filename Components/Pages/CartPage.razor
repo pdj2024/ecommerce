@@ -27,7 +27,7 @@
     
             <div class="tab-pane fade show active" id="pills-keranjang" role="tabpanel" aria-labelledby="pills-keranjang-tab">
             
-                <div class="row" style="justify-content: center; margin-top: 7rem;">
+                <div class="row m-0" style="justify-content: center; margin-top: 7rem !important;">
                     <div class="col-12">
                         <div class="section-title" style="margin-bottom:0px;">
                             <h2>Pengaturan</h2>
@@ -183,13 +183,13 @@
         <div class="tab-content pb-5 pt-3" id="pills-tabContent">
     
             <div class="tab-pane fade @(pageTabs == "keranjang" ? "show active" : "")" id="pills-keranjang" role="tabpanel" aria-labelledby="pills-keranjang-tab">
-                <div class="row" style="justify-content: center; margin-top: 6rem;">
+                <div class="row m-0" style="justify-content: center; margin-top: 6rem;">
                     <div class="col-12">
                         <div class="section-title" style="margin-bottom:0px;">
                         </div>
                     </div>
                 </div>
-                <div class="row position-relative" style="justify-content: center; margin-top: 0rem;">
+                <div class="row m-0 position-relative" style="justify-content: center; margin-top: 0rem;">
                     <div class="col-12 position-absolute" style="top:16px">
                         <div class="section-title" style="margin-bottom:0px;">
                             <h2>Keranjang</h2>
@@ -255,10 +255,10 @@
                                         <div class="img-item" style="width:45%">
                                             @if(item.Id_Media != null && item.Id_Media != "")
                                             {
-                                                <img class="cart-img" src="@item.Id_Media" style="min-width:80px; max-width:80px; height: 80px; margin-right:0px;" alt="#">
+                                                <img class="cart-img" src="@item.Id_Media" style="min-width:60px; max-width:60px; height: 60px; margin-right:0px;" alt="#">
                                             } else
                                             {
-                                                <img class="cart-img" src="/images/products/placeholder1.png" style="min-width:80px; max-width:80px; height: 80px; margin-right:0px;" alt="#">
+                                                <img class="cart-img" src="/images/products/placeholder1.png" style="min-width:60px; max-width:60px; height: 60px; margin-right:0px;" alt="#">
                                             }
                                             <div class="item-produk d-flex flex-column justify-content-center gap-2">
                                                 <h2 class="item-name">@item.Nama_Display</h2>
@@ -341,13 +341,14 @@
                                         @foreach (var cart in ScopedDataServices?.ScopedData?.ListDataCart)
                                         {
                                             <li class="flex-wrap py-3 px-0" style=@(cart.Qty < cart.Min_Order || cart.Qty > cart.Stock ? "background-color:whitesmoke" : "background-color:white")>
-                                                <div class="cart-img-head d-flex flex-row gap-3" >
+
+                                                <div class="cart-img-head d-flex align-items-center flex-row gap-3" >
                                                     @if(cart.Id_Media != null && cart.Id_Media != "")
                                                     {
-                                                        <img class="cart-img" src="@cart.Id_Media" style="min-width:80px; max-width:80px; height: 80px; margin-right:0px;" alt="#">
+                                                        <img class="cart-img" src="@cart.Id_Media" style="min-width:60px; max-width:60px; height: 60px; margin-right:0px;" alt="#">
                                                     } else
                                                     {
-                                                        <img class="cart-img" src="/images/products/placeholder1.png" style="min-width:80px; max-width:80px; height: 80px; margin-right:0px;" alt="#">
+                                                        <img class="cart-img" src="/images/products/placeholder1.png" style="min-width:60px; max-width:60px; height: 60px; margin-right:0px;" alt="#">
                                                     }
                                                     <div class="d-flex flex-column justify-content-between h-100" style="gap:5px; width:90%">
                                                         <h4>
@@ -500,7 +501,7 @@
             </div>
 
             <div class="tab-pane fade @(pageTabs != "keranjang" ? "show active" : "")" id="pills-belum-bayar" role="tabpanel" aria-labelledby="pills-belum-bayar-tab">
-                <div class="row" style="justify-content: center; margin-top: 7rem;">
+                <div class="row m-0" style="justify-content: center; margin-top: 7rem !important;">
                     <div class="col-12">
                         <div class="section-title" style="margin-bottom:0px;">
                             <h2>@ti.ToTitleCase(pageTabs)</h2>
@@ -530,7 +531,7 @@
                 } 
                 else
                 {
-                   <ItemPesanan refreshStatus=@refreshStatus OnBatalkanPesanan=@BatalkanPesanan GantiMethod=@GantiMethod KirimPesan=@KirimPesan pageTabs=@pageTabs showMore=@showMore openPayment=@openPaymentSection openDropdown=@openDropdown OnSelesaikanPesanan=@onPesananSelesai ListItem=@PesananList />
+                   <ItemPesanan refreshStatus=@refreshStatus OnBatalkanPesanan=@BatalkanPesanan GantiMethod=@GantiMethod KirimPesan=@KirimPesan pageTabs=@pageTabs showMore=@showMore openPayment=@openPaymentSection PesanKembali=@pesanKembali openDropdown=@openDropdown OnSelesaikanPesanan=@onPesananSelesai ListItem=@PesananList />
                 }
 
 
@@ -542,7 +543,7 @@
 
 <div class="container-fluid d-none d-xl-block" style="background-color:white; padding-top:110px;min-height: 56rem;">
     <div class="col-12 col-md-10 m-auto" >
-        <div class="row">
+        <div class="row m-0">
             <div class="col-2 px-0">
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     <button class="nav-link-master @(pageTabs == "setting" ? "active" : "")" @onclick=@(x => moveTabs("setting")) id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">
@@ -766,10 +767,10 @@
                                                 <div class="img-item" style="width:45%">
                                                     @if(item.Id_Media != null && item.Id_Media != "")
                                                     {
-                                                        <img class="cart-img" src="@item.Id_Media" style="min-width:80px; max-width:80px; height: 80px; margin-right:0px;" alt="#">
+                                                        <img class="cart-img" src="@item.Id_Media" style="min-width:60px; max-width:60px; height: 60px; margin-right:0px;" alt="#">
                                                     } else
                                                     {
-                                                        <img class="cart-img" src="/images/products/placeholder1.png" style="min-width:80px; max-width:80px; height: 80px; margin-right:0px;" alt="#">
+                                                        <img class="cart-img" src="/images/products/placeholder1.png" style="min-width:60px; max-width:60px; height: 60px; margin-right:0px;" alt="#">
                                                     }
                                                     <div class="item-produk d-flex flex-column justify-content-center gap-2">
                                                         <h2 class="item-name">@item.Nama_Display</h2>
@@ -855,10 +856,10 @@
                                                         <div class="cart-img-head d-flex flex-row gap-3" >
                                                             @if(cart.Id_Media != null && cart.Id_Media != "")
                                                             {
-                                                                <img class="cart-img" src="@cart.Id_Media" style="min-width:80px; max-width:80px; height: 80px; margin-right:0px;" alt="#">
+                                                                <img class="cart-img" src="@cart.Id_Media" style="min-width:60px; max-width:60px; height: 60px; margin-right:0px;" alt="#">
                                                             } else
                                                             {
-                                                                <img class="cart-img" src="/images/products/placeholder1.png" style="min-width:80px; max-width:80px; height: 80px; margin-right:0px;" alt="#">
+                                                                <img class="cart-img" src="/images/products/placeholder1.png" style="min-width:60px; max-width:60px; height: 60px; margin-right:0px;" alt="#">
                                                             }
                                                             <div class="d-flex flex-column justify-content-between h-100" style="gap:5px; width:90%">
                                                                 <h4>
@@ -1010,11 +1011,11 @@
 
 
                     <div class="tab-pane fade @(pageTabs != "setting" && pageTabs != "keranjang" && pageTabs != ""  ? " show active" : "")" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                        <div class="row pe-2 ps-3">
+                        <div class="row m-0 pe-2 ps-3">
 
                             @if(pageTabs == "details")
                             { 
-                                <DetailOrder OnSelesaikanPesanan=@onPesananSelesai refreshStatus=@refreshStatus OnBatalkanPesanan=@BatalkanPesanan GantiMethod=@GantiMethod KirimPesan=@KirimPesan pageTabs=@pageTabs  noBukti=@noBukti />
+                                <DetailOrder OnSelesaikanPesanan=@onPesananSelesai refreshStatus=@refreshStatus OnBatalkanPesanan=@BatalkanPesanan GantiMethod=@GantiMethod KirimPesan=@KirimPesan pageTabs=@pageTabs PesanKembali=@pesanKembali  noBukti=@noBukti />
                             } 
                             else {
 
@@ -1179,7 +1180,7 @@
 
                                                             @if(ScopedDataServices.ScopedData.DataPesananBelum.hasMore) {
 
-                                                                <div class="row">
+                                                                <div class="row m-0">
                                                                     <div class="col-12 w-100 d-flex align-items-center justify-content-center mt-4">
                                                                         <button @onclick="@(x => showMore("belum bayar"))" class="btn-slide px-5" style="width:fit-content;z-index:0;">
                                                                             @if (loadProses)
@@ -1339,7 +1340,7 @@
                                                         </div>
 
                                                         @if(ScopedDataServices.ScopedData.DataPesananDikemas.hasMore) {
-                                                            <div class="row">
+                                                            <div class="row m-0">
                                                                 <div class="col-12 w-100 d-flex align-items-center justify-content-center mt-4">
                                                                     <button @onclick="@(x => showMore("dikemas"))" class="btn-slide px-5" style="width:fit-content;z-index:0;">
                                                                         @if (loadProses)
@@ -1510,7 +1511,7 @@
                                                             </div>
 
                                                             @if(ScopedDataServices.ScopedData.DataPesananDikirim.hasMore) {
-                                                                <div class="row">
+                                                                <div class="row m-0">
                                                                     <div class="col-12 w-100 d-flex align-items-center justify-content-center mt-4">
                                                                         <button @onclick="@(x => showMore("dikirim"))" class="btn-slide px-5" style="width:fit-content;z-index:0;">
                                                                             @if (loadProses)
@@ -1664,7 +1665,7 @@
                                                             </div>
 
                                                             @if(ScopedDataServices.ScopedData.DataPesananSelesai.hasMore) {
-                                                                <div class="row">
+                                                                <div class="row m-0">
                                                                     <div class="col-12 w-100 d-flex align-items-center justify-content-center mt-4">
                                                                         <button @onclick="@(x => showMore("selesai"))" class="btn-slide px-5" style="width:fit-content;z-index:0;">
                                                                             @if (loadProses)
@@ -1802,6 +1803,9 @@
                                                                             <div class="d-flex flex-row justify-content-between w-100 pt-3 pb-4" style="background-color: #f2f1ff;">
                                                                                 <div class="col-12 d-flex align-items-start px-3" >
                                                                                     <div class="d-flex w-100 flex-row align-items-end justify-content-end gap-3">
+                                                                                        <button class="btn none-accord btn-success bg-success" @onclick="@( x => KirimPesan(item))" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button">
+                                                                                            Hubungi Admin
+                                                                                        </button>
                                                                                         <button class="btn btn-primary" @onclick="@( x => pesanKembali(item))" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button">
                                                                                             Pesan Kembali
                                                                                         </button>
@@ -1816,7 +1820,7 @@
                                                             </div>
 
                                                             @if(ScopedDataServices.ScopedData.DataPesananBatal.hasMore) {
-                                                                <div class="row">
+                                                                <div class="row m-0">
                                                                     <div class="col-12 w-100 d-flex align-items-center justify-content-center mt-4">
                                                                         <button @onclick="@(x => showMore("batal"))" class="btn-slide px-5" style="width:fit-content;z-index:0;">
                                                                             @if (loadProses)
@@ -1911,11 +1915,11 @@
 
             } else {
 
-                @foreach (var Head in Pesanan_Create.Data.Header)
+                @foreach (var Head in Pesanan_Create?.Data?.Header ?? new())
                 {
                     <div class="modal-body">
-                        <div class="row">
-                            @if (Head?.Status_Order_1 != null && Head?.Status_Order_1 != "belum bayar")
+                        <div class="row m-0">
+                            @if ((Head?.Status_Order_1 ?? "Dibatalkan" ) != "belum bayar")
                             {
                                 <div class="col-12 mb-2">
                                     <div class="bg-success text-white d-flex align-items-center justify-content-center px-2 py-3">
@@ -1951,7 +1955,7 @@
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
-                                    <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px; @(Head?.Status_Order_1 == "belum bayar" ? "color:red" : "color:orange")" type="text" class="form-control search-form form-text" placeholder="Your email*" aria-label="Search" aria-describedby="basic-addon1" required value="@ti.ToTitleCase(Head?.Status_Order_1)"/>
+                                    <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px; @((Head?.Status_Order_1 ?? "Dibatalkan") == "belum bayar" ? "color:red" : "color:orange")" type="text" class="form-control search-form form-text" placeholder="Your email*" aria-label="Search" aria-describedby="basic-addon1" required value="@ti.ToTitleCase(Head?.Status_Order_1 ?? "Dibatalkan")"/>
                                     <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Status</label>
                                 </div>
                             </div>
@@ -1996,7 +2000,7 @@
                                     <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Metode Pembayaran</label>
                                 </div>
                             </div>
-                            @if (@Head?.Status_Order_1 == "belum bayar") {
+                            @if ((Head?.Status_Order_1 ?? "Dibatalkan") == "belum bayar") {
                                 <div class="col-12 col-md-6">
                                     <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
                                         <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value=@((Head?.Expiry_Time as DateTime?)?.ToString("dd/MM/yyyy HH:mm") ?? "-")/>
@@ -2008,11 +2012,11 @@
 
                             <div class="col-12">
 
-                                @if (@Head?.Metode_Bayar == "QRIS" && @Head?.Status_Order_1 == "belum bayar") 
+                                @if (@Head?.Metode_Bayar == "QRIS" && (Head?.Status_Order_1 ?? "Dibatalkan") == "belum bayar") 
                                 {
                                     <div class="d-flex align-items-center justify-content-center mt-3 position-relative">
                                         <img class="qr-payment" style="max-width:50%" src="@Head?.QrBase64" alt="Alternate Text" />
-                                        @if (@Head?.Metode_Bayar == "QRIS" && @Head?.Status_Order_1 == "belum bayar") 
+                                        @if (@Head?.Metode_Bayar == "QRIS" && (Head?.Status_Order_1 ?? "Dibatalkan") == "belum bayar") 
                                         {
                                             <button type="button" class="btn btn-success bg-success position-absolute" style="border-radius: 100%;height: 40px;width: 40px;padding: 0px 0px;top: 30px;left: 70px;" @onclick="@( x => DownloadImage(Head))" >
                                                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" style="margin-top:-4px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"/></svg>
@@ -2020,39 +2024,46 @@
                                         }
                                     </div>
                                 }
-                                else if (@Head?.Metode_Bayar != "QRIS" && @Head?.Status_Order_1 == "belum bayar")
+                                else if (@Head?.Metode_Bayar != "QRIS" && (Head?.Status_Order_1 ?? "Dibatalkan") == "belum bayar")
                                 {
-                                    @if (@Head?.Metode_Bayar == "VA MANDIRI" || @Head?.Metode_Bayar == "COUNTER INDOMARET") 
+                                    
+                                    @if (@Head?.Metode_Bayar == "VA MANDIRI" || @Head?.Metode_Bayar == "COUNTER INDOMARET")
                                     {
                                         <div class="col-12 ">
-                                            <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3 va-box" style="border-radius:0px; max-width:100%" data-va="@Head?.Payment_Number_1">
-                                                <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.Payment_Number_1" />
+                                            <div class="input-group style-grup px-1 border-1 form-style position-relative pb-1 pt-3 va-box mb-0" style="border-radius:0px; max-width:100%" data-va="@Head?.Payment_Number_1">
+                                                <div readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1">
+                                                    @Head?.Payment_Number_1
+                                                </div>
                                                 <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">
                                                     @(Head?.Metode_Bayar == "VA MANDIRI" ? "Biller Code" : "Payment Code")
                                                 </label>
-                                                <button class="copy-btn copy-btn-@Head?.Payment_Number_1-code border-0 w-auto" style="border-radius: 0px;position: absolute;top: 12px;right: 15px;" type="button" aria-label="Copy VA" @onclick=@( x => clickCopy(Head, $"{Head?.Payment_Number_1}-code"))>Copy</button>
+                                                <button class="copy-btn copy-btn-@Head?.Payment_Number_1-code border-0 w-auto" style="border-radius: 0px;position: absolute;top: 12px;right: 15px;" type="button" aria-label="Copy VA" @onclick=@(x => clickCopy(Head, $"{Head?.Payment_Number_1}-code"))>Copy</button>
                                             </div>
                                         </div>
-                                        <div class="col-12">
-                                            <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3 va-box" style="border-radius:0px; max-width:100%" data-va="@Head?.Payment_Number_2">
-                                                <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.Payment_Number_2" />
+                                        <div class="col-12 mt-3">
+                                            <div class="input-group style-grup px-1 border-1 form-style position-relative pb-1 pt-3 va-box mb-0" style="border-radius:0px; max-width:100%" data-va="@Head?.Payment_Number_2">
+                                                <div readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1">
+                                                    @Head?.Payment_Number_2
+                                                </div>
                                                 <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">
                                                     @(Head?.Metode_Bayar == "VA MANDIRI" ? "Bill Key" : "Merchant Id")
                                                 </label>
 
-                                                <button class="copy-btn copy-btn-@Head?.Payment_Number_2-code border-0 w-auto" style="border-radius: 0px;position: absolute;top: 12px;right: 15px;" type="button" aria-label="Copy VA" @onclick=@( x => clickCopy(Head, $"{Head?.Payment_Number_2}-code"))>Copy</button>
+                                                <button class="copy-btn copy-btn-@Head?.Payment_Number_2-code border-0 w-auto" style="border-radius: 0px;position: absolute;top: 12px;right: 15px;" type="button" aria-label="Copy VA" @onclick=@(x => clickCopy(Head, $"{Head?.Payment_Number_2}-code"))>Copy</button>
                                             </div>
                                         </div>
                                     }
-                                    else 
+                                    else
                                     {
                                         <div class="col-12">
-                                            <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3 va-box" style="border-radius:0px; max-width:100%" data-va="@Head?.Payment_Number_1">
-                                                <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.Payment_Number_1" />
+                                            <div class="input-group style-grup px-1 border-1 form-style position-relative pb-1 pt-3 va-box mb-0" style="border-radius:0px; max-width:100%" data-va="@Head?.Payment_Number_1">
+                                                <div readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1">
+                                                    @Head?.Payment_Number_1
+                                                </div>
                                                 <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">
                                                     Virtual Account
                                                 </label>
-                                                <button class="copy-btn copy-btn-@Head?.Payment_Number_1-code border-0 w-auto" style="border-radius: 0px;position: absolute;top: 12px;right: 15px;" type="button" aria-label="Copy VA" @onclick=@( x => clickCopy(Head, $"{Head?.Payment_Number_1}-code"))>Copy</button>
+                                                <button class="copy-btn copy-btn-@Head?.Payment_Number_1-code border-0 w-auto" style="border-radius: 0px;position: absolute;top: 12px;right: 15px;" type="button" aria-label="Copy VA" @onclick=@(x => clickCopy(Head, $"{Head?.Payment_Number_1}-code"))>Copy</button>
                                             </div>
                                         </div>
                                     }
@@ -2079,12 +2090,12 @@
                             }
                         </button>
 
-                        @if (@Head?.Status_Order_1 != "belum bayar" && @Head?.Status_Order_1 != "selesai") 
+                        @if ((Head?.Status_Order_1 ?? "Dibatalkan") != "belum bayar" && (Head?.Status_Order_1 ?? "Dibatalkan") != "selesai") 
                         {
-                            <button type="button" class="btn btn-primary px-2 d-flex d-xl-none" style="border-radius:0px" @onclick="@( x => KirimPesan(Head))" >Hubungi Admin</button>
+                            <button type="button" class="btn btn-primary px-2 d-none" style="border-radius:0px" @onclick="@( x => KirimPesan(Head))" >Hubungi Admin</button>
                         }
 
-                        @if (@Head?.Status_Order_1 == "belum bayar") 
+                        @if ((Head?.Status_Order_1 ?? "Dibatalkan") == "belum bayar") 
                         {
                             <button type="button" class="btn btn-primary px-2 d-none" style="border-radius:0px" @onclick="@( x => GantiMethod(Head))" >Ganti Metode</button>
                         }
@@ -2095,7 +2106,7 @@
                        
                         <button class="d-none px-2" id="closeModal" style="width:0px; height:0px;" type="button" data-bs-dismiss="modal" ></button>
                         
-                        @if (@Head?.Status_Order_1 == "belum bayar") 
+                        @if ((Head?.Status_Order_1 ?? "Dibatalkan") == "belum bayar") 
                         {
                             <button type="button" @onclick="@( x => BatalkanPesanan(Head))" class="btn btn-danger bg-danger px-2 d-none" style="font-weight:500; font-size:15px; z-index:0; letter-spacing:-0.5px; width:fit-content;border-radius:0px;">
                                 <span class="position-relative">Batalkan Pesanan</span>
@@ -2172,7 +2183,7 @@
                         @if(infoChange == true) 
                         {
                             <div class="modal-body">
-                                <div class="row">
+                                <div class="row m-0">
                                     <p style="font-size:17px; font-weight:500;" class="text-danger text-center">
                                         Gagal mengganti metode pembayaran! Coba lagi nanti.
                                     </p>
@@ -2223,7 +2234,7 @@
 
             @if(infoPembatalan == null) {
                 <div class="modal-body">
-                    <div class="row">
+                    <div class="row m-0">
                         <p style="font-size:17px; font-weight:500;" class="text-danger text-center">
                             Yakin membatalkan pesanan @Pesanan_Change.No_Tracking?
                         </p>
@@ -2231,7 +2242,7 @@
                 </div>
             } else if(infoPembatalan == true) {
                 <div class="modal-body">
-                    <div class="row">
+                    <div class="row m-0">
                         <p style="font-size:17px; font-weight:500;" class="text-success text-center">
                             Pesanan @Pesanan_Change.No_Tracking berhasil dibatalkan
                         </p>
@@ -2240,7 +2251,7 @@
 
             } else {
                 <div class="modal-body">
-                    <div class="row">
+                    <div class="row m-0">
                         <p style="font-size:17px; font-weight:500;" class="text-danger text-center">
                             Pesanan @Pesanan_Change.No_Tracking gagal dibatalkan, coba lagi nanti
                         </p>
@@ -2289,7 +2300,7 @@
 
             @if(infoSelesaikan == null) {
                 <div class="modal-body">
-                    <div class="row">
+                    <div class="row m-0">
                         <p style="font-size:17px; font-weight:500;" class="text-primary text-center">
                            Yakin selesaikan pesanan @Pesanan_Change.No_Tracking?
                         </p>
@@ -2297,7 +2308,7 @@
                 </div>
             } else if(infoSelesaikan == true) {
                 <div class="modal-body">
-                    <div class="row">
+                    <div class="row m-0">
                         <p style="font-size:17px; font-weight:500;" class="text-success text-center">
                             Pesanan @Pesanan_Change.No_Tracking telah diselesaikan.
                         </p>
@@ -2306,7 +2317,7 @@
 
             } else {
                 <div class="modal-body">
-                    <div class="row">
+                    <div class="row m-0">
                         <p style="font-size:17px; font-weight:500;" class="text-danger text-center">
                             Pesanan @Pesanan_Change.No_Tracking gagal diperbarui, coba lagi nanti
                         </p>
@@ -2356,7 +2367,7 @@
                         <button type="button" id="closeLoginRegis" style="position: absolute;top: 25px;right: 25px;" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body pb-3">
-                        <div class="row">
+                        <div class="row m-0">
                             <div class="col-12">
                                 <OtpPage IdInfo=@dataChange NoTlp=@Numberinfo Pass=@ModelRegist.Password/>
                             </div>
@@ -2373,12 +2384,19 @@
                     </div>
             
                     <div class="modal-body pb-3">
-                        <div class="row">
+                        <div class="row m-0">
                             <div class="col-12">
+
                                 <div class="input-group mb-3 style-grup px-1 border-1 pt-2 pb-2 form-style">
-                                    <InputText id="phone-change" @bind-value=@ModelRegist.NoTlp @oninput=@(x => NumberOnlyInput(x, "phone-change")) type="tel" name="phone" class="form-control search-form form-text input-otp" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" placeholder="Nomor Telepon Baru *" required style="padding-left: 85px; font-size: 14px;" />
+                                    <InputText id="phone-change" @bind-value=@ModelRegist.NoTlp @oninput=@(x => NumberOnlyInput(x, "phone-change")) type="tel" name="phone" class="form-control search-form form-text input-otp" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" placeholder="Nomor Telepon Baru *" required style="padding-left: 85px; font-size: 14px; font-weight:500" />
                                 </div>
 
+                                <div class="input-group mb-3 d-flex align-items-center style-grup px-1 border-1 py-1 pb-2 form-style">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor" style="position: absolute;left: 16px; color: #a2a2a2; z-index:1;" >
+                                        <path d="M280-400q-33 0-56.5-23.5T200-480q0-33 23.5-56.5T280-560q33 0 56.5 23.5T360-480q0 33-23.5 56.5T280-400Zm0 160q-100 0-170-70T40-480q0-100 70-170t170-70q67 0 121.5 33t86.5 87h352l120 120-180 180-80-60-80 60-85-60h-47q-32 54-86.5 87T280-240Zm0-80q56 0 98.5-34t56.5-86h125l58 41 82-61 71 55 75-75-40-40H435q-14-52-56.5-86T280-640q-66 0-113 47t-47 113q0 66 47 113t113 47Z" />
+                                    </svg>
+                                    <InputText type="password" @bind-value=@ModelRegist.Password id="Password" style="font-size: 14px; padding-left: 57px;" class="form-control search-form form-text" placeholder="Masukkan Kata Sandi*" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" required />
+                                </div>
                                 <div>
                                     <div id="result-change" class="result-box" style="display:none;">
                                         <strong id="e164Number-change"></strong>
@@ -2447,10 +2465,13 @@
                     </div>
 
                     <div class="modal-body pb-3">
-                        <div class="row">
+                        <div class="row m-0">
                             <div class="col-12">
-                                <div class="input-group mb-3 style-grup px-1 border-1 py-1 pb-2 form-style">
-                                    <InputText type="password" @bind-value=@ModelRegist.Password id="Password-Regist" style="font-size: 14px;" class="form-control search-form form-text" placeholder="Masukkan Kata Sandi Baru *" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" required />
+                                <div class="input-group mb-3 d-flex align-items-center style-grup px-1 border-1 py-1 pb-2 form-style">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor" style="position: absolute;left: 16px; color: #a2a2a2; z-index:1;" >
+                                        <path d="M280-400q-33 0-56.5-23.5T200-480q0-33 23.5-56.5T280-560q33 0 56.5 23.5T360-480q0 33-23.5 56.5T280-400Zm0 160q-100 0-170-70T40-480q0-100 70-170t170-70q67 0 121.5 33t86.5 87h352l120 120-180 180-80-60-80 60-85-60h-47q-32 54-86.5 87T280-240Zm0-80q56 0 98.5-34t56.5-86h125l58 41 82-61 71 55 75-75-40-40H435q-14-52-56.5-86T280-640q-66 0-113 47t-47 113q0 66 47 113t113 47Z" />
+                                    </svg>
+                                    <InputText type="password" @bind-value=@ModelRegist.Password id="Password" style="font-size: 14px; padding-left: 57px;" class="form-control search-form form-text" placeholder="Masukkan Kata Sandi Baru*" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" required />
                                 </div>
 
                                 <p style="font-size:13px; font-weight:300; font-style:italic;">Kolom yang bertanda * wajib diisi.</p>

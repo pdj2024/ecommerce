@@ -1,7 +1,7 @@
 ﻿@rendermode InteractiveServer
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @page "/payment-page/{CartList}/{itemVariant}"
-
+@using PacificWeb.Components.Sections
 
 
 
@@ -15,9 +15,11 @@
 @if (contentCrash)
 {
     <div class="w-100 p-0">
-        <div class="row m-0">
+        <div class="row m-0 m-0">
+
             <div class="col-12 col-lg-6 px-0">
                 <div class="w-100 ps-0 ps-xxl-5 h-auto" style="">
+
                     <div class="w-100 h-100 ps-0 ps-lg-5 pe-0 pe-lg-3 pt-2 pb-2">
 
                         <div class="w-100 h-100 d-flex flex-column" >
@@ -137,7 +139,7 @@
                                 }
                                 else
                                 {
-                                    <div class="row px-3 pt-3">
+                                    <div class="row m-0 px-3 pt-3">
                                         @foreach (var Head in Pesanan_Info.Data.Header)
                                         {
                                             <div class="col-12 col-lg-6">
@@ -160,6 +162,8 @@
                                             </div>
                                         }
                                     </div>
+
+                                    <SelectAlamat/>
                                 }
 
                             </div>
@@ -258,7 +262,7 @@
                                 }
                             </div>
                     
-                            <aside class="checkout-summary2 panel d-flex d-md-flex d-lg-none px-0">
+                            <div class="checkout-summary2 panel d-flex d-md-flex d-lg-none px-0">
                                 <div class="summary__items" style="max-height: 320px; height:auto">
                                     @if (loadContent)
                                     {
@@ -371,7 +375,7 @@
                                     }
 
                                 </div>
-                            </aside>
+                            </div>
                         
                             @if (loadContent)
                             {
@@ -440,6 +444,7 @@
                         </div>
                 
                     </div>
+                
                 </div>
             </div>
 
@@ -571,6 +576,7 @@
                     </div>
                 </div>
             </div>
+        
         </div>
     </div>
 } 
@@ -593,7 +599,7 @@ else
             @foreach (var Head in Pesanan_Info.Data.Header)
             {
                 <div class="modal-body">
-                    <div class="row">
+                    <div class="row m-0">
 
                         <div class="col-12">
                             <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
@@ -668,8 +674,8 @@ else
                 </div>
             
                 <div class="modal-footer justify-content-center button border-top-0 pt-2 px-5">
-                    <button type="button" class="btn btn-secondary bg-secondary border-0" data-bs-dismiss="modal">Batal</button>
-                    <button type="button" class="btn btn-primary border-0" @onclick="@( () => PayOrder())" >
+                    <button type="button" class="btn btn-danger bg-danger border-0" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-success bg-success border-0" @onclick="@( () => PayOrder())" >
                         @if(loadProses) 
                         {
                             <div class="spinner-border spinner-border-sm" role="status">
@@ -741,7 +747,7 @@ else
 
 
                     <div class="modal-body">
-                        <div class="row">
+                        <div class="row m-0">
 
                             @if (@Head?.Status_Order_1 != "belum bayar")
                             {
@@ -802,20 +808,25 @@ else
                                 }
                                 else if (@Head?.Metode_Bayar != "QRIS" && @Head?.Status_Order_1 == "belum bayar")
                                 {
-                                    @if (@Head?.Metode_Bayar == "VA MANDIRI" || @Head?.Metode_Bayar == "COUNTER INDOMARET") 
+                                    
+                                    @if (@Head?.Metode_Bayar == "VA MANDIRI" || @Head?.Metode_Bayar == "COUNTER INDOMARET")
                                     {
                                         <div class="col-12 ">
-                                            <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3 va-box" style="border-radius:0px; max-width:100%" data-va="@Head?.Payment_Number_1">
-                                                <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.Payment_Number_1" />
+                                            <div class="input-group style-grup px-1 border-1 form-style position-relative pb-1 pt-3 va-box mb-0" style="border-radius:0px; max-width:100%" data-va="@Head?.Payment_Number_1">
+                                                <div readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1">
+                                                    @Head?.Payment_Number_1
+                                                </div>
                                                 <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">
                                                     @(Head?.Metode_Bayar == "VA MANDIRI" ? "Biller Code" : "Payment Code")
                                                 </label>
                                                 <button class="copy-btn copy-btn-@Head?.Payment_Number_1-code border-0 w-auto" style="border-radius: 0px;position: absolute;top: 12px;right: 15px;" type="button" aria-label="Copy VA" @onclick=@(x => clickCopy(Head, $"{Head?.Payment_Number_1}-code"))>Copy</button>
                                             </div>
                                         </div>
-                                        <div class="col-12">
-                                            <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3 va-box" style="border-radius:0px; max-width:100%" data-va="@Head?.Payment_Number_2">
-                                                <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.Payment_Number_2" />
+                                        <div class="col-12 mt-3">
+                                            <div class="input-group style-grup px-1 border-1 form-style position-relative pb-1 pt-3 va-box mb-0" style="border-radius:0px; max-width:100%" data-va="@Head?.Payment_Number_2">
+                                                <div readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1">
+                                                    @Head?.Payment_Number_2
+                                                </div>
                                                 <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">
                                                     @(Head?.Metode_Bayar == "VA MANDIRI" ? "Bill Key" : "Merchant Id")
                                                 </label>
@@ -824,15 +835,17 @@ else
                                             </div>
                                         </div>
                                     }
-                                    else 
+                                    else
                                     {
                                         <div class="col-12">
-                                            <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3 va-box" style="border-radius:0px; max-width:100%" data-va="@Head?.Payment_Number_1">
-                                                <input readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1" required value="@Head?.Payment_Number_1" />
+                                            <div class="input-group style-grup px-1 border-1 form-style position-relative pb-1 pt-3 va-box mb-0" style="border-radius:0px; max-width:100%" data-va="@Head?.Payment_Number_1">
+                                                <div readonly style="background-color:transparent !important; font-weight: 700;  font-size:15px;" type="text" class="form-control search-form form-text" placeholder="Your phone" aria-label="Search" aria-describedby="basic-addon1">
+                                                    @Head?.Payment_Number_1
+                                                </div>
                                                 <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">
                                                     Virtual Account
                                                 </label>
-                                                <button class="copy-btn copy-btn-@Head?.Payment_Number_1-code border-0 w-auto" style="border-radius: 0px;position: absolute;top: 12px;right: 15px;" type="button" aria-label="Copy VA" @onclick=@( x => clickCopy(Head, $"{Head?.Payment_Number_1}-code"))>Copy</button>
+                                                <button class="copy-btn copy-btn-@Head?.Payment_Number_1-code border-0 w-auto" style="border-radius: 0px;position: absolute;top: 12px;right: 15px;" type="button" aria-label="Copy VA" @onclick=@(x => clickCopy(Head, $"{Head?.Payment_Number_1}-code"))>Copy</button>
                                             </div>
                                         </div>
                                     }
@@ -890,7 +903,7 @@ else
                 <h5 class="modal-title w-100 text-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">Informasi Pesanan</h5>
             </div>
             <div class="modal-body">
-                <div class="row">
+                <div class="row m-0">
                     <p style="font-size:13px; font-weight:500; font-style:italic;" class="text-danger">
                         Jumlah pembelian melebihi stock, periksa kembali pesanan anda.
                     </p>
@@ -910,7 +923,7 @@ else
                 <h5 class="modal-title w-100 text-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">Informasi Pesanan</h5>
             </div>
             <div class="modal-body">
-                <div class="row">
+                <div class="row m-0">
                     <p style="font-size:15px; font-weight:500;" class="text-center">
                         Beberapa produk sudah di sesuaikan karna sudah tidak tersedia.
                     </p>
@@ -935,7 +948,7 @@ else
                 <h5 class="modal-title w-100 text-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">Informasi Pesanan</h5>
             </div>
             <div class="modal-body">
-                <div class="row">
+                <div class="row m-0">
                     <p style="font-size:17px; font-weight:500; font-style:italic;" class="text-danger text-center">
                         Pesanan dari keranjang tidak ditemukan
                     </p>
@@ -955,7 +968,7 @@ else
                 <h5 class="modal-title w-100 text-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">Informasi Pesanan</h5>
             </div>
             <div class="modal-body">
-                <div class="row">
+                <div class="row m-0">
                     <p style="font-size:17px; font-weight:500; font-style:italic;" class="text-danger text-center">
                         Pesanan tidak ditemukan
                     </p>
@@ -975,7 +988,7 @@ else
                 <h5 class="modal-title w-100 text-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">Informasi Pesanan</h5>
             </div>
             <div class="modal-body">
-                <div class="row">
+                <div class="row m-0">
                     <p style="font-size:17px; font-weight:500;" class="text-center">
                         Pesanan berhasil dibuat, namun proses pembayaran mengalami kesalahan.
                     </p>
@@ -995,7 +1008,7 @@ else
                 <h5 class="modal-title w-100 text-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">Informasi Pesanan</h5>
             </div>
             <div class="modal-body">
-                <div class="row">
+                <div class="row m-0">
                     <p style="font-size:17px; font-weight:500;" class="text-center">
                         Barang yang dipesan saat ini tidak tersedia, harap periksa kembali.
                     </p>

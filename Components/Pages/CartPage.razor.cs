@@ -121,7 +121,7 @@ namespace PacificWeb.Components.Pages
             {
                 if (item == null) return;
 
-                NavigationManager.NavigateTo($"/cart-page/{tab}/{item.No_Tracking}", forceLoad: false);
+                NavigationManager.NavigateTo($"/cart-page/{tab}/{item.No_Tracking}", forceLoad: true);
             } 
             else
             {
@@ -215,9 +215,14 @@ namespace PacificWeb.Components.Pages
                         }
 
 
-                        var statusOtp = await JSRuntime.InvokeAsync<bool>("sendOTP", Numberinfo);
+                        var otp = await NewPdjService.SendOtp(new ParameterApi
+                        {
+                            routeApi = "auth",
+                            prosesApi = "request-otp",
+                            ParamUrl = new ParameterApi.ParameterUrl()
+                        }, new { Telepon = Numberinfo, Check_User = false });
 
-                        if (statusOtp)
+                        if (otp)
                         {
                             await JSRuntime.InvokeVoidAsync("initLoginEffect", value, direct);
                             dataChange = 1;
@@ -237,13 +242,19 @@ namespace PacificWeb.Components.Pages
 
                 else if(status == "password")
                 {
-                    var statusOtp = await JSRuntime.InvokeAsync<bool>("sendOTP", ScopedDataServices?.ScopedData?.DataLogin?.DataUser?.Telepon);
+                    var otp = await NewPdjService.SendOtp(new ParameterApi
+                    {
+                        routeApi = "auth",
+                        prosesApi = "request-otp",
+                        ParamUrl = new ParameterApi.ParameterUrl()
+                    }, new { Telepon = ScopedDataServices?.ScopedData?.DataLogin?.DataUser?.Telepon, Check_User = false });
 
-                    if (statusOtp)
+                    if (otp)
                     {
 
                         await JSRuntime.InvokeVoidAsync("initLoginEffect", value, direct);
                         dataChange = 2;
+                        Numberinfo = ScopedDataServices?.ScopedData?.DataLogin?.DataUser?.Telepon;
                         loadLogin = false;
                         StateHasChanged();
                         return;
@@ -546,6 +557,7 @@ namespace PacificWeb.Components.Pages
                         }
                     });
 
+
                     await refreshAllPesanan();
 
                 }
@@ -556,6 +568,13 @@ namespace PacificWeb.Components.Pages
 
                 loadProses = false;
                 StateHasChanged();
+
+                if(Pesanan_Change.variabel_map_1)
+                {
+                    Pesanan_Change.variabel_map_1 = false;
+                    NavigationManager.NavigateTo("cart-page/selesai", true);
+                }
+
                 return;
             }
 
@@ -628,8 +647,6 @@ namespace PacificWeb.Components.Pages
                         no_id = ScopedDataServices.ScopedData.DataLogin.No_Id
                     }
                 }, itemProfile);
-
-                await pdjService.ShowConsoleData(itemProfile);
 
                 if (dataUpdate?.StatusCode == 200)
                 {
@@ -1039,12 +1056,12 @@ namespace PacificWeb.Components.Pages
         {
             List<Pesanan.Biayas> biaya = PesananList?.Data.Biaya.Where(x => x.No_Bukti == produk.No_Bukti).ToList();
 
-            Pesanan_Create.Data.Header.Clear();
-            Pesanan_Create.Data.Biaya.Clear();
             loadRefresh = true;
             StateHasChanged();
+            Pesanan_Create.Data.Header.Clear();
+            Pesanan_Create.Data.Biaya.Clear();
 
-            if (produk.Metode_Bayar == "QRIS" && produk.Status_Order_1 == "belum bayar")
+            if (produk?.Status_Order_1 != null && produk?.Metode_Bayar == "QRIS" && produk?.Status_Order_1 == "belum bayar")
             {
                 var base64Image = await GenerateImage(produk.Payment_Number_1, produk.Expiry_Time);
                 produk.QrBase64 = base64Image;
@@ -1053,12 +1070,10 @@ namespace PacificWeb.Components.Pages
             Pesanan_Create.Data.Header.Add(produk);
             Pesanan_Create.Data.Biaya.AddRange(biaya);
 
-
-
-            if (Pesanan_Create.Data.Header.Count() >= 2) {
-                var data = Pesanan_Create.Data.Header.LastOrDefault();
-                Pesanan_Create.Data.Header.Remove(data);
-            }
+            //if (Pesanan_Create.Data.Header.Count() >= 2) {
+            //    var data = Pesanan_Create.Data.Header.LastOrDefault();
+            //    Pesanan_Create.Data.Header.Remove(data);
+            //}
 
             loadRefresh = false;
             StateHasChanged();
@@ -1444,7 +1459,7 @@ namespace PacificWeb.Components.Pages
 
             if (data_id == null)
             {
-                ScopedDataServices.ScopedData.ListDataCart = DataCartList.Data;
+                ScopedDataServices.ScopedData.ListDataCart = DataCartList?.Data ?? new();
             }
             else
             {

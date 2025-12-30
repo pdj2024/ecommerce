@@ -51,6 +51,7 @@ namespace PacificWeb.Components.Sections
         public NewPdjService NewPdjService { get; set; }
 
         public bool loadProses { get; set; } = false;
+        public bool disabeldAdd { get; set; } = false;
         public bool auth { get; set; } = false;
 
         [Parameter] public int Quantity { get; set; } = 1;
@@ -84,7 +85,7 @@ namespace PacificWeb.Components.Sections
             if (data != -1)
             {
                 bra = Convert.ToBase64String(Encoding.UTF8.GetBytes( ScopedDataServices?.ScopedData?.DataProduk?.Id_Kategori[data]));
-                NavigationManager.NavigateTo($"/search-page?keyword=&produk=&kategori={Uri.EscapeDataString(bra)}&brand=", forceLoad: false);
+                NavigationManager.NavigateTo($"/search-page?keyword=&produk=&kategori={Uri.EscapeDataString(bra)}&brand=", forceLoad: true);
                 return;
             }
 
@@ -100,7 +101,7 @@ namespace PacificWeb.Components.Sections
         public async void NavigateToDetailProduk(string id)
         {
             List<string> stringData = await pdjService.DecodeEncode(true, new List<string> { id });
-            NavigationManager.NavigateTo($"/detail-produk/{stringData.FirstOrDefault()}", forceLoad: false);
+            NavigationManager.NavigateTo($"/detail-produk/{stringData.FirstOrDefault()}", forceLoad: true);
         }
 
         public void NavigateToHome(string route)
@@ -116,7 +117,7 @@ namespace PacificWeb.Components.Sections
 
             var data = ScopedDataServices?.ScopedData?.DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == ScopedDataServices?.ScopedData?.DataProduk?.Id_Option_Default && x.Size_Id == ScopedDataServices?.ScopedData?.DataProduk?.Id_Size_Default);
 
-            if (Quantity >= data?.Stock)
+            if (Quantity > data?.Stock)
             {
                 ScopedDataServices.ScopedData.DataProduk.Show_Max_Order = true;
             } 
@@ -125,12 +126,13 @@ namespace PacificWeb.Components.Sections
                 ScopedDataServices.ScopedData.DataProduk.Show_Max_Order = false;
             }
 
-            if (Quantity <= ScopedDataServices?.ScopedData?.DataProduk?.Min_Order)
+            if (Quantity < ScopedDataServices?.ScopedData?.DataProduk?.Min_Order)
             {
                 if(ScopedDataServices?.ScopedData?.DataProduk?.Min_Order >= 2)
                 {
                     ScopedDataServices.ScopedData.DataProduk.Show_Min_Order = true;
-                } else
+                } 
+                else
                 {
                     ScopedDataServices.ScopedData.DataProduk.Show_Min_Order = false;
                 }
@@ -139,6 +141,16 @@ namespace PacificWeb.Components.Sections
             {
                 ScopedDataServices.ScopedData.DataProduk.Show_Min_Order = false;
             }
+
+            if (Quantity < ScopedDataServices?.ScopedData?.DataProduk?.Min_Order || Quantity > data?.Stock)
+            {
+                disabeldAdd = true;
+            }
+            else
+            {
+                disabeldAdd = false;
+            }
+            StateHasChanged();
 
         }
         private void OnVariantChanged(string value)
@@ -149,15 +161,41 @@ namespace PacificWeb.Components.Sections
 
             var data = ScopedDataServices?.ScopedData?.DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == ScopedDataServices?.ScopedData?.DataProduk?.Id_Option_Default && x.Size_Id == ScopedDataServices?.ScopedData?.DataProduk?.Id_Size_Default);
 
-            if (Quantity >= data?.Stock)
+            if (Quantity > data?.Stock)
             {
                 ScopedDataServices.ScopedData.DataProduk.Show_Max_Order = true;
+            } else
+            {
+                ScopedDataServices.ScopedData.DataProduk.Show_Max_Order = false;
             }
 
-            if (Quantity <= ScopedDataServices?.ScopedData?.DataProduk?.Min_Order)
+            if (Quantity < ScopedDataServices?.ScopedData?.DataProduk?.Min_Order)
             {
-                ScopedDataServices.ScopedData.DataProduk.Show_Min_Order = true;
+                if (ScopedDataServices?.ScopedData?.DataProduk?.Min_Order >= 2)
+                {
+                    ScopedDataServices.ScopedData.DataProduk.Show_Min_Order = true;
+                }
+                else
+                {
+                    ScopedDataServices.ScopedData.DataProduk.Show_Min_Order = false;
+                }
+            } 
+            else
+            {
+                ScopedDataServices.ScopedData.DataProduk.Show_Min_Order = false;
             }
+
+            if (Quantity < ScopedDataServices?.ScopedData?.DataProduk?.Min_Order || Quantity > data?.Stock)
+            {
+                disabeldAdd = true;
+            }
+            else
+            {
+                disabeldAdd = false;
+            }
+
+            StateHasChanged();
+
         }
 
         public class SizeOption
@@ -175,22 +213,37 @@ namespace PacificWeb.Components.Sections
         {
             var data = ScopedDataServices?.ScopedData?.DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == ScopedDataServices?.ScopedData?.DataProduk?.Id_Option_Default && x.Size_Id == ScopedDataServices?.ScopedData?.DataProduk?.Id_Size_Default);
 
-            if (Quantity <= ScopedDataServices?.ScopedData?.DataProduk?.Min_Order)
-            {
-                ScopedDataServices.ScopedData.DataProduk.Show_Min_Order = true;
-            }
 
-            if (Quantity >= data?.Stock)
+            if (Quantity + 1 > data?.Stock)
             {
                 ScopedDataServices.ScopedData.DataProduk.Show_Max_Order = true;
             }
             else
             {
                 Quantity++;
+
+                if (Quantity < ScopedDataServices?.ScopedData?.DataProduk?.Min_Order)
+                {
+                    ScopedDataServices.ScopedData.DataProduk.Show_Min_Order = true;
+                }
+                else
+                {
+                    ScopedDataServices.ScopedData.DataProduk.Show_Min_Order = false;
+                }
+
                 ScopedDataServices.ScopedData.DataProduk.Show_Max_Order = false;
                 await QuantityChanged.InvokeAsync(Quantity);
             }
 
+
+            if (Quantity < ScopedDataServices?.ScopedData?.DataProduk?.Min_Order || Quantity > data?.Stock)
+            {
+                disabeldAdd = true;
+            }
+            else
+            {
+                disabeldAdd = false;
+            }
 
             StateHasChanged();
             return;
@@ -198,32 +251,46 @@ namespace PacificWeb.Components.Sections
 
         private async Task Decrease()
         {
+            var data = ScopedDataServices?.ScopedData?.DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == ScopedDataServices?.ScopedData?.DataProduk?.Id_Option_Default && x.Size_Id == ScopedDataServices?.ScopedData?.DataProduk?.Id_Size_Default);
+
 
             if (Quantity > 1)
             {
 
-                var data = ScopedDataServices?.ScopedData?.DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == ScopedDataServices?.ScopedData?.DataProduk?.Id_Option_Default && x.Size_Id == ScopedDataServices?.ScopedData?.DataProduk?.Id_Size_Default);
-
-                if (Quantity >= data?.Stock)
-                {
-                    ScopedDataServices.ScopedData.DataProduk.Show_Max_Order = true;
-                }
-
-
-                if (Quantity <= ScopedDataServices?.ScopedData?.DataProduk?.Min_Order)
+                if (Quantity - 1 < ScopedDataServices?.ScopedData?.DataProduk?.Min_Order)
                 {
                     ScopedDataServices.ScopedData.DataProduk.Show_Min_Order = true;
                 }
                 else
                 {
                     Quantity--;
-                    ScopedDataServices.ScopedData.DataProduk.Show_Min_Order = false;
+
+                    if (Quantity > data?.Stock)
+                    {
+                        ScopedDataServices.ScopedData.DataProduk.Show_Max_Order = true;
+                    } 
+                    else
+                    {
+                        ScopedDataServices.ScopedData.DataProduk.Show_Max_Order = false;
+                    }
+
+                     ScopedDataServices.ScopedData.DataProduk.Show_Min_Order = false;
                     await QuantityChanged.InvokeAsync(Quantity);
                 }
-
-                StateHasChanged();
-                return;
             }
+
+
+            if (Quantity < ScopedDataServices?.ScopedData?.DataProduk?.Min_Order || Quantity > data?.Stock)
+            {
+                disabeldAdd = true;
+            }
+            else
+            {
+                disabeldAdd = false;
+            }
+
+            StateHasChanged();
+            return;
         }
 
 

@@ -10,6 +10,7 @@ using Microsoft.JSInterop;
 using Models;
 using PacificWeb.Components;
 using PacificWeb.Controllers;
+using Polly;
 using Radzen;
 using Services;
 
@@ -111,7 +112,23 @@ builder.Services.AddScoped(sp =>
 });
 
 
+builder.Services.AddHttpClient("ApiClient", client =>
+{
+    client.Timeout = TimeSpan.FromSeconds(5);
+}).
+ConfigurePrimaryHttpMessageHandler(() =>
+    new HttpClientHandler
+    {
+        AllowAutoRedirect = true
+    }).
+AddTransientHttpErrorPolicy(policy =>
+    policy.WaitAndRetryAsync(
+        retryCount: 3,
+        sleepDurationProvider: retry =>
+            TimeSpan.FromSeconds(Math.Pow(2, retry))
+    ));
 
+builder.Services.AddHttpClient<WilayahService>().ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler { AllowAutoRedirect = true });
 
 builder.Services.AddSingleton<GlobalDataService>();
 builder.Services.AddScoped<ScopedDataServices>();
@@ -130,6 +147,7 @@ builder.Services.AddScoped(sp =>
     var scopedDataServices = sp.GetRequiredService<ScopedDataServices>();
     var httpContextAccessor = sp.GetRequiredService<IHttpContextAccessor>();
     var config = sp.GetRequiredService<IConfiguration>();
+    var httpClientFactory = sp.GetRequiredService<IHttpClientFactory>();
 
     // Buat instance secara manual
     return new NewPdjService(
@@ -139,7 +157,16 @@ builder.Services.AddScoped(sp =>
         jsRuntime,
         navigationManager,
         httpContextAccessor,
-        config);
+        config,
+        httpClientFactory);
+});
+
+builder.Services.AddScoped(sp =>
+{
+    var globalDataService = sp.GetRequiredService<GlobalDataService>();
+
+    // Buat instance secara manual
+    return new LoginController(globalDataService);
 });
 
 

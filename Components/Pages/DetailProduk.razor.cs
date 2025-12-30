@@ -64,7 +64,7 @@ namespace PacificWeb.Components.Pages
         public string email = "";
         public string pesan = "";
         public bool auth = false;
-
+        public bool disabeldAdd { get; set; } = false;
         public SourchData dataSourch { get; set; } = new();
 
         public Produk DataProduk { get; set; } = new Produk();
@@ -122,46 +122,12 @@ namespace PacificWeb.Components.Pages
                 ProductId = (await pdjService.DecodeEncode(false, new List<string> { id })).FirstOrDefault();
             }
 
-            var ProdukTask = NewPdjService.GetApi<Produk>(new ParameterApi
-            {
-                routeApi = "produk",
-                prosesApi = "getAll",
-                ParamUrl = new ParameterApi.ParameterUrl
-                {
-                    pagesize = 12,
-                    show_variant = true,
-                    max_media = 10,
-                    no_id = ProductId,
-                    status = "aktif",
-                    orderBy = "tgl_created",
-                    orderDir = "desc"
-                }
-            });
+            
 
             var mainContent = NewPdjService.RefreshDataMainKonten();
 
             // Assign semua data sekaligus
-            await Task.WhenAll(ProdukTask, mainContent);
-
-            dataSourch.DataProduk = ProdukTask?.Result?.Data?.FirstOrDefault() ?? null;
-
-            if (dataSourch?.DataProduk != null && dataSourch?.DataProduk?.No_Id != "")
-            {
-                var dataProd = dataSourch.DataProduk.Variants.FirstOrDefault(x => x.Stock >= dataSourch.DataProduk.Min_Order && x.Status.ToLower() == "aktif");
-
-                Quantity = dataSourch.DataProduk.Min_Order;
-                var Opsi = dataSourch?.DataProduk.Options.FirstOrDefault(x => x.Option_Id == (dataProd?.Option_Id ?? ""));
-                dataSourch.DataProduk.Id_Option_Default = Opsi?.Option_Id ?? "";
-                dataSourch.DataProduk.Option_Default = Opsi?.Option_Label ?? "";
-
-                var Size = dataSourch?.DataProduk.Sizes.FirstOrDefault(x => x.Size_Id == dataProd?.Size_Id);
-                dataSourch.DataProduk.Id_Size_Default = Size?.Size_Id ?? "";
-                dataSourch.DataProduk.Size_Default = Size?.Size_Label ?? "";
-                dataSourch.DataProduk.ShowFlayer = true;
-            }
-
-
-            await header_page.SelectItemCart(null);
+            
             StateHasChanged();
         }
 
@@ -172,9 +138,44 @@ namespace PacificWeb.Components.Pages
                 JSRuntime.InvokeVoidAsync("removeBackdrops");
                 JSRuntime.InvokeVoidAsync("goTopInstant");
 
-                var authContent = NewPdjService.RefreshDataAuthKonten();
+                var ProdukTask = NewPdjService.GetApi<Produk>(new ParameterApi
+                {
+                    routeApi = "produk",
+                    prosesApi = "getAll",
+                    ParamUrl = new ParameterApi.ParameterUrl
+                    {
+                        pagesize = 12,
+                        show_variant = true,
+                        max_media = 10,
+                        no_id = ProductId,
+                        status = "aktif",
+                        orderBy = "tgl_created",
+                        orderDir = "desc"
+                    }
+                });
 
-                await Task.WhenAll(authContent);
+                var authContent = NewPdjService.RefreshDataAuthKonten();
+                await Task.WhenAll(authContent, ProdukTask);
+
+                dataSourch.DataProduk = ProdukTask?.Result?.Data?.FirstOrDefault() ?? null;
+
+                if (dataSourch?.DataProduk != null && dataSourch?.DataProduk?.No_Id != "")
+                {
+                    var dataProd = dataSourch.DataProduk.Variants.FirstOrDefault(x => x.Stock >= dataSourch.DataProduk.Min_Order && x.Status.ToLower() == "aktif");
+
+                    Quantity = dataSourch.DataProduk.Min_Order;
+                    var Opsi = dataSourch?.DataProduk.Options.FirstOrDefault(x => x.Option_Id == (dataProd?.Option_Id ?? ""));
+                    dataSourch.DataProduk.Id_Option_Default = Opsi?.Option_Id ?? "";
+                    dataSourch.DataProduk.Option_Default = Opsi?.Option_Label ?? "";
+
+                    var Size = dataSourch?.DataProduk.Sizes.FirstOrDefault(x => x.Size_Id == dataProd?.Size_Id);
+                    dataSourch.DataProduk.Id_Size_Default = Size?.Size_Id ?? "";
+                    dataSourch.DataProduk.Size_Default = Size?.Size_Label ?? "";
+                    dataSourch.DataProduk.ShowFlayer = true;
+                }
+
+                await header_page.SelectItemCart(null);
+
 
                 loadContent = false;
                 dataSourch.Finised = true;
@@ -183,10 +184,11 @@ namespace PacificWeb.Components.Pages
 
                 if (dataSourch?.DataProduk != null)
                 {
+                    StateHasChanged();
                     await JSRuntime.InvokeVoidAsync("initFlayer");
+                    JSRuntime.InvokeVoidAsync("initBigDetailProdInfo");
                 }
                 JSRuntime.InvokeVoidAsync("initslideProduct");
-                JSRuntime.InvokeVoidAsync("initBigDetailProdInfo");
 
                 StateHasChanged();
                 
@@ -256,35 +258,95 @@ namespace PacificWeb.Components.Pages
         }
 
 
-        private void OnSizeChanged(string value)
+        private async void OnSizeChanged(string value)
         {
             var Size = dataSourch?.DataProduk.Sizes.FirstOrDefault(x => x.Size_Id == value);
             dataSourch.DataProduk.Id_Size_Default = Size?.Size_Id ?? "";
             dataSourch.DataProduk.Size_Default = Size?.Size_Label ?? "";
-            Quantity = dataSourch.DataProduk.Min_Order;
-        }
 
+            var data = dataSourch?.DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == dataSourch?.DataProduk?.Id_Option_Default && x.Size_Id == dataSourch?.DataProduk?.Id_Size_Default);
+
+            if (Quantity > data?.Stock)
+            {
+                dataSourch.DataProduk.Show_Max_Order = true;
+            }
+            else
+            {
+                dataSourch.DataProduk.Show_Max_Order = false;
+            }
+
+            if (Quantity < dataSourch?.DataProduk?.Min_Order)
+            {
+                if (dataSourch?.DataProduk?.Min_Order >= 2)
+                {
+                    dataSourch.DataProduk.Show_Min_Order = true;
+                }
+                else
+                {
+                    dataSourch.DataProduk.Show_Min_Order = false;
+                }
+            }
+            else
+            {
+                dataSourch.DataProduk.Show_Min_Order = false;
+            }
+
+            if (Quantity < dataSourch?.DataProduk?.Min_Order || Quantity > data?.Stock)
+            {
+                disabeldAdd = true;
+            }
+            else
+            {
+                disabeldAdd = false;
+            }
+            StateHasChanged();
+
+        }
+        
         private void OnVariantChanged(string value)
         {
             var Opsi = dataSourch?.DataProduk.Options.FirstOrDefault(x => x.Option_Id == value);
             dataSourch.DataProduk.Id_Option_Default = Opsi?.Option_Id ?? "";
             dataSourch.DataProduk.Option_Default = Opsi?.Option_Label ?? "";
-            Quantity = dataSourch.DataProduk.Min_Order;
 
-        }
+            var data = dataSourch?.DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == dataSourch?.DataProduk?.Id_Option_Default && x.Size_Id == dataSourch?.DataProduk?.Id_Size_Default);
 
-        private void OnSizeChangedModal(string value)
-        {
-            var Size = dataSourch?.DataProduk.Sizes.FirstOrDefault(x => x.Size_Id == value);
-            dataSourch.DataProduk.Id_Size_Default = Size?.Size_Id ?? "";
-            dataSourch.DataProduk.Size_Default = Size?.Size_Label ?? "";
-        }
+            if (Quantity > data?.Stock)
+            {
+                dataSourch.DataProduk.Show_Max_Order = true;
+            }
+            else
+            {
+                dataSourch.DataProduk.Show_Max_Order = false;
+            }
 
-        private void OnVariantChangedModal(string value)
-        {
-            var Opsi = dataSourch?.DataProduk.Options.FirstOrDefault(x => x.Option_Id == value);
-            dataSourch.DataProduk.Id_Option_Default = Opsi?.Option_Id ?? "";
-            dataSourch.DataProduk.Option_Default = Opsi?.Option_Label ?? "";
+            if (Quantity < dataSourch?.DataProduk?.Min_Order)
+            {
+                if (dataSourch?.DataProduk?.Min_Order >= 2)
+                {
+                    dataSourch.DataProduk.Show_Min_Order = true;
+                }
+                else
+                {
+                    dataSourch.DataProduk.Show_Min_Order = false;
+                }
+            }
+            else
+            {
+                dataSourch.DataProduk.Show_Min_Order = false;
+            }
+
+            if (Quantity < dataSourch?.DataProduk?.Min_Order || Quantity > data?.Stock)
+            {
+                disabeldAdd = true;
+            }
+            else
+            {
+                disabeldAdd = false;
+            }
+
+            StateHasChanged();
+
         }
 
         public class SizeOption
@@ -298,23 +360,42 @@ namespace PacificWeb.Components.Pages
             }
         }
 
+
         private async Task Increase()
         {
             var data = dataSourch?.DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == dataSourch?.DataProduk?.Id_Option_Default && x.Size_Id == dataSourch?.DataProduk?.Id_Size_Default);
 
-            if(Quantity >= data.Stock)
+
+            if (Quantity + 1 > data?.Stock)
             {
-                dataSourch.DataProduk.Show_Min_Order = false;
                 dataSourch.DataProduk.Show_Max_Order = true;
             }
             else
             {
                 Quantity++;
+
+                if (Quantity < dataSourch?.DataProduk?.Min_Order)
+                {
+                    dataSourch.DataProduk.Show_Min_Order = true;
+                }
+                else
+                {
+                    dataSourch.DataProduk.Show_Min_Order = false;
+                }
+
                 dataSourch.DataProduk.Show_Max_Order = false;
-                dataSourch.DataProduk.Show_Min_Order = false;
                 await QuantityChanged.InvokeAsync(Quantity);
             }
 
+
+            if (Quantity < dataSourch?.DataProduk?.Min_Order || Quantity > data?.Stock)
+            {
+                disabeldAdd = true;
+            }
+            else
+            {
+                disabeldAdd = false;
+            }
 
             StateHasChanged();
             return;
@@ -322,47 +403,50 @@ namespace PacificWeb.Components.Pages
 
         private async Task Decrease()
         {
+            var data = dataSourch?.DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == dataSourch?.DataProduk?.Id_Option_Default && x.Size_Id == dataSourch?.DataProduk?.Id_Size_Default);
+
 
             if (Quantity > 1)
             {
 
-                var data = dataSourch?.DataProduk?.Variants.FirstOrDefault(x => x.Option_Id == dataSourch?.DataProduk?.Id_Option_Default && x.Size_Id == dataSourch?.DataProduk?.Id_Size_Default);
-
-                if (Quantity <= dataSourch?.DataProduk.Min_Order)
+                if (Quantity - 1 < dataSourch?.DataProduk?.Min_Order)
                 {
                     dataSourch.DataProduk.Show_Min_Order = true;
-                    dataSourch.DataProduk.Show_Max_Order = false;
                 }
                 else
                 {
                     Quantity--;
-                    dataSourch.DataProduk.Show_Max_Order = false;
+
+                    if (Quantity > data?.Stock)
+                    {
+                        dataSourch.DataProduk.Show_Max_Order = true;
+                    }
+                    else
+                    {
+                        dataSourch.DataProduk.Show_Max_Order = false;
+                    }
+
                     dataSourch.DataProduk.Show_Min_Order = false;
                     await QuantityChanged.InvokeAsync(Quantity);
                 }
-
-                StateHasChanged();
-                return;
             }
-        }
 
-        private async Task IncreaseProd()
-        {
-            var Qty = QuantityProd + 1;
 
-            if (Qty <= ScopedDataServices.ScopedData.DataProduk.Min_Order)
+            if (Quantity < dataSourch?.DataProduk?.Min_Order || Quantity > data?.Stock)
             {
-                ScopedDataServices.ScopedData.DataProduk.Show_Min_Order = true;
+                disabeldAdd = true;
             }
             else
             {
-                QuantityProd++;
-                ScopedDataServices.ScopedData.DataProduk.Show_Min_Order = false;
-                await QuantityProdChanged.InvokeAsync(QuantityProd);
+                disabeldAdd = false;
             }
+
             StateHasChanged();
             return;
         }
+
+
+
 
         private async Task openAsk()
         {
@@ -391,23 +475,6 @@ namespace PacificWeb.Components.Pages
             await JSRuntime.InvokeVoidAsync("open", url, "_blank");
         }
 
-        private async Task DecreaseProd()
-        {
-            if (QuantityProd > 1)
-            {
-                if (QuantityProd <= ScopedDataServices.ScopedData.DataProduk.Min_Order)
-                {
-                    ScopedDataServices.ScopedData.DataProduk.Show_Min_Order = true;
-                } else
-                {
-                    QuantityProd--;
-                    ScopedDataServices.ScopedData.DataProduk.Show_Min_Order = false;
-                    await QuantityProdChanged.InvokeAsync(QuantityProd);
-                }
-                StateHasChanged();
-                return;
-            }
-        }
 
         public void NavigateToHome(string route)
         {

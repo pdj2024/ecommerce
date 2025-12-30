@@ -2,122 +2,137 @@
 
 
 <!-- Start Hero Area -->
-<section class="hero-area hero-shimer" style="margin-top: 85px;width: 100dvw;">
-    <div class="container p-0 pe-lg-3" style="width:100%; max-width:100%;">
-        <div class="row">
-            <div class="col-12 custom-padding-right">
-                <div class="card py-3 px-0 border-0" style="border-radius:0px;" aria-busy="true">
-                    <div class="skeleton skeleton-rect mb-3" style="border-radius:0px;height:100dvh"></div>
-                </div>
+
+
+<div class="hero-shimer" style="margin-top: 85px;width: 100%;">
+    <div class="row w-100 m-0">
+        <div class="col-12 w-100">
+            <div class="card py-3 px-0 border-0" style="border-radius:0px;" aria-busy="true">
+                <div class="skeleton skeleton-rect mb-3" style="border-radius:0px;height:100dvh"></div>
             </div>
         </div>
     </div>
-</section>
+</div>
 
-<section class="hero-area hero-content" style="margin-top: 85px;display: none;width: 100dvw;">
-    <div class="container p-0 pe-lg-3" style="width:100%; max-width:100%;">
-        <div class="row">
-            <div class="col-12 custom-padding-right d-none d-md-none d-lg-none d-xl-flex d-xxl-flex">
+<div class="hero-content" style="margin-top: 85px;width: 100%;display: none;">
+    <div class="row w-100 m-0">
 
-                <div class="hero-slider-new-pc hero-slider-new">
-
+        <div class="col-12 p-0 d-none d-md-none d-lg-none d-xl-flex d-xxl-flex w-100">
+            <div id="carouselExampleDark1" class="carousel carousel-dark slide w-100" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleDark1" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleDark1" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleDark1" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner w-100">
                     @foreach (var banner in GlobalDataService?.GlobalData?.ListDataBanner)
                     {
-                        <div class="slide-new @( GlobalDataService?.GlobalData?.ListDataBanner.FirstOrDefault(x => x.No_Id == banner?.No_Id) != null ? "active-new" : ""  )">
+                        <div class="carousel-item @(GlobalDataService?.GlobalData?.ListDataBanner.FirstOrDefault()?.No_Id == banner.No_Id ? "active" : "" )" data-bs-interval="10000">
                             @if (@banner?.Media_Desktop?.Id_Media != null || @banner?.Media_Desktop?.Id_Media != "")
                             {
-                                <Image Src="@banner?.Media_Desktop?.Id_Media" Class="img-cover" Style=""></Image>
+                                <img src="@banner?.Media_Desktop?.Id_Media" class="d-block w-100 img-cover" alt="...">
                             }
                             else
                             {
-                                <Image Src="/images/products/placeholder1.png" Class="img-cover" Style=""></Image>
+                                <img src="/images/products/placeholder1.png" class="d-block w-100 img-cover" alt="...">
                             }
-
-                            <div class="caption-new">
-                                @* <h3>OWN THE ICON :</h3>
-                                <h1>SAMBA OG</h1> *@
+                            <div class="carousel-caption d-none d-md-block">
+                                @* <h5 class="text-white">@banner.Nama_Banner</h5>
+                                <p class="text-white">Some representative placeholder content for the first slide.</p> *@
                             </div>
                         </div>
                     }
-
-
-                    <button class="nav-new prev-new"><span>&#10094;</span></button>
-                    <button class="nav-new next-new"><span>&#10095;</span></button>
-
-                    <div class="dots-new"></div>
-
                 </div>
-
+                <button class="carousel-control-prev text-white" type="button" data-bs-target="#carouselExampleDark1" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next text-white" type="button" data-bs-target="#carouselExampleDark1" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
+        </div>
 
-            <div class="col-12 custom-padding-right d-none d-md-flex d-lg-flex d-xl-none">
+        <div class="col-12 p-0 d-none d-md-flex d-lg-flex d-xl-none w-100">
 
-                <div class="hero-slider-new-tablet hero-slider-new">
-
+            <div id="carouselExampleDark2" class="carousel carousel-dark slide w-100" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleDark2" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleDark2" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleDark2" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner w-100">
                     @foreach (var banner in GlobalDataService?.GlobalData?.ListDataBanner)
                     {
-                        <div class="slide-new @( GlobalDataService?.GlobalData?.ListDataBanner.FirstOrDefault(x => x.No_Id == banner?.No_Id) != null ? "active-new" : ""  )">
+                        <div class="carousel-item @(GlobalDataService?.GlobalData?.ListDataBanner.FirstOrDefault()?.No_Id == banner.No_Id ? "active" : "")" data-bs-interval="10000">
                             @if (@banner?.Media_Tablet?.Id_Media != null || @banner?.Media_Tablet?.Id_Media != "")
                             {
-                                <Image Src="@banner?.Media_Tablet?.Id_Media" Class="img-cover" Style=""></Image>
+                                <img src="@banner?.Media_Tablet?.Id_Media" class="d-block w-100 img-cover" alt="...">
                             }
                             else
                             {
-                                <Image Src="/images/products/placeholder1.png" Class="img-cover" Style=""></Image>
+                                <img src="/images/products/placeholder1.png" class="d-block w-100 img-cover" alt="...">
                             }
-
-                            <div class="caption-new">
-                                @* <h3>OWN THE ICON :</h3>
-                            <h1>SAMBA OG</h1> *@
+                            <div class="carousel-caption d-none d-md-block">
+                                @* <h5 class="text-white">@banner.Nama_Banner</h5>
+                                <p class="text-white">Some representative placeholder content for the first slide.</p> *@
                             </div>
                         </div>
                     }
-
-
-                    <button class="nav-new prev-new"><span>&#10094;</span></button>
-                    <button class="nav-new next-new"><span>&#10095;</span></button>
-
-                    <div class="dots-new"></div>
-
                 </div>
-
-            </div>
-
-            <div class="col-12 custom-padding-right d-flex d-md-none d-lg-none d-xl-none">
-
-                <div class="hero-slider-new-phone hero-slider-new">
-
-                    @foreach (var banner in GlobalDataService?.GlobalData?.ListDataBanner)
-                    {
-                        <div class="slide-new @( GlobalDataService?.GlobalData?.ListDataBanner.FirstOrDefault(x => x.No_Id == banner?.No_Id) != null ? "active-new" : ""  )">
-                            @if (@banner?.Media_Phone?.Id_Media != null || @banner?.Media_Phone?.Id_Media != "")
-                            {
-                                <Image Src="@banner?.Media_Phone?.Id_Media" Class="img-cover" Style=""></Image>
-                            }
-                            else
-                            {
-                                <Image Src="/images/products/placeholder1.png" Class="img-cover" Style=""></Image>
-                            }
-
-                            <div class="caption-new">
-                                @* <h3>OWN THE ICON :</h3>
-                            <h1>SAMBA OG</h1> *@
-                            </div>
-                        </div>
-                    }
-
-
-                    <button class="nav-new prev-new"><span>&#10094;</span></button>
-                    <button class="nav-new next-new"><span>&#10095;</span></button>
-
-                    <div class="dots-new"></div>
-
-                </div>
-
+                <button class="carousel-control-prev text-white" type="button" data-bs-target="#carouselExampleDark2" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next text-white" type="button" data-bs-target="#carouselExampleDark2" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
 
         </div>
+
+        <div class="col-12 p-0 d-flex d-md-none d-lg-none d-xl-none w-100">
+
+            <div id="carouselExampleDark3" class="carousel carousel-dark slide w-100" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleDark3" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselExampleDark3" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselExampleDark3" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner w-100">
+                    @foreach (var banner in GlobalDataService?.GlobalData?.ListDataBanner)
+                    {
+                        <div class="carousel-item @(GlobalDataService?.GlobalData?.ListDataBanner.FirstOrDefault()?.No_Id == banner.No_Id ? "active" : "")" data-bs-interval="10000">
+                            @if (@banner?.Media_Phone?.Id_Media != null || @banner?.Media_Phone?.Id_Media != "")
+                            {
+                                <img src="@banner?.Media_Phone?.Id_Media" class="d-block w-100 img-cover" alt="...">
+                            }
+                            else
+                            {
+                                <img src="/images/products/placeholder1.png" class="d-block w-100 img-cover" alt="...">
+                            }
+                            <div class="carousel-caption d-none d-md-block">
+                                @* <h5 class="text-white">@banner.Nama_Banner</h5>
+                                <p class="text-white">Some representative placeholder content for the first slide.</p> *@
+                            </div>
+                        </div>
+                    }
+                </div>
+                <button class="carousel-control-prev text-white" type="button" data-bs-target="#carouselExampleDark3" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next text-white" type="button" data-bs-target="#carouselExampleDark3" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
+        </div>
+
     </div>
-</section>
+</div>
 
 <!-- End Hero Area -->

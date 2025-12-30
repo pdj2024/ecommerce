@@ -155,6 +155,7 @@ namespace PacificWeb.Components.Pages
 
                 var bannerTask = NewPdjService.GetListGlobalDataAsync<Produk>(new ParameterApi
                 {
+                    Updated = true,
                     routeApi = "produk",
                     prosesApi = "getAll",
                     ParamUrl = new ParameterApi.ParameterUrl { pagesize = 12, show_variant = true, max_media = 2, status = "aktif", orderBy = "tgl_created", orderDir = "desc" }

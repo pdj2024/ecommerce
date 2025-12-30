@@ -167,31 +167,31 @@
                                         }
                                         else if (item.Status_Order_1 == "dikirim" && item.Status != "batal")
                                         {
-                                            <button @onclick="@(x => KirimPesan.InvokeAsync(item))" class="btn none-accord btn-success bg-success" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" type="button">
+                                            <button @onclick="@(x => KirimPesan.InvokeAsync(item))" class="btn bg-white border-success text-success" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" type="button">
                                                 Hubungi Admin
                                             </button>
-                                            <button @onclick="@(x => openPayment.InvokeAsync(item))" class="btn bg-white border-primary text-primary" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+                                            <button @onclick="@(x => openPayment.InvokeAsync(item))" class="btn btn-primary" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
                                                 Lihat Pesanan
                                             </button>
-                                            <button @onclick="@(x => OnSelesaikanPesanan.InvokeAsync(item))" class="btn none-accord btn-primary bg-primary" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop5">
+                                            <button @onclick="@(x => OnSelesaikanPesanan.InvokeAsync(item))" class="btn btn-success" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop5">
                                                 Pesanan Selesai
                                             </button>
                                         }
                                         else if (item.Status_Order_1 == "selesai" && item.Status != "batal")
                                         {
-                                            <button @onclick="@(x => KirimPesan.InvokeAsync(item))" class="btn none-accord btn-success bg-success" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" type="button">
+                                            <button @onclick="@(x => KirimPesan.InvokeAsync(item))" class="btn bg-white border-success text-success" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" type="button">
                                                 Hubungi Admin
                                             </button>
-                                            <button @onclick="@(x => openPayment.InvokeAsync(item))" class="btn bg-white border-primary text-primary" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+                                            <button @onclick="@(x => openPayment.InvokeAsync(item))" class="btn btn-primary" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
                                                 Lihat Pesanan
                                             </button>
-                                            <button class="btn btn-primary" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button">
+                                            <button class="btn btn-success" @onclick="@(x => PesanKembali.InvokeAsync(item))" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button">
                                                 Pesan Kembali
                                             </button>
                                         }
                                         else if (item.Status_Order_1 == "dikemas" && item.Status != "batal")
                                         {
-                                            <button @onclick="@(x => KirimPesan.InvokeAsync(item))" class="btn none-accord btn-success bg-success" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" type="button">
+                                            <button @onclick="@(x => KirimPesan.InvokeAsync(item))" class="btn bg-white border-success text-success" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" type="button">
                                                 Hubungi Admin
                                             </button>
                                             <button @onclick="@(x => openPayment.InvokeAsync(item))" class="btn btn-primary" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
@@ -200,11 +200,14 @@
                                         }
                                         else
                                         {
-                                            <button @onclick="@(x => KirimPesan.InvokeAsync(item))" class="btn none-accord btn-success bg-success" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" type="button">
+                                            <button @onclick="@(x => KirimPesan.InvokeAsync(item))" class="btn bg-white border-success text-success" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" type="button">
                                                 Hubungi Admin
                                             </button>
                                             <button @onclick="@(x => openPayment.InvokeAsync(item))" class="btn btn-primary" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
                                                 Lihat Pesanan
+                                            </button>
+                                            <button class="btn btn-success" @onclick="@(x => PesanKembali.InvokeAsync(item))" style="height: 35px !important;border-radius: 0px !important;font-size: 11px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button">
+                                                Pesan Kembali
                                             </button>
                                         }
                                     </div>
@@ -220,7 +223,7 @@
 
             @if (ListItem.hasMore)
             {
-                <div class="row">
+                <div class="row m-0">
                     <div class="col-12 w-100 d-flex align-items-center justify-content-center mt-4">
                         <button @onclick="@(x => showMore.InvokeAsync(pageTabs))" class="btn-slide px-5" style="width:fit-content;z-index:0;">
                             @if (loadProses)

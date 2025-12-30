@@ -1,10 +1,6 @@
-﻿using Azure;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.SignalR.Client;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.JSInterop;
 using Models;
 using Newtonsoft.Json;
@@ -12,13 +8,11 @@ using System.Collections;
 using System.Data;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Net.Http.Json;
 using System.Reflection;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
 using System.Web;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace Services
@@ -36,8 +30,9 @@ namespace Services
 
         private readonly SemaphoreSlim _lock = new(1, 1);
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public NewPdjService(GlobalDataService globalDataService, ScopedDataServices scopedDataServices, pdjService pdjService, IJSRuntime jsRuntime, NavigationManager navigationManager, IHttpContextAccessor httpCon, IConfiguration config)
+        public NewPdjService(GlobalDataService globalDataService, ScopedDataServices scopedDataServices, pdjService pdjService, IJSRuntime jsRuntime, NavigationManager navigationManager, IHttpContextAccessor httpCon, IConfiguration config, IHttpClientFactory httpClientFactory)
         {
             GlobalDataService = globalDataService;
             ScopedDataServices = scopedDataServices;
@@ -46,6 +41,7 @@ namespace Services
             NavigationManager = navigationManager;
             _httpContextAccessor = httpCon;
             _config = config;
+            _httpClientFactory = httpClientFactory;
         }
 
         public HttpContext? HttpContext => _httpContextAccessor.HttpContext;
@@ -430,7 +426,6 @@ namespace Services
                 {
                     writeLog($"Data Kosong");
                 }
-                ShowConsoleData(tbListHead);
                 return tbListHead;
             }
             catch (Exception ex)
@@ -603,6 +598,47 @@ namespace Services
             return false;
         }
 
+        public async Task<bool> SendOtp(ParameterApi urlParam, object requestBody)
+        {
+            Dictionary<string, List<string>> masUserMenu = new Dictionary<string, List<string>>();
+
+            var config = await initConfigApi(urlParam);
+            var tbListProduk = new DataUser();
+
+            var jsonSettings = new JsonSerializerSettings
+            {
+                Formatting = Newtonsoft.Json.Formatting.None,
+                MissingMemberHandling = MissingMemberHandling.Ignore
+            };
+
+            var jsonContent = JsonConvert.SerializeObject(requestBody, jsonSettings);
+            var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+            try
+            {
+                var response = await config.httpReq.PostAsync(config.UrlApi, content, config.cancelTimer.Token);
+                var checking = await CheckResponseAPI(response, config.UrlApi, "Check-Phone");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    using var jsonDoc = JsonDocument.Parse(json);
+                    var root = jsonDoc.RootElement;
+
+                    root.TryGetProperty("success", out var Info);
+
+                    return Convert.ToBoolean(Info.ToString());
+                }
+
+            }
+            catch (Exception ex)
+            {
+                writeLog($"Regist error: {ex.Message}");
+            }
+
+            return false;
+        }
+
         public async Task<bool> CheckLoginApi(ParameterApi urlParam, LoginViewModel data)
         {
             Dictionary<string, List<string>> masUserMenu = new Dictionary<string, List<string>>();
@@ -728,6 +764,7 @@ namespace Services
             {
                 routeApi = "produk",
                 prosesApi = "getAll",
+                Updated = true,
                 ParamUrl = new ParameterApi.ParameterUrl { pagesize = 12, show_variant = true, max_media = 2, status = "aktif", orderBy = "tgl_created", orderDir = "desc" }
             });
 
@@ -735,7 +772,7 @@ namespace Services
             {
                 routeApi = "banner",
                 prosesApi = "getAll",
-                ParamUrl = new ParameterApi.ParameterUrl { pagesize = 3, orderBy = "nama_banner", orderDir = "desc", status = "aktif" }
+                ParamUrl = new ParameterApi.ParameterUrl { orderBy = "nama_banner", orderDir = "desc", status = "aktif" }
             });
 
             var brandTask = GetListGlobalDataAsync<Brand>(new ParameterApi
@@ -749,7 +786,14 @@ namespace Services
             {
                 routeApi = "kategori",
                 prosesApi = "getAll",
-                ParamUrl = new ParameterApi.ParameterUrl { pagesize = 3, status = "aktif" }
+                ParamUrl = new ParameterApi.ParameterUrl { status = "aktif" }
+            });
+
+            var grupKategoriTask = GetListGlobalDataAsync<GrubKategori>(new ParameterApi
+            {
+                routeApi = "groupkategori",
+                prosesApi = "getAll",
+                ParamUrl = new ParameterApi.ParameterUrl { status = "aktif" }
             });
 
             var companyTask = GetListGlobalDataAsync<Company>(new ParameterApi
@@ -791,7 +835,7 @@ namespace Services
 
                         
             // Tunggu semua task selesai
-            await Task.WhenAll(produkTask, brandTask, kategoriTask, companyTask, NavbarTask, SosmedTask);
+            await Task.WhenAll(produkTask, brandTask, kategoriTask, companyTask, NavbarTask, SosmedTask, grupKategoriTask);
         }
 
         public async Task RefreshDataAuthKonten()
@@ -967,27 +1011,44 @@ namespace Services
                     if (parameterApi.Updated)
                     { 
                         var ListNewData = await GetApi<T>(parameterApi);
-                        GlobalDataService.GlobalData.SetListData(typeof(T), ListNewData?.Data ?? new());
+
+                        if (ListNewData?.Data != null || ListNewData?.Data?.Count() >= 1) 
+                        { 
+                            GlobalDataService.GlobalData.SetListData(typeof(T), ListNewData?.Data ?? new());
+                        }
                     }
                     else if (CurrentData is IList list && list?.Count <= 0)
                     {
                         var ListNewData = await GetApi<T>(parameterApi);
-                        GlobalDataService.GlobalData.SetListData(typeof(T), ListNewData?.Data ?? new());
+
+                        if (ListNewData?.Data != null || ListNewData?.Data?.Count() >= 1) 
+                        { 
+                            GlobalDataService.GlobalData.SetListData(typeof(T), ListNewData?.Data ?? new());
+                        }
                     }
                     else if (!Updated)
                     {
                         var ListNewData = await GetApi<T>(parameterApi);
-                        GlobalDataService.GlobalData.SetListData(typeof(T), ListNewData?.Data ?? new());
+
+                        if (ListNewData?.Data != null || ListNewData?.Data?.Count() >= 1)
+                        {
+                            GlobalDataService.GlobalData.SetListData(typeof(T), ListNewData?.Data ?? new());
+                        }
                     }
                     else if (Updated && (DateTime.Now - lastSync).TotalMinutes >= 10)
                     {
                         var ListNewData = await GetApi<T>(parameterApi);
-                        GlobalDataService.GlobalData.SetListData(typeof(T), ListNewData?.Data ?? new());
+
+                        if (ListNewData?.Data != null || ListNewData?.Data?.Count() >= 1)
+                        {
+                            GlobalDataService.GlobalData.SetListData(typeof(T), ListNewData?.Data ?? new());
+                        }
                     }
+
                 }
 
-
                 if (parameterApi.refreshAll) UpdateState();
+
                 GlobalDataService.GlobalStateChanged();
             }
             catch (Exception ex)
@@ -1258,7 +1319,7 @@ namespace Services
         public async Task<StatusResposeApi<T>> GetApi<T>(ParameterApi paramUrl)
         {
             paramUrl.ParamUrl.status = "aktif";
-            var config = await initConfigApi(paramUrl);
+            var config = await initConfigApiRetry(paramUrl);
             string url = config.UrlApi;
             StatusResposeApi<T> deserApi = new StatusResposeApi<T>();
 
@@ -1267,30 +1328,22 @@ namespace Services
                 var response = await config.httpReq.GetAsync(config.UrlApi, config.cancelTimer.Token);
                 var checking = await CheckResponseAPI(response, config.UrlApi, "BACA");
 
-                if (response.IsSuccessStatusCode)
-                {
-                    var json = await response.Content.ReadAsStringAsync();
-                    deserApi = JsonConvert.DeserializeObject<StatusResposeApi<T>>(json);
-                    return deserApi;
-                }
-                else if ((int)response.StatusCode == 401)
+                if ((int)response.StatusCode == 401)
                 {
                     var statusRefresh = await RefreshToken();
 
                     if (statusRefresh)
                     {
                         paramUrl.token = ScopedDataServices.ScopedData.DataLogin.token;
-                        config = await initConfigApi(paramUrl);
+                        config = await initConfigApiRetry(paramUrl);
 
                         response = await config.httpReq.GetAsync(config.UrlApi, config.cancelTimer.Token);
 
                         checking = await CheckResponseAPI(response, config.UrlApi, "BACA");
 
-                        if (response.IsSuccessStatusCode)
+                        if (!response.IsSuccessStatusCode)
                         {
-                            var json = await response.Content.ReadAsStringAsync();
-                            deserApi = JsonConvert.DeserializeObject<StatusResposeApi<T>>(json);
-                            return deserApi;
+                            NavigationManager.NavigateTo($"/auth-user-logout/logout", forceLoad: true);
                         }
                     }
                     else
@@ -1298,6 +1351,10 @@ namespace Services
                         NavigationManager.NavigateTo($"/auth-user-logout/logout", forceLoad: true);
                     }
                 }
+
+                var json = await response.Content.ReadAsStringAsync();
+                deserApi = JsonConvert.DeserializeObject<StatusResposeApi<T>>(json);
+                return deserApi;
             }
 
             catch (Exception ex)
@@ -1316,6 +1373,46 @@ namespace Services
                 }
             }
             return null;
+        }
+
+        public async Task<T> GetApiRandom<T>(ParameterApi paramUrl) where T : new()
+        {
+            string url = paramUrl.defaultUrl;
+            var httpReq = _httpClientFactory.CreateClient("ApiClient");
+            T deserApi = new();
+
+            try
+            {
+                var response = await httpReq.GetAsync(url);
+                var checking = await CheckResponseAPI(response, url, "BACA");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine(json);
+                    deserApi = JsonConvert.DeserializeObject<T>(json);
+                }
+
+
+                return deserApi;
+            }
+
+            catch (Exception ex)
+            {
+                if (ex is OperationCanceledException)
+                {
+                    await writeLog("Gagal Baca Data : Request ke API terlalu lama (timeout).");
+                }
+                else if (ex is HttpRequestException)
+                {
+                    await writeLog($"Gagal Baca Data : Terjadi kesalahan jaringan atau server. {ex.Message}");
+                }
+                else
+                {
+                    await writeLog($"Gagal Baca Data : Terjadi error: {ex.Message}");
+                }
+            }
+            return deserApi;
         }
 
         public async Task<StatusResposeApi<T>> UpdateApi<T>(ParameterApi paramUrl, object DataUpdate)
@@ -1860,7 +1957,21 @@ namespace Services
         public async Task<(HttpClient httpReq, CancellationTokenSource cancelTimer, string UrlApi)> initConfigApi(ParameterApi urlParam)
         {
             urlParam = urlParam ?? new ParameterApi();
-            var httpReq = new HttpClient();
+            var httpReq = new HttpClient(); 
+            var cancelTimer = new CancellationTokenSource(TimeSpan.FromSeconds(5));
+            var LoginUser = GlobalDataService.GlobalData.ListDataLogin.FirstOrDefault(x => x.No_Id == ScopedDataServices?.ScopedData?.DataLogin?.No_Id);
+            httpReq.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", LoginUser?.token);
+
+            string defaultUrl = _config["ApiSettings:BaseUrl"];
+            string UrlApi = defaultUrl + urlParam.routeApi + "/" + urlParam.prosesApi + "?" + ToQueryString(urlParam.ParamUrl);
+
+            return (httpReq, cancelTimer, UrlApi);
+        }
+
+        public async Task<(HttpClient httpReq, CancellationTokenSource cancelTimer, string UrlApi)> initConfigApiRetry(ParameterApi urlParam)
+        {
+            urlParam = urlParam ?? new ParameterApi();
+            var httpReq = _httpClientFactory.CreateClient("ApiClient");
             var cancelTimer = new CancellationTokenSource(TimeSpan.FromSeconds(5));
             var LoginUser = GlobalDataService.GlobalData.ListDataLogin.FirstOrDefault(x => x.No_Id == ScopedDataServices?.ScopedData?.DataLogin?.No_Id);
             httpReq.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", LoginUser?.token);

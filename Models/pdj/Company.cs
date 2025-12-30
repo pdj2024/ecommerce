@@ -7,6 +7,16 @@ using System.Reflection;
 
 namespace Models
 {
+    public class WilayahItem
+    {
+        public Int64 id { get; set; }
+        public int province_id { get; set; }
+        public int regency_id { get; set; }
+        public int district_id { get; set; }
+        public string value { get; set; }
+        public string postal_code { get; set; }
+    }
+
     public class Navbar
     {
         public int Priority { get; set; } = 0;
@@ -61,6 +71,7 @@ namespace Models
         public List<Brand> ListDataBrand { get; set; } = new List<Brand>();
         public List<Produk> ListDataProduk { get; set; } = new List<Produk>();
         public List<Kategori> ListDataKategori { get; set; } = new List<Kategori>();
+        public List<GrubKategori> ListDataGrupKategori { get; set; } = new List<GrubKategori>();
         public List<Navbar> ListDataNavbar { get; set; } = new List<Navbar>();
         public List<DataUser> ListDataUser { get; set; } = new List<DataUser>();
         public List<Pembayaran> ListDataPembayaran { get; set; } = new List<Pembayaran>();
@@ -80,6 +91,7 @@ namespace Models
         public Produk DataProduk { get; set; } = new Produk();
         public Cart DataCart { get; set; } = new Cart();
         public Brand DataBanner { get; set; } = new Brand();
+        public GrubKategori DataGrupKategori { get; set; } = new GrubKategori();
         public DataUser DataUser { get; set; } = new DataUser();
         public Brand DataBrand { get; set; } = new Brand();
         public Pesanan DataPesanan { get; set; } = new Pesanan();
@@ -106,6 +118,7 @@ namespace Models
             { typeof(Brand), (nameof(ListDataBrand), false, new DateTime())},
             { typeof(Produk), (nameof(ListDataProduk), false, new DateTime())},
             { typeof(Kategori), (nameof(ListDataKategori), false, new DateTime())},
+            { typeof(GrubKategori), (nameof(ListDataGrupKategori), false, new DateTime())},
             { typeof(Cart), (nameof(ListDataCart), false, new DateTime())},
             { typeof(Navbar), (nameof(ListDataNavbar), false, new DateTime())},
             { typeof(DataUser), (nameof(ListDataUser), false, new DateTime()) },

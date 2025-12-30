@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components.Authorization
 @using PacificWeb.Components.Sections
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
-<PageTitle>Search: @dataSourch.SearchList.TotalCount.ToString() result for @SearchText </PageTitle>
+<PageTitle>Pencarian: @dataSourch.SearchList.TotalCount.ToString() @( SearchText != "" ?  $"hasil untuk {SearchText}" : "produk ditemukan") </PageTitle>
 
 <MyHeader  @ref="header_page" />
 
@@ -53,21 +53,7 @@ using Microsoft.AspNetCore.Components.Authorization
         <div class="row">
             <div class="col-3 d-none d-lg-none d-xl-flex" style="margin-top:40px">
                 <div class="filters position-sticky top-0" style="height:fit-content;padding-top:85px; margin-top:20px">
-                    <div class="filter-accordion" style="border-bottom: 1px solid darkgray;">
-                        <input type="checkbox" id="filter-genre" class="filter-toggle">
-                        <label for="filter-genre" style="font-size: 23px;letter-spacing: -1.7px;" class="filter-label search-fil py-4 px-0">Gender</label>
-                        <div class="filter-content px-0" >
-                            @foreach (var dataKategori in dataSourch?.ListDataKategori)
-                            {
-                                if (dataKategori.Nama_Kategori == "Men's" || dataKategori.Nama_Kategori == "Women's" || dataKategori.Nama_Kategori == "Kid's")
-                                {
-                                    <label><input type="checkbox" checked=@dataKategori.Checked_Filter @onchange=@(x => changeFilter(dataKategori, null, x, null)) > 
-                                        @dataKategori.Nama_Kategori
-                                    </label>
-                                }
-                            }
-                        </div>
-                    </div>
+                    
                     <div class="filter-accordion" style="border-bottom: 1px solid darkgray;">
                         <input type="checkbox" id="filter-brand" class="filter-toggle">
                         <label for="filter-brand" style="font-size: 23px;letter-spacing: -1.7px;" class="filter-label search-fil py-4 px-0">Brand</label>
@@ -78,22 +64,23 @@ using Microsoft.AspNetCore.Components.Authorization
                             }
                         </div>
                     </div>
-                    <div class="filter-accordion" style="border-bottom: 1px solid darkgray;">
-                        <input type="checkbox" id="filter-category" class="filter-toggle">
-                        <label for="filter-category" style="font-size: 23px;letter-spacing: -1.7px;" class="filter-label search-fil py-4 px-0">Kategori</label>
-                        <div class="filter-content px-0" >
-                            @foreach (var dataKategori in dataSourch?.ListDataKategori)
-                            {
-                                if (dataKategori.Nama_Kategori != "Men's" && dataKategori.Nama_Kategori != "Women's" && dataKategori.Nama_Kategori != "Kid's")
+                    
+                    @foreach (var Grup in GlobalDataService.GlobalData.ListDataGrupKategori)
+                    {
+                        <div class="filter-accordion" style="border-bottom: 1px solid darkgray;">
+                            <input type="checkbox" id="filter-@(Grup.No_Id)" class="filter-toggle">
+                            <label for="filter-@(Grup.No_Id)" style="font-size: 23px;letter-spacing: -1.7px;" class="filter-label search-fil py-4 px-0">@Grup.Nama_Group</label>
+                            <div class="filter-content px-0" >
+                                @foreach (var dataKategori in dataSourch?.ListDataKategori.Where(x => x.Id_Group_Kategori == Grup.No_Id).ToList())
                                 {
-                                    <label>
-                                        <input type="checkbox" checked=@dataKategori.Checked_Filter @onchange=@(x => changeFilter(dataKategori, null, x, null))>
+                                    <label><input type="checkbox" checked=@dataKategori.Checked_Filter @onchange=@(x => changeFilter(dataKategori, null, x, null)) > 
                                         @dataKategori.Nama_Kategori
                                     </label>
                                 }
-                            }
+                            </div>
                         </div>
-                    </div>
+                    }
+                    
                     <div class="filter-accordion" style="border-bottom: 1px solid darkgray;">
                         <input type="checkbox" id="filter-price" class="filter-toggle">
                         <label for="filter-price" style="font-size: 23px;letter-spacing: -1.7px;" class="filter-label search-fil py-4 px-0">Harga</label>
@@ -104,21 +91,21 @@ using Microsoft.AspNetCore.Components.Authorization
                                     <div class="slider-track"></div>
                                     <div class="slider-range" id="rangeFill"></div>
 
-                                    <input type="range" id="minRange" min="0" max="@Termahal" value="@minHarga">
-                                    <input type="range" id="maxRange" min="0" max="@Termahal" value="@maxHarga">
+                                    <input type="range" id="minRange" step="100000" min="0" max="@Termahal" value="@minHarga">
+                                    <input type="range" id="maxRange" step="100000" min="0" max="@Termahal" value="@maxHarga">
                                 </div>
 
                                 <div class="price-input">
                                     <div class="box">
                                         <span>Rp</span>
-                                        <input type="number" id="minInput" min="0" max="@Termahal" value="@minHarga">
+                                        <input type="number" onclick="this.select()" step="100000" id="minInput" min="0" max="@Termahal" value="@minHarga">
                                     </div>
 
                                     <span class="divider">To</span>
 
                                     <div class="box">
                                         <span>Rp</span>
-                                        <input type="number" id="maxInput" min="0" max="@Termahal" value="@maxHarga">
+                                        <input type="number" onclick="this.select()" step="100000" id="maxInput" min="0" max="@Termahal" value="@maxHarga">
                                     </div>
                                 </div>
 
@@ -461,22 +448,6 @@ using Microsoft.AspNetCore.Components.Authorization
                         </div>
                     </div>
                     <div class="filter-accordion" style="border-bottom: 1px solid darkgray;">
-                        <input type="checkbox" id="filter-genre1" class="filter-toggle">
-                        <label for="filter-genre1" style="font-size: 23px;letter-spacing: -1.7px;" class="filter-label search-fil py-4 px-0">Gender</label>
-                        <div class="filter-content px-0" >
-                            @foreach (var dataKategori in dataSourch?.ListDataKategori)
-                            {
-                                if (dataKategori.Nama_Kategori == "Men's" || dataKategori.Nama_Kategori == "Women's" || dataKategori.Nama_Kategori == "Kid's")
-                                {
-                                    <label>
-                                        <input type="checkbox" checked=@dataKategori.Checked_Filter @onchange=@(x => changeFilter(dataKategori, null, x, null))>
-                                        @dataKategori.Nama_Kategori
-                                    </label>
-                                }
-                            }
-                        </div>
-                    </div>
-                    <div class="filter-accordion" style="border-bottom: 1px solid darkgray;">
                         <input type="checkbox" id="filter-brand1" class="filter-toggle">
                         <label for="filter-brand1" style="font-size: 23px;letter-spacing: -1.7px;" class="filter-label search-fil py-4 px-0">Brand</label>
                         <div class="filter-content px-0" style="border-bottom: 1px solid darkgray;">
@@ -486,23 +457,25 @@ using Microsoft.AspNetCore.Components.Authorization
                             }
                         </div>
                     </div>
-                    <div class="filter-accordion" style="border-bottom: 1px solid darkgray;">
-                        <input type="checkbox" id="filter-category1" class="filter-toggle">
-                        <label for="filter-category1" style="font-size: 23px;letter-spacing: -1.7px;" class="filter-label search-fil py-4 px-0">Kategori</label>
-                        <div class="filter-content px-0" style="border-bottom: 1px solid darkgray;">
-                            @foreach (var dataKategori in dataSourch?.ListDataKategori)
-                            {
-                                if (dataKategori.Nama_Kategori != "Men's" && dataKategori.Nama_Kategori != "Women's" && dataKategori.Nama_Kategori != "Kid's")
+
+                    @foreach (var Grup in GlobalDataService.GlobalData.ListDataGrupKategori)
+                    {
+                        <div class="filter-accordion" style="border-bottom: 1px solid darkgray;">
+                            <input type="checkbox" id="filter-@(Grup.No_Id)1" class="filter-toggle">
+                            <label for="filter-@(Grup.No_Id)1" style="font-size: 23px;letter-spacing: -1.7px;" class="filter-label search-fil py-4 px-0">@Grup.Nama_Group</label>
+                            <div class="filter-content px-0">
+                                @foreach (var dataKategori in dataSourch?.ListDataKategori.Where(x => x.Id_Group_Kategori == Grup.No_Id).ToList())
                                 {
                                     <label>
                                         <input type="checkbox" checked=@dataKategori.Checked_Filter @onchange=@(x => changeFilter(dataKategori, null, x, null))>
                                         @dataKategori.Nama_Kategori
                                     </label>
                                 }
-                            }
+                            </div>
                         </div>
-                    </div>
-                    <div class="filter-accordion" style="border-bottom: 1px solid darkgray;">
+                    }
+
+                    @* <div class="filter-accordion" style="border-bottom: 1px solid darkgray;">
                         <input type="checkbox" id="filter-price1" class="filter-toggle">
                         <label for="filter-price1" style="font-size: 23px;letter-spacing: -1.7px;" class="filter-label search-fil py-4 px-0">Harga</label>
                         <div class="filter-content px-0" style="border-bottom: 1px solid darkgray;">
@@ -510,7 +483,7 @@ using Microsoft.AspNetCore.Components.Authorization
                             <label><input type="radio" name="price" value="500-1000"> Rp 500.000–1.000.000</label>
                             <label><input type="radio" name="price" value="1000"> > Rp 1.000.000</label>
                         </div>
-                    </div>
+                    </div> *@
                 </div>
             </div>
         </div>

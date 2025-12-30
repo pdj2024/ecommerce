@@ -50,7 +50,7 @@ body.preloader-lock {
     position: fixed; /* ⬅ kunci utama */
     top: 0;
     left: 0;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     opacity: 1;
     background: white;
@@ -597,8 +597,8 @@ a {
     --radius-sm: 10px;
     --shadow: 0 10px 30px rgba(0,0,0,.06);
     --shadow-sm: 0 6px 20px rgba(0,0,0,.05);
-    --space: clamp(16px, 2vw, 28px);
-    --space-lg: clamp(24px, 3vw, 40px);
+    --space: clamp(16px, 2%, 28px);
+    --space-lg: clamp(24px, 3%, 40px);
 
     --va-bg: #fff;
     --va-border: #e5e7eb;
@@ -1302,9 +1302,35 @@ body {
 
 .img-cover {
     width: 100%;
-    height: 100%;
+    height: 75dvh;
     object-fit: cover;
 }
+
+
+@media (min-width: 768px) {
+    .img-cover {
+        width: 100%;
+        height: 72dvh;
+        object-fit: cover;
+    }
+}
+
+@media (min-width: 1200px) {
+    .img-cover {
+        width: 100%;
+        height: 70dvh;
+        object-fit: cover;
+    }
+}
+
+@media (min-width: 1600px) {
+    .img-cover {
+        width: 100%;
+        height: 76dvh;
+        object-fit: cover;
+    }
+}
+
 
 .img-fluid {
     height: 100%;
@@ -3611,7 +3637,7 @@ ol {
 .overlay {
     position: fixed;
     z-index: 100;
-    width: 100vw;
+    width: 100%;
     top: 0;
     left: 0;
     height: 100%;
@@ -7105,7 +7131,13 @@ top: 2px;
 }
 
 .review-modal .modal-body {
-  padding: 25px;
+  padding: 25px 10px;
+}
+
+@media (min-width: 767px) {
+    .review-modal .modal-body {
+        padding: 25px;
+    }
 }
 
 .review-modal .modal-body .form-group {

@@ -159,6 +159,16 @@ namespace PacificWeb.Components.Pages
                 ScopedDataServices.ScopedData.DataLogin = null;
             }
 
+            await NewPdjService.GetListGlobalDataAsync<Navbar>(new ParameterApi
+            {
+                routeApi = "navbar",
+                prosesApi = "getAll",
+                ParamUrl = new ParameterApi.ParameterUrl
+                {
+                    no_id = "comp_1",
+                    status = "aktif"
+                }
+            });
         }
 
 
@@ -183,11 +193,16 @@ namespace PacificWeb.Components.Pages
 
                     if(SearchQuery.Produk != null || SearchQuery.Produk != "")
                     {
-                        var Navbar = GlobalDataService.GlobalData.ListDataNavbar.FirstOrDefault(x => x.Nav_Type == SearchQuery.Produk);
-                        SearchQuery.Produk = string.Join(",", Navbar.Filter.Select(x => x));
-                        JudulPage = Navbar.Display_Text;
-                        StateHasChanged();
-                    } 
+                        var navbar = GlobalDataService?.GlobalData?.ListDataNavbar?.FirstOrDefault(x => x.Nav_Type == SearchQuery?.Produk);
+
+                        if (navbar?.Filter != null)
+                        {
+                            SearchQuery.Produk = string.Join(",", navbar.Filter);
+                            JudulPage = navbar.Display_Text;
+                            StateHasChanged();
+                        }
+
+                    }
 
                 }
 
@@ -230,7 +245,12 @@ namespace PacificWeb.Components.Pages
                 {
                     if (queryParams.TryGetValue("sort", out var sort))
                     {
-                        SearchQuery.sort = Convert.ToBoolean(Encoding.UTF8.GetString(Convert.FromBase64String(sort)));
+                        var datasort = Encoding.UTF8.GetString(Convert.FromBase64String(sort));
+                        SearchQuery.sort = Convert.ToBoolean(datasort != null || datasort != "" ? datasort : "true");
+                    } 
+                    else
+                    {
+                        SearchQuery.sort = true;
                     }
                 }
                 catch
@@ -259,10 +279,13 @@ namespace PacificWeb.Components.Pages
                 SearchText = SearchQuery.Keyword;
 
                 var CartTask = NewPdjService.RefreshDataMainKonten();
+                var react = NewPdjService.RefreshDataAuthKonten();
 
 
                 // Tunggu semua task selesai
-                await Task.WhenAll(CartTask);
+                await Task.WhenAll(CartTask, react);
+                StateHasChanged();
+
 
                 dataSourch.ListDataKategori.Clear();
                 dataSourch.ListDataBrand.Clear();
@@ -341,20 +364,19 @@ namespace PacificWeb.Components.Pages
                         cursor_harga = "",
                         min_harga = allowHarga ? SearchQuery.minHarga.ToString() : null,
                         max_harga = allowHarga ? (SearchQuery.maxHarga <= 0 ? null : SearchQuery.maxHarga.ToString()) : null,
-                        orderBy = SearchQuery.sortBy == "Nama, A - Z" || ShortActive == "Nama, Z - A" ? "nama_display" : "harga",
+                        orderBy = ShortActive == "Nama, A - Z" || ShortActive == "Nama, Z - A" || ShortActive == "" || ShortActive == null ? "nama_display" : "harga",
                         orderDir = SearchQuery.sort ? "asc" : "desc"
                     }
                 });
 
-                var react = NewPdjService.RefreshDataAuthKonten();
 
-                await Task.WhenAll(react, searchTask);
+                await Task.WhenAll(searchTask);
                 dataSourch.SearchList = searchTask.Result;
 
-                Termahal = dataSourch.SearchList.priceMax;
+                Termahal = (int)(Math.Ceiling(dataSourch.SearchList.priceMax / 100000.0) * 100000);
 
                 minHarga = allowHarga ? (SearchQuery.minHarga ?? 0) : 0;
-                maxHarga = allowHarga ? (SearchQuery.maxHarga ?? dataSourch.SearchList.priceMax) : dataSourch.SearchList.priceMax;
+                maxHarga = allowHarga ? (SearchQuery.maxHarga ?? (int)(Math.Ceiling(dataSourch.SearchList.priceMax / 100000.0) * 100000)) : (int)(Math.Ceiling(dataSourch.SearchList.priceMax / 100000.0) * 100000);
                 searchCount = dataSourch.SearchList.TotalCount == 0 ? -1 : dataSourch.SearchList.TotalCount;
 
 
@@ -364,11 +386,11 @@ namespace PacificWeb.Components.Pages
                 StateHasChanged();
 
                 await JSRuntime.InvokeVoidAsync("initslideProduct");
+
                 StateHasChanged();
 
                 _dotNetRef = DotNetObjectReference.Create(this);
                 await JSRuntime.InvokeVoidAsync("initRangeHarga", _dotNetRef);
-                
                 StateHasChanged();
             }
 

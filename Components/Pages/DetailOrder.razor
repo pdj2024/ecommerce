@@ -46,7 +46,7 @@
                                                 <div class="d-flex w-100 flex-column gap-3 px-3 py-2" style="background-color: #f7f6ff; border-radius:5px;"> 
                                                     <div class="d-flex flex-row justify-content-between gap-3 py-1 ">
 
-                                                        <button class="bg-transparent border-0" @onclick=@(x => NavigationManager.NavigateTo($"cart-page/{(item.Status_Order_1 == "belum bayar" ? "belum-bayar" : (item?.Status_Order_1 != null && item?.Status != "batal" ? item?.Status_Order_1 : "batal") )}")) style="font-size:15px; cursor:pointer; color:#1500b2; font-weight:600">
+                                                        <button class="bg-transparent border-0" @onclick=@(x => NavigationManager.NavigateTo($"cart-page/{(item.Status_Order_1 == "belum bayar" ? "belum-bayar" : (item?.Status_Order_1 != null && item?.Status != "batal" ? item?.Status_Order_1 : "batal") )}", true)) style="font-size:15px; cursor:pointer; color:#1500b2; font-weight:600">
                                                             <span class="me-1" style="font-size:18px">
                                                                 @("<")
                                                             </span>
@@ -244,7 +244,7 @@
                                                                 <button @onclick="@(x => KirimPesan.InvokeAsync(item))" class="btn none-accord btn-success bg-success" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button">
                                                                     Hubungi Admin
                                                                 </button>
-                                                                <button class="btn btn-primary" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button">
+                                                                <button class="btn btn-primary" @onclick="@(x => PesanKembali.InvokeAsync(item))" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button">
                                                                     Pesan Kembali
                                                                 </button>
                                                             }
@@ -274,7 +274,12 @@
                                                                 }
                                                             } 
                                                             else if (item.Status_Order_1 == "selesai") {
-
+                                                                <button @onclick="@(x => KirimPesan.InvokeAsync(item))" class="btn none-accord btn-success bg-success" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button">
+                                                                    Hubungi Admin
+                                                                </button>
+                                                                <button class="btn btn-primary" @onclick="@(x => PesanKembali.InvokeAsync(item))" style="height: 45px !important;border-radius: 0px !important;font-size: 13px !important;padding: 0px 14px !important;" id="modalPaymentStatus2" type="button">
+                                                                    Pesan Kembali
+                                                                </button>
                                                             }
                                                             else 
                                                             {

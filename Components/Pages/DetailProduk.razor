@@ -393,8 +393,8 @@
                                             </div>
 
                                             <div class="col-lg-8 col-md-8 col-12 rowbox-style ps-md-2 ps-0">
-                                                <div class="wish-button" style="@(dataSourch.DataProduk.Id_Option_Default == "" || dataSourch.DataProduk.Id_Size_Default == "" ? "cursor:not-allowed;" : "")">
-                                                    <button disabled=@(dataSourch.DataProduk.Id_Option_Default == "" || dataSourch.DataProduk.Id_Size_Default == "") class="btn" @onclick=@(() => tambahKeranjang(dataSourch?.DataProduk, "detail")) style="border-radius:0px;">
+                                                <div class="wish-button" style="@(dataSourch.DataProduk.Id_Option_Default == "" || dataSourch.DataProduk.Id_Size_Default == "" || disabeldAdd ? "cursor:not-allowed;" : "")">
+                                                    <button disabled=@(dataSourch.DataProduk.Id_Option_Default == "" || dataSourch.DataProduk.Id_Size_Default == "" || disabeldAdd) class="btn" @onclick=@(() => tambahKeranjang(dataSourch?.DataProduk, "detail")) style="border-radius:0px;">
                                                         Tambahkan <i class="lni lni-cart-2 ms-1"></i>
                                                     </button>
                                                 </div>
@@ -405,8 +405,8 @@
                                         <div class="row align-items-end mt-3 row-style">
 
                                             <div class="col-12 rowbox-style">
-                                                <div class="button cart-button" style="@(dataSourch.DataProduk.Id_Option_Default == "" || dataSourch.DataProduk.Id_Size_Default == "" ? "cursor:not-allowed;" : "")">
-                                                    <button disabled=@(dataSourch.DataProduk.Id_Option_Default == "" || dataSourch.DataProduk.Id_Size_Default == "") class="btn btn-primary" @onclick=@(() => NavigateToPayment(dataSourch?.DataProduk))  style="width: 100%; display: flex; border-radius:0px;">Beli Sekarang</button>
+                                                <div class="button cart-button" style="@(dataSourch.DataProduk.Id_Option_Default == "" || dataSourch.DataProduk.Id_Size_Default == "" || disabeldAdd ? "cursor:not-allowed;" : "")">
+                                                    <button disabled=@(dataSourch.DataProduk.Id_Option_Default == "" || dataSourch.DataProduk.Id_Size_Default == "" || disabeldAdd) class="btn btn-primary" @onclick=@(() => NavigateToPayment(dataSourch?.DataProduk))  style="width: 100%; display: flex; border-radius:0px;">Beli Sekarang</button>
                                                 </div>
                                             </div>
 

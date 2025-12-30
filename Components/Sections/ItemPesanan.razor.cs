@@ -73,6 +73,7 @@ namespace PacificWeb.Components.Sections
         [Parameter] public EventCallback<Pesanan.Headers> OnSelesaikanPesanan { get; set; }
         [Parameter] public EventCallback<Pesanan.Headers> GantiMethod { get; set; }
         [Parameter] public EventCallback<Pesanan.Headers> KirimPesan { get; set; }
+        [Parameter] public EventCallback<Pesanan.Headers> PesanKembali { get; set; }
         [Parameter] public EventCallback<Pesanan.Headers> refreshStatus { get; set; }
 
 

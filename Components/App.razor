@@ -113,6 +113,104 @@
     
     <script>
 
+        let map, marker, geocoder, autocomplete;
+        let mapLoaded = false;
+
+        function openMap() {
+          if (mapLoaded) {
+            document.getElementById("map-wrapper").style.display = "flex";
+            return;
+          }
+
+          document.getElementById("map-wrapper").style.display = "flex";
+
+          const script = document.createElement("script");
+          script.src =
+            "https://maps.googleapis.com/maps/api/js" +
+            "?key=AIzaSyDWl2OfSVfgFVhmjpqdtkCl1uVLpacJl-s" +
+            "&libraries=places" +
+            "&language=id" +
+            "&region=ID" +
+            "&v=weekly" +
+            "&callback=initMap";
+          script.async = true;
+          script.defer = true;
+          document.head.appendChild(script);
+
+          mapLoaded = true;
+        }
+
+        function initMap() {
+          const defaultPos = { lat: -6.200000, lng: 106.816666 };
+
+          map = new google.maps.Map(document.getElementById("map"), {
+            center: defaultPos,
+            zoom: 13
+          });
+
+          marker = new google.maps.Marker({
+            position: defaultPos,
+            map: map
+          });
+
+          geocoder = new google.maps.Geocoder();
+
+          autocomplete = new google.maps.places.Autocomplete(
+            document.getElementById("autocomplete"),
+            {
+                componentRestrictions: { country: "id" },
+                types: ["geocode"]
+            }
+          );
+
+          autocomplete.addListener("place_changed", () => {
+            const place = autocomplete.getPlace();
+            if (!place.geometry) return;
+
+            const location = place.geometry.location;
+
+            map.panTo(location);
+            marker.setPosition(location);
+            setLatLng(location.lat(), location.lng());
+
+            geocoder.geocode({ location }, (results, status) => {
+              if (status === "OK" && results[0]) {
+                fillAddress(results[0].address_components);
+              }
+            });
+          });
+
+          map.addListener("click", (e) => {
+            marker.setPosition(e.latLng);
+            setLatLng(e.latLng.lat(), e.latLng.lng());
+
+            geocoder.geocode({ location: e.latLng }, (results, status) => {
+              if (status === "OK" && results[0]) {
+                fillAddress(results[0].address_components);
+              }
+            });
+          });
+        }
+
+        function fillAddress(components) {
+          const get = (type) =>
+            components.find(c => c.types.includes(type))?.long_name || "";
+
+          document.getElementById("province").value = get("administrative_area_level_1");
+          document.getElementById("city").value =
+            get("administrative_area_level_2") || get("locality");
+          document.getElementById("district").value =
+            get("administrative_area_level_3") || get("sublocality");
+          document.getElementById("postcode").value = get("postal_code");
+        }
+
+        function setLatLng(lat, lng) {
+          document.getElementById("lat").value = lat;
+          document.getElementById("lng").value = lng;
+        }
+
+
+
         window.focusInput = (id) => {
             const el = document.getElementById(id);
             if (el) el.focus();
@@ -139,6 +237,7 @@
             });
         })();
 
+
         function initRangeHarga(_dotNetRef) {
             const _dotNet = _dotNetRef;
             const minRange = document.getElementById("minRange");
@@ -147,6 +246,7 @@
             const maxInput = document.getElementById("maxInput");
             const fill = document.getElementById("rangeFill");
 
+            const STEP = 100000;
             const MIN_GAP = 1; // Jarak minimal agar tidak silang
             let debounceTimer;
 
@@ -169,13 +269,12 @@
                 _dotNet.invokeMethodAsync("OnPriceChanged", minVal, maxVal);
             }
 
-            // Range → Input
-            function syncRange() {
+            function syncRange(e) {
                 let minVal = parseInt(minRange.value);
                 let maxVal = parseInt(maxRange.value);
 
-                if (maxVal - minVal <= MIN_GAP) {
-                    if (event.target === minRange) {
+                if (maxVal - minVal < MIN_GAP) {
+                    if (e.target === minRange) {
                         minRange.value = maxVal - MIN_GAP;
                     } else {
                         maxRange.value = minVal + MIN_GAP;
@@ -188,13 +287,19 @@
                 updateFill();
             }
 
-            // Input → Range
-            function syncInput() {
+            function syncInput(e) {
                 let minVal = parseInt(minInput.value);
                 let maxVal = parseInt(maxInput.value);
 
-                if (maxVal - minVal <= MIN_GAP) {
-                    if (event.target === minInput) {
+                // pembulatan ke kelipatan 100.000
+                minVal = Math.round(minVal / STEP) * STEP;
+                maxVal = Math.round(maxVal / STEP) * STEP;
+
+                minInput.value = minVal;
+                maxInput.value = maxVal;
+
+                if (maxVal - minVal < MIN_GAP) {
+                    if (e.target === minInput) {
                         minInput.value = maxVal - MIN_GAP;
                     } else {
                         maxInput.value = minVal + MIN_GAP;
@@ -206,6 +311,7 @@
 
                 updateFill();
             }
+
 
             minRange.addEventListener("input", syncRange);
             maxRange.addEventListener("input", syncRange);
@@ -1018,6 +1124,13 @@
         };
 
         function initBigDetailProdInfo() {
+            const slides = document.querySelectorAll('.mySwiper2 .swiper-slide');
+
+            if (slides.length === 0) {
+                console.warn("Swiper not initialized: no slides yet");
+                return;
+            }
+
             var swiper = new Swiper(".mySwiper", {
               loop: false,
                   spaceBetween: 0,

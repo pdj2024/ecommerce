@@ -1,26 +1,14 @@
-﻿using BlazorBootstrap;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.JSInterop;
 using Models;
-using Newtonsoft.Json.Linq;
-using PacificWeb.Components.Pages.Account;
 using Radzen;
 using Services;
 using System.Data;
-using System.Data.Common;
-using System.Linq;
-using System.Numerics;
 using System.Security.Claims;
 using System.Text;
 using System.Text.RegularExpressions;
-using static Models.Pesanan;
-using static System.Net.WebRequestMethods;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+
 
 namespace PacificWeb.Components.Layout
 {
@@ -108,6 +96,7 @@ namespace PacificWeb.Components.Layout
             await JSRuntime.InvokeVoidAsync("focusInput", "searchFieldSelect");
         }
 
+        
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
@@ -119,7 +108,45 @@ namespace PacificWeb.Components.Layout
                     ParamUrl = new ParameterApi.ParameterUrl { no_id = "comp_1" }
                 });
 
+                if (user.Identity?.IsAuthenticated ?? false)
+                {
+
+                    var CartTask = NewPdjService.GetApi<Cart>(new ParameterApi
+                    {
+                        routeApi = "cart",
+                        prosesApi = "getAll",
+                        token = ScopedDataServices.ScopedData.DataLogin.token,
+                        refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
+                        ParamUrl = new ParameterApi.ParameterUrl
+                        {
+                            id_customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id,
+                            show_media = "true",
+                            orderBy = "Updated_At",
+                            orderDir = "desc",
+                            status = "aktif"
+                        }
+                    });
+
+                    var SummaryPesananTask = NewPdjService.GetApi<Pesanan.SummaryResponse>(new ParameterApi
+                    {
+                        routeApi = "order",
+                        prosesApi = "getSummary",
+                        token = ScopedDataServices.ScopedData.DataLogin.token,
+                        refreshToken = ScopedDataServices.ScopedData.DataLogin.refreshToken,
+                        ParamUrl = new ParameterApi.ParameterUrl
+                        {
+                            id_customer = ScopedDataServices?.ScopedData?.DataLogin?.No_Id,
+                        }
+                    });
+
+                    await Task.WhenAll(SummaryPesananTask, CartTask);
+
+                    ScopedDataServices.ScopedData.ListDataSummaryPesanan = SummaryPesananTask.Result?.Data ?? new();
+                    ScopedDataServices.ScopedData.ListDataCart = CartTask.Result?.Data ?? new();
+                }
+
                 await Task.WhenAll(companyTask);
+
 
                 StateHasChanged();
                 await JSRuntime.InvokeVoidAsync("initHeader");
@@ -490,7 +517,6 @@ namespace PacificWeb.Components.Layout
 
         }
 
-
         private void HandleKeyDown(KeyboardEventArgs e)
         {
             if (e.Key == "Enter" && !string.IsNullOrWhiteSpace(SearchText))
@@ -499,7 +525,6 @@ namespace PacificWeb.Components.Layout
                 NavigationManager.NavigateTo($"/search-page?keyword={Uri.EscapeDataString(keywordText)}", true);
             }
         }
-
         private void SearchCari()
         {
             var keywordText = Convert.ToBase64String(Encoding.UTF8.GetBytes(SearchText));
@@ -558,6 +583,7 @@ namespace PacificWeb.Components.Layout
 
                 Numberinfo = "";
                 Numberinfo = await JSRuntime.InvokeAsync<string>("initKlikFlagChange");
+
                 if (Numberinfo == "FALSE")
                 {
                     infoSubmit = 2;
@@ -566,9 +592,14 @@ namespace PacificWeb.Components.Layout
                     return;
                 }
 
-                var statusOtp = await JSRuntime.InvokeAsync<bool>("sendOTP", Numberinfo);
+                var otp = await NewPdjService.SendOtp(new ParameterApi
+                {
+                    routeApi = "auth",
+                    prosesApi = "request-otp",
+                    ParamUrl = new ParameterApi.ParameterUrl()
+                }, new { Telepon = Numberinfo, Check_User = false });
 
-                if (statusOtp)
+                if (otp)
                 {
                     await JSRuntime.InvokeVoidAsync("initLoginEffect", "otp-view", direct);
                     dataChange = 2;
@@ -623,9 +654,14 @@ namespace PacificWeb.Components.Layout
                         return;
                     }
 
-                    var statusOtp = await JSRuntime.InvokeAsync<bool>("sendOTP", Numberinfo);
+                    var otp = await NewPdjService.SendOtp(new ParameterApi
+                    {
+                        routeApi = "auth",
+                        prosesApi = "request-otp",
+                        ParamUrl = new ParameterApi.ParameterUrl()
+                    }, new { Telepon = Numberinfo, Check_User = false });
 
-                    if (statusOtp)
+                    if (otp)
                     {
                         await JSRuntime.InvokeVoidAsync("initLoginEffect", value, direct);
                         loadLogin = false;
@@ -644,6 +680,7 @@ namespace PacificWeb.Components.Layout
 
 
             }
+            
             else
             {
                 infoSubmit = 0;
@@ -664,21 +701,22 @@ namespace PacificWeb.Components.Layout
             StateHasChanged();
         }
 
-
         private async Task LoginStart()
         {
             infoSubmit = 0;
             StateHasChanged();
 
+            pdjService.ShowConsoleData(Model,"atas");
 
             if (Model.NoTlp == "" || Model.NoTlp == null || Model.Password == "" || Model.Password == null)
             {
+                pdjService.ShowConsoleData(Model,"dalam");
                 infoSubmit = 2;
                 StateHasChanged();
                 return;
             }
 
-            //pdjService.ShowConsoleData(Model);
+            pdjService.ShowConsoleData(Model,"luar");
 
             Numberinfo = "";
             Numberinfo = await JSRuntime.InvokeAsync<string>("initKlikFlagLogin");
@@ -715,10 +753,8 @@ namespace PacificWeb.Components.Layout
             NavigationManager.NavigateTo($"/detail-produk/{stringData.FirstOrDefault()}", forceLoad: true);
         }
 
-
         public int? noRegist { get; set; } = null;
         public int? noLogin { get; set; } = null;
-
 
         public async Task NumberOnlyInput(ChangeEventArgs e, string info)
         {
@@ -748,9 +784,6 @@ namespace PacificWeb.Components.Layout
 
             await JSRuntime.InvokeVoidAsync("setInputValue", info, value);
         }
-
-
-
 
 
         public void searchCombo(Navbar Navbar = null, Brand brand = null, Kategori kategori = null)

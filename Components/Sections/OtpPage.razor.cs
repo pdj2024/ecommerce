@@ -52,8 +52,12 @@ namespace PacificWeb.Components.Sections
         public bool auth { get; set; } = false;
         public bool succesretry { get; set; } = false;
 
+        public bool prosesOtp { get; set; } = false;
+
         [Parameter]
         public string? UId { get; set; }
+
+        public string OTP { get; set; } = "";
 
         [Parameter]
         public int? IdInfo { get; set; } = 0;
@@ -146,44 +150,48 @@ namespace PacificWeb.Components.Sections
 
         public async Task reTryOtp()
         {
-            var statusOtp = await JSRuntime.InvokeAsync<bool>("sendOTP", NoTlp);
-
-            if(statusOtp)
+            var otp = await NewPdjService.SendOtp(new ParameterApi
             {
-                succesretry = true;
-                StateHasChanged();
+                routeApi = "auth",
+                prosesApi = "request-otp",
+                ParamUrl = new ParameterApi.ParameterUrl()
+            }, new { Telepon = NoTlp, Check_User = false });
 
-                await Task.Delay(10000);
+            succesretry = true;
+            StateHasChanged();
 
-                succesretry = false;
-                StateHasChanged();
-            }
+            await Task.Delay(15000);
+
+            succesretry = false;
+            StateHasChanged();
         }
 
         public async Task sendOtp()
         {
-            var verifyCode = await JSRuntime.InvokeAsync<string>("verifyCode");
-
-            if (verifyCode != null || verifyCode != "")
+            if (OTP != null)
             {
-                TokenJwt = verifyCode;
-
                 if (IdInfo == 1)
                 {
                     object dataobj = new
                     {
                         No_Id = ScopedDataServices.ScopedData.DataLogin.No_Id,
-                        New_Token = TokenJwt,
+                        Telepon = NoTlp,
+                        OTP = OTP,
                         Password = Pass
                     };
-
-                    NewPdjService.writeLog($"{ScopedDataServices.ScopedData.DataLogin.No_Id} - {TokenJwt} - {Pass}");
 
                     var info = await NewPdjService.ChangeAkunApi(new ParameterApi
                     {
                         routeApi = "auth",
                         prosesApi = "change-phone",
                     }, dataobj);
+
+                    if (info)
+                    {
+                        await NewPdjService.RefreshDataAuthKonten();
+                        prosesOtp = true;
+                        StateHasChanged();
+                    }
 
                     IdSucces = info;
                     return;
@@ -193,7 +201,8 @@ namespace PacificWeb.Components.Sections
                 {
                     object dataobj = new
                     {
-                        Token = TokenJwt,
+                        Telepon = NoTlp,
+                        OTP = OTP,
                         New_Password = Pass,
                     };
 
@@ -204,6 +213,12 @@ namespace PacificWeb.Components.Sections
                         routeApi = "auth",
                         prosesApi = "change-password",
                     }, dataobj);
+
+                    if (info)
+                    {
+                        prosesOtp = true;
+                        StateHasChanged();
+                    }
 
                     IdSucces = info;
                     return;
@@ -220,24 +235,27 @@ namespace PacificWeb.Components.Sections
                 new DataLogin 
                 { 
                     Telepon = NoTlp , 
-                    tokenJwt = TokenJwt, 
+                    tokenJwt = OTP.ToString(), 
                     Password = Pass 
                 });
 
                 if (data)
                 {
-                    await Task.Delay(1000);
+                    prosesOtp = true;
+                    StateHasChanged();
+
+                    await Task.Delay(3000);
                     await LoginStart();
 
                     loadProses = false;
-                    return;
                 } 
-                
                 else
                 {
                     loadProses = true;
-                    return;
                 }
+
+                StateHasChanged();
+                return;
             } 
             
             else

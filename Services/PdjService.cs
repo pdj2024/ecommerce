@@ -474,8 +474,7 @@ namespace Services
                 MissingMemberHandling = MissingMemberHandling.Ignore
             };
 
-            var requestBody = new { Telepon = data.Telepon , Token = data.tokenJwt, Password = data.Password };
-            writeLog($"{data.Telepon} - {data.tokenJwt} - {data.Password}");
+            var requestBody = new { Telepon = data.Telepon , OTP = data.tokenJwt, Password = data.Password };
             var jsonContent = JsonConvert.SerializeObject(requestBody, jsonSettings);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 

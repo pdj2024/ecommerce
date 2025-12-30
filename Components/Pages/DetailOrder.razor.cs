@@ -71,6 +71,7 @@ namespace PacificWeb.Components.Pages
         [Parameter] public EventCallback<Pesanan.Headers> openPayment { get; set; }
         [Parameter] public EventCallback<Pesanan.Headers> GantiMethod { get; set; }
         [Parameter] public EventCallback<Pesanan.Headers> KirimPesan { get; set; }
+        [Parameter] public EventCallback<Pesanan.Headers> PesanKembali { get; set; }
         [Parameter] public EventCallback<Pesanan.Headers> refreshStatus { get; set; }
 
 
