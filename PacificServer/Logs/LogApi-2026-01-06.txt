@@ -1,0 +1,1068 @@
+
+                        [2026-01-06 11:26:54]
+                        URL: http://26.75.164.107:87/api/auth/login?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True
+                        Status: 401 Unauthorized
+                        Response: Client error: Login - Nomor HP atau password salah / akun tidak aktif
+                        ---------------------------------------------------------
+
+                        [2026-01-06 11:26:54] - Error API Connection
+                        Message: User logout  06/01/2026 11:26:54
+                        ---------------------------------------------------------
+
+                        [2026-01-06 11:26:56]
+                        URL: http://26.75.164.107:87/api/company/get-profile?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-01-06 11:26:57]
+                        URL: http://26.75.164.107:87/api/navbar/getAll?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Navbar
+                        ---------------------------------------------------------
+
+                        [2026-01-06 11:26:58]
+                        URL: http://26.75.164.107:87/api/company/get-social?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company Social
+                        ---------------------------------------------------------
+
+                        [2026-01-06 11:26:58]
+                        URL: http://26.75.164.107:87/api/teks/getAll?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil menampilkan data teks
+                        ---------------------------------------------------------
+
+                        [2026-01-06 11:27:00]
+                        URL: http://26.75.164.107:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-06 11:27:01]
+                        URL: http://26.75.164.107:87/api/banner/getAll?pagesize=3&max_media=2&orderBy=nama_banner&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2026-01-06 11:27:01]
+                        URL: http://26.75.164.107:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-01-06 11:27:02]
+                        URL: http://26.75.164.107:87/api/kategori/getAll?pagesize=3&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-01-06 11:27:22]
+                        URL: http://26.75.164.107:87/api/auth/request-otp?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True
+                        Status: 200 OK
+                        Response: Success: Check-Phone - OTP berhasil dibuat
+                        ---------------------------------------------------------
+
+                        [2026-01-06 11:27:35]
+                        URL: http://26.75.164.107:87/api/auth/change-password?
+                        Status: 400 Bad Request
+                        Response: Client error: Change-change-password - Nomor HP tidak ditemukan atau akun tidak aktif
+                        ---------------------------------------------------------
+
+                        [2026-01-06 11:28:16]
+                        URL: http://26.75.164.107:87/api/auth/change-password?
+                        Status: 400 Bad Request
+                        Response: Client error: Change-change-password - OTP tidak ditemukan
+                        ---------------------------------------------------------
+
+                        [2026-01-06 11:28:21]
+                        URL: http://26.75.164.107:87/api/auth/change-password?
+                        Status: 400 Bad Request
+                        Response: Client error: Change-change-password - OTP tidak ditemukan
+                        ---------------------------------------------------------
+
+                        [2026-01-06 11:28:22]
+                        URL: http://26.75.164.107:87/api/auth/change-password?
+                        Status: 400 Bad Request
+                        Response: Client error: Change-change-password - OTP tidak ditemukan
+                        ---------------------------------------------------------
+
+                        [2026-01-06 11:28:22]
+                        URL: http://26.75.164.107:87/api/auth/change-password?
+                        Status: 400 Bad Request
+                        Response: Client error: Change-change-password - OTP tidak ditemukan
+                        ---------------------------------------------------------
+
+                        [2026-01-06 11:28:23]
+                        URL: http://26.75.164.107:87/api/auth/change-password?
+                        Status: 400 Bad Request
+                        Response: Client error: Change-change-password - OTP tidak ditemukan
+                        ---------------------------------------------------------
+
+                        [2026-01-06 11:28:23]
+                        URL: http://26.75.164.107:87/api/auth/change-password?
+                        Status: 400 Bad Request
+                        Response: Client error: Change-change-password - OTP tidak ditemukan
+                        ---------------------------------------------------------
+
+                        [2026-01-06 11:28:23]
+                        URL: http://26.75.164.107:87/api/auth/change-password?
+                        Status: 400 Bad Request
+                        Response: Client error: Change-change-password - OTP tidak ditemukan
+                        ---------------------------------------------------------
+
+                        [2026-01-06 11:28:23]
+                        URL: http://26.75.164.107:87/api/auth/change-password?
+                        Status: 400 Bad Request
+                        Response: Client error: Change-change-password - OTP tidak ditemukan
+                        ---------------------------------------------------------
+
+                        [2026-01-06 11:36:19]
+                        URL: http://26.75.164.107:87/api/auth/change-password?
+                        Status: 400 Bad Request
+                        Response: Client error: Change-change-password - OTP tidak ditemukan
+                        ---------------------------------------------------------
+
+                        [2026-01-06 11:37:02]
+                        URL: http://26.75.164.107:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-01-06 11:37:02]
+                        URL: http://26.75.164.107:87/api/kategori/getAll?pagesize=3&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-01-06 11:42:21]
+                        URL: http://26.75.164.107:87/api/auth/change-password?
+                        Status: 400 Bad Request
+                        Response: Client error: Change-change-password - OTP tidak ditemukan
+                        ---------------------------------------------------------
+
+                        [2026-01-06 11:42:22] - Error API Connection
+                        Message: Regist error: The operation was canceled.
+                        ---------------------------------------------------------
+
+                        [2026-01-06 11:44:40]
+                        URL: http://26.75.164.107:87/api/auth/request-otp?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True
+                        Status: 200 OK
+                        Response: Success: Check-Phone - OTP berhasil dibuat
+                        ---------------------------------------------------------
+
+                        [2026-01-06 11:46:01]
+                        URL: http://26.75.164.107:87/api/auth/request-otp?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True
+                        Status: 200 OK
+                        Response: Success: Check-Phone - OTP berhasil dibuat
+                        ---------------------------------------------------------
+
+                        [2026-01-06 11:47:02]
+                        URL: http://26.75.164.107:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-01-06 11:47:02]
+                        URL: http://26.75.164.107:87/api/kategori/getAll?pagesize=3&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-01-06 11:57:02]
+                        URL: http://26.75.164.107:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-01-06 11:57:03]
+                        URL: http://26.75.164.107:87/api/kategori/getAll?pagesize=3&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-01-06 12:00:13]
+                        URL: http://26.75.164.107:87/api/company/get-profile?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-01-06 12:00:14]
+                        URL: http://26.75.164.107:87/api/navbar/getAll?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Navbar
+                        ---------------------------------------------------------
+
+                        [2026-01-06 12:00:15]
+                        URL: http://26.75.164.107:87/api/company/get-social?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company Social
+                        ---------------------------------------------------------
+
+                        [2026-01-06 12:00:15]
+                        URL: http://26.75.164.107:87/api/teks/getAll?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil menampilkan data teks
+                        ---------------------------------------------------------
+
+                        [2026-01-06 12:00:17]
+                        URL: http://26.75.164.107:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-06 12:00:17]
+                        URL: http://26.75.164.107:87/api/banner/getAll?pagesize=3&max_media=2&orderBy=nama_banner&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2026-01-06 12:00:36]
+                        URL: http://26.75.164.107:87/api/auth/check?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True
+                        Status: 200 OK
+                        Response: Success: Check-Phone - 
+                        ---------------------------------------------------------
+
+                        [2026-01-06 12:00:38]
+                        URL: http://26.75.164.107:87/api/auth/request-otp?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True
+                        Status: 200 OK
+                        Response: Success: Check-Phone - OTP berhasil dibuat
+                        ---------------------------------------------------------
+
+                        [2026-01-06 12:07:02]
+                        URL: http://26.75.164.107:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-01-06 12:07:03]
+                        URL: http://26.75.164.107:87/api/kategori/getAll?pagesize=3&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-01-06 12:07:44]
+                        URL: http://26.75.164.107:87/api/auth/check?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True
+                        Status: 200 OK
+                        Response: Success: Check-Phone - 
+                        ---------------------------------------------------------
+
+                        [2026-01-06 12:17:03]
+                        URL: http://26.75.164.107:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-01-06 12:17:03]
+                        URL: http://26.75.164.107:87/api/kategori/getAll?pagesize=3&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-01-06 12:27:03]
+                        URL: http://26.75.164.107:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-01-06 12:27:04]
+                        URL: http://26.75.164.107:87/api/kategori/getAll?pagesize=3&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-01-06 12:37:05]
+                        URL: http://26.75.164.107:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-01-06 12:37:06]
+                        URL: http://26.75.164.107:87/api/kategori/getAll?pagesize=3&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-01-06 12:47:11]
+                        URL: http://26.75.164.107:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-01-06 12:47:15]
+                        URL: http://26.75.164.107:87/api/kategori/getAll?pagesize=3&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:07:52] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:07:55]
+                        URL: http://26.75.164.107:87/api/navbar/getAll?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Navbar
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:07:55]
+                        URL: http://26.75.164.107:87/api/company/get-social?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company Social
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:07:56]
+                        URL: http://26.75.164.107:87/api/teks/getAll?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil menampilkan data teks
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:08:00]
+                        URL: http://26.75.164.107:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:08:00]
+                        URL: http://26.75.164.107:87/api/company/get-profile?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:08:01]
+                        URL: http://26.75.164.107:87/api/banner/getAll?pagesize=3&max_media=2&orderBy=nama_banner&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:08:02]
+                        URL: http://26.75.164.107:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:08:04]
+                        URL: http://26.75.164.107:87/api/kategori/getAll?pagesize=3&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:18:08] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:18:09]
+                        URL: http://26.75.164.107:87/api/kategori/getAll?pagesize=3&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:18:09]
+                        URL: http://26.75.164.107:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:27:21]
+                        URL: http://26.75.164.107:87/api/company/get-profile?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:27:22]
+                        URL: http://26.75.164.107:87/api/navbar/getAll?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Navbar
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:27:22]
+                        URL: http://26.75.164.107:87/api/company/get-social?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company Social
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:27:22]
+                        URL: http://26.75.164.107:87/api/teks/getAll?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil menampilkan data teks
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:27:25]
+                        URL: http://26.75.164.107:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:27:26]
+                        URL: http://26.75.164.107:87/api/banner/getAll?pagesize=3&max_media=2&orderBy=nama_banner&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:28:09]
+                        URL: http://26.75.164.107:87/api/kategori/getAll?pagesize=3&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:28:09]
+                        URL: http://26.75.164.107:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:35:41] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:36:34] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:38:37]
+                        URL: http://26.75.164.107:87/api/company/get-profile?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:38:39]
+                        URL: http://26.75.164.107:87/api/navbar/getAll?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Navbar
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:38:39]
+                        URL: http://26.75.164.107:87/api/company/get-social?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company Social
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:38:40]
+                        URL: http://26.75.164.107:87/api/teks/getAll?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil menampilkan data teks
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:38:42]
+                        URL: http://26.75.164.107:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:38:43]
+                        URL: http://26.75.164.107:87/api/banner/getAll?pagesize=3&max_media=2&orderBy=nama_banner&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:38:43]
+                        URL: http://26.75.164.107:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:38:43]
+                        URL: http://26.75.164.107:87/api/kategori/getAll?pagesize=3&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:43:15] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:43:20] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:43:21]
+                        URL: http://26.75.164.107:87/api/company/get-social?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company Social
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:43:22]
+                        URL: http://26.75.164.107:87/api/teks/getAll?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil menampilkan data teks
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:43:27] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:43:29]
+                        URL: http://26.75.164.107:87/api/company/get-profile?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:43:30]
+                        URL: http://26.75.164.107:87/api/banner/getAll?pagesize=3&max_media=2&orderBy=nama_banner&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:43:32]
+                        URL: http://26.75.164.107:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:43:33]
+                        URL: http://26.75.164.107:87/api/kategori/getAll?pagesize=3&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:43:45] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:43:51] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:44:04] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:44:09] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:44:56]
+                        URL: http://26.75.164.107:87/api/navbar/getAll?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Navbar
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:44:59]
+                        URL: http://26.75.164.107:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:48:44]
+                        URL: http://26.75.164.107:87/api/company/get-profile?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:48:45]
+                        URL: http://26.75.164.107:87/api/navbar/getAll?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Navbar
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:48:45]
+                        URL: http://26.75.164.107:87/api/company/get-social?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company Social
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:48:45]
+                        URL: http://26.75.164.107:87/api/teks/getAll?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil menampilkan data teks
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:48:48]
+                        URL: http://26.75.164.107:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:48:48]
+                        URL: http://26.75.164.107:87/api/banner/getAll?pagesize=3&max_media=2&orderBy=nama_banner&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:48:48]
+                        URL: http://26.75.164.107:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:48:49]
+                        URL: http://26.75.164.107:87/api/kategori/getAll?pagesize=3&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:49:17]
+                        URL: http://26.75.164.107:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:55:09]
+                        URL: http://26.75.164.107:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:55:21]
+                        URL: http://26.75.164.107:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:57:48]
+                        URL: http://26.75.164.107:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:57:48]
+                        URL: http://26.75.164.107:87/api/groupkategori/getAll?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Group Kategori
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:57:50]
+                        URL: http://26.75.164.107:87/api/produk/getAll?no_id=prod_139&pagesize=12&max_media=10&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:57:51]
+                        URL: http://26.75.164.107:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:57:57]
+                        URL: http://26.75.164.107:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:58:48]
+                        URL: http://26.75.164.107:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-01-06 14:58:49]
+                        URL: http://26.75.164.107:87/api/kategori/getAll?pagesize=3&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:03:21] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:03:22]
+                        URL: http://26.75.164.107:87/api/navbar/getAll?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Navbar
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:03:24]
+                        URL: http://26.75.164.107:87/api/company/get-social?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company Social
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:03:24]
+                        URL: http://26.75.164.107:87/api/teks/getAll?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil menampilkan data teks
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:03:28]
+                        URL: http://26.75.164.107:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:03:28]
+                        URL: http://26.75.164.107:87/api/company/get-profile?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:03:28]
+                        URL: http://26.75.164.107:87/api/banner/getAll?pagesize=3&max_media=2&orderBy=nama_banner&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:03:29]
+                        URL: http://26.75.164.107:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:03:29]
+                        URL: http://26.75.164.107:87/api/kategori/getAll?pagesize=3&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:11:25]
+                        URL: http://26.75.164.107:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:13:29]
+                        URL: http://26.75.164.107:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:13:29]
+                        URL: http://26.75.164.107:87/api/kategori/getAll?pagesize=3&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:14:58]
+                        URL: http://26.75.164.107:87/api/company/get-profile?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:14:59]
+                        URL: http://26.75.164.107:87/api/navbar/getAll?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Navbar
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:14:59]
+                        URL: http://26.75.164.107:87/api/company/get-social?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company Social
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:14:59]
+                        URL: http://26.75.164.107:87/api/teks/getAll?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil menampilkan data teks
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:15:01]
+                        URL: http://26.75.164.107:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:15:02]
+                        URL: http://26.75.164.107:87/api/banner/getAll?pagesize=3&max_media=2&orderBy=nama_banner&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:23:35] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:23:37]
+                        URL: http://26.75.164.107:87/api/kategori/getAll?pagesize=3&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:23:37]
+                        URL: http://26.75.164.107:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:30:51]
+                        URL: http://26.75.164.107:87/api/company/get-profile?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:30:52]
+                        URL: http://26.75.164.107:87/api/navbar/getAll?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Navbar
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:30:53]
+                        URL: http://26.75.164.107:87/api/company/get-social?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company Social
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:30:53]
+                        URL: http://26.75.164.107:87/api/teks/getAll?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil menampilkan data teks
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:30:56]
+                        URL: http://26.75.164.107:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:30:56]
+                        URL: http://26.75.164.107:87/api/banner/getAll?pagesize=3&max_media=2&orderBy=nama_banner&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:33:44]
+                        URL: http://26.75.164.107:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:33:47]
+                        URL: http://26.75.164.107:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:33:48]
+                        URL: http://26.75.164.107:87/api/kategori/getAll?pagesize=3&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:36:02]
+                        URL: http://26.75.164.107:87/api/company/get-profile?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:36:03]
+                        URL: http://26.75.164.107:87/api/navbar/getAll?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Navbar
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:36:03]
+                        URL: http://26.75.164.107:87/api/company/get-social?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company Social
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:36:03]
+                        URL: http://26.75.164.107:87/api/teks/getAll?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil menampilkan data teks
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:36:06]
+                        URL: http://26.75.164.107:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:36:06]
+                        URL: http://26.75.164.107:87/api/banner/getAll?pagesize=3&max_media=2&orderBy=nama_banner&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:36:06]
+                        URL: http://26.75.164.107:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:36:06]
+                        URL: http://26.75.164.107:87/api/kategori/getAll?pagesize=3&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:36:20]
+                        URL: http://26.75.164.107:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:36:49]
+                        URL: http://26.75.164.107:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-06 15:36:52]
+                        URL: http://26.75.164.107:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-06 16:08:12]
+                        URL: http://26.75.164.107:87/api/company/get-profile?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-01-06 16:08:14]
+                        URL: http://26.75.164.107:87/api/navbar/getAll?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Navbar
+                        ---------------------------------------------------------
+
+                        [2026-01-06 16:08:15]
+                        URL: http://26.75.164.107:87/api/company/get-social?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company Social
+                        ---------------------------------------------------------
+
+                        [2026-01-06 16:08:15]
+                        URL: http://26.75.164.107:87/api/teks/getAll?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil menampilkan data teks
+                        ---------------------------------------------------------
+
+                        [2026-01-06 16:08:18]
+                        URL: http://26.75.164.107:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-06 16:08:19]
+                        URL: http://26.75.164.107:87/api/banner/getAll?pagesize=3&max_media=2&orderBy=nama_banner&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2026-01-06 16:08:20]
+                        URL: http://26.75.164.107:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-01-06 16:08:20]
+                        URL: http://26.75.164.107:87/api/kategori/getAll?pagesize=3&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-01-06 16:21:39]
+                        URL: http://26.75.164.107:87/api/company/get-profile?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-01-06 16:21:41]
+                        URL: http://26.75.164.107:87/api/navbar/getAll?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Navbar
+                        ---------------------------------------------------------
+
+                        [2026-01-06 16:21:42]
+                        URL: http://26.75.164.107:87/api/company/get-social?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company Social
+                        ---------------------------------------------------------
+
+                        [2026-01-06 16:21:42]
+                        URL: http://26.75.164.107:87/api/teks/getAll?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil menampilkan data teks
+                        ---------------------------------------------------------
+
+                        [2026-01-06 16:21:45]
+                        URL: http://26.75.164.107:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-06 16:21:45]
+                        URL: http://26.75.164.107:87/api/banner/getAll?pagesize=3&max_media=2&orderBy=nama_banner&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2026-01-06 16:21:47]
+                        URL: http://26.75.164.107:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-01-06 16:21:47]
+                        URL: http://26.75.164.107:87/api/kategori/getAll?pagesize=3&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-01-06 16:22:56]
+                        URL: http://26.75.164.107:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-06 16:36:47]
+                        URL: http://26.75.164.107:87/api/company/get-profile?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-01-06 16:36:51]
+                        URL: http://26.75.164.107:87/api/navbar/getAll?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Navbar
+                        ---------------------------------------------------------
+
+                        [2026-01-06 16:36:51]
+                        URL: http://26.75.164.107:87/api/company/get-social?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company Social
+                        ---------------------------------------------------------
+
+                        [2026-01-06 16:36:52]
+                        URL: http://26.75.164.107:87/api/teks/getAll?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil menampilkan data teks
+                        ---------------------------------------------------------
+
+                        [2026-01-06 16:36:54]
+                        URL: http://26.75.164.107:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-06 16:36:55]
+                        URL: http://26.75.164.107:87/api/banner/getAll?pagesize=3&max_media=2&orderBy=nama_banner&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2026-01-06 16:36:55]
+                        URL: http://26.75.164.107:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-01-06 16:36:56]
+                        URL: http://26.75.164.107:87/api/kategori/getAll?pagesize=3&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-01-06 16:46:56]
+                        URL: http://26.75.164.107:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-01-06 16:56:56]
+                        URL: http://26.75.164.107:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-01-06 17:06:57]
+                        URL: http://26.75.164.107:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-01-06 17:16:57]
+                        URL: http://26.75.164.107:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------

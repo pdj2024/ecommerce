@@ -1,0 +1,1962 @@
+﻿@inject NavigationManager NavigationManager
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="description" content="" />
+
+    <base href="@NavigationManager.BaseUri" />
+    <base href="~/" />
+    <link href="_content/Radzen.Blazor/css/humanistic-base.css" rel="stylesheet" />
+    <link rel="shortcut icon" type="image/x-icon" href="images/logo/icon-pdj.png" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link href="_content/Blazor.Bootstrap/blazor.bootstrap.css" rel="stylesheet" />
+
+    @* <link href="_content/DevExpress.Blazor.Themes/blazing-berry.bs5.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="_content/DevExpress.Blazor.Reporting.Viewer/css/dx-blazor-reporting-components.bs5.css"> *@
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+    <!-- ========================= CSS here ========================= -->
+    <link href="https://cdn.lineicons.com/5.0/lineicons.css" rel="stylesheet" />
+
+
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/glightbox.min.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <script type="text/javascript"
+            src="https://app.sandbox.midtrans.com/snap/snap.js"
+            data-client-key="SB-Mid-client-uELU3WfiXUxgYouj"></script>
+
+    <HeadOutlet />
+</head>
+
+<body>
+
+    <div id="app">
+    </div>
+
+    @* style="display:none !important;" *@
+    <div class="preloader" style="display:none !important;">
+        <div class="preloader-inner">
+            <div class="preloader-icon">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="preload-overlay-new" style="display:none !important;">
+        <div class="preloader-new">
+            <svg class="cart-new" role="img" aria-label="Shopping cart line animation" viewBox="0 0 128 128" width="128px" height="128px" xmlns="http://www.w3.org/2000/svg">
+                <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="8">
+                    <g class="cart__track" stroke="hsla(0,10%,10%,0.1)">
+                        <polyline points="4,4 21,4 26,22 124,22 112,64 35,64 39,80 106,80" />
+                        <circle cx="43" cy="111" r="13" />
+                        <circle cx="102" cy="111" r="13" />
+                    </g>
+                    <g class="cart__lines" stroke="currentColor">
+                        <polyline class="cart__top" points="4,4 21,4 26,22 124,22 112,64 35,64 39,80 106,80" stroke-dasharray="338 338" stroke-dashoffset="-338" />
+                        <g class="cart__wheel1" transform="rotate(-90,43,111)">
+                            <circle class="cart__wheel-stroke" cx="43" cy="111" r="13" stroke-dasharray="81.68 81.68" stroke-dashoffset="81.68" />
+                        </g>
+                        <g class="cart__wheel2" transform="rotate(90,102,111)">
+                            <circle class="cart__wheel-stroke" cx="102" cy="111" r="13" stroke-dasharray="81.68 81.68" stroke-dashoffset="81.68" />
+                        </g>
+                    </g>
+                </g>
+            </svg>
+            <div class="preloader-new__text">
+                <p class="preloader-new__msg">Tunggu sebentar, kami sedang menyiapkan produk.</p>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <Routes />
+
+    <environment include="Staging,Production">
+        <div id="components-reconnect-modal" class="my-reconnect-modal components-reconnect-hide">
+            <div class="show">
+                <div class="preloader-new">
+                    <svg class="cart-new" role="img" aria-label="Shopping cart line animation" viewBox="0 0 128 128" width="128px" height="128px" xmlns="http://www.w3.org/2000/svg">
+                        <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="8">
+                            <g class="cart__track" stroke="hsla(0,10%,10%,0.1)">
+                                <polyline points="4,4 21,4 26,22 124,22 112,64 35,64 39,80 106,80" />
+                                <circle cx="43" cy="111" r="13" />
+                                <circle cx="102" cy="111" r="13" />
+                            </g>
+                            <g class="cart__lines" stroke="currentColor">
+                                <polyline class="cart__top" points="4,4 21,4 26,22 124,22 112,64 35,64 39,80 106,80" stroke-dasharray="338 338" stroke-dashoffset="-338" />
+                                <g class="cart__wheel1" transform="rotate(-90,43,111)">
+                                    <circle class="cart__wheel-stroke" cx="43" cy="111" r="13" stroke-dasharray="81.68 81.68" stroke-dashoffset="81.68" />
+                                </g>
+                                <g class="cart__wheel2" transform="rotate(90,102,111)">
+                                    <circle class="cart__wheel-stroke" cx="102" cy="111" r="13" stroke-dasharray="81.68 81.68" stroke-dashoffset="81.68" />
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                    <div class="preloader-new__text">
+                        <p class="preloader-new__msg">Tunggu sebentar, kami sedang memperbarui produk.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="failed">
+                <div class="preloader-new">
+                    <svg class="cart-new" role="img" aria-label="Shopping cart line animation" viewBox="0 0 128 128" width="128px" height="128px" xmlns="http://www.w3.org/2000/svg">
+                        <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="8">
+                            <g class="cart__track" stroke="hsla(0,10%,10%,0.1)">
+                                <polyline points="4,4 21,4 26,22 124,22 112,64 35,64 39,80 106,80" />
+                                <circle cx="43" cy="111" r="13" />
+                                <circle cx="102" cy="111" r="13" />
+                            </g>
+                            <g class="cart__lines" stroke="currentColor">
+                                <polyline class="cart__top" points="4,4 21,4 26,22 124,22 112,64 35,64 39,80 106,80" stroke-dasharray="338 338" stroke-dashoffset="-338" />
+                                <g class="cart__wheel1" transform="rotate(-90,43,111)">
+                                    <circle class="cart__wheel-stroke" cx="43" cy="111" r="13" stroke-dasharray="81.68 81.68" stroke-dashoffset="81.68" />
+                                </g>
+                                <g class="cart__wheel2" transform="rotate(90,102,111)">
+                                    <circle class="cart__wheel-stroke" cx="102" cy="111" r="13" stroke-dasharray="81.68 81.68" stroke-dashoffset="81.68" />
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                    <div class="preloader-new__text">
+                        <p class="preloader-new__msg">Koneksi internet terputus, tekan <span class="reload-connect" onclick="location.reload()">di sini</span> untuk merefresh halaman.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="rejected">
+                <div class="preloader-new">
+                    <svg class="cart-new" role="img" aria-label="Shopping cart line animation" viewBox="0 0 128 128" width="128px" height="128px" xmlns="http://www.w3.org/2000/svg">
+                        <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="8">
+                            <g class="cart__track" stroke="hsla(0,10%,10%,0.1)">
+                                <polyline points="4,4 21,4 26,22 124,22 112,64 35,64 39,80 106,80" />
+                                <circle cx="43" cy="111" r="13" />
+                                <circle cx="102" cy="111" r="13" />
+                            </g>
+                            <g class="cart__lines" stroke="currentColor">
+                                <polyline class="cart__top" points="4,4 21,4 26,22 124,22 112,64 35,64 39,80 106,80" stroke-dasharray="338 338" stroke-dashoffset="-338" />
+                                <g class="cart__wheel1" transform="rotate(-90,43,111)">
+                                    <circle class="cart__wheel-stroke" cx="43" cy="111" r="13" stroke-dasharray="81.68 81.68" stroke-dashoffset="81.68" />
+                                </g>
+                                <g class="cart__wheel2" transform="rotate(90,102,111)">
+                                    <circle class="cart__wheel-stroke" cx="102" cy="111" r="13" stroke-dasharray="81.68 81.68" stroke-dashoffset="81.68" />
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                    <div class="preloader-new__text">
+                        <p class="preloader-new__msg">Gagal Melakukan Koneksi, tekan <span class="reload-connect" onclick="location.reload()">di sini</span> untuk merefresh halaman.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </environment>
+
+    <environment include="Development">
+        <div id="components-reconnect-modal" class="my-reconnect-modal components-reconnect-hide">
+            <div class="show">
+                <div class="preloader-new">
+                    <svg class="cart-new" role="img" aria-label="Shopping cart line animation" viewBox="0 0 128 128" width="128px" height="128px" xmlns="http://www.w3.org/2000/svg">
+                        <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="8">
+                            <g class="cart__track" stroke="hsla(0,10%,10%,0.1)">
+                                <polyline points="4,4 21,4 26,22 124,22 112,64 35,64 39,80 106,80" />
+                                <circle cx="43" cy="111" r="13" />
+                                <circle cx="102" cy="111" r="13" />
+                            </g>
+                            <g class="cart__lines" stroke="currentColor">
+                                <polyline class="cart__top" points="4,4 21,4 26,22 124,22 112,64 35,64 39,80 106,80" stroke-dasharray="338 338" stroke-dashoffset="-338" />
+                                <g class="cart__wheel1" transform="rotate(-90,43,111)">
+                                    <circle class="cart__wheel-stroke" cx="43" cy="111" r="13" stroke-dasharray="81.68 81.68" stroke-dashoffset="81.68" />
+                                </g>
+                                <g class="cart__wheel2" transform="rotate(90,102,111)">
+                                    <circle class="cart__wheel-stroke" cx="102" cy="111" r="13" stroke-dasharray="81.68 81.68" stroke-dashoffset="81.68" />
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                    <div class="preloader-new__text">
+                        <p class="preloader-new__msg">Tunggu sebentar, kami sedang menyiapkan produk.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="failed">
+                <div class="preloader-new">
+                    <svg class="cart-new" role="img" aria-label="Shopping cart line animation" viewBox="0 0 128 128" width="128px" height="128px" xmlns="http://www.w3.org/2000/svg">
+                        <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="8">
+                            <g class="cart__track" stroke="hsla(0,10%,10%,0.1)">
+                                <polyline points="4,4 21,4 26,22 124,22 112,64 35,64 39,80 106,80" />
+                                <circle cx="43" cy="111" r="13" />
+                                <circle cx="102" cy="111" r="13" />
+                            </g>
+                            <g class="cart__lines" stroke="currentColor">
+                                <polyline class="cart__top" points="4,4 21,4 26,22 124,22 112,64 35,64 39,80 106,80" stroke-dasharray="338 338" stroke-dashoffset="-338" />
+                                <g class="cart__wheel1" transform="rotate(-90,43,111)">
+                                    <circle class="cart__wheel-stroke" cx="43" cy="111" r="13" stroke-dasharray="81.68 81.68" stroke-dashoffset="81.68" />
+                                </g>
+                                <g class="cart__wheel2" transform="rotate(90,102,111)">
+                                    <circle class="cart__wheel-stroke" cx="102" cy="111" r="13" stroke-dasharray="81.68 81.68" stroke-dashoffset="81.68" />
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                    <div class="preloader-new__text">
+                        <p class="preloader-new__msg">Koneksi internet terputus, tekan <span class="reload-connect" onclick="location.reload()">di sini</span> untuk merefresh halaman.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="rejected">
+                <div class="preloader-new">
+                    <svg class="cart-new" role="img" aria-label="Shopping cart line animation" viewBox="0 0 128 128" width="128px" height="128px" xmlns="http://www.w3.org/2000/svg">
+                        <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="8">
+                            <g class="cart__track" stroke="hsla(0,10%,10%,0.1)">
+                                <polyline points="4,4 21,4 26,22 124,22 112,64 35,64 39,80 106,80" />
+                                <circle cx="43" cy="111" r="13" />
+                                <circle cx="102" cy="111" r="13" />
+                            </g>
+                            <g class="cart__lines" stroke="currentColor">
+                                <polyline class="cart__top" points="4,4 21,4 26,22 124,22 112,64 35,64 39,80 106,80" stroke-dasharray="338 338" stroke-dashoffset="-338" />
+                                <g class="cart__wheel1" transform="rotate(-90,43,111)">
+                                    <circle class="cart__wheel-stroke" cx="43" cy="111" r="13" stroke-dasharray="81.68 81.68" stroke-dashoffset="81.68" />
+                                </g>
+                                <g class="cart__wheel2" transform="rotate(90,102,111)">
+                                    <circle class="cart__wheel-stroke" cx="102" cy="111" r="13" stroke-dasharray="81.68 81.68" stroke-dashoffset="81.68" />
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                    <div class="">
+                        <p class="">Gagal Melakukan Koneksi, tekan <span class="reload-connect" onclick="location.reload()">di sini</span> untuk merefresh halaman.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </environment>
+
+
+    <div id="recaptcha-container"></div>
+    <div class="overlay" style="z-index:1002"></div>
+
+    <button onclick="scrollToTop()" style="border: 0px;" class="scroll-top">
+        <i class="lni lni-chevron-up"></i>
+    </button>
+
+  
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <!-- Add chart.js reference if chart components are used in your application. -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.0.1/chart.umd.js" integrity="sha512-gQhCDsnnnUfaRzD8k1L5llCCV6O9HN09zClIzzeJ8OJ9MpGmIlCxm+pdCkqTwqJ4JcjbojFr79rl2F1mzcoLMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Add chartjs-plugin-datalabels.min.js reference if chart components with data label feature is used in your application. -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js" integrity="sha512-JPcRR8yFa8mmCsfrw4TNte1ZvF1e3+1SdGMslZvmrzDYxS69J7J49vkFL8u6u8PlPJK+H3voElBtUCzaXj+6ig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="_content/Radzen.Blazor/Radzen.Blazor.js?v=@(typeof(Radzen.Colors).Assembly.GetName().Version)"></script>
+
+    @* <script src="js/bootstrap.min.js"></script> *@
+    <script src="js/glightbox.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"></script>
+
+
+    <script src="https://www.gstatic.com/firebasejs/9.12.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.12.1/firebase-auth-compat.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWl2OfSVfgFVhmjpqdtkCl1uVLpacJl-s&v=weekly&libraries=maps,marker,places&language=id&region=ID" defer></script>
+
+    <script>
+
+        window.localStorageHelper = {
+            set: function (key, value) {
+                localStorage.setItem(key, JSON.stringify(value));
+            },
+            get: function (key) {
+                const value = localStorage.getItem(key);
+                return value ? JSON.parse(value) : null;
+            },
+            update: function (key, value) {
+                localStorage.setItem(key, JSON.stringify(value));
+            },
+            remove: function (key) {
+                localStorage.removeItem(key);
+            },
+            clear: function () {
+                localStorage.clear();
+            }
+        };
+
+
+        window.downloadFileFromBytes = (fileName, contentType, base64Data) => {
+            const link = document.createElement('a');
+            link.download = fileName;
+            link.href = `data:${contentType};base64,${base64Data}`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        };
+
+
+
+
+
+
+
+
+
+        let map;
+        let marker;
+        let infoWindow;
+        let geocoder;
+        let dotNetMap; 
+        let kodepos;
+        let placeAutocomplete;
+        let firstLoadMaps = false;
+        let firstLoadRecomendation = false;
+        let autocompleteService;
+        let placesService;
+
+
+
+        window.openMap = async function (_kodepos, _dotNetMap, alamatLengkap = "") {
+
+            if(!firstLoadMaps) {
+                firstLoadMaps = true;
+                dotNetMap = _dotNetMap;
+                kodepos = _kodepos;
+
+                const { Map } = await google.maps.importLibrary("maps");
+                const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+                const { AutocompleteService, PlacesService } = await google.maps.importLibrary("places");
+                await google.maps.importLibrary("places");
+
+                geocoder = new google.maps.Geocoder();
+
+                const center = await getLatLngFromPostcode(kodepos);
+
+                map = new Map(document.getElementById("map"), {
+                    center: {lat: center.lat(), lng: center.lng() },
+                    zoom: 15,
+                    mapId: "4504f8b37365c3d0",
+                    mapTypeControl: false,
+                    streetViewControl: false
+                });
+
+                marker = new AdvancedMarkerElement({ map });
+                infoWindow = new google.maps.InfoWindow();
+                autocompleteService = new AutocompleteService();
+                placesService = new PlacesService(map);
+
+                // placeAutocomplete = new google.maps.places.PlaceAutocompleteElement();
+
+                // placeAutocomplete.id = "place-autocomplete-input";
+                // placeAutocomplete.placeholder = 'Masukkan Alamat Kamu';
+                // placeAutocomplete.locationBias = {radius: 100, center: {lat: center.lat(), lng: center.lng()}};
+
+                // map.addListener("idle", () => {
+                //     const bounds = map.getBounds();
+                //     if (bounds) placeAutocomplete.locationRestriction = bounds;
+                // });
+
+                // const card = document.getElementById("place-autocomplete-card");
+                // card.appendChild(placeAutocomplete);
+
+                initMapClick();
+                // initAutoComplate();
+                // getLocation(true);
+            } 
+            else 
+            {
+
+                const center = await getLatLngFromPostcode(_kodepos);                
+                panToWithOffset(center, 100);
+                map.setZoom(15);
+
+                // placeAutocomplete.locationBias = {radius: 100, center: {lat: center.lat(), lng: center.lng()}};
+
+                loadRecommendations(center);
+            }
+
+        }
+
+        function debounceMaps(func, delay) {
+            let timeout;
+            return (...args) => {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), delay);
+            };
+        }
+
+        function ShowMaps(showIn) {
+            var idmaps = document.getElementById("showMaps");
+            var idauto = document.getElementById("showMapsAutoComplete");
+            var idsim = document.getElementById("MapsSimpan");
+            var idlan = document.getElementById("MapsSelanjutnya");
+
+            if(showIn && !idmaps.classList.contains("d-block"))
+            {
+                idmaps.classList.remove("d-none");
+                idmaps.classList.add("d-block");
+
+                idauto.classList.remove("d-block");
+                idauto.classList.add("d-none");
+
+                idsim.classList.remove("d-none");
+                idsim.classList.add("d-flex");
+
+                idlan.classList.remove("d-flex");
+                idlan.classList.add("d-none");
+            } 
+            else 
+            {
+                idmaps.classList.remove("d-block");
+                idmaps.classList.add("d-none");
+
+                idauto.classList.remove("d-none");
+                idauto.classList.add("d-block");
+
+                idlan.classList.remove("d-none");
+                idlan.classList.add("d-flex");
+
+                idsim.classList.remove("d-flex");
+                idsim.classList.add("d-none");
+
+            }
+        }
+
+        function initMapClick() {
+            map.addListener("click", (e) => {
+                const pos = e.latLng;
+
+                // panToWithOffset(pos, 100);
+                // map.setZoom(15);
+
+                geocoder.geocode({ location: pos }, (results, status) => {
+
+                    if (status !== "OK" || !results || results.length === 0) {
+                        console.log("Geocoder gagal:", status);
+                        return;
+                    }
+
+                    // 🔎 Cari result dengan address_components terbanyak
+                    let bestResult = null;
+                    let maxComponents = 0;
+
+                    for (const r of results) {
+                        const count = r.address_components ? r.address_components.length : 0;
+
+                        // Prioritas utama: yang >= 7 langsung pakai kalau paling besar
+                        if (count >= 7 && count > maxComponents) {
+                            bestResult = r;
+                            maxComponents = count;
+                        }
+
+                        // Backup: simpan yang paling banyak kalau tak ada yg >= 7
+                        if (!bestResult && count > maxComponents) {
+                            bestResult = r;
+                            maxComponents = count;
+                        }
+                    }
+
+                    // Kalau tetap gak ada (kasus sangat jarang), pakai result pertama
+                    if (!bestResult) {
+                        bestResult = results[0];
+                    }
+
+                    console.log("Dipilih result dengan komponen:", maxComponents, bestResult.formatted_address);
+
+                    let components = normalizeComponents(bestResult.address_components);
+                    
+
+                    fillAddress(
+                        components,
+                        bestResult.geometry.location.lat(),
+                        bestResult.geometry.location.lng()
+                    );
+
+                });
+
+                marker.position = pos;
+            });
+        }
+
+        function initAutoComplate() {
+            const inputEl = document.getElementById("place-autocomplete-input");
+
+            placeAutocomplete.addEventListener("gmp-select", async (event) => {
+                const place = event.placePrediction.toPlace();
+
+                await place.fetchFields({
+                    fields: ["displayName", "formattedAddress", "location", "viewport", "addressComponents"],
+                });
+
+                if (!place.location) return;
+
+                if (place.viewport) {
+                    map.fitBounds(place.viewport);
+                } else {
+                    panToWithOffset(place.location, 100);
+                    // map.setZoom(15);
+                }
+
+
+                let components = normalizeComponents(place.addressComponents);
+                const get = (type) => components.find(c => c.types.includes(type))?.long_name || "";
+
+                console.log((get("route") + " " + get("street_number")).trim());
+                console.log(components);
+                console.log(place.addressComponents);
+                console.log(place.formattedAddress);
+
+                const streetName = place.displayName + ", " + (get("route") + " " + get("street_number")).trim();
+
+                inputEl.value = streetName;
+
+                fillAddress(components, place.location.lat(), place.location.lng());
+
+                marker.position = place.location;
+            });
+        }
+
+        async function geocodeManualAddress(textAddress) {
+            return new Promise((resolve, reject) => {
+                geocoder.geocode({ address: textAddress }, (results, status) => {
+                    if (status === "OK" && results[0]) {
+                        resolve(results[0]);
+                    } else {
+                        reject(status);
+                    }
+                });
+            });
+        }
+
+        async function getManualInputGeocode() {
+            const inputEl = document.getElementById("txtAlamatManual");
+            const typedText = inputEl.value;
+
+            // cek apakah user pernah pilih suggestion
+            if (!marker.position) {
+                try {
+                    const result = await geocodeManualAddress(typedText);
+
+                    const loc = result.geometry.location;
+                    // map.setCenter(loc);
+                    // map.setZoom(15);
+                    panToWithOffset(loc, 100);
+                    marker.position = loc;
+
+                    let components = normalizeComponents(result.address_components);
+                    fillAddress(components, loc.lat(), loc.lng());
+
+                } catch (err) {
+                    // alert("Alamat tidak ditemukan, coba lebih lengkap ya");
+                }
+            }
+        }
+
+        async function getLatLngFromPostcode(postcode) {
+            return new Promise((resolve, reject) => {
+
+                if(postcode == "Kode Pos")
+                {
+                    if (!navigator.geolocation) {
+                        alert("Browser tidak mendukung Geolocation");
+                        return;
+                    }
+
+                    navigator.geolocation.getCurrentPosition(pos => {
+
+                        const userLoc = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+                        resolve(userLoc);
+
+                    });
+
+                } 
+                else 
+                {
+                    geocoder.geocode({
+                        componentRestrictions: {
+                            postalCode: postcode,
+                            country: "ID"
+                        }
+                    }, (res, status) => {
+
+                        if (status === "OK" && res.length > 0) 
+                        {
+                            resolve(res[0].geometry.location);
+                        } 
+                        else 
+                        {
+                            navigator.geolocation.getCurrentPosition(pos => {
+
+                                const userLoc = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
+                                resolve(userLoc);
+
+                            });
+                        }
+                    });
+                }
+
+            });
+        }
+
+        function updateInfoWindow(position) {
+          // infoWindow.setContent(content);
+          infoWindow.setPosition(position);
+          infoWindow.open({
+            map,
+            anchor: marker,
+            shouldFocus: false,
+          });
+        }
+
+        function fillAddress(components, lat, lng) {
+            const get = (type) => components.find(c => c.types.includes(type))?.long_name || "";
+
+            const address = {
+                streetDetail: (get("route") + " " + get("street_number")).trim(),
+                district: get("administrative_area_level_3"),
+                city: get("administrative_area_level_2"),
+                province: get("administrative_area_level_1"),
+                postcode: get("postal_code"),
+                latitude: lat,
+                longitude: lng
+            };
+
+            dotNetMap.invokeMethodAsync("CurrentAddress", address);
+        }
+
+        function normalizeComponents(components) {
+          return components.map(c => {
+            // Geocoder lama (klik map)
+            if (c.long_name) {
+              return {
+                long_name: c.long_name,
+                short_name: c.short_name,
+                types: c.types
+              };
+            }
+
+            // Places API baru (autocomplete)
+            // properti disingkat oleh Google (nh = longText, oh = shortText, mh = types)
+            if (c.nh && c.mh) {
+              return {
+                long_name: c.nh,
+                short_name: c.oh,
+                types: c.mh
+              };
+            }
+
+            return null;
+          }).filter(Boolean);
+        }
+
+
+        function loadRecommendations(center) {
+            if (!autocompleteService) return;
+
+            let provinsi = document.getElementById("dropdown-selected-prov").textContent;
+            let kota = document.getElementById("dropdown-selected-kota").textContent;
+            let kecamatan = document.getElementById("dropdown-selected-kec").textContent;
+            let kodpos = document.getElementById("dropdown-selected-kodepos").textContent;
+
+            console.log(kota + kecamatan + kodpos);
+
+
+            if (firstLoadRecomendation) 
+            { 
+                autocompleteService.getPlacePredictions
+                ({
+                    input: "a",
+                    locationBias: {
+                        center: center,
+                        radius: 1000 // jangan kekecilan
+                    },
+                    types: ["address"],
+                    includedRegionCodes: ["id"] // fokus Indonesia
+                }, (predictions, status) => {
+
+                    if (status !== google.maps.places.PlacesServiceStatus.OK || !predictions) {
+                        console.log("No predictions", status);
+                        return;
+                    }
+
+                    showPredictions(predictions);
+                });
+
+                return;
+            }
+
+            firstLoadRecomendation = true;
+            const input = document.getElementById("txtAlamatManual");
+
+            input.addEventListener("input", debounceMaps(async (e) => {
+                const value = e.target.value;
+                console.log(value);
+                if (!value || value.length < 1) return;
+
+                autocompleteService.getPlacePredictions({
+                    input: value == "" || value == null ? "a" : value,
+                    locationBias: {
+                        center: center,
+                        radius: 1000 // jangan kekecilan
+                    },
+                    types: ["address"],
+                    includedRegionCodes: ["id"] // fokus Indonesia
+                }, (predictions, status) => {
+
+                    if (status !== google.maps.places.PlacesServiceStatus.OK || !predictions) {
+                        console.log("No predictions", status);
+                        return;
+                    }
+
+                    showPredictions(predictions);
+                });
+
+            }, 400));
+
+
+            autocompleteService.getPlacePredictions({
+                input: "a",
+                locationBias: {
+                    center: center,
+                    radius: 1000 // jangan kekecilan
+                },
+                types: ["address"],
+                includedRegionCodes: ["id"] // fokus Indonesia
+            }, (predictions, status) => {
+
+                if (status !== google.maps.places.PlacesServiceStatus.OK || !predictions) {
+                    console.log("No predictions", status);
+                    return;
+                }
+
+                showPredictions(predictions);
+            });
+        }
+
+        function showPredictions(predictions) {
+            const container = document.getElementById("results-recomendation");
+            container.innerHTML = "";
+
+            predictions.forEach(p => {
+                const div = document.createElement("div");
+                div.className = "result-item-maps";
+                div.innerHTML = `<h5 style="font-size: 16px;">${p.structured_formatting.main_text}</h5>
+                                 <p style="font-style: italic;" >${p.structured_formatting.secondary_text}</p>`;
+
+                div.onclick = () => selectPrediction(p);
+
+                container.appendChild(div);
+            });
+        }
+
+        function selectPrediction(placeSelect) {
+            placesService.getDetails({
+                placeId: placeSelect.place_id,
+                fields: ["name", "geometry", "formatted_address", "address_components"]
+            }, (place, status) => {
+                if (status !== google.maps.places.PlacesServiceStatus.OK) return;
+
+
+                geocoder.geocode({ location: place.geometry.location }, (results, status) => {
+
+                    if (status !== "OK" || !results || results.length === 0) {
+                        console.log("Geocoder gagal:", status);
+                        return;
+                    }
+
+                    // 🔎 Cari result dengan address_components terbanyak
+                    let bestResult = null;
+                    let maxComponents = 0;
+
+                    for (const r of results) {
+                        const count = r.address_components ? r.address_components.length : 0;
+
+                        // Prioritas utama: yang >= 7 langsung pakai kalau paling besar
+                        if (count >= 7 && count > maxComponents) {
+                            bestResult = r;
+                            maxComponents = count;
+                        }
+
+                        // Backup: simpan yang paling banyak kalau tak ada yg >= 7
+                        if (!bestResult && count > maxComponents) {
+                            bestResult = r;
+                            maxComponents = count;
+                        }
+                    }
+
+                    // Kalau tetap gak ada (kasus sangat jarang), pakai result pertama
+                    if (!bestResult) {
+                        bestResult = results[0];
+                    }
+
+                    console.log("Dipilih result dengan komponen:", maxComponents, bestResult.formatted_address);
+
+                    let components = normalizeComponents(bestResult.address_components);
+
+                    fillAddress(
+                        components,
+                        bestResult.geometry.location.lat(),
+                        bestResult.geometry.location.lng()
+                    );
+
+                });
+
+                marker.position = place.geometry.location;
+                panToWithOffset(place.geometry.location, 100);
+                ShowMaps(true);
+
+            });
+
+            const input = document.getElementById("txtAlamatManual");
+            input.value = (placeSelect.structured_formatting.main_text + " - " + placeSelect.structured_formatting.secondary_text);
+        }
+
+        function panToWithOffset(latLng, offsetY = 150) {
+
+            if (!map.getProjection()) {
+                google.maps.event.addListenerOnce(map, "idle", () => {
+                    panToWithOffset(latLng, 100);
+                });
+                return;
+            }
+
+            const scale = Math.pow(2, map.getZoom());
+            const proj = map.getProjection();
+
+            const point = proj.fromLatLngToPoint(latLng);
+            point.y -= offsetY / scale;
+
+            const newCenter = proj.fromPointToLatLng(point);
+            map.setCenter(newCenter);
+        }
+
+        function getLocation(buttonStright = false) {
+            
+            if (!navigator.geolocation) {
+                alert("Browser tidak mendukung Geolocation");
+                return;
+            }
+
+            if(buttonStright) 
+            {
+                navigator.geolocation.getCurrentPosition(pos => {
+                    const userLoc = {
+                        lat: pos.coords.latitude,
+                        lng: pos.coords.longitude
+                    };
+
+                    panToWithOffset(userLoc, 100);
+                    marker.position = userLoc;
+                });
+            } 
+            else 
+            {
+                navigator.geolocation.getCurrentPosition(pos => {
+                    const userLoc = {
+                        lat: pos.coords.latitude,
+                        lng: pos.coords.longitude
+                    };
+
+                    geocoder.geocode({ location: userLoc }, (results, status) => {
+
+                        if (status !== "OK" || !results || results.length === 0) {
+                            console.log("Geocoder gagal:", status);
+                            return;
+                        }
+
+                        // 🔎 Cari result dengan address_components terbanyak
+                        let bestResult = null;
+                        let maxComponents = 0;
+
+                        for (const r of results) {
+                            const count = r.address_components ? r.address_components.length : 0;
+
+                            // Prioritas utama: yang >= 7 langsung pakai kalau paling besar
+                            if (count >= 7 && count > maxComponents) {
+                                bestResult = r;
+                                maxComponents = count;
+                            }
+
+                            // Backup: simpan yang paling banyak kalau tak ada yg >= 7
+                            if (!bestResult && count > maxComponents) {
+                                bestResult = r;
+                                maxComponents = count;
+                            }
+                        }
+
+                        // Kalau tetap gak ada (kasus sangat jarang), pakai result pertama
+                        if (!bestResult) {
+                            bestResult = results[0];
+                        }
+
+                        console.log("Dipilih result dengan komponen:", maxComponents, bestResult.formatted_address);
+
+                        let components = normalizeComponents(bestResult.address_components);
+
+                        fillAddress(
+                            components,
+                            bestResult.geometry.location.lat(),
+                            bestResult.geometry.location.lng()
+                        );
+
+                    });
+                });
+            }
+
+        }
+
+
+
+
+
+
+        window.focusInput = (id) => {
+            const el = document.getElementById(id);
+            if (el) el.focus();
+        }
+
+        (function () {
+            const PRELOAD_DURATION = 2000; 
+
+            const preloader = document.querySelector(".preload-overlay-new");
+
+            document.body.classList.add("preloader-lock");
+
+            window.addEventListener("load", () => {
+                setTimeout(() => {
+                    preloader.classList.add("hide");
+
+                    document.body.classList.remove("preloader-lock");
+
+                    setTimeout(() => {
+                        preloader.remove();
+                    }, 1000);
+
+                }, PRELOAD_DURATION);
+            });
+        })();
+
+
+        function initRangeHarga(_dotNetRef) {
+            const _dotNet = _dotNetRef;
+            const minRange = document.getElementById("minRange");
+            const maxRange = document.getElementById("maxRange");
+            const minInput = document.getElementById("minInput");
+            const maxInput = document.getElementById("maxInput");
+            const fill = document.getElementById("rangeFill");
+
+            const STEP = 100000;
+            const MIN_GAP = 1; // Jarak minimal agar tidak silang
+            let debounceTimer;
+
+            // Update fill bar
+            function updateFill() {
+                let minVal = parseInt(minRange.value);
+                let maxVal = parseInt(maxRange.value);
+
+                fill.style.left = (minVal / maxRange.max) * 100 + "%";
+                fill.style.width = ((maxVal - minVal) / maxRange.max) * 100 + "%";
+
+                clearTimeout(debounceTimer);
+
+                debounceTimer = setTimeout(() => {
+                    triggerBlazor(minVal, maxVal);
+                }, 1500);
+            }
+
+            function triggerBlazor(minVal, maxVal) {
+                _dotNet.invokeMethodAsync("OnPriceChanged", minVal, maxVal);
+            }
+
+            function syncRange(e) {
+                let minVal = parseInt(minRange.value);
+                let maxVal = parseInt(maxRange.value);
+
+                if (maxVal - minVal < MIN_GAP) {
+                    if (e.target === minRange) {
+                        minRange.value = maxVal - MIN_GAP;
+                    } else {
+                        maxRange.value = minVal + MIN_GAP;
+                    }
+                }
+
+                minInput.value = minRange.value;
+                maxInput.value = maxRange.value;
+
+                updateFill();
+            }
+
+            function syncInput(e) {
+                let minVal = parseInt(minInput.value);
+                let maxVal = parseInt(maxInput.value);
+
+                // pembulatan ke kelipatan 100.000
+                minVal = Math.round(minVal / STEP) * STEP;
+                maxVal = Math.round(maxVal / STEP) * STEP;
+
+                minInput.value = minVal;
+                maxInput.value = maxVal;
+
+                if (maxVal - minVal < MIN_GAP) {
+                    if (e.target === minInput) {
+                        minInput.value = maxVal - MIN_GAP;
+                    } else {
+                        maxInput.value = minVal + MIN_GAP;
+                    }
+                }
+
+                minRange.value = minInput.value;
+                maxRange.value = maxInput.value;
+
+                updateFill();
+            }
+
+
+            minRange.addEventListener("input", syncRange);
+            maxRange.addEventListener("input", syncRange);
+
+            minInput.addEventListener("input", syncInput);
+            maxInput.addEventListener("input", syncInput);
+
+            updateFill();
+        }
+
+
+        function initResetFilter (maxNilai) {
+            const minRange = document.getElementById("minRange");
+            const maxRange = document.getElementById("maxRange");
+            const minInput = document.getElementById("minInput");
+            const maxInput = document.getElementById("maxInput");
+            const fill = document.getElementById("rangeFill");
+
+            fill.style.left = "0%";
+            fill.style.width = "100%";
+
+            minInput.value = 0;
+            maxInput.value = maxNilai;
+
+            minRange.value = 0;
+            maxRange.value = maxNilai;
+        }
+
+
+
+        var phoneInput = null;
+        var phoneInputLogin = null;
+        var phoneInputChange = null;
+
+        function initButtonFlag() {
+            const phoneInputField = document.querySelector("#phone");
+            const phoneInputLoginField = document.querySelector("#phone-login");
+
+            if(phoneInputField == null) return;
+            if(phoneInputLoginField == null) return;
+
+            phoneInput = window.intlTelInput(phoneInputField, {
+                preferredCountries: ["id", "sg", "my", "us"],
+                initialCountry: "id",
+                separateDialCode: true,
+                nationalMode: false,
+                formatOnDisplay: true,
+                utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+            });
+
+            phoneInputField.addEventListener("input", function () {
+                this.value = this.value.replace(/\D/g, "");
+            });
+
+            phoneInputLogin = window.intlTelInput(phoneInputLoginField, {
+                preferredCountries: ["id", "sg", "my", "us"],
+                initialCountry: "id",
+                separateDialCode: true,
+                nationalMode: false,
+                formatOnDisplay: true,
+                utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+            });
+
+            phoneInputLoginField.addEventListener("input", function () {
+                this.value = this.value.replace(/\D/g, "");
+            });
+        }
+
+        function initButtonFlagChange() {
+            const phoneInputField = document.querySelector("#phone-change");
+            if(phoneInputField == null) return;
+
+            phoneInputChange = window.intlTelInput(phoneInputField, {
+                preferredCountries: ["id", "sg", "my", "us"],
+                initialCountry: "id",
+                separateDialCode: true,
+                nationalMode: false,
+                formatOnDisplay: true,
+                utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+            });
+
+            phoneInputField.addEventListener("input", function () {
+                this.value = this.value.replace(/\D/g, "");
+            });
+        }
+
+        function initKlikFlag() {
+            // Saat tombol Verify diklik
+            var number = phoneInput.getNumber(); // format E.164
+            // console.log(number);
+            var isValid = phoneInput.isValidNumber();
+            // console.log(isValid);
+
+            // const resultBox = document.querySelector("#result");
+            // const e164Text = document.querySelector("#e164Number");
+
+            if (isValid) {
+                // e164Text.textContent = number;
+                // resultBox.style.display = "none";
+                // resultBox.style.backgroundColor = "#e7f3f9";
+
+                // resultBox.style.color = "#0b385f";
+                return number;
+            } else {
+                // e164Text.textContent = "Nomor tidak valid.";
+                // resultBox.style.display = "block";
+                // resultBox.style.backgroundColor = "#fdecea";
+                // resultBox.style.color = "#a94442";
+                return "FALSE";
+            }
+        }
+
+        window.goTopInstant = () => {
+            window.scrollTo(0, 0);
+        };
+
+        window.removeBackdrops = () => {
+            const backdrops = document.querySelectorAll(".modal-backdrop.show");
+            backdrops.forEach(b => b.remove());
+            document.body.classList.remove("modal-open");
+        };
+
+        function initKlikFlagLogin() {
+            // Saat tombol Verify diklik
+            var number = phoneInputLogin.getNumber(); // format E.164
+            var isValid = phoneInputLogin.isValidNumber();
+
+            const resultBox = document.querySelector("#result-login");
+            const e164Text = document.querySelector("#e164Number-login");
+
+
+            if (isValid) {
+                // e164Text.textContent = number;
+                // resultBox.style.display = "none";
+                // resultBox.style.backgroundColor = "#e7f3f9";
+                // resultBox.style.color = "#0b385f";
+                return number;
+            } else {
+                // e164Text.textContent = "Nomor tidak valid.";
+                // resultBox.style.display = "block";
+                // resultBox.style.backgroundColor = "#fdecea";
+                // resultBox.style.color = "#a94442";
+                return "FALSE";
+            }
+        }
+
+        function initKlikFlagChange() {
+            // Saat tombol Verify diklik
+            var number = phoneInputChange.getNumber(); // format E.164
+            var isValid = phoneInputChange.isValidNumber();
+
+            const resultBox = document.querySelector("#result-change");
+            const e164Text = document.querySelector("#e164Number-change");
+
+
+            if (isValid) {
+                // e164Text.textContent = number;
+                // resultBox.style.display = "none";
+                // resultBox.style.backgroundColor = "#e7f3f9";
+                // resultBox.style.color = "#0b385f";
+                return number;
+            } else {
+                // e164Text.textContent = "Nomor tidak valid.";
+                // resultBox.style.display = "block";
+                // resultBox.style.backgroundColor = "#fdecea";
+                // resultBox.style.color = "#a94442";
+                return "FALSE";
+            }
+        }
+
+
+
+
+        // OTP VERIFY
+        // OTP VERIFY
+        // OTP VERIFY
+        // OTP VERIFY
+
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyDFK7JsCa_0j_npH269GFBdxFSrGcGqZp4",
+          authDomain: "arimbi-ecommerce.firebaseapp.com",
+          projectId: "arimbi-ecommerce",
+          storageBucket: "arimbi-ecommerce.firebasestorage.app",
+          messagingSenderId: "412018624106",
+          appId: "1:412018624106:web:d8db56d6b07a89bab4ec13",
+          measurementId: "G-E0Q0EL4M1Y"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Ubah bahasa reCAPTCHA & SMS ke Indonesia
+        firebase.auth().languageCode = 'id';
+
+        // Render invisible reCAPTCHA
+        render();
+
+        function render() {
+            const el = document.getElementById('recaptcha-container');
+            if (!el) {
+                return;
+            }
+
+            if (window.recaptchaVerifier) {
+                window.recaptchaVerifier.clear(); // pastikan bersih
+            }
+
+            window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+                'size': 'invisible'
+            });
+
+            recaptchaVerifier.render().then(function(widgetId) {
+            }).catch(function(err){
+            });
+        }
+
+        window.sendOTP = async function (dataNomor) {
+            try {
+                const number = dataNomor;
+
+                if (!window.recaptchaVerifier) {
+                    return false;
+                } else {
+                }
+
+                // Tunggu hasil Firebase sign-in
+                const confirmationResult = await firebase.auth().signInWithPhoneNumber(number, window.recaptchaVerifier);
+
+                // Simpan hasil ke global
+                window.confirmationResult = confirmationResult;
+
+                return true;
+            } catch (error) {
+                return false;
+            }
+        };
+
+        // Verify OTP code
+
+        window.verifyCode = async function () {
+            try {
+                const code = document.getElementById('verificationCode').value;
+
+                if (!window.confirmationResult) {
+                    // console.error('OTP belum dikirim. Coba lagi.');
+                    return null;
+                }
+
+                // Tunggu hasil verifikasi Firebase
+                const result = await window.confirmationResult.confirm(code);
+                const user = result.user;
+
+                let idToken = null;
+                if (user) {
+                    idToken = await user.getIdToken(true);
+                }
+
+                // Sembunyikan / tampilkan elemen jika elemen ada
+                const verificationDiv = document.querySelector('.verification-otp');
+                const resultDiv = document.querySelector('.result-otp');
+                const correctDiv = document.querySelector('.correct');
+
+                if (verificationDiv) verificationDiv.style.display = 'none';
+                if (resultDiv) resultDiv.style.display = '';
+                if (correctDiv) correctDiv.style.display = '';
+
+                return idToken;
+
+            } catch (error) {
+                return null;
+            }
+        };
+
+
+
+        function selectAllText(elementToBind) {
+            var elementToCheck = document.getElementById(elementToBind);
+            if (elementToCheck) {
+                for (let child of elementToCheck.childNodes) {
+                    if (child instanceof HTMLInputElement) {
+                        child.addEventListener('click',
+                            function () {
+                                this.select();
+                            });
+                    }
+                }
+            }
+        }
+
+        function buttonClick(selectorName) {
+            document.querySelector(selectorName)?.click();
+        }
+
+        function initFlayer() {
+            const target = document.querySelector('#hidden-flayer');
+            const flayer = document.querySelector('#flayer');
+
+            const observer = new IntersectionObserver(
+              (entries) => {
+                entries.forEach(entry => {
+                  if (entry.isIntersecting) {
+                    // Section terlihat -> sembunyikan flayer
+                    flayer.classList.remove('visible');
+                  } else {
+                    // Section tidak terlihat -> tampilkan flayer
+                    flayer.classList.add('visible');
+                  }
+                });
+              },
+              {
+                root: null,         // viewport
+                threshold: 0,       // trigger begitu section keluar sepenuhnya
+                rootMargin: '-85px 0px 0px 0px'
+              }
+            );
+
+            observer.observe(target);
+        }
+
+
+        function initVaCopy() {
+            const boxes = document.querySelectorAll('.va-box');
+
+            boxes.forEach(box => {
+                const btn = box.querySelector('.copy-btn');
+                const textEl = box.querySelector('.va-body');
+
+                let timerId = null;
+
+                const getVa = () => {
+                    // Prioritas: data-va (agar value tersembunyi juga bisa dicopy), fallback isi teks body
+                    return box.getAttribute('data-va')?.trim() || textEl?.textContent?.trim() || '';
+                };
+
+                const setCopied = () => {
+                    btn.textContent = 'Copied';
+                    btn.classList.add('copied');
+                    clearTimeout(timerId);
+                    timerId = setTimeout(() => {
+                        btn.textContent = 'Copy';
+                        btn.classList.remove('copied');
+                    }, 5000);
+                };
+
+                const copyText = async (value) => {
+                    try {
+                        if (navigator.clipboard?.writeText) {
+                            await navigator.clipboard.writeText(value);
+                        } else {
+                            // Fallback untuk browser lama
+                            const ta = document.createElement('textarea');
+                            ta.value = value;
+                            ta.style.position = 'fixed';
+                            ta.style.opacity = '0';
+                            document.body.appendChild(ta);
+                            ta.focus();
+                            ta.select();
+                            document.execCommand('copy');
+                            document.body.removeChild(ta);
+                        }
+                        setCopied();
+                    } catch (e) {
+                        console.error('Copy failed:', e);
+                        // Jika gagal, beri sedikit feedback
+                        btn.textContent = 'Failed';
+                        btn.classList.remove('copied');
+                        clearTimeout(timerId);
+                        timerId = setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
+                    }
+                };
+
+                btn.addEventListener('click', () => {
+                    const value = getVa();
+                    if (value) copyText(value);
+                });
+            });
+        }
+
+
+        function initKate() {
+            const heroShimer = document.querySelector(`.kate-shimer`);
+            const heroContent = document.querySelector(`.kate-content`);
+            if(heroShimer == null || heroContent == null) return;
+
+            heroShimer.style.display = "none";
+            heroContent.style.display = "flex";
+        }
+
+        function initFooter() {
+            const heroShimer = document.querySelector(`.footer-shimer`);
+            const heroContent = document.querySelector(`.footer-content`);
+            if(heroShimer == null || heroContent == null) return;
+            heroShimer.style.display = "none";
+            heroContent.style.display = "flex";
+        }
+
+        function initHeader() {
+            const heroShimer = document.querySelector(`.header-shimer`);
+            const heroContent = document.querySelector(`.header-content`);
+            if(heroShimer == null || heroContent == null) return;
+            heroShimer.style.display = "none";
+            heroContent.style.display = "flex";
+        }
+
+        function initProduk() {
+            const heroShimer = document.querySelector(`.product-shimer`);
+            const heroContent = document.querySelector(`.product-content`);
+            if(heroShimer == null || heroContent == null) return;
+            heroShimer.style.display = "none";
+            heroContent.style.display = "flex";
+        }
+
+        function initslideHomeProduct() {
+
+            const products = document.querySelectorAll(".product");
+
+            if (products.length === 0) return;
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("show");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            products.forEach(p => observer.observe(p));
+        }
+
+        function initslideProduct() {
+            const products = document.querySelectorAll(".product");
+
+            if (products.length === 0) return;
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("show");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            products.forEach(p => observer.observe(p));
+        }
+
+        function initItemsOrder(data) {
+            const headerBtn = document.querySelector(".header-accord-" + data);
+            const noneAccords = document.querySelectorAll(".none-accord-" + data);
+
+            if (!headerBtn) return;
+
+            if (!headerBtn.classList.contains("collapsed")) {
+                // kalau accordion terbuka ? sembunyikan
+                noneAccords.forEach(el => {
+                    el.classList.add("hide");
+                    setTimeout(() => {
+                        el.style.setProperty("display", "none", "important");
+                    }, 10);
+                });
+            } else {
+                // kalau accordion tertutup ? tampilkan lagi
+                noneAccords.forEach(el => {
+                    el.style.display = "block";
+                    setTimeout(() => {
+                        el.classList.remove("hide");
+                    }, 10);
+                });
+            }
+        }
+
+        function downloadFileFromBase64(filename, base64) {
+            const link = document.createElement("a");
+            link.href = "data:image/png;base64," + base64;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        window.setInputValue = function (id, value) {
+            document.getElementById(id).value = value;
+        };
+
+        window.copyVa = async function (kode)  {
+
+            // Cari tombol target spesifik berdasarkan kode
+            const btn = document.querySelector(`.copy-btn-${kode}`);
+            if (!btn) return;
+
+            // Ambil nilai VA: prioritas data-va di parent
+            const box = btn.closest('.va-box');
+            const value = box?.getAttribute('data-va')?.trim() || btn.dataset.va?.trim() || '';
+
+            let timerId;
+
+            const setCopied = () => {
+                btn.textContent = 'Copied';
+                btn.classList.add('copied');
+                clearTimeout(timerId);
+                timerId = setTimeout(() => {
+                    btn.textContent = 'Copy';
+                    btn.classList.remove('copied');
+                }, 5000);
+            };
+
+            try {
+                if (navigator.clipboard?.writeText) {
+                    await navigator.clipboard.writeText(value);
+                } else {
+                    // Fallback untuk browser lama
+                    const ta = document.createElement('textarea');
+                    ta.value = value;
+                    ta.style.position = 'fixed';
+                    ta.style.opacity = '0';
+                    document.body.appendChild(ta);
+                    ta.focus();
+                    ta.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(ta);
+                }
+                setCopied();
+            } catch (err) {
+                console.error('Copy failed:', err);
+                btn.textContent = 'Failed';
+                clearTimeout(timerId);
+                timerId = setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
+            }
+        }
+
+
+
+
+        function initHeaderMega() {
+            document.querySelectorAll('.mega-parent').forEach(item => {
+                item.addEventListener('mouseenter', () => {
+                    item.querySelector('.mega-menu').classList.add('open');
+                    document.querySelector('.overlay').classList.add('show');
+                });
+                item.addEventListener('mouseleave', () => {
+                    item.querySelector('.mega-menu').classList.remove('open');
+                    document.querySelector('.overlay').classList.remove('show');
+                });
+            });
+        }
+
+        function statusBarHidden() {
+            window.setTimeout(fadeout, 500);
+        }
+
+        function fadeout() {
+            document.querySelector('.preloader').style.opacity = '0';
+            document.querySelector('.preloader').style.display = 'none';
+        }
+
+        function colLoadOut() {
+            const el = document.querySelector('.col-load');
+            if (!el) return;
+            el.style.opacity = '0';
+            setTimeout(() => {
+                el.style.display = 'none';
+            }, 500); // tunggu 0.5s sampai transisi selesai
+        }
+
+        function setFocusAndSelect(elementToBind) {
+            setTimeout(function () {
+               
+                var elementToCheck = document.getElementById(elementToBind);
+                if (elementToCheck) {
+                 
+                    // Look for the first input element (such as the one inside RadzenNumeric)
+                    let inputElement = elementToCheck.querySelector('input');
+                    if (inputElement) {
+                        // Set focus and select the text
+                      
+                        inputElement.focus();
+                        inputElement.select();
+
+                        // Optionally, add a click event listener to re-select the text when clicked
+                        inputElement.addEventListener('click', function () {
+                            this.select();
+                        });
+                    }
+                }
+            }, 100); // Adjust this timeout duration if needed      
+        }
+        
+        // Define the snapPay function
+        function snapPay(transactionToken) {
+            if (window.snap && typeof window.snap.pay === 'function') {
+                window.snap.pay(transactionToken); // Call Midtrans snap.pay with the transaction token
+            } else {
+                console.error("Midtrans snap.js is not loaded or available.");
+            }
+        }
+
+        function initHero() {
+            const heroShimer = document.querySelector(`.hero-shimer`);
+            heroShimer.style.display = "none";
+
+            const heroContent = document.querySelector(`.hero-content`);
+            heroContent.style.display = "flex";
+        }
+
+
+        function initSliderFor(selector) {
+
+            let index = 0;
+
+            const root = document.querySelector(selector);
+            if (!root) return;
+
+            const slides = root.querySelectorAll(".slide-new");
+            const dotsContainer = root.querySelector(".dots-new");
+
+            if (slides.length === 0) return;
+
+            // Create dots
+            slides.forEach((_, i) => {
+                const dot = document.createElement("span");
+                dot.addEventListener("click", () => goTo(i));
+                dotsContainer.appendChild(dot);
+            });
+
+            function showSlide(i) {
+                slides.forEach(s => s.classList.remove("active-new"));
+                slides[i].classList.add("active-new");
+
+                const dots = dotsContainer.children;
+                [...dots].forEach(d => d.classList.remove("activeDot-new"));
+                dots[i].classList.add("activeDot-new");
+            }
+
+            function next() {
+                index = (index + 1) % slides.length;
+                showSlide(index);
+            }
+
+            function prev() {
+                index = (index - 1 + slides.length) % slides.length;
+                showSlide(index);
+            }
+
+            function goTo(i) {
+                index = i;
+                showSlide(index);
+            }
+
+            root.querySelector(".next-new").onclick = next;
+            root.querySelector(".prev-new").onclick = prev;
+
+            showSlide(index);
+            setInterval(next, 5000);
+
+        };
+
+        // document.addEventListener("DOMContentLoaded", () => {
+        //     initSliderFor(".hero-slider-new-pc");
+        //     initSliderFor(".hero-slider-new-laptop");
+        //     initSliderFor(".hero-slider-new-tablet");
+        //     initSliderFor(".hero-slider-new-phone");
+        // });
+
+        function initDetailProd() {
+            var sliderdetailProd = tns({
+                container: ".slider-images",
+                items: 5,
+                mouseDrag: true,
+                slideBy: "page",
+                swipeAngle: false,
+                speed: 400,
+                loop: false,
+                nav: false,
+                controls: false,
+            });
+        };
+
+
+        function initLoginEffect(value, direct) {
+
+            const loginBox = document.querySelector('.login-effect');
+            const signUp = document.querySelector('.signup-page');
+            const otpView = document.querySelector('.otp-view');
+            const logIn = document.querySelector('.login-page');
+            const change = document.querySelector('.lupa-pw');
+
+
+            if (!direct) {
+
+                loginBox.classList.add('change');
+
+                setTimeout(() => {
+
+                    loginBox.classList.remove('change');
+
+                }, 1200);
+
+
+                setTimeout(() => {
+
+                    if(value == "sign-up")
+                    {
+                        logIn.classList.remove('active');
+                        otpView.classList.remove('active');
+                        signUp.classList.add('active');
+                        change?.classList.remove('active');
+                    } 
+                    else if (value == "otp-view") 
+                    {
+                        otpView.classList.add('active');
+                        signUp.classList.remove('active');
+                        logIn.classList.remove('active');
+                        change?.classList.remove('active');
+                    } 
+                    else if (value == "lupa-pw") 
+                    {
+                        change?.classList.add('active');
+                        otpView.classList.remove('active');
+                        signUp.classList.remove('active');
+                        logIn.classList.remove('active');
+                    } 
+                    else 
+                    {
+                        logIn.classList.add('active');
+                        otpView.classList.remove('active');
+                        signUp.classList.remove('active');
+                        change?.classList.remove('active');
+                    }
+
+                }, 1500);
+
+            } else {
+
+                if(value == "sign-up")
+                {
+                    signUp.classList.add('active');
+                    logIn.classList.remove('active');
+                    otpView.classList.remove('active');
+                    change?.classList.remove('active');
+                }
+                else if (value == "otp-view")
+                {
+                    otpView.classList.add('active');
+                    signUp.classList.remove('active');
+                    logIn.classList.remove('active');
+                    change?.classList.remove('active');
+                }
+                else if (value == "lupa-pw")
+                {
+                    change?.classList.add('active');
+                    otpView.classList.remove('active');
+                    signUp.classList.remove('active');
+                    logIn.classList.remove('active');
+                }
+                else
+                {
+                    logIn.classList.add('active');
+                    otpView.classList.remove('active');
+                    signUp.classList.remove('active');
+                    change?.classList.remove('active');
+                }
+            }
+
+
+        };
+
+
+        window.countdownTimer = {
+            duration: 5 * 60, // 5 menit dalam detik
+            remaining: 5 * 60,
+            intervalId: null,
+
+            start: function () {
+                if (this.intervalId) return; // sudah berjalan
+
+                this.intervalId = setInterval(() => {
+                    if (this.remaining <= 0) {
+                        clearInterval(this.intervalId);
+                        this.intervalId = null;
+
+                        window.history.back();
+                        return;
+                    } else {
+                        this.remaining--;
+                    }
+
+                    this.updateDisplay();
+                }, 1000);
+            },
+
+            pause: function () {
+                if (this.intervalId) {
+                    clearInterval(this.intervalId);
+                    this.intervalId = null;
+                }
+            },
+
+            reset: function () {
+                this.pause();
+                this.remaining = this.duration;
+                this.updateDisplay();
+            },
+
+            updateDisplay: function () {
+                const el = document.querySelector(".countdownTimer");
+                if (!el) return;
+
+                const minutes = Math.floor(this.remaining / 60);
+                const seconds = this.remaining % 60;
+
+                el.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+        };
+
+
+        function initBigDetailProd() {
+            var sliderdetailProd = tns({
+                container: ".big-slider-images",
+                items: 1,
+                mouseDrag: true,
+                slideBy: "page",
+                swipeAngle: false,
+                speed: 400,
+                loop: false,
+                nav: false,
+                controls: false,
+                navContainer: "#customize-thumbnails",
+                navAsThumbnails: true,
+            });
+        };
+
+        function initBigDetailProdInfo() {
+            const slides = document.querySelectorAll('.mySwiper2 .swiper-slide');
+
+            if (slides.length === 0) {
+                console.warn("Swiper not initialized: no slides yet");
+                return;
+            }
+
+            var swiper = new Swiper(".mySwiper", {
+              loop: false,
+                  spaceBetween: 0,
+                  slidesPerView: 4,
+                  freeMode: true,
+              watchSlidesProgress: true,
+            });
+
+            var swiper2 = new Swiper(".mySwiper2", {
+                loop: true,
+                spaceBetween: 10,
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+                thumbs: {
+                    swiper: swiper,
+                },
+            });
+        };
+
+        function initMobileButton() {
+            let navbarToggler = document.querySelector(".mobile-menu-btn");
+            navbarToggler.addEventListener('click', function () {
+                navbarToggler.classList.toggle("active");
+                let navbarContent = document.querySelector("#navbarSupportedContent");
+            });
+        };
+
+        function showNavbar(valueClass, valueOn) {
+            let navbarToggler = document.querySelector("." + valueClass);
+            
+            if(navbarToggler == null) return;
+
+            if(valueOn) 
+            {
+                navbarToggler.classList.add('active');
+            } 
+            else 
+            {
+                navbarToggler.classList.remove('active');
+            }
+
+            
+        };
+
+        let swiperInstance = null;
+
+        function initSearchButton() {
+            if (swiperInstance) {
+                swiperInstance.destroy(true, true);
+            }
+
+            swiperInstance = new Swiper(".mySwiper1", {
+                pagination: {
+                el: ".swiper-pagination",
+                type: "fraction",
+                },
+                navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+                },
+            });
+        };
+
+        function scrollToTop() {
+            window.scrollTo(0, 0);
+        }
+
+        (function exposeAllFunctionsToWindow() {
+            const fnNames = Object.getOwnPropertyNames(window)
+                .filter(n => typeof window[n] === 'function');
+
+            for (const key in this) {
+                if (typeof this[key] === 'function' && !window[key]) {
+                    window[key] = this[key];
+                }
+            }
+        }).call(this);
+
+    </script>
+
+    <script src="_framework/blazor.web.js"></script>
+    @* <script src="_framework/blazor.webassembly.js"></script> *@
+
+    @* <script src="./js/Paginate.js"></script> *@
+</body>
+
+</html>

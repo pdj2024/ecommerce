@@ -1,0 +1,443 @@
+﻿@inject IJSRuntime JS
+@rendermode InteractiveServer
+
+<div class="row m-0 px-3 pt-3">
+
+    <div class="col-12 col-lg-6">
+        <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
+            <input style="background-color:transparent !important; font-weight: 700; font-size:15px;" type="text" class="form-control search-form form-text" placeholder="" aria-label="Search" aria-describedby="basic-addon1" required @bind-value=@Head.Nama_Penerima />
+            <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Nama Penerima <span class="text-danger">*</span></label>
+        </div>
+    </div>
+    <div class="col-12 col-lg-6">
+        <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
+            <input style="background-color:transparent !important; font-weight: 700; font-size:15px;" type="text" class="form-control search-form form-text" placeholder="" aria-label="Search" aria-describedby="basic-addon1" required @bind-value="@Head.Telpon_Penerima" />
+            <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Telpon Penerima <span class="text-danger">*</span></label>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3" style="min-height: 60px;" @onclick=@(x => openMaps(true))>
+            <div style="background-color:transparent !important; font-weight: 700; font-size:15px; cursor:pointer" id="province" type="text" class="form-control search-form form-text" placeholder="" aria-label="Search"aria-describedby="basic-addon1" >
+                @( AlamatUser.Postcode == "Kode Pos" ? "" : $"{AlamatUser.Province}, {AlamatUser.City}, {AlamatUser.District}, {AlamatUser.Postcode}")
+            </div>
+            <label style="position: absolute;top: 5px;left: 16px;font-size: 13px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Provinsi, Kota, Kecamatan, Kode Pos <span class="text-danger">*</span></label>
+        </div>
+    </div>
+
+    <div style="padding: 0px 0px;">
+        <button style="opacity: 1;position: absolute;width: 0;height: 0;padding: 0;" id="staticAlamatButton" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticAlamat" />
+    </div>
+
+    <div class="col-12">
+        <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3" style="min-height: 60px;" @onclick=@(x => openMaps(false))>
+            <div style="background-color:transparent !important; font-weight: 700; font-size:15px; cursor:pointer" id="province" type="text" class="form-control search-form form-text" placeholder="" aria-label="Search" aria-describedby="basic-addon1">
+                @(AlamatUser.StreetDetail == "Detail Alamat" ? "" : $"{AlamatUser.StreetDetail}")
+            </div>
+            <label style="position: absolute;top: 5px;left: 16px;font-size: 13px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Nama Jalan, Gedung, No. Rumah <span class="text-danger">*</span></label>
+        </div>
+    </div>
+
+    <div style="padding: 0px 0px;">
+        <button style="opacity: 1;position: absolute;width: 0;height: 0;padding: 0;" id="staticDetailButton" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticDetail" />
+    </div>
+
+    <div class="col-12">
+        <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
+            <textarea rows="2" style="background-color:transparent !important; font-weight: 700;  font-size:15px;" id="street_detail" class="form-control search-form form-text" placeholder="" aria-label="Search" aria-describedby="basic-addon1" @bind=@AlamatUser.DetailAddress required />
+            <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Detail Lainnya (Blok / Unit No., Patokan) <span class="text-danger">*</span></label>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade review-modal" id="staticAlamat" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
+    <div class="modal-dialog modal-dialog-centered" style="max-width:600px;">
+        <div class="modal-content" style="border-radius: 0px;">
+            <div class="modal-header justify-content-between d-flex border-bottom-0 pb-0">
+                <h5 class="modal-title w-100 text-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">Konfirmasi Alamat</h5>
+            </div>
+
+            <div class="modal-body" style="min-height:20rem;">
+                <div class="row m-0">
+
+                    @if (Kota.FirstOrDefault() == null)
+                    {
+                        <div class="col-12 mb-2">
+                            <button class="btn btn-primary bg-primary w-100" @onclick=@getCurrentPosition style="letter-spacing: -1px; font-size: 15px;font-weight: 500;">
+                                @if (currentPosition2)
+                                {
+                                    <div class="spinner-border spinner-border-sm" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <span>Gunakan Lokasi Saat Ini</span>
+                                }
+                            </button>
+                        </div>
+                    } 
+                    else
+                    {
+                        <div class="col-6 mb-2 ps-3 mt-2">
+                            <h5 class="modal-title w-100" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 15px;font-weight: 400;">Alamat Terpilih</h5>
+                        </div>
+                        <div class="col-6 mb-2 text-end pe-3 mt-2">
+                            <button class="py-0 px-0 border-0 bg-transparent" @onclick="@(x => AturUlangAddres())" type="button" id="buttonSignUp" style="width:fit-content">
+                                <span class="position-relative underline-anim text-danger" style="font-size:13px;font-weight: 500;">Atur Ulang</span>
+                            </button>
+                        </div>
+                    }
+
+                    <div class="col-12 mb-1">
+
+                        <div id="dropdown-wrapper-prov" class="dropdown-wrapper-addres">
+                            <div id="dropdown-selected-prov" @onclick=@(x => OpenDropDown("#dropdown-list-prov")) class="dropdown-selected-addres" style="font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">
+                                @AlamatUser.Province
+                            </div>
+                            <div id="dropdown-icon-prov" class="dropdown-icon-addres">
+                                <svg fill='%23666' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z' /></svg>
+                            </div>
+
+                            <div id="dropdown-list-prov" class="dropdown-list-addres">
+                                @foreach (var pro in Provinsi)
+                                {
+                                    <div class="dropdown-item-prov dropdown-item-addres" @onclick=@(x => OnProvinsi(pro.code, "#dropdown-list-prov"))>@pro.name</div>
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+                        
+
+                    <div class="col-12 mb-1">
+
+
+                            <div id="dropdown-wrapper-kota" class="dropdown-wrapper-addres @(Kota.FirstOrDefault() != null ? "d-flex" : "d-none") ">
+                                <div id="dropdown-selected-kota" @onclick=@(x => OpenDropDown("#dropdown-list-kota")) class="dropdown-selected-addres" style="font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">
+                                    @AlamatUser.City
+                                </div>
+                                <div id="dropdown-icon-kota" class="dropdown-icon-addres">
+                                    <svg fill='%23666' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z' /></svg>
+                                </div>
+
+                                <div id="dropdown-list-kota" class="dropdown-list-addres">
+                                    @foreach (var pro in Kota)
+                                    {
+                                        <div class="dropdown-item-kota dropdown-item-addres" @onclick=@(x => OnKota(pro.code, "#dropdown-list-kota"))>@pro.name</div>
+                                    }
+                                </div>
+                            </div>
+
+                    </div>
+                        
+
+                    <div class="col-12 mb-1">
+
+
+                            <div id="dropdown-wrapper-kec" class="dropdown-wrapper-addres @(Kecamatan.FirstOrDefault() != null ? "d-flex" : "d-none") ">
+                                <div id="dropdown-selected-kec" @onclick=@(x => OpenDropDown("#dropdown-list-kec")) class="dropdown-selected-addres" style="font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">
+                                    @AlamatUser.District
+                                </div>
+                                <div id="dropdown-icon-kec" class="dropdown-icon-addres">
+                                    <svg fill='%23666' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z' /></svg>
+                                </div>
+
+                                <div id="dropdown-list-kec" class="dropdown-list-addres">
+                                    @foreach (var pro in Kecamatan)
+                                    {
+                                        <div class="dropdown-item-kec dropdown-item-addres" @onclick=@(x => OnKecamatan(pro.code, "#dropdown-list-kec"))>@pro.name</div>
+                                    }
+                                </div>
+                            </div>
+
+                    </div>
+                        
+
+                    <div class="col-12 mb-1">
+                        
+
+                            <div id="dropdown-wrapper-kodepos" class="dropdown-wrapper-addres @(KodePos.FirstOrDefault() != null ? "d-flex" : "d-none") ">
+                                <div id="dropdown-selected-kodepos" @onclick=@(x => OpenDropDown("#dropdown-list-kodepos")) class="dropdown-selected-addres" style="font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">
+                                    @AlamatUser.Postcode
+                                </div>
+                                <div id="dropdown-icon-kodepos" class="dropdown-icon-addres">
+                                    <svg fill='%23666' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z' /></svg>
+                                </div>
+
+                                <div id="dropdown-list-kodepos" class="dropdown-list-addres">
+                                    @foreach (var pro in KodePos)
+                                    {
+                                        <div class="dropdown-item-kodepos dropdown-item-addres" @onclick=@(x => OnKodePos(pro.postal_code, "#dropdown-list-kodepos"))>@pro.postal_code</div>
+                                    }
+                                </div>
+                            </div>
+                            
+
+                    </div>
+                        
+                </div>
+            </div>
+
+            <div class="modal-footer justify-content-center button border-top-0 pt-2 px-5">
+                <button id="StaticCloseAlamat" type="button" class="btn btn-danger bg-danger border-0" style="border-radius:0px !important" data-bs-dismiss="modal">Batal</button>
+                @* <button type="button" class="btn btn-success bg-success border-0">
+                    Simpan
+                </button> *@
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade detail-modal" id="staticDetail" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
+    <div class="modal-dialog modal-dialog-centered" style="max-width:600px;">
+        <div class="modal-content" style="border-radius: 0px;">
+            <div class="modal-header justify-content-between d-flex border-bottom-0 pb-0">
+                <h5 class="modal-title w-100 text-center" id="exampleModalLabel" style="letter-spacing: -1px; font-size: 22px;font-weight: 400;">Konfirmasi Detail Alamat</h5>
+            </div>
+
+            <div class="modal-body" style="min-height: 27rem;">
+                <div class="row m-0">
+
+                    <div id="map-wrapper" class="col-12 flex-column mb-3" style="display:flex">
+
+                        <div id="showMapsAutoComplete" class="w-100 h-100" style="">
+                            @* <div id="place-autocomplete-card" class="pac-card"></div> *@
+
+                            <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3">
+                                <input style="background-color:transparent !important; font-weight: 700; font-size:15px;" type="text" class="form-control search-form form-text" placeholder="" id="txtAlamatManual" autocomplete="off" aria-label="Search" aria-describedby="basic-addon1" required />
+                                <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Nama Jalan, Gedung, No. Rumah<span class="text-danger">*</span></label>
+                            </div>
+
+                            @* <div id="txtAlamat" class="pac-card"></div> *@
+                            <div id="results-recomendation"></div>
+                        </div>
+
+                        <div id="showMaps" class="w-100 h-100" style="display:none">
+                            <div class="w-100 position-relative mt-3">
+                                <div style="position: absolute; width: 85%; z-index: 10; padding-left:10px; padding-top:10px">
+                                    @* <div style="background-color: hsla(0, 0%, 100%, 1); min-height:6rem; padding:10px; border-radius:5px;box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.1);">
+                                        <p> 
+                                            Alamat Dipilih
+                                        </p>
+                                        <p> 
+                                            @AlamatMaps.StreetDetail
+                                        </p>
+                                        <p> 
+                                            @($"{AlamatMaps.Province}, {AlamatMaps.City}, {AlamatMaps.District}")
+                                        </p>
+                                        <p @onclick=@(x => SugentionMark(false)) >
+                                            Ganti Alamat
+                                        </p>
+                                    </div> *@
+                                    <div class="input-group mb-3 style-grup px-1 border-1 form-style position-relative pb-1 pt-3" style="flex-direction: column;background-color: #ffffff;background-color: hsla(0, 0%, 100%, 1);">
+                                        <input style="background-color:transparent !important; font-weight: 700; font-size:15px;margin-top: 10px;padding-bottom: 0px;" type="text" class="form-control search-form form-text w-100" placeholder="" disabled aria-label="Search" aria-describedby="basic-addon1" required value=@AlamatMaps.StreetDetail />
+                                        <input style="background-color:transparent !important; font-weight: 700; font-size:13px;margin-top: 0px;padding-top: 0px;    color: gray;" type="text" class="form-control search-form form-text w-100" disabled placeholder="" aria-label="Search" aria-describedby="basic-addon1" required value=@($"{AlamatMaps.District}, {AlamatMaps.City}, {AlamatMaps.Province}, {AlamatMaps.Postcode}") />
+                                        <label style="position: absolute;top: 5px;left: 16px;font-size: 14px;letter-spacing: -0.5px; color: dimgray; font-style:italic">Alamat Dipilih <span class="text-danger"></span></label>
+                                        <div class="underline-anim position-absolute" style="right: 10px;top: 5px;font-style: italic;color: #1500b2;padding-bottom: 0px;" @onclick=@(x => SugentionMark(false))>
+                                            Ganti Alamat
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="map" style=""></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div id="MapsSimpan" style="display:none;" class="modal-footer justify-content-center button border-top-0 pt-2 px-5">
+                <button type="button" class="btn btn-danger bg-danger border-0" style="border-radius:0px !important" data-bs-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-success bg-success border-0" style="border-radius:0px !important">
+                    Simpan
+                </button>
+            </div>
+            <div id="MapsSelanjutnya" class="modal-footer justify-content-center button border-top-0 pt-2 px-5">
+                <button type="button" class="btn btn-danger bg-danger border-0" style="border-radius:0px !important" data-bs-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-success bg-success border-0" style="border-radius:0px !important" @onclick=@(x => SugentionMark(true)) >
+                    Selanjutnya
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+    .dropdown-wrapper-addres {
+        background: #f5f5f5;
+        position: relative;
+        width: 100%; /* atur lebar bebas */
+        display: flex;
+        border: 1px solid #ddd;
+    }
+
+    .dropdown-selected-addres {
+        padding: 12px;
+        border-radius: 0px;
+        cursor: pointer;
+        font-size: 15px;
+        width: 85%;
+        letter-spacing: -0.5px;
+        color: dimgray;
+        font-style: italic
+    }
+
+    .result-item-maps {
+        padding: 10px;
+        background-color: rgba(0, 0, 0, 0.04);
+        padding: 10px;
+        cursor:pointer;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .result-item-maps:hover {
+        background-color: rgb(0 196 255 / 10%);
+        border-bottom: 1.5px solid #0dcaf0;
+    }
+
+    #results-recomendation {
+        display: flex;
+        flex-direction: column;
+        gap: 0px;
+    }
+
+    #map {
+        height: 50vh;
+        width: 100%;
+        border-radius: 10px;
+    }
+
+    .pac-card {
+        background: white;
+        padding: 0px;
+        border-radius: 2px;
+        /* box-shadow: 0 3px 5px rgba(0, 0, 0, 0.15); */
+        border: 1px solid rgb(185 185 185);
+    }
+
+    .dropdown-icon-addres {
+        width: 15%;
+        padding: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: end;
+    }
+
+    .dropdown-list-addres {
+        position: absolute;
+        width: 100%;
+        background: white;
+        border-radius: 0;
+        border: 1px solid #ddd;
+        margin-top: 4px;
+        max-height: 270px;
+        overflow-y: auto;
+        display: none;
+        z-index: 1000;
+        top: 45px;
+    }
+
+    .dropdown-item-addres {
+        padding: 10px 12px;
+        cursor: pointer;
+        font-size: 15px;
+        letter-spacing: -0.5px;
+        color: dimgray;
+        font-style: italic
+    }
+
+    .dropdown-item-addres:hover {
+        background: #f0f4ff;
+    }
+
+    .widget-container {
+        background:#f5f5f5;
+    }
+
+    .show-addres {
+        display: block;
+    }
+</style>
+
+<script>
+    // document.querySelector("#dropdown-selected-prov").onclick = function () {
+    //   document.querySelector("#dropdown-list-prov").classList.toggle("show-addres");
+    // };
+
+    // document.querySelectorAll(".dropdown-item-prov").forEach(item => {
+    //   item.onclick = function () {
+    //     document.querySelector("#dropdown-selected-prov").innerText = this.innerText;
+    //     document.querySelector("#dropdown-list-prov").classList.remove("show-addres");
+    //   };
+    // });
+
+    // document.querySelector("#dropdown-selected-kec").onclick = function () {
+    //   document.querySelector("#dropdown-list-kec").classList.toggle("show-addres");
+    // };
+
+    // document.querySelectorAll(".dropdown-item-kec").forEach(item => {
+    //   item.onclick = function () {
+    //     document.querySelector("#dropdown-selected-kec").innerText = this.innerText;
+    //     document.querySelector("#dropdown-list-kec").classList.remove("show-addres");
+    //   };
+    // });
+
+    // document.querySelector("#dropdown-selected-kota").onclick = function () {
+    //   document.querySelector("#dropdown-list-kota").classList.toggle("show-addres");
+    // };
+
+    // document.querySelectorAll(".dropdown-item-kota").forEach(item => {
+    //   item.onclick = function () {
+    //     document.querySelector("#dropdown-selected-kota").innerText = this.innerText;
+    //     document.querySelector("#dropdown-list-kota").classList.remove("show-addres");
+    //   };
+    // });
+
+    // document.querySelector("#dropdown-selected-kodepos").onclick = function () {
+    //   document.querySelector("#dropdown-list-kodepos").classList.toggle("show-addres");
+    // };
+
+    
+    // document.querySelectorAll(".dropdown-item-kodepos").forEach(item => {
+    //   item.onclick = function () {
+    //     document.querySelector("#dropdown-selected-kodepos").innerText = this.innerText;
+    //     document.querySelector("#dropdown-list-kodepos").classList.remove("show-addres");
+    //   };
+    // });
+
+
+
+    function closeDropAddress(param1) {
+        var element = document.querySelector(param1);
+        if(element == null) return;
+
+        element.classList.remove("show-addres");
+    }
+
+    function openDropAddress(param1) {
+        var element = document.querySelector(param1);
+        if(element == null) return;
+
+        document.querySelectorAll(".dropdown-list-addres").forEach(
+            item => {
+                if(item.id === param1.slice(1)) return;
+                item.classList.remove("show-addres");
+            }
+        );
+
+        if(element.classList.contains("show-addres")) 
+        {
+            element.classList.remove("show-addres");
+        } 
+        else 
+        {
+            element.classList.toggle("show-addres");
+        }
+    }
+
+
+</script>

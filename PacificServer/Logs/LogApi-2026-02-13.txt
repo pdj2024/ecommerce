@@ -1,0 +1,174 @@
+
+                        [2026-02-13 11:00:12]
+                        URL: https://api.arimbi.co.id/api/company/get-profile?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-02-13 11:00:12]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-13 11:00:36]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-13 11:01:25]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?no_id=prod_143&pagesize=2&limit=8&page=8&max_media=10&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-13 11:01:50]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-13 11:01:51]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-13 11:01:51]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?no_id=prod_143&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-13 11:01:52]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?pagesize=12&limit=8&page=8&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-13 11:01:52]
+                        URL: https://api.arimbi.co.id/api/banner/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=nama_banner&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2026-02-13 11:01:52]
+                        URL: https://api.arimbi.co.id/api/brand/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-02-13 11:01:52]
+                        URL: https://api.arimbi.co.id/api/kategori/getAll?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-02-13 11:01:52]
+                        URL: https://api.arimbi.co.id/api/groupkategori/getAll?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Group Kategori
+                        ---------------------------------------------------------
+
+                        [2026-02-13 11:01:52]
+                        URL: https://api.arimbi.co.id/api/navbar/getAll?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Navbar
+                        ---------------------------------------------------------
+
+                        [2026-02-13 11:01:52]
+                        URL: https://api.arimbi.co.id/api/company/get-social?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company Social
+                        ---------------------------------------------------------
+
+                        [2026-02-13 11:01:52]
+                        URL: https://api.arimbi.co.id/api/teks/getAll?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil menampilkan data teks
+                        ---------------------------------------------------------
+
+                        [2026-02-13 11:01:53]
+                        URL: https://api.arimbi.co.id/api/nilaidefault/getAll?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Nilai Default
+                        ---------------------------------------------------------
+
+                        [2026-02-13 11:01:53]
+                        URL: https://api.arimbi.co.id/api/payment/option?pagesize=8&limit=8&page=8&max_media=2&orderBy=fee&orderDir=asc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2026-02-13 11:01:53]
+                        URL: https://api.arimbi.co.id/api/shipping/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=fee&orderDir=asc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Opsi Shipping
+                        ---------------------------------------------------------
+
+                        [2026-02-13 11:01:53]
+                        URL: https://wilayah.web.id/api/provinces
+                        Status: 200 OK
+                        Response: Success: BACA - List of provinces
+                        ---------------------------------------------------------
+
+                        [2026-02-13 11:05:39]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-13 11:06:56]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-13 11:06:57]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-13 11:06:57]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?no_id=prod_143&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-13 11:06:57]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?pagesize=12&limit=8&page=8&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-13 11:08:11]
+                        URL: https://wilayah.web.id/api/provinces
+                        Status: 200 OK
+                        Response: Success: BACA - List of provinces
+                        ---------------------------------------------------------
+
+                        [2026-02-13 11:08:12]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-13 11:08:17]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-13 11:12:35]
+                        URL: https://api.arimbi.co.id/api/company/get-profile?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-02-13 11:12:36]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------

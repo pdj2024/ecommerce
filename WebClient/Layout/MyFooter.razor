@@ -1,0 +1,318 @@
+﻿@using WebShared.Services
+
+<div class="footer-shimer" style="display: none">
+    <footer class="d-none d-xl-flex px-0 w-100 justify-content-center" style="background-color:white; border-top: 1px solid darkgray">
+        <div class="row w-100">
+            <div class="col-12 py-5 px-0 px-lg-3 px-xl-5 px-xxl-10">
+                <div class="row px-4 py-5">
+                    <div class="table-responsive" aria-busy="true">
+                        <table class="table">
+                            <thead>
+                                <tr class="border-0">
+                                    <th class="border-0"><div class="skeleton" style="width:120px;height:16px;border-radius:8px;border:unset"></div></th>
+                                    <th class="border-0"><div class="skeleton" style="width:160px;height:16px;border-radius:8px;border:unset"></div></th>
+                                    <th class="border-0"><div class="skeleton" style="width:80px;height:16px;border-radius:8px;border:unset"></div></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-0">
+                                    <td class="border-0"><div class="skeleton" style="width:80%;height:14px;border-radius:6px;border:unset"></div></td>
+                                    <td class="border-0"><div class="skeleton" style="width:60%;height:14px;border-radius:6px;border:unset"></div></td>
+                                    <td class="border-0"><div class="skeleton" style="width:40px;height:14px;border-radius:6px;border:unset"></div></td>
+                                </tr>
+                                <tr class="border-0">
+                                    <td class="border-0"><div class="skeleton" style="width:70%;height:14px;border-radius:6px;border:unset"></div></td>
+                                    <td class="border-0"><div class="skeleton" style="width:50%;height:14px;border-radius:6px;border:unset"></div></td>
+                                    <td class="border-0"><div class="skeleton" style="width:40px;height:14px;border-radius:6px;border:unset"></div></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 d-flex align-items-center justify-content-center" style="background-color:#1500b2">
+                <h5 style="width:fit-content; color:white; font-weight:400; font-size:15px;" class="py-4">Copyright by PT. Pacific Data Jaya ©2025</h5>
+            </div>
+        </div>
+
+    </footer>
+
+    <footer class="d-flex d-xl-none px-0 w-100 justify-content-center" style="background-color:white; border-top: 1px solid darkgray">
+        <div class="row w-100">
+
+            <div class="col-12 py-5 px-0 px-lg-3 px-xl-5 px-xxl-10">
+                <div class="row px-4 py-5">
+                    <div class="table-responsive" aria-busy="true">
+                        <table class="table">
+                            <thead>
+                                <tr class="border-0">
+                                    <th class="border-0"><div class="skeleton" style="width:120px;height:16px;border-radius:8px;border:unset"></div></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-0">
+                                    <td class="border-0"><div class="skeleton" style="width:80%;height:14px;border-radius:6px;border:unset"></div></td>
+                                </tr>
+                                <tr class="border-0">
+                                    <td class="border-0"><div class="skeleton" style="width:70%;height:14px;border-radius:6px;border:unset"></div></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 d-flex align-items-center justify-content-center" style="background-color:#1500b2">
+                <h5 style="width:fit-content; color:white; font-weight:400; font-size:15px;" class="py-4">Copyright by PT. Pacific Data Jaya ©2025</h5>
+            </div>
+        </div>
+
+    </footer>
+</div>
+
+<div class="footer-content" style="display: flex">
+    <!-- Start Footer Area -->
+    <footer class="d-none d-xl-flex px-0 w-100 justify-content-center" style="background-color:white; border-top: 1px solid darkgray">
+        <div class="row w-100">
+
+            <div class="col-12 py-5 px-0 px-lg-3 px-xl-5 px-xxl-10">
+                <div class="row px-4 py-5">
+
+                    <div class="col-5 section-footer">
+                        <h5 class="mb-3 head-footer" >Tentang Kami</h5>
+                        <p class="mb-3" style="white-space: pre-line;text-align: justify;">
+                            @GlobalDataService.GlobalData.DataHomepage.Company?.About
+                        </p>
+                    </div>
+
+                    <div class="col-3 section-footer ps-5">
+                        <h5 class="mb-3 head-footer" >Layanan Pelanggan</h5>
+                        <ul>
+                            <li>
+                                <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#1f1f1f">
+                                    <path d="M480.21-480Q510-480 531-501.21t21-51Q552-582 530.79-603t-51-21Q450-624 429-602.79t-21 51Q408-522 429.21-501t51 21ZM480-191q119-107 179.5-197T720-549q0-105-68.5-174T480-792q-103 0-171.5 69T240-549q0 71 60.5 161T480-191Zm0 95Q323.03-227.11 245.51-339.55 168-452 168-549q0-134 89-224.5T479.5-864q133.5 0 223 90.5T792-549q0 97-77 209T480-96Zm0-456Z"/>
+                                </svg>
+                                <span class="underline-anim">
+                                    <a style="color:#222" href="@GlobalDataService?.GlobalData?.DataHomepage?.Company?.Gmap" target="_blank">
+                                        @GlobalDataService?.GlobalData?.DataHomepage?.Company?.Alamat_Toko
+                                    </a>
+                                </span>
+                            </li>
+                            <li>
+                                <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#1f1f1f">
+                                    <path d="M168-192q-29.7 0-50.85-21.16Q96-234.32 96-264.04v-432.24Q96-726 117.15-747T168-768h624q29.7 0 50.85 21.16Q864-725.68 864-695.96v432.24Q864-234 842.85-213T792-192H168Zm312-240L168-611v347h624v-347L480-432Zm0-85 312-179H168l312 179Zm-312-94v-85 432-347Z"/>
+                                </svg>
+                                <span class="underline-anim">
+                                    <a style="color:#222" href="@MailUrl" target="_blank">
+                                        @GlobalDataService?.GlobalData?.DataHomepage?.Company?.Email
+                                    </a>
+                                </span>
+                            </li>
+                            <li>
+                                <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#1f1f1f">
+                                    <path d="m614-310 51-51-149-149v-210h-72v240l170 170ZM480-96q-79.38 0-149.19-30T208.5-208.5Q156-261 126-330.96t-30-149.5Q96-560 126-630q30-70 82.5-122t122.46-82q69.96-30 149.5-30t149.55 30.24q70 30.24 121.79 82.08 51.78 51.84 81.99 121.92Q864-559.68 864-480q0 79.38-30 149.19T752-208.5Q700-156 629.87-126T480-96Zm0-384Zm.48 312q129.47 0 220.5-91.5Q792-351 792-480.48q0-129.47-91.02-220.5Q609.95-792 480.48-792 351-792 259.5-700.98 168-609.95 168-480.48 168-351 259.5-259.5T480.48-168Z"/>
+                                </svg>
+                                <span>
+                                    @GlobalDataService?.GlobalData?.DataHomepage?.Company?.Jam_Buka, @GlobalDataService?.GlobalData?.DataHomepage?.Company?.Hari_Buka
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-4 section-footer ps-5">
+                        <h5 class="mb-3 head-footer" >Sosial Media</h5>
+                        <ul>
+                            <li>
+                                <div class="d-flex flex-row gap-3">
+                                    @foreach (var company in GlobalDataService?.GlobalData.DataHomepage.Socials)
+                                    {
+                                        <div style="width:35px; height:30px;">
+                                            <NavLink target="_blank" class="w-100 h-100 media-sosial" style="border-radius: 5px;" href="@company.Url"><img class="w-100 h-100" src="@company.Id_Media" alt="Alternate Text" /></NavLink>
+                                        </div>
+                                    }
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-12 d-flex align-items-center justify-content-center" style="background-color:#1500b2">
+                <h5 style="width:fit-content; color:white; font-weight:400; font-size:15px;" class="py-4">Copyright by PT. Pacific Data Jaya ©2025</h5>
+            </div>
+        </div>
+
+    </footer>
+
+    <footer class="d-flex d-xl-none px-0 w-100 justify-content-center" style="background-color:white; border-top: 1px solid darkgray">
+   
+        <div class="row w-100">
+
+            <div class="col-12 px-2 py-4">
+                <div class="filters">
+                    <div class="filter-accordion py-2">
+                        <input type="checkbox" id="filter-about" checked="checked" class="filter-toggle">
+                        <label for="filter-about" class="filter-label">Tentang Kami</label>
+                        <div class="filter-content">
+                            <div class="col-12 section-footer">
+                                <p style="white-space: pre-line;text-align: justify;">
+                                    @GlobalDataService?.GlobalData?.DataHomepage?.Company?.About
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter-accordion py-2">
+                        <input type="checkbox" id="filter-service" class="filter-toggle">
+                        <label for="filter-service" class="filter-label">Layanan Pelanggan</label>
+                        <div class="filter-content">
+                            <div class="col-12 section-footer">
+                                <ul>
+                                    <li>
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#1f1f1f">
+                                            <path d="M480.21-480Q510-480 531-501.21t21-51Q552-582 530.79-603t-51-21Q450-624 429-602.79t-21 51Q408-522 429.21-501t51 21ZM480-191q119-107 179.5-197T720-549q0-105-68.5-174T480-792q-103 0-171.5 69T240-549q0 71 60.5 161T480-191Zm0 95Q323.03-227.11 245.51-339.55 168-452 168-549q0-134 89-224.5T479.5-864q133.5 0 223 90.5T792-549q0 97-77 209T480-96Zm0-456Z"/>
+                                        </svg>
+                                        <span class="underline-anim">
+                                            <a style="color:#222" href="@GlobalDataService?.GlobalData?.DataHomepage?.Company?.Gmap" target="_blank">
+                                                @GlobalDataService?.GlobalData?.DataHomepage?.Company?.Alamat_Toko
+                                            </a>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#1f1f1f">
+                                            <path d="M168-192q-29.7 0-50.85-21.16Q96-234.32 96-264.04v-432.24Q96-726 117.15-747T168-768h624q29.7 0 50.85 21.16Q864-725.68 864-695.96v432.24Q864-234 842.85-213T792-192H168Zm312-240L168-611v347h624v-347L480-432Zm0-85 312-179H168l312 179Zm-312-94v-85 432-347Z"/>
+                                        </svg>
+
+                                        <span class="underline-anim">
+                                            <a style="color:#222" href="@MailUrl" target="_blank">
+                                                @GlobalDataService?.GlobalData?.DataHomepage?.Company?.Email
+                                            </a>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#1f1f1f">
+                                            <path d="m614-310 51-51-149-149v-210h-72v240l170 170ZM480-96q-79.38 0-149.19-30T208.5-208.5Q156-261 126-330.96t-30-149.5Q96-560 126-630q30-70 82.5-122t122.46-82q69.96-30 149.5-30t149.55 30.24q70 30.24 121.79 82.08 51.78 51.84 81.99 121.92Q864-559.68 864-480q0 79.38-30 149.19T752-208.5Q700-156 629.87-126T480-96Zm0-384Zm.48 312q129.47 0 220.5-91.5Q792-351 792-480.48q0-129.47-91.02-220.5Q609.95-792 480.48-792 351-792 259.5-700.98 168-609.95 168-480.48 168-351 259.5-259.5T480.48-168Z"/>
+                                        </svg>
+
+                                        <span>
+                                            @GlobalDataService?.GlobalData?.DataHomepage?.Company?.Jam_Buka, @GlobalDataService?.GlobalData?.DataHomepage?.Company?.Hari_Buka
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter-accordion py-2">
+                        <input type="checkbox" id="filter-Sosial Media" class="filter-toggle">
+                        <label for="filter-Sosial Media" class="filter-label">Sosial Media</label>
+                        <div class="filter-content">
+                            <div class="col-12 section-footer">
+                                <ul>
+                                    <li>
+                                        <div class="d-flex flex-row gap-3">
+                                            @foreach (var company in GlobalDataService?.GlobalData.DataHomepage.Socials)
+                                            {
+                                                <div style="width:35px; height:30px;">
+                                                    <NavLink target="_blank" class="w-100 h-100 media-sosial" style="border-radius: 5px;" href="@company.Url"><img class="w-100 h-100" src="@company.Id_Media" alt="Alternate Text" /></NavLink>
+                                                </div>
+                                            }
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 d-flex align-items-center justify-content-center" style="background-color:#1500b2">
+                <h5 style="width:fit-content; color:white; font-weight:400; font-size:13px;" class="py-4">Copyright by PT. Pacific Data Jaya ©2025</h5>
+            </div>
+
+        </div>
+
+    </footer>
+    <!--/ End Footer Area -->
+</div>
+
+
+
+
+<style>
+    .section-footer h5 {
+        font-weight: 400;
+        font-size: 22px;
+        letter-spacing: -0.7px;
+    }
+    .section-footer p {
+        font-weight: 400;
+        font-size: 14px;
+    }
+    .section-footer li {
+        font-weight: 400;
+        font-size: 14px;
+        margin-bottom:5px;
+    }
+    .section-footer li {
+        display:flex;
+        flex-direction:row;
+        gap:10px;
+        align-items:center;
+        justify-content:start;
+    }
+
+    .filter-content {
+        border:unset;
+    }
+
+    .filter-content p {
+        font-weight: 400;
+        font-size: 14px;
+    }
+    
+    label.filter-label {
+        font-weight: 400;
+        font-size: 18px;
+        letter-spacing: -0.7px;
+    }
+</style>
+
+
+@code {
+
+    [Inject]
+    protected IJSRuntime JSRuntime { get; set; }
+    [Inject]
+    protected GlobalDataService GlobalDataService { get; set; }
+    [Inject]
+    protected ScopedDataServices ScopedDataServices { get; set; }
+    [Inject]
+    protected NewPdjService NewPdjService { get; set; }
+
+    public bool loadContent { get; set; } = true;
+    public string MailUrl { get; set; } = "";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+
+            // var companyTask = NewPdjService.GetListGlobalDataAsync<Company>(new ParameterApi
+            // {
+            //     routeApi = "company",
+            //     prosesApi = "get-profile",
+            //     ParamUrl = new ParameterApi.ParameterUrl { no_id = "comp_1" }
+            // });
+
+            // await Task.WhenAll(companyTask);
+
+            MailUrl = $"https://mail.google.com/mail/?view=cm&fs=1&to={GlobalDataService?.GlobalData?.DataHomepage?.Company?.Email}&su=Permintaan%20Informasi%20Produk%20Terbaru%20%E2%80%93%20{GlobalDataService?.GlobalData?.DataHomepage?.Company?.Nama_Toko}&body=Halo%20Tim%20{GlobalDataService?.GlobalData?.DataHomepage?.Company?.Nama_Toko}%2C%0A%0ASaya%20tertarik%20dengan%20produk%20Anda%20dan%20ingin%20mendapatkan%20informasi%20lebih%20lanjut.%0A%0ABerikut%20detail%20permintaan%20saya%3A%0A-%20Nama%3A%20%5BNama%20Anda%5D%0A-%20Perusahaan%3A%20%5BNama%20Perusahaan%20Anda%5D%0A-%20Produk%20yang%20diminati%3A%20%5BNama%20Produk%5D%0A-%20Pertanyaan%20tambahan%3A%20%5BTuliskan%20pertanyaan%20Anda%5D%0A%0AMohon%20informasinya%20beserta%20katalog%2Fpenawaran%20harga%20jika%20memungkinkan.%0A%0ATerima%20kasih%2C%0A%5BNama%20Anda%5D%0A%5BNo.%20Telepon%5D";
+
+            await JSRuntime.InvokeVoidAsync("initFooter");
+            StateHasChanged();
+
+        }
+    }
+
+}

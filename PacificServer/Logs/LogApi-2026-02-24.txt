@@ -1,0 +1,24 @@
+
+                        [2026-02-24 12:47:03]
+                        URL: https://api.arimbi.co.id/api/company/get-profile?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-02-24 12:47:03]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-24 12:47:16]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-24 12:47:23]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------

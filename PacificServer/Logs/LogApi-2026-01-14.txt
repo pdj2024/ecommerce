@@ -1,0 +1,204 @@
+
+                        [2026-01-14 09:45:17]
+                        URL: http://217.216.34.207:87/api/bulk/homepage?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-01-14 09:45:19]
+                        URL: http://217.216.34.207:87/api/company/get-profile?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-01-14 09:47:27]
+                        URL: http://217.216.34.207:87/api/bulk/homepage?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-01-14 10:02:56]
+                        URL: http://217.216.34.207:87/api/company/get-profile?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-01-14 10:02:56]
+                        URL: http://217.216.34.207:87/api/bulk/homepage?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-01-14 10:03:15]
+                        URL: http://217.216.34.207:87/api/bulk/homepage?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-01-14 10:03:21]
+                        URL: http://217.216.34.207:87/api/bulk/homepage?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-01-14 10:04:54]
+                        URL: http://217.216.34.207:87/api/bulk/homepage?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-01-14 15:09:15]
+                        URL: http://217.216.34.207:87/api/company/get-profile?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-01-14 15:09:16]
+                        URL: http://217.216.34.207:87/api/bulk/homepage?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-01-14 16:19:49] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-14 16:20:23] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-14 16:20:23]
+                        URL: http://217.216.34.207:87/api/company/get-profile?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-01-14 16:20:38] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-14 16:33:33]
+                        URL: http://217.216.34.207:87/api/company/get-profile?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-01-14 16:33:34]
+                        URL: http://217.216.34.207:87/api/bulk/homepage?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-01-14 16:36:42] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-14 16:37:43] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-14 16:37:43]
+                        URL: http://217.216.34.207:87/api/company/get-profile?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-01-14 16:38:15]
+                        URL: http://217.216.34.207:87/api/bulk/homepage?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-01-14 16:39:30]
+                        URL: http://217.216.34.207:87/api/bulk/homepage?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-01-14 16:40:53]
+                        URL: http://217.216.34.207:87/api/company/get-profile?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-01-14 16:40:54]
+                        URL: http://217.216.34.207:87/api/bulk/homepage?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-01-14 16:44:12] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-14 16:45:19]
+                        URL: http://217.216.34.207:87/api/bulk/homepage?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-01-14 16:45:43]
+                        URL: http://217.216.34.207:87/api/bulk/homepage?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-01-14 16:47:12]
+                        URL: http://217.216.34.207:87/api/bulk/homepage?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-01-14 16:56:39]
+                        URL: http://217.216.34.207:87/api/company/get-profile?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-01-14 16:56:39]
+                        URL: http://217.216.34.207:87/api/bulk/homepage?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-01-14 17:08:07]
+                        URL: http://217.216.34.207:87/api/company/get-profile?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-01-14 17:08:08]
+                        URL: http://217.216.34.207:87/api/bulk/homepage?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-01-14 17:22:57]
+                        URL: http://217.216.34.207:87/api/bulk/homepage?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-01-14 17:22:58]
+                        URL: http://217.216.34.207:87/api/company/get-profile?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-01-14 17:22:59]
+                        URL: http://217.216.34.207:87/api/banner/getAll?pagesize=3&max_media=2&orderBy=nama_banner&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2026-01-14 17:23:06]
+                        URL: http://217.216.34.207:87/api/bulk/homepage?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-01-14 17:25:52]
+                        URL: http://217.216.34.207:87/api/bulk/homepage?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------

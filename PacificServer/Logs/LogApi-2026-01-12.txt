@@ -1,0 +1,286 @@
+
+                        [2026-01-12 09:40:14] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:40:19] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:40:25] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:40:30] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:40:35] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:40:41] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:40:46] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:40:51] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:40:57] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:41:02] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:41:07] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:41:12] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:41:18] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:41:26] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:41:31] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:41:37] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:41:42] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:41:48] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:41:54] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:42:00] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:42:05] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:42:10] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:42:16] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:42:21] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:42:26] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:42:32] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:42:37] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:42:42] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:42:47] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:42:52] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:42:58] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:43:03] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:43:08] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:43:13] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:43:19] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:43:24] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:43:29] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:43:34] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:43:39] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:43:44] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:43:47]
+                        URL: http://217.216.34.207:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:43:50]
+                        URL: http://217.216.34.207:87/api/kategori/getAll?pagesize=3&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:44:08]
+                        URL: http://217.216.34.207:87/api/company/get-profile?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:44:11]
+                        URL: http://217.216.34.207:87/api/navbar/getAll?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Navbar
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:44:14]
+                        URL: http://217.216.34.207:87/api/company/get-social?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company Social
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:44:14]
+                        URL: http://217.216.34.207:87/api/teks/getAll?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil menampilkan data teks
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:44:18]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:44:19]
+                        URL: http://217.216.34.207:87/api/banner/getAll?pagesize=3&max_media=2&orderBy=nama_banner&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:45:25]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:45:26]
+                        URL: http://217.216.34.207:87/api/groupkategori/getAll?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Group Kategori
+                        ---------------------------------------------------------
+
+                        [2026-01-12 09:45:26]
+                        URL: http://217.216.34.207:87/api/produk/search?pagesize=12&max_media=2&orderBy=nama_display&orderDir=asc&kategoriid_list=kategori_8&brandid_list=&strict_kategori=True&all_item=False&show_variant=True&cursor_id=&cursor_nama=&cursor_harga=&show_media=true&status=aktif&keyword=
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Search
+                        ---------------------------------------------------------
+
+                        [2026-01-12 13:29:59]
+                        URL: http://217.216.34.207:87/api/company/get-profile?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-01-12 13:30:02]
+                        URL: http://217.216.34.207:87/api/navbar/getAll?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Navbar
+                        ---------------------------------------------------------
+
+                        [2026-01-12 13:30:03]
+                        URL: http://217.216.34.207:87/api/company/get-social?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company Social
+                        ---------------------------------------------------------
+
+                        [2026-01-12 13:30:04]
+                        URL: http://217.216.34.207:87/api/teks/getAll?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil menampilkan data teks
+                        ---------------------------------------------------------
+
+                        [2026-01-12 13:30:09]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-12 13:30:10]
+                        URL: http://217.216.34.207:87/api/banner/getAll?pagesize=3&max_media=2&orderBy=nama_banner&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2026-01-12 13:30:10]
+                        URL: http://217.216.34.207:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-01-12 13:30:11]
+                        URL: http://217.216.34.207:87/api/kategori/getAll?pagesize=3&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-01-12 13:40:11]
+                        URL: http://217.216.34.207:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-01-12 13:40:12]
+                        URL: http://217.216.34.207:87/api/kategori/getAll?pagesize=3&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------

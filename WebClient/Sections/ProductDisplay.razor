@@ -1,0 +1,100 @@
+﻿
+<div class="single-product">
+    <div class="product-image" style="height: 13.1rem;">
+        @if (DataProduk.MediaUrls.Count() >= 2)
+        {
+            <img class="d-none d-md-flex" @onclick="@(e => NavigateToDetailProduk(DataProduk.No_Id))" src="@(DataProduk.MediaUrls[0]?.Id_Media == null || DataProduk.MediaUrls[0]?.Id_Media == "" ? "/images/products/placeholder1.png" : DataProduk.MediaUrls[0]?.Id_Media)" alt="@DataProduk.Nama_Display" style="object-fit: contain; cursor: pointer;height: 100%;">
+            <img class="img2 d-none d-md-flex" @onclick="@(e => NavigateToDetailProduk(DataProduk.No_Id))" src="@(DataProduk.MediaUrls[1]?.Id_Media == null || DataProduk.MediaUrls[1]?.Id_Media == "" ? "/images/products/placeholder1.png" : DataProduk.MediaUrls[1]?.Id_Media)" alt="@DataProduk.Nama_Display" style="object-fit: contain; cursor: pointer;height: 100%;">
+        }
+        else if (DataProduk.MediaUrls.Count() == 1)
+        {
+            <img class="d-none d-md-flex" @onclick="@(e => NavigateToDetailProduk(DataProduk.No_Id))" src="@(DataProduk.MediaUrls[0]?.Id_Media == null || DataProduk.MediaUrls[0]?.Id_Media == "" ? "/images/products/placeholder1.png" : DataProduk.MediaUrls[0]?.Id_Media)" alt="@DataProduk.Nama_Display" style="object-fit: contain; cursor: pointer;height: 100%;">
+        }
+        else
+        {
+            <img class="d-none d-md-flex" @onclick="@(e => NavigateToDetailProduk(DataProduk.No_Id))" src="/images/products/placeholder1.png" alt="@DataProduk.Nama_Display" style="object-fit: contain; cursor: pointer;height: 100%;">
+        }
+
+        @if (DataProduk.MediaUrls.Count() >= 2)
+        {
+            <img class="d-flex d-md-none" @onclick="@(e => NavigateToDetailProduk(DataProduk.No_Id))" src="@(DataProduk.MediaUrls[0]?.Id_Media == null || DataProduk.MediaUrls[0]?.Id_Media == "" ? "/images/products/placeholder1.png" : DataProduk.MediaUrls[0]?.Id_Media)" alt="@DataProduk.Nama_Display" style="object-fit: contain; cursor: pointer;height: 100%;">
+        }
+        else if (DataProduk.MediaUrls.Count() == 1)
+        {
+            <img class="d-flex d-md-none" @onclick="@(e => NavigateToDetailProduk(DataProduk.No_Id))" src="@(DataProduk.MediaUrls[0]?.Id_Media == null || DataProduk.MediaUrls[0]?.Id_Media == "" ? "/images/products/placeholder1.png" : DataProduk.MediaUrls[0]?.Id_Media)" alt="@DataProduk.Nama_Display" style="object-fit: contain; cursor: pointer;height: 100%;">
+        }
+        else
+        {
+            <img class="d-flex d-md-none" @onclick="@(e => NavigateToDetailProduk(DataProduk.No_Id))" src="/images/products/placeholder1.png" alt="@DataProduk.Nama_Display" style="object-fit: contain; cursor: pointer;height: 100%;">
+        }
+
+        <span class="sale-tag d-flex flex-row gap-1 bg-transparent">
+            @if (DataProduk.Diskon1 != null && DataProduk.Diskon1 >= 1)
+            {
+                <span class="bg-primary px-2 py-1">-@DataProduk.Diskon1.ToString()%</span>
+            }
+
+            @if (DataProduk.Tgl_Created != null && (DateTime.Now - DataProduk.Tgl_Created).TotalDays <= 3)
+            {
+                <span class="px-2 py-1 bg-success">New</span>
+            }
+        </span>
+        
+        
+
+
+        <div class="button">
+            <button @onclick="@(e => selectProduk.InvokeAsync(DataProduk.No_Id))" data-bs-toggle="offcanvas" data-bs-target="#offdetailprod" aria-controls="offdetailprod" class="btn d-none d-md-flex">Tambahkan <i class="lni lni-cart-1 ms-3"></i></button>
+        </div>
+
+        <div class="button-search-produk d-none d-md-flex">
+            <button @onclick="@(e => selectProduk.InvokeAsync(DataProduk.No_Id))" data-bs-toggle="offcanvas" data-bs-target="#offdetailprod" aria-controls="offdetailprod" class="btn">
+                <i class="lni lni-search-1 d-none d-md-flex"></i>
+                <i class="lni lni-cart-1 d-flex d-md-none"></i>
+            </button>
+        </div>
+        
+        <span class="sale-tag flex-row gap-1 bg-transparent d-flex d-md-none" style="padding: 0px;top: unset;bottom: 15px;left: unset;right: 15px;">
+            <button style="height: 45px; padding:8px 11px; border-radius:100%" @onclick="@(e => selectProduk.InvokeAsync(DataProduk.No_Id))" data-bs-toggle="offcanvas" data-bs-target="#offdetailprod" aria-controls="offdetailprod" class="btn btn-slide border-0">
+                <i class="lni lni-search-1 d-none d-md-flex"></i>
+                <i class="lni lni-cart-1 d-flex d-md-none" style="font-size: 20px;"></i>
+            </button>
+        </span>
+
+        @* <div class="button-search-produk d-flex d-md-none" style="left: 78%;bottom: 10px;opacity:1;visibility:visible;bottom:10px; top:unset; height:40px">
+        </div> *@
+    </div>
+    <div class="product-info">
+        <h4 class="title">
+            <NavLink style="cursor:pointer;max-height: 70px;overflow: hidden;" @onclick="@(e => NavigateToDetailProduk(DataProduk.No_Id))">
+                <p class="line-clamp-2 underline-anim">
+                    @DataProduk.Nama_Display
+                </p>
+            </NavLink>
+        </h4>
+        @* <ul class="review">
+            <li><i class="lni lni-star-filled"></i></li>
+            <li><i class="lni lni-star-filled"></i></li>
+            <li><i class="lni lni-star-filled"></i></li>
+            <li><i class="lni lni-star-filled"></i></li>
+            <li><i class="lni lni-star"></i></li>
+            <li><span>4.0 Review(s)</span></li>
+        </ul> *@
+        <div class="price">
+            <span>
+                @if (DataProduk.Diskon1 != null && DataProduk.Diskon1 >= 1)
+                {
+                    @string.Format("Rp. {0:N0}", (DataProduk.Harga - ((DataProduk.Diskon1 / 100) * DataProduk.Harga)))
+                }
+                else
+                {
+                    @string.Format("Rp. {0:N0}", DataProduk.Harga)
+                }
+            </span>
+            @if (DataProduk.Diskon1 != null && DataProduk.Diskon1 >= 1)
+            {
+                <span class="discount-price">@string.Format("Rp. {0:N0}", DataProduk.Harga)</span>
+            }
+        </div>
+    </div>
+</div>

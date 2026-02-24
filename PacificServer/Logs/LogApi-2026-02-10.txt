@@ -1,0 +1,1416 @@
+
+                        [2026-02-10 09:26:04]
+                        URL: https://api.arimbi.co.id/api/company/get-profile?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:26:04]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:26:05]
+                        URL: https://api.arimbi.co.id/api/navbar/getAll?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Navbar
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:26:05]
+                        URL: https://api.arimbi.co.id/api/company/get-social?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company Social
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:26:05]
+                        URL: https://api.arimbi.co.id/api/teks/getAll?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil menampilkan data teks
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:26:06]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?pagesize=12&limit=8&page=8&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:26:06]
+                        URL: https://api.arimbi.co.id/api/brand/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:26:06]
+                        URL: https://api.arimbi.co.id/api/kategori/getAll?pagesize=3&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:26:07]
+                        URL: https://api.arimbi.co.id/api/banner/getAll?pagesize=3&limit=8&page=8&max_media=2&orderBy=nama_banner&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:29:13]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:29:14]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?pagesize=12&limit=8&page=8&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:46:24]
+                        URL: https://api.arimbi.co.id/api/auth/check?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: Check-Phone - 
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:46:27]
+                        URL: https://api.arimbi.co.id/api/auth/request-otp?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: Check-Phone - OTP berhasil dibuat
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:46:39]
+                        URL: https://api.arimbi.co.id/api/auth/change-password?
+                        Status: 200 OK
+                        Response: Success: Change-change-password - Password berhasil diubah
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:46:44]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:46:44]
+                        URL: https://api.arimbi.co.id/api/company/get-profile?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:46:44]
+                        URL: https://api.arimbi.co.id/api/navbar/getAll?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Navbar
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:46:45]
+                        URL: https://api.arimbi.co.id/api/company/get-social?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company Social
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:46:45]
+                        URL: https://api.arimbi.co.id/api/teks/getAll?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil menampilkan data teks
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:46:45]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?pagesize=12&limit=8&page=8&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:46:46]
+                        URL: https://api.arimbi.co.id/api/brand/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:46:46]
+                        URL: https://api.arimbi.co.id/api/kategori/getAll?pagesize=3&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:46:47]
+                        URL: https://api.arimbi.co.id/api/banner/getAll?pagesize=3&limit=8&page=8&max_media=2&orderBy=nama_banner&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:48:24]
+                        URL: https://api.arimbi.co.id/api/auth/login?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 401 Unauthorized
+                        Response: Client error: Check-Login - Nomor HP atau password salah / akun tidak aktif
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:48:27]
+                        URL: https://api.arimbi.co.id/api/auth/login?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 401 Unauthorized
+                        Response: Client error: Check-Login - Nomor HP atau password salah / akun tidak aktif
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:48:28]
+                        URL: https://api.arimbi.co.id/api/auth/login?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 401 Unauthorized
+                        Response: Client error: Check-Login - Nomor HP atau password salah / akun tidak aktif
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:48:34]
+                        URL: https://api.arimbi.co.id/api/auth/login?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 401 Unauthorized
+                        Response: Client error: Check-Login - Nomor HP atau password salah / akun tidak aktif
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:48:38]
+                        URL: https://api.arimbi.co.id/api/auth/login?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 401 Unauthorized
+                        Response: Client error: Check-Login - Nomor HP atau password salah / akun tidak aktif
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:48:51]
+                        URL: https://api.arimbi.co.id/api/auth/login?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 401 Unauthorized
+                        Response: Client error: Check-Login - Nomor HP atau password salah / akun tidak aktif
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:52:55]
+                        URL: https://api.arimbi.co.id/api/auth/login?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: Check-Login - Login berhasil
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:52:57]
+                        URL: https://api.arimbi.co.id/api/auth/login?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: Check-Login - Login berhasil
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:52:58]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:52:59]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?pagesize=12&limit=8&page=8&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:53:15]
+                        URL: https://api.arimbi.co.id/api/auth/check?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: Check-Phone - 
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:53:17]
+                        URL: https://api.arimbi.co.id/api/auth/request-otp?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: Check-Phone - OTP berhasil dibuat
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:53:36]
+                        URL: https://api.arimbi.co.id/api/auth/change-password?
+                        Status: 200 OK
+                        Response: Success: Change-change-password - Password berhasil diubah
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:53:52]
+                        URL: https://api.arimbi.co.id/api/auth/login?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: Check-Login - Login berhasil
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:53:54]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:53:55]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:53:55]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?pagesize=12&limit=8&page=8&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:53:55]
+                        URL: https://api.arimbi.co.id/api/customer/getAll?no_id=cus_61&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:53:55]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:53:56]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:53:56]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:54:03]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?no_id=prod_134&pagesize=2&limit=8&page=8&max_media=10&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:54:15]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?no_id=prod_135&pagesize=2&limit=8&page=8&max_media=10&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:57:45]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?no_id=prod_134&pagesize=2&limit=8&page=8&max_media=10&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:57:50]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?no_id=prod_137&pagesize=2&limit=8&page=8&max_media=10&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:58:02]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?no_id=prod_137&pagesize=2&limit=8&page=8&max_media=10&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:58:13]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?no_id=prod_137&pagesize=2&limit=8&page=8&max_media=10&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:58:24]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?no_id=prod_138&pagesize=2&limit=8&page=8&max_media=10&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:59:05]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:59:05]
+                        URL: https://api.arimbi.co.id/api/company/get-profile?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:59:05]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:59:05]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:59:05]
+                        URL: https://api.arimbi.co.id/api/customer/getAll?no_id=cus_61&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:59:05]
+                        URL: https://api.arimbi.co.id/api/navbar/getAll?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Navbar
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:59:05]
+                        URL: https://api.arimbi.co.id/api/company/get-social?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company Social
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:59:05]
+                        URL: https://api.arimbi.co.id/api/teks/getAll?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil menampilkan data teks
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:59:07]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?pagesize=12&limit=8&page=8&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:59:08]
+                        URL: https://api.arimbi.co.id/api/brand/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:59:08]
+                        URL: https://api.arimbi.co.id/api/kategori/getAll?pagesize=3&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:59:09]
+                        URL: https://api.arimbi.co.id/api/banner/getAll?pagesize=3&limit=8&page=8&max_media=2&orderBy=nama_banner&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:59:10]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-02-10 09:59:10]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:07:24]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:07:24]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:07:24]
+                        URL: https://api.arimbi.co.id/api/customer/getAll?no_id=cus_61&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:07:24]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:07:24]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?pagesize=12&limit=8&page=8&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:07:24]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:07:24]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:07:29]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?no_id=prod_143&pagesize=2&limit=8&page=8&max_media=10&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:07:39]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?no_id=prod_140&pagesize=2&limit=8&page=8&max_media=10&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:08:12]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?no_id=prod_139&pagesize=2&limit=8&page=8&max_media=10&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:08:20]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?no_id=prod_142&pagesize=2&limit=8&page=8&max_media=10&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:08:37]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?no_id=prod_135&pagesize=2&limit=8&page=8&max_media=10&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:08:46]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?no_id=prod_138&pagesize=2&limit=8&page=8&max_media=10&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:08:55]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 401 Unauthorized
+                        Response: Client error: TAMBAH - Permintaan Tidak Ditemukan
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:08:59]
+                        URL: https://api.arimbi.co.id/api/Auth/refresh
+                        Status: 200 OK
+                        Response: Success: RefreshToken - 
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:08:59] - Error API Connection
+                        Message: ✅ Refresh Token berhasil diperbarui.
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:09:03]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 405 Method Not Allowed
+                        Response: Client error: BACA - Permintaan Tidak Ditemukan
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:09:16]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?no_id=prod_135&pagesize=2&limit=8&page=8&max_media=10&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:09:22]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:09:27]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?no_id=prod_135&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:09:27]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:09:28]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?pagesize=12&limit=8&page=8&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:09:28]
+                        URL: https://api.arimbi.co.id/api/banner/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=nama_banner&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:09:29]
+                        URL: https://api.arimbi.co.id/api/brand/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:09:29]
+                        URL: https://api.arimbi.co.id/api/kategori/getAll?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:09:29]
+                        URL: https://api.arimbi.co.id/api/groupkategori/getAll?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Group Kategori
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:09:29]
+                        URL: https://api.arimbi.co.id/api/company/get-profile?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:09:30]
+                        URL: https://api.arimbi.co.id/api/navbar/getAll?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Navbar
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:09:30]
+                        URL: https://api.arimbi.co.id/api/company/get-social?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company Social
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:09:31]
+                        URL: https://api.arimbi.co.id/api/teks/getAll?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil menampilkan data teks
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:09:31]
+                        URL: https://api.arimbi.co.id/api/nilaidefault/getAll?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Nilai Default
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:09:31]
+                        URL: https://api.arimbi.co.id/api/payment/option?pagesize=8&limit=8&page=8&max_media=2&orderBy=fee&orderDir=asc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:09:32]
+                        URL: https://api.arimbi.co.id/api/shipping/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=fee&orderDir=asc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Opsi Shipping
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:09:38] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:10:00]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:10:01]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?pagesize=12&limit=8&page=8&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:10:02]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:10:03]
+                        URL: https://api.arimbi.co.id/api/customer/getAll?no_id=cus_61&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:10:03]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:10:04]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:10:04]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:15:42]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:15:44]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:15:45]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:15:53]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:15:54]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:15:54]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:17:23]
+                        URL: https://api.arimbi.co.id/api/auth/login?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 401 Unauthorized
+                        Response: Client error: Login - Nomor HP atau password salah / akun tidak aktif
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:17:23]
+                        URL: https://api.arimbi.co.id/api/company/get-profile?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:17:23] - Error API Connection
+                        Message: User logout  10/02/2026 10:17:23
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:17:24]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:17:26]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:17:39]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:19:38]
+                        URL: https://api.arimbi.co.id/api/company/get-profile?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:19:39]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:20:32]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:20:43]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:31:00]
+                        URL: https://api.arimbi.co.id/api/company/get-profile?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:31:02]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:31:07]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:31:52] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:31:54]
+                        URL: https://api.arimbi.co.id/api/navbar/getAll?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Navbar
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:32:00] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:32:05] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:32:10] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:32:14]
+                        URL: https://api.arimbi.co.id/api/brand/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:32:17]
+                        URL: https://api.arimbi.co.id/api/kategori/getAll?pagesize=3&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:32:17]
+                        URL: https://api.arimbi.co.id/api/banner/getAll?pagesize=3&limit=8&page=8&max_media=2&orderBy=nama_banner&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:34:33] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:34:34]
+                        URL: https://api.arimbi.co.id/api/company/get-social?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company Social
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:34:36]
+                        URL: https://api.arimbi.co.id/api/teks/getAll?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil menampilkan data teks
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:34:39]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?pagesize=12&limit=8&page=8&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:35:50] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:40:53]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?pagesize=12&limit=8&page=8&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:41:01]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?pagesize=12&limit=8&page=8&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:41:01]
+                        URL: https://api.arimbi.co.id/api/company/get-profile?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:42:24]
+                        URL: https://api.arimbi.co.id/api/company/get-profile?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:42:25]
+                        URL: https://api.arimbi.co.id/api/navbar/getAll?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Navbar
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:42:26]
+                        URL: https://api.arimbi.co.id/api/navbar/getAll?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Navbar
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:42:27]
+                        URL: https://api.arimbi.co.id/api/company/get-social?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company Social
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:42:27]
+                        URL: https://api.arimbi.co.id/api/teks/getAll?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil menampilkan data teks
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:42:29]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?pagesize=12&limit=8&page=8&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:42:29]
+                        URL: https://api.arimbi.co.id/api/company/get-social?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company Social
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:42:30]
+                        URL: https://api.arimbi.co.id/api/brand/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:42:31]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?pagesize=12&limit=8&page=8&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:42:32]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?pagesize=12&limit=8&page=8&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:42:32]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?pagesize=12&limit=8&page=8&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:42:36] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:42:36] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:42:37] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:42:37] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:42:41] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:42:41] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:42:42] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:42:43] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:45:14] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:45:18]
+                        URL: https://api.arimbi.co.id/api/kategori/getAll?pagesize=3&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:45:18]
+                        URL: https://api.arimbi.co.id/api/banner/getAll?pagesize=3&limit=8&page=8&max_media=2&orderBy=nama_banner&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:45:21] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:04] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:04] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:06] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:06] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:10] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:12] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:15] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:17] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:20] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:22] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:26] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:28] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:30] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:30] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:32] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:32] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:32] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:32] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:33] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:36] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:37] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:37] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:37] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:39] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:42] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:42] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:42] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:42] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:44] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:47] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:47] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:47] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:48] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:50] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:52] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:52] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:53] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:57] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:57] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:57] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:57] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:50:58] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:51:02] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:51:02] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:51:02] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:51:03] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:51:07] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:51:07] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:51:08] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:51:09] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:51:12] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:51:13] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:51:13] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:51:14] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:51:18] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:51:24] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:51:29] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:51:35] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:51:40] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:51:41] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:51:41] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:51:47] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:51:55] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:52:00] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:52:06] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:52:11] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:52:12] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:52:12] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:52:17] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:52:18] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:52:22] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:52:23] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:52:27] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:52:29] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:52:34] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:52:40] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:52:45] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:52:51] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:52:56] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:56:21] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:56:21] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:56:26] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:56:31] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:56:36] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:56:41] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:56:47] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:56:52] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:56:57] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 10:57:02] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-10 11:03:29]
+                        URL: https://api.arimbi.co.id/api/company/get-profile?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-02-10 11:03:31]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-10 11:03:34]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-10 11:03:40]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-10 11:03:59]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-10 11:05:45]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-10 11:06:08]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-10 11:09:21]
+                        URL: https://api.arimbi.co.id/api/company/get-profile?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-02-10 11:09:21]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-10 11:10:29]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-10 11:10:53]
+                        URL: https://api.arimbi.co.id/api/company/get-profile?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-02-10 11:10:54]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-10 11:18:39]
+                        URL: https://api.arimbi.co.id/api/company/get-profile?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-02-10 11:18:40]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-10 11:18:47]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-10 16:42:26]
+                        URL: https://api.arimbi.co.id/api/company/get-profile?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-02-10 16:42:26]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-10 16:42:55]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?no_id=prod_141&pagesize=2&limit=8&page=8&max_media=10&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-10 16:42:55]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------

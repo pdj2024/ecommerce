@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace WebShared.Models
+{
+ 
+    public partial class Kategori
+    {
+        public string No_Id { get; set; } = "";
+        public string Id { get; set; } = "";
+        public string Nama_Kategori { get; set; } = "";
+        public bool Muncul_Section_Kategori { get; set; } = false;
+        public string Nama_Group_Kategori { get; set; } = "";
+        public string Id_Group_Kategori { get; set; } = "";
+        public List<string> Group_Kategori { get; set; } = new List<string>();
+        public string Status { get; set; } = "aktif";
+        public bool Checked_Filter { get; set; } = false;
+        public string Id_Media { get; set; } = "";
+        public string No_Id_Media { get; set; } = "";
+    }
+
+    public class GrubKategori
+    {
+        public string No_Id { get; set; } = "";
+        public string Nama_Group { get; set; } = "";
+        public string Status { get; set; } = "";
+    }
+}

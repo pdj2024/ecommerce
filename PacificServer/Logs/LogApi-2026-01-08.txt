@@ -1,0 +1,1694 @@
+
+                        [2026-01-08 09:50:39] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:50:44] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:50:49] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:50:55] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:51:00] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:51:05] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:51:10] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:51:16] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:51:21] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:51:26] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:51:32] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:51:37] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:51:42] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:51:47] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:51:53] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:51:58] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:52:03] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:52:08] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:52:14] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:52:19] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:52:24] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:52:29] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:52:34] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:52:39] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:52:44] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:52:49] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:52:55] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:53:00] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:53:05] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:53:10] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:53:15] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:53:20] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:53:21]
+                        URL: http://217.216.34.207:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:53:28]
+                        URL: http://217.216.34.207:87/api/kategori/getAll?pagesize=3&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:53:30]
+                        URL: http://217.216.34.207:87/api/company/get-profile?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:53:31]
+                        URL: http://217.216.34.207:87/api/navbar/getAll?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Navbar
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:53:32]
+                        URL: http://217.216.34.207:87/api/company/get-social?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company Social
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:53:32]
+                        URL: http://217.216.34.207:87/api/teks/getAll?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil menampilkan data teks
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:53:34]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:53:46]
+                        URL: http://217.216.34.207:87/api/company/get-profile?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:53:48]
+                        URL: http://217.216.34.207:87/api/navbar/getAll?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Navbar
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:53:48]
+                        URL: http://217.216.34.207:87/api/company/get-social?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company Social
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:53:48]
+                        URL: http://217.216.34.207:87/api/teks/getAll?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil menampilkan data teks
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:53:50]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:53:51]
+                        URL: http://217.216.34.207:87/api/banner/getAll?pagesize=3&max_media=2&orderBy=nama_banner&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:53:51]
+                        URL: http://217.216.34.207:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:53:51]
+                        URL: http://217.216.34.207:87/api/kategori/getAll?pagesize=3&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:54:29]
+                        URL: http://217.216.34.207:87/api/auth/check?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True
+                        Status: 200 OK
+                        Response: Success: Check-Phone - 
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:54:48]
+                        URL: http://217.216.34.207:87/api/auth/login?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True
+                        Status: 401 Unauthorized
+                        Response: Client error: Check-Login - Nomor HP atau password salah / akun tidak aktif
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:54:53]
+                        URL: http://217.216.34.207:87/api/auth/login?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True
+                        Status: 200 OK
+                        Response: Success: Check-Login - Login berhasil
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:54:55]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:54:55]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:54:55]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:54:55]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:54:55]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:54:57]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:54:57]
+                        URL: http://217.216.34.207:87/api/nilaidefault/getAll?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Nilai Default
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:54:57]
+                        URL: http://217.216.34.207:87/api/payment/option?pagesize=8&max_media=2&orderBy=fee&orderDir=asc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:54:57]
+                        URL: http://217.216.34.207:87/api/shipping/getAll?pagesize=8&max_media=2&orderBy=fee&orderDir=asc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Opsi Shipping
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:55:11]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:55:11]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:55:11]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:55:11]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:55:12]
+                        URL: http://217.216.34.207:87/api/groupkategori/getAll?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Group Kategori
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:55:12]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:55:12]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:55:12]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:55:13]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:55:13]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:55:14]
+                        URL: http://217.216.34.207:87/api/order/getAll?pagesize=5&max_media=2&orderBy=no_bukti&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status_order_1=belum bayar&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:55:14]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:55:28]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:55:28]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:55:28]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:55:30]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:55:30]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:55:30]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:55:30]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:55:31]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:55:31]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:55:31]
+                        URL: http://217.216.34.207:87/api/order/getAll?pagesize=5&max_media=2&orderBy=no_bukti&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&no_tracking_pesanan=3BA20D07&show_media=true
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:55:32]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:56:46]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:56:46]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:56:46]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:56:48]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:56:48]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:56:48]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:56:48]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:56:48]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:56:49]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:56:49]
+                        URL: http://217.216.34.207:87/api/order/getAll?pagesize=5&max_media=2&orderBy=no_bukti&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status_order_1=belum bayar&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:56:50]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:56:52]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:56:52]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:56:52]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:56:52]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:56:52]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:56:54]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:56:56]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:56:56]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:56:56]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:56:56]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:56:56]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:56:58]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:57:01]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:57:01]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:57:01]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:57:01]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:57:01]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:57:03]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:57:12]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:57:12]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:57:12]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:57:14]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:57:14]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:57:14]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:57:14]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:57:15]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:57:15]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:57:17]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:57:36]
+                        URL: http://217.216.34.207:87/api/auth/check?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True
+                        Status: 200 OK
+                        Response: Success: Check-Phone - 
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:57:37]
+                        URL: http://217.216.34.207:87/api/auth/request-otp?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True
+                        Status: 200 OK
+                        Response: Success: Check-Phone - OTP berhasil dibuat
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:57:57]
+                        URL: http://217.216.34.207:87/api/auth/change-phone?
+                        Status: 200 OK
+                        Response: Success: Change-change-phone - Nomor telepon berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:57:57]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:57:57]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:57:57]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:02]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:02]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:02]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:04]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:05]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:05]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:05]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:05]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:05]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:07]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:12]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:12]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:13]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:13]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:13]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:15]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:26]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:26]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:26]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:28]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:28]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:28]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:28]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:29]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:29]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:29]
+                        URL: http://217.216.34.207:87/api/order/getAll?pagesize=5&max_media=2&orderBy=no_bukti&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status_order_1=dikemas&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:30]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:32]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:32]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:32]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:34]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:34]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:34]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:34]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:35]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:35]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:35]
+                        URL: http://217.216.34.207:87/api/order/getAll?pagesize=5&max_media=2&orderBy=no_bukti&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=batal
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:37]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:38]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:38]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:38]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:40]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:40]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:40]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:40]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:41]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:41]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:42]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:42]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:42]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:43]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:44]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:44]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:44]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:44]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:45]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:45]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:45]
+                        URL: http://217.216.34.207:87/api/order/getAll?pagesize=5&max_media=2&orderBy=no_bukti&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status_order_1=belum bayar&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:47]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:48]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:48]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:48]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:50]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:50]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:50]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:50]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:50]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:50]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:52]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:52]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:52]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:52]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:54]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:54]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:54]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:54]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:54]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:54]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:55]
+                        URL: http://217.216.34.207:87/api/order/getAll?pagesize=5&max_media=2&orderBy=no_bukti&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status_order_1=belum bayar&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:56]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:56]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:56]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:56]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:58]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:58]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:58]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:58]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:58]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:58:59]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:59:00]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:59:00]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:59:00]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:59:00]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:59:02]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:59:02]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:59:02]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:59:02]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:59:02]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:59:02]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:59:03]
+                        URL: http://217.216.34.207:87/api/order/getAll?pagesize=5&max_media=2&orderBy=no_bukti&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status_order_1=belum bayar&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:59:03]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:59:03]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:59:03]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:59:04]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:59:06]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:59:06]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:59:06]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:59:06]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:59:06]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:59:06]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:59:06]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:59:06]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:59:06]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:59:08]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:59:09]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:59:09]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:59:09]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:59:09]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:59:09]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:59:09]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 09:59:11]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:09:40]
+                        URL: http://217.216.34.207:87/api/company/get-profile?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:09:40]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:09:40]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:09:41]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:09:41]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:09:41]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:09:41]
+                        URL: http://217.216.34.207:87/api/navbar/getAll?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Navbar
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:09:42]
+                        URL: http://217.216.34.207:87/api/company/get-social?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company Social
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:09:42]
+                        URL: http://217.216.34.207:87/api/teks/getAll?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil menampilkan data teks
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:09:44]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:09:44]
+                        URL: http://217.216.34.207:87/api/nilaidefault/getAll?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Nilai Default
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:09:44]
+                        URL: http://217.216.34.207:87/api/payment/option?pagesize=8&max_media=2&orderBy=fee&orderDir=asc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Payment Option
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:09:44]
+                        URL: http://217.216.34.207:87/api/shipping/getAll?pagesize=8&max_media=2&orderBy=fee&orderDir=asc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Opsi Shipping
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:09:44]
+                        URL: http://217.216.34.207:87/api/banner/getAll?pagesize=3&max_media=2&orderBy=nama_banner&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:09:45]
+                        URL: http://217.216.34.207:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:09:45]
+                        URL: http://217.216.34.207:87/api/kategori/getAll?pagesize=3&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:10:01]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 401 Unauthorized
+                        Response: Client error: BACA - Permintaan Tidak Ditemukan
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:10:01]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 401 Unauthorized
+                        Response: Client error: BACA - Permintaan Tidak Ditemukan
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:10:01]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 401 Unauthorized
+                        Response: Client error: BACA - Permintaan Tidak Ditemukan
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:10:01]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 401 Unauthorized
+                        Response: Client error: BACA - Permintaan Tidak Ditemukan
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:10:01]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 401 Unauthorized
+                        Response: Client error: BACA - Permintaan Tidak Ditemukan
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:10:01]
+                        URL: http://217.216.34.207:87/api/Auth/refresh
+                        Status: 200 OK
+                        Response: Success: RefreshToken - 
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:10:01] - Error API Connection
+                        Message: ✅ Refresh Token berhasil diperbarui.
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:10:01]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:10:01]
+                        URL: http://217.216.34.207:87/api/Auth/refresh
+                        Status: 200 OK
+                        Response: Success: RefreshToken - 
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:10:01] - Error API Connection
+                        Message: ✅ Refresh Token berhasil diperbarui.
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:10:02]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:10:02]
+                        URL: http://217.216.34.207:87/api/Auth/refresh
+                        Status: 200 OK
+                        Response: Success: RefreshToken - 
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:10:02] - Error API Connection
+                        Message: ✅ Refresh Token berhasil diperbarui.
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:10:02]
+                        URL: http://217.216.34.207:87/api/customer/getAll?no_id=cus_61&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:10:02]
+                        URL: http://217.216.34.207:87/api/Auth/refresh
+                        Status: 200 OK
+                        Response: Success: RefreshToken - 
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:10:02] - Error API Connection
+                        Message: ✅ Refresh Token berhasil diperbarui.
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:10:02]
+                        URL: http://217.216.34.207:87/api/cart/getAll?pagesize=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&show_media=true&status=aktif
+                        Status: 204 No Content
+                        Response: Data yang dicari tidak ditemukan/kosong
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:10:02]
+                        URL: http://217.216.34.207:87/api/Auth/refresh
+                        Status: 200 OK
+                        Response: Success: RefreshToken - 
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:10:02] - Error API Connection
+                        Message: ✅ Refresh Token berhasil diperbarui.
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:10:02]
+                        URL: http://217.216.34.207:87/api/order/getSummary?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-01-08 10:10:03]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 11:07:55]
+                        URL: http://217.216.34.207:87/api/auth/login?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True
+                        Status: 401 Unauthorized
+                        Response: Client error: Login - Nomor HP atau password salah / akun tidak aktif
+                        ---------------------------------------------------------
+
+                        [2026-01-08 11:07:55] - Error API Connection
+                        Message: User logout  08/01/2026 11:07:55
+                        ---------------------------------------------------------
+
+                        [2026-01-08 11:07:57]
+                        URL: http://217.216.34.207:87/api/company/get-profile?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-01-08 11:07:58]
+                        URL: http://217.216.34.207:87/api/navbar/getAll?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Navbar
+                        ---------------------------------------------------------
+
+                        [2026-01-08 11:07:59]
+                        URL: http://217.216.34.207:87/api/company/get-social?no_id=comp_1&pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company Social
+                        ---------------------------------------------------------
+
+                        [2026-01-08 11:07:59]
+                        URL: http://217.216.34.207:87/api/teks/getAll?pagesize=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil menampilkan data teks
+                        ---------------------------------------------------------
+
+                        [2026-01-08 11:08:01]
+                        URL: http://217.216.34.207:87/api/produk/getAll?pagesize=12&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-01-08 11:08:01]
+                        URL: http://217.216.34.207:87/api/banner/getAll?pagesize=3&max_media=2&orderBy=nama_banner&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2026-01-08 11:08:01]
+                        URL: http://217.216.34.207:87/api/brand/getAll?pagesize=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-01-08 11:08:02]
+                        URL: http://217.216.34.207:87/api/kategori/getAll?pagesize=3&max_media=2&strict_kategori=True&all_item=False&show_variant=True&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------

@@ -1,0 +1,137 @@
+﻿@using WebShared.Models;
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Authentication.Cookies
+@using System.Text.Json;
+@inject NavigationManager navigationManager
+@using WebShared.Services;
+@using System.Text
+
+@inject LoginService AuthService
+@inject pdjService pdjService
+@inject NewPdjService NewPdjService
+@inject GlobalDataService GlobalDataService
+@inject IJSRuntime jsRuntime
+@page "/auth-user/{proses}/{email}/{pw}/{info}"
+@page "/auth-user-logout/{proses}"
+@page "/auth-user-session/{proses}/{email}"
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+@rendermode InteractiveServer
+
+
+@code {
+
+
+    [Parameter]
+    public string? email { get; set; }
+
+    [Parameter]
+    public string? proses { get; set; }
+
+    [Parameter]
+    public string? pw { get; set; }
+
+    [Parameter]
+    public string? info { get; set; }
+
+    [CascadingParameter]
+    public HttpContext? HttpContext { get; set; }
+
+    [SupplyParameterFromForm]
+    public LoginViewModel Model { get; set; } = new();
+
+    public bool redirectBack { get; set; } = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        var decoded_proses = new List<string>();
+
+        if (user.Identity?.IsAuthenticated ?? false)
+        {
+            if (proses.ToLower() != "logout")
+            {
+                navigationManager.NavigateTo("/", forceLoad: true);
+                return;
+            }
+        }
+
+        if (proses.ToLower() != "logout")
+        {
+            decoded_proses = await pdjService.DecodeEncode(false, new List<string> { email, pw, info });
+        }
+
+
+        if (proses.ToLower() == "login")
+        {
+            var param = new ParameterApi
+            {
+                routeApi = "auth",
+                prosesApi = "login",
+                ParamUrl = new ParameterApi.ParameterUrl {}
+            };
+
+            Model.NoTlp = decoded_proses[0];
+            Model.Password = decoded_proses[1];
+
+            var loginStatus = await NewPdjService.LoginUserApi(param, Model);
+
+            if (loginStatus)
+            {
+                await pdjService.writeLog($"User berhasil login {Model.NoTlp} {DateTime.Now}");
+            }
+            else
+            {
+                await pdjService.writeLog($"User gagal login {Model.NoTlp} {DateTime.Now}");
+            }
+
+        } 
+        else if (proses.ToLower() == "logout")
+        {
+
+            var loginStatus = await pdjService.LogoutUserApi();
+            var No_Id = user.FindFirst(c => c.Type == ClaimTypes.Sid)?.Value;
+
+            if (loginStatus)
+            {
+                var data = GlobalDataService.GlobalData.ListDataLogin.FirstOrDefault(x => x.No_Id == No_Id);
+                GlobalDataService.GlobalData.ListDataLogin.Remove(data);
+                await pdjService.writeLog($"User logout {Model.NoTlp} {DateTime.Now}");
+                navigationManager.NavigateTo("/", true);
+                return;
+            }
+            else
+            {
+                await pdjService.writeLog($"User gagal logout {Model.NoTlp} {DateTime.Now}");
+                return;
+            }
+        } 
+        else if (proses.ToLower() == "session")
+        {
+            var data = await NewPdjService.CreateSessionWeb(decoded_proses[0]);
+            return;
+        }
+        else if (proses.ToLower() == "register")
+        {
+
+        }
+        else
+        {
+            navigationManager.NavigateTo("/Page-Not-Found", forceLoad: true);
+            return;
+        }
+
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if ( firstRender )
+        {
+            await jsRuntime.InvokeVoidAsync("history.back");
+        }
+    }
+
+}

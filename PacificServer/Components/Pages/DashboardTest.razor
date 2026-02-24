@@ -1,0 +1,93 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.Components.Authorization
+@using PacificWeb.Components.Sections
+@using WebClient.Pages
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+@* <WebClient.Pages.DashboardTest @ref="dashboardTest"  @rendermode=InteractiveWebAssembly/> *@
+
+<PageTitle>@GlobalDataService.GlobalData.DataHomepage.Company?.Nama_Toko</PageTitle>
+
+
+
+<MyHeader @ref="header_page" />
+
+<HeroSection />
+
+<BrandSection />
+
+<section class="trending-product section px-0 px-lg-3 px-xl-5 px-xxl-10" style="margin-top: 0px;">
+    <div class="container-fluid">
+        <div class="row py-0 py-lg-3 py-xl-4 py-xxl-5">
+            <div class="col-12">
+                <div class="section-title">
+                    <h2>@GlobalDataService.GlobalData.DataHomepage.Texts.FirstOrDefault(x => x.Section_Name == "section1")?.Judul</h2>
+                    <p>
+                        @GlobalDataService.GlobalData.DataHomepage.Texts.FirstOrDefault(x => x.Section_Name == "section1")?.Keterangan
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row product-shimer" style="display:none;">
+            @for (var i = 0; i <= 11; i++)
+            {
+                <div class="col-lg-3 col-md-4 col-6 col-xxl-2 pt-2 pb-2">
+                    <div class="card p-3 border-0" style="border-radius:0px;" aria-busy="true">
+                        <div class="skeleton skeleton-rect mb-3"></div>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div style="flex:1" class="d-flex flex-column align-items-center">
+                                <div class="skeleton skeleton-title mb-2" style="width:90%"></div>
+                                <div class="skeleton skeleton-subtitle mb-2" style="width:50%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="row product-content" style="display:flex;">
+            @foreach (var dataProduk in @GlobalDataService.GlobalData.DataHomepage.Products)
+            {
+                <div class="col-lg-3 col-md-4 col-6 col-xxl-2 pt-2 pb-2 product">
+                    <!-- Start Single Product -->
+                    <PacificWeb.Components.Sections.ProductDisplay DataProduk="dataProduk" selectProduk="@selectProduk" />
+                    <!-- End Single Product -->
+                </div>
+            }
+        </div>
+
+
+        <div class="w-100 d-flex flex-column align-items-center justify-content-center mt-4">
+            <button class="btn-slide px-3 w-auto" style="z-index: 0;" @onclick=@(x => NavigateToHome("search-page?keyword="))>
+                Tampilkan lebih banyak
+            </button>
+        </div>
+    </div>
+</section>
+
+<section class="call-action section">
+    <div class="container">
+        <div class="row ">
+            <div class="col-lg-8 offset-lg-2 col-12">
+                <div class="inner">
+                    <div class="content">
+                        <h2 class="wow fadeInUp mt-3" data-wow-delay=".4s">
+                            @GlobalDataService.GlobalData.DataHomepage.Texts.FirstOrDefault(x => x.Section_Name == "section2")?.Judul
+                        </h2>
+                        <p class="wow fadeInUp" data-wow-delay=".6s">
+                            @GlobalDataService.GlobalData.DataHomepage.Texts.FirstOrDefault(x => x.Section_Name == "section1")?.Keterangan
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<KategoriSection header_page=@header_page />
+
+<MyFooter @ref="footer_page" />
+
+<SelectProduk @ref=select_produk header_page="@header_page" DataProduk=@ScopedDataServices.ScopedData.DataProduk />

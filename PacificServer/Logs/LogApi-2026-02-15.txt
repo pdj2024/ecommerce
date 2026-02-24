@@ -1,0 +1,1854 @@
+
+                        [2026-02-15 14:38:32]
+                        URL: https://api.arimbi.co.id/api/company/get-profile?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-02-15 14:38:33]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-15 14:38:33]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-15 14:38:33]
+                        URL: https://api.arimbi.co.id/api/company/get-profile?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-02-15 14:38:41]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:13:15]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:13:16]
+                        URL: https://api.arimbi.co.id/api/company/get-profile?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:13:26]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:15:16]
+                        URL: https://api.arimbi.co.id/api/auth/login?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: Check-Login - Login berhasil
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:15:19]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:15:20]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:15:21]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:15:27]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:15:27]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:15:28]
+                        URL: https://api.arimbi.co.id/api/customer/getAll?no_id=cus_61&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:15:30]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:15:32]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:15:33]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:15:34]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:15:34]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:15:34]
+                        URL: https://api.arimbi.co.id/api/customer/getAll?no_id=cus_61&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:15:34]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:15:43]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:15:45]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:15:45]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:15:47]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:15:50]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:15:51] - Error API Connection
+                        Message: Gagal CUD Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:15:54]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:15:54]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:15:55] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:17:09]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:17:10]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:17:10]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:17:10]
+                        URL: https://api.arimbi.co.id/api/customer/getAll?no_id=cus_61&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:17:17]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:17:18]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:17:25]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:17:27]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:17:28] - Error API Connection
+                        Message: Gagal CUD Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:17:29]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:17:29]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:17:31]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:17:32]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:17:35]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:17:35]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:17:37] - Error API Connection
+                        Message: Gagal CUD Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:17:39]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:17:39]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:17:41]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:17:41]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:17:44]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:17:44]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:17:45]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:17:45]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:17:48]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:17:48]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:17:51]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:17:51]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:18:04]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 15:18:04]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:08:32] - Error API Connection
+                        Message: Regist error: No such host is known. (api.arimbi.co.id:443)
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:08:32] - Error API Connection
+                        Message: User logout  15/02/2026 16:08:32
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:08:37] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:08:38] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:08:38] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:08:38] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:08:43] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:08:44] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:08:50] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:08:50] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:08:55] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:08:55] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:09:00] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:09:00] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:09:06] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:09:06] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:09:11] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:09:11] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:09:16] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:09:16] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:09:22] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:09:22] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:10:10]
+                        URL: https://api.arimbi.co.id/api/company/get-profile?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:10:10]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:10:20] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:10:24]
+                        URL: https://api.arimbi.co.id/api/navbar/getAll?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Navbar
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:10:25]
+                        URL: https://api.arimbi.co.id/api/company/get-social?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company Social
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:10:26]
+                        URL: https://api.arimbi.co.id/api/teks/getAll?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil menampilkan data teks
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:10:27]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?pagesize=12&limit=8&page=8&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:10:28]
+                        URL: https://api.arimbi.co.id/api/brand/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:10:28]
+                        URL: https://api.arimbi.co.id/api/kategori/getAll?pagesize=3&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:10:29]
+                        URL: https://api.arimbi.co.id/api/banner/getAll?pagesize=3&limit=8&page=8&max_media=2&orderBy=nama_banner&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:10:50]
+                        URL: https://api.arimbi.co.id/api/auth/login?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: Check-Login - Login berhasil
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:10:53]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:10:53]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:10:54]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:11:00]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:11:01]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:11:01]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:11:01]
+                        URL: https://api.arimbi.co.id/api/customer/getAll?no_id=cus_61&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:11:03]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:11:03]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:11:03]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:11:04]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:11:04]
+                        URL: https://api.arimbi.co.id/api/customer/getAll?no_id=cus_61&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:11:04]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:11:08]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:11:09]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:11:10]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:11:10]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:11:14]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:11:15]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:11:15]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:11:15]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:11:20]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:11:20]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:11:21]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:11:22]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:11:27]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:11:28]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:11:33]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:11:33]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:11:36]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:11:36]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:11:36]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:11:36]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:15:14]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:15:14]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:15:15]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:15:15]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:15:20]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:15:21]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:15:24]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:15:25]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:15:29]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:15:29]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:15:29]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:15:29]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:30:11]
+                        URL: https://api.arimbi.co.id/api/auth/login?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 401 Unauthorized
+                        Response: Client error: Login - Nomor HP atau password salah / akun tidak aktif
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:30:11]
+                        URL: https://api.arimbi.co.id/api/company/get-profile?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:30:11] - Error API Connection
+                        Message: User logout  15/02/2026 16:30:11
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:30:12]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:30:15]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:30:23]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:30:36]
+                        URL: https://api.arimbi.co.id/api/auth/login?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: Check-Login - Login berhasil
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:30:38]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:30:39]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:30:39]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:32:05]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:32:10] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:32:10] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:32:10] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:32:10] - Error API Connection
+                        Message: User logout  15/02/2026 16:32:10
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:32:16] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:32:18]
+                        URL: https://api.arimbi.co.id/api/navbar/getAll?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Navbar
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:32:18]
+                        URL: https://api.arimbi.co.id/api/company/get-social?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company Social
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:32:19]
+                        URL: https://api.arimbi.co.id/api/teks/getAll?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil menampilkan data teks
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:32:21]
+                        URL: https://api.arimbi.co.id/api/produk/getAll?pagesize=12&limit=8&page=8&max_media=2&orderBy=tgl_created&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Produk
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:32:22]
+                        URL: https://api.arimbi.co.id/api/brand/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=nama_brand&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Brand
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:32:23]
+                        URL: https://api.arimbi.co.id/api/kategori/getAll?pagesize=3&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Kategori
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:32:24]
+                        URL: https://api.arimbi.co.id/api/banner/getAll?pagesize=3&limit=8&page=8&max_media=2&orderBy=nama_banner&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Banner
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:32:55]
+                        URL: https://api.arimbi.co.id/api/auth/login?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: Check-Login - Login berhasil
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:32:58]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:32:58]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:32:58]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:06]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:06]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:08]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:14]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:15]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:16]
+                        URL: https://api.arimbi.co.id/api/customer/getAll?no_id=cus_61&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:16]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:17]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:17]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:18]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:19]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:19]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:19]
+                        URL: https://api.arimbi.co.id/api/customer/getAll?no_id=cus_61&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:25]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:26]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:27]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:28]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:28]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:29]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:31]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:31]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:33]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:33]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:33]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:33]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:36]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:36]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Item dihapus dari cart
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:37]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:37]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:40]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Berhasil tambah Cart baru
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:40]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:41]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:41]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:43]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:44]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:47]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:47]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:48]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:48]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:53]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:53]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:53]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:53]
+                        URL: https://api.arimbi.co.id/api/customer/getAll?no_id=cus_61&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:54]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:54]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:55]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:55]
+                        URL: https://api.arimbi.co.id/api/customer/getAll?no_id=cus_61&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:55]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:33:55]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:00]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:00]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:01]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:01]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:03]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:03]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:04]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:04]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:08]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:09]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:09]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:09]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:13]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:14]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:14]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:14]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:14]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:14]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:19]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:19]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:19]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:19]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:20]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:20]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:32]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:32]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:33]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:33]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:33]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:34]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:34]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:34]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:36]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:37]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:38]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:38]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:38]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:38]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:43]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:43]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:43]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:43]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:53]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:53]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:53]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:54]
+                        URL: https://api.arimbi.co.id/api/customer/getAll?no_id=cus_61&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:55]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:55]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:56]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:56]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:56]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:34:56]
+                        URL: https://api.arimbi.co.id/api/customer/getAll?no_id=cus_61&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:35:03]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:35:04]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:35:04]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:35:04]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:39:12]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:39:12]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:39:13]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:39:14]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:39:21]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:39:21]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:39:21]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:39:22]
+                        URL: https://api.arimbi.co.id/api/customer/getAll?no_id=cus_61&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:39:23]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:39:23]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:39:23]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:39:24]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:39:24]
+                        URL: https://api.arimbi.co.id/api/customer/getAll?no_id=cus_61&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:39:24]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:40:48]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:40:49]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:43:12]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:43:12]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:43:12]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:43:13]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:43:14]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:43:14]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:43:14]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:43:14]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:43:14]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:43:16]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:43:16]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:43:16]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:43:17]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:43:17]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:43:18]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:43:18]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:43:19]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:43:20]
+                        URL: https://api.arimbi.co.id/api/cart/create?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: TAMBAH - Qty berhasil diperbarui
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:43:20]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:43:22]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:43:24] - Error API Connection
+                        Message: Gagal CUD Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:44:30]
+                        URL: https://api.arimbi.co.id/api/cart/delete?no_id=cart_336&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0
+                        Status: 200 OK
+                        Response: Success: HAPUS - Data cart berhasil dihapus
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:44:35] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:44:39]
+                        URL: https://api.arimbi.co.id/api/bulk/homepage?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_company=comp_1&produk_limit=12&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil load homepage
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:44:39]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:44:39]
+                        URL: https://api.arimbi.co.id/api/customer/getAll?no_id=cus_61&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:44:39]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:44:42]
+                        URL: https://api.arimbi.co.id/api/company/get-profile?no_id=comp_1&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Company
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:44:43]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:44:44]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:44:46] - Error API Connection
+                        Message: Gagal Baca Data : Request ke API terlalu lama (timeout).
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:44:47]
+                        URL: https://api.arimbi.co.id/api/cart/getAll?pagesize=8&limit=8&page=8&max_media=2&orderBy=Updated_At&orderDir=desc&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&show_media=true&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Pesanan
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:44:47]
+                        URL: https://api.arimbi.co.id/api/order/getSummary?pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&id_customer=cus_61&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Summary
+                        ---------------------------------------------------------
+
+                        [2026-02-15 16:44:47]
+                        URL: https://api.arimbi.co.id/api/customer/getAll?no_id=cus_61&pagesize=8&limit=8&page=8&max_media=2&strict_kategori=True&all_item=False&show_variant=True&produk_limit=0&status=aktif
+                        Status: 200 OK
+                        Response: Success: BACA - Berhasil tampil Customer
+                        ---------------------------------------------------------
